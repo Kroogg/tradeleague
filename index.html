@@ -20,64 +20,99 @@
   </script>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Russo+One&display=swap');
 
+    /* ══ CSS VARIABLES (dark mode default) ══ */
     :root {
-      --emerald: #10b981;
-      --rose:    #ef4444;
-      --surface: #0f172a;
-      --deep:    #020617;
-      --nav-h:   64px;
-      --hdr-h:   56px;
-      --line:    rgba(255,255,255,0.08);
-      --glass:   rgba(15,23,42,0.8);
+      --emerald:#10b981; --rose:#ef4444; --surface:#0f172a; --deep:#020617;
+      --nav-h:64px; --hdr-h:56px; --line:rgba(255,255,255,0.08); --glass:rgba(15,23,42,0.8);
+      --text:#e2e8f0; --text-muted:#64748b; --card-bg:rgba(15,23,42,0.7);
+      --inp-bg:rgba(0,0,0,0.45); --inp-border:rgba(255,255,255,0.1);
     }
 
-    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-    html, body { height: 100%; overflow: hidden; background: var(--deep); color: #e2e8f0; font-family: Inter, system-ui, sans-serif; }
+    /* ══ MILLORA 8: Mode clar ══ */
+    html.light {
+      --emerald:#059669; --rose:#dc2626; --surface:#ffffff; --deep:#f1f5f9;
+      --line:rgba(0,0,0,0.08); --glass:rgba(255,255,255,0.8);
+      --text:#1e293b; --text-muted:#64748b; --card-bg:rgba(255,255,255,0.7);
+      --inp-bg:rgba(0,0,0,0.04); --inp-border:rgba(0,0,0,0.12);
+    }
+    html.light body { background:var(--deep); color:var(--text); }
+    html.light #app-header { background:rgba(241,245,249,0.96); border-bottom:1px solid var(--line); }
+    html.light #bottom-nav { background:rgba(241,245,249,0.98); border-top:1px solid var(--line); }
+    html.light .app-section { background:var(--deep); }
+    html.light .asset-card:hover { background:rgba(0,0,0,0.03); }
+    html.light .asset-card.active { background:rgba(5,150,105,0.07); }
+    html.light .asset-name { color:#1e293b; }
+    html.light .asset-price-val { color:#1e293b; }
+    html.light .glass { background:rgba(255,255,255,0.72); }
+    html.light .glass-sm { background:rgba(255,255,255,0.8); }
+    html.light .kpi-card,.html.light .profile-stat { background:rgba(0,0,0,0.04); }
+    html.light .ach-card { background:rgba(255,255,255,0.7); }
+    html.light .ach-card.done { border-color:rgba(5,150,105,0.4); }
+    html.light .league-card { background:rgba(255,255,255,0.7); }
+    html.light .data-table th { color:var(--text-muted); }
+    html.light #trading-sheet { background:#ffffff; }
+    html.light #positions-panel,html.light #trading-bar,html.light #chart-header { background:rgba(241,245,249,0.97); }
+    html.light .pos-tab.active { color:#059669; border-bottom-color:#059669; }
+    html.light .nav-btn { color:#94a3b8; }
+    html.light .nav-btn.active { color:#059669; }
+    html.light .nav-btn.active span { color:#059669; }
+    html.light .modal-box { background:#ffffff; }
+    html.light .inp { background:var(--inp-bg); border-color:var(--inp-border); color:var(--text); }
+    html.light .ws-pill.ws-dead { background:rgba(220,38,38,.1); }
+    html.light .ws-pill.ws-live { background:rgba(5,150,105,.1); }
+    html.light .section-sub { color:var(--text-muted); }
+    html.light .game-home { background:linear-gradient(180deg,#0d001a 0%,#1a0533 20%,#2d1060 45%,#4a2080 65%,#6b3f9a 82%,#7c5aaa 100%); }
+
+    * { box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+    html,body { height:100%; overflow:hidden; background:var(--deep); color:var(--text); font-family:Inter,system-ui,sans-serif; transition:background .3s,color .3s; }
 
     /* Scrollbars */
-    * { scrollbar-width: thin; scrollbar-color: rgba(255,255,255,0.12) transparent; }
+    * { scrollbar-width:thin; scrollbar-color:rgba(255,255,255,.12) transparent; }
     *::-webkit-scrollbar { width:4px; height:4px; }
-    *::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.14); border-radius:2px; }
+    *::-webkit-scrollbar-thumb { background:rgba(255,255,255,.14); border-radius:2px; }
+    html.light * { scrollbar-color:rgba(0,0,0,.15) transparent; }
+    html.light *::-webkit-scrollbar-thumb { background:rgba(0,0,0,.15); }
 
     /* Layout */
     #app-header { position:fixed; top:0; left:0; right:0; height:var(--hdr-h); z-index:60; background:rgba(5,7,10,0.96); border-bottom:1px solid var(--line); display:flex; align-items:center; justify-content:space-between; padding:0 16px; backdrop-filter:blur(20px); }
     #app-main { position:fixed; top:var(--hdr-h); left:0; right:0; bottom:var(--nav-h); overflow:hidden; }
     #bottom-nav { position:fixed; bottom:0; left:0; right:0; height:var(--nav-h); z-index:60; background:rgba(5,7,10,0.98); border-top:1px solid var(--line); display:grid; grid-template-columns:repeat(6,1fr); backdrop-filter:blur(20px); padding-bottom:env(safe-area-inset-bottom); }
-    
+
     /* Sections */
     .app-section { position:absolute; inset:0; display:none; flex-direction:column; overflow:hidden; background:var(--deep); }
     .app-section.active { display:flex; z-index:1; }
-    
-    /* Bottom nav buttons */
+
+    /* Bottom nav */
     .nav-btn { display:flex; flex-direction:column; align-items:center; justify-content:center; gap:3px; border:none; background:none; color:#64748b; cursor:pointer; transition:color .2s; padding:8px 4px; }
     .nav-btn svg { width:22px; height:22px; stroke:currentColor; fill:none; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; }
     .nav-btn span { font-size:10px; font-weight:500; letter-spacing:.3px; }
     .nav-btn.active { color:var(--emerald); }
     .nav-btn.active span { color:var(--emerald); }
 
-    /* Glass panels */
+    /* Glass */
     .glass { background:rgba(15,23,42,0.72); border:1px solid var(--line); border-radius:16px; backdrop-filter:blur(16px); }
     .glass-sm { background:rgba(15,23,42,0.8); border:1px solid var(--line); }
 
     /* Inputs */
-    .inp { background:rgba(0,0,0,0.45); border:1px solid rgba(255,255,255,0.1); border-radius:10px; color:#e2e8f0; padding:10px 14px; font-size:14px; width:100%; outline:none; transition:border-color .2s, box-shadow .2s; }
+    .inp { background:var(--inp-bg); border:1px solid var(--inp-border); border-radius:10px; color:var(--text); padding:10px 14px; font-size:14px; width:100%; outline:none; transition:border-color .2s,box-shadow .2s; }
     .inp:focus { border-color:var(--emerald); box-shadow:0 0 0 3px rgba(16,185,129,.14); }
     select.inp { cursor:pointer; }
     .inp::placeholder { color:#475569; }
 
     /* Asset cards */
-    .asset-card { display:flex; align-items:center; gap:12px; padding:14px 16px; border-bottom:1px solid rgba(255,255,255,0.04); cursor:pointer; transition:background .15s; -webkit-tap-highlight-color:transparent; }
-    .asset-card:active, .asset-card:hover { background:rgba(255,255,255,0.04); }
+    .asset-card { display:flex; align-items:center; gap:12px; padding:14px 16px; border-bottom:1px solid rgba(255,255,255,0.04); cursor:pointer; transition:background .15s; }
+    .asset-card:active,.asset-card:hover { background:rgba(255,255,255,0.04); }
     .asset-card.active { background:rgba(16,185,129,0.07); }
     .asset-icon { width:44px; height:44px; border-radius:50%; background:rgba(255,255,255,0.07); display:flex; align-items:center; justify-content:center; overflow:hidden; flex-shrink:0; }
     .asset-icon img { width:26px; height:26px; object-fit:contain; }
     .asset-info { flex:1; min-width:0; }
-    .asset-name { font-size:15px; font-weight:600; color:#f1f5f9; }
+    .asset-name { font-size:15px; font-weight:600; color:var(--text); }
     .asset-symbol { font-size:11px; color:#64748b; margin-top:1px; }
     .asset-vol { font-size:11px; color:#475569; margin-top:2px; }
     .asset-price-col { text-align:right; flex-shrink:0; }
-    .asset-price-val { font-size:15px; font-weight:700; font-family:ui-monospace,monospace; color:#f1f5f9; }
+    .asset-price-val { font-size:15px; font-weight:700; font-family:ui-monospace,monospace; color:var(--text); }
     .asset-change { display:inline-block; margin-top:5px; font-size:12px; font-weight:600; padding:3px 9px; border-radius:8px; font-family:ui-monospace,monospace; }
     .change-up { background:rgba(16,185,129,0.15); color:#34d399; }
     .change-down { background:rgba(239,68,68,0.15); color:#fb7185; }
@@ -90,16 +125,16 @@
     @keyframes fup { 0%{background:rgba(16,185,129,.28)} 100%{background:transparent} }
     @keyframes fdn { 0%{background:rgba(239,68,68,.28)} 100%{background:transparent} }
 
-    /* Chart section */
+    /* Chart */
     #chart-header { display:flex; align-items:center; gap:10px; padding:10px 16px; background:rgba(5,7,10,.9); border-bottom:1px solid var(--line); flex-shrink:0; }
     #tv_chart_container { flex:1; width:100%; min-height:0; }
     #tv_chart_container iframe { width:100%!important; height:100%!important; }
 
-    /* Positions panel (chart bottom) */
+    /* Positions panel */
     #positions-panel { flex-shrink:0; left:0; right:0; background:rgba(5,7,10,.97); border-top:1px solid var(--line); border-radius:18px 18px 0 0; max-height:46px; overflow:hidden; transition:max-height .28s ease; z-index:10; }
     #positions-panel.open { max-height:46vh; overflow:hidden; }
     .pos-tabs { display:flex; border-bottom:1px solid var(--line); overflow-x:auto; }
-    .pos-tab { padding:12px 16px; font-size:13px; font-weight:500; color:#64748b; white-space:nowrap; cursor:pointer; border-bottom:2px solid transparent; transition:color .2s, border-color .2s; }
+    .pos-tab { padding:12px 16px; font-size:13px; font-weight:500; color:#64748b; white-space:nowrap; cursor:pointer; border-bottom:2px solid transparent; transition:color .2s,border-color .2s; }
     .pos-tab.active { color:var(--emerald); border-bottom-color:var(--emerald); background:rgba(16,185,129,.05); }
     .pos-scroll { overflow:auto; max-height:calc(46vh - 94px); }
     .bottom-tab-panel { display:none; }
@@ -108,32 +143,22 @@
     /* Trading bar */
     #trading-bar { flex-shrink:0; height:60px; display:flex; align-items:center; padding:8px 16px; background:rgba(5,7,10,.97); border-top:1px solid var(--line); gap:10px; z-index:10; }
 
-    /* ── Portrait mobile: toolbar scroll ── */
-    @media (max-width: 480px) {
-      #chart-toolbar { overflow-x: auto; flex-wrap: nowrap; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
-      #chart-toolbar::-webkit-scrollbar { display: none; }
-      #chart-header { flex-wrap: wrap; gap: 4px; }
+    /* Mobile */
+    @media (max-width:480px) {
+      #chart-header { flex-wrap:wrap; gap:4px; }
     }
-    @media (max-height: 500px) and (orientation: landscape) {
-      #app-header { height: 38px; padding: 0 10px; }
-      #app-header .header-logo span { font-size: 13px; }
-      #app-header > div:first-child { gap: 6px; }
-      :root { --hdr-h: 38px; --nav-h: 48px; }
-      #app-main { top: 38px; bottom: 48px; }
-      #bottom-nav { height: 48px; }
-      .nav-btn span { display: none; }
-      .nav-btn svg { width: 20px; height: 20px; }
-      .nav-btn { padding: 4px; }
-      #chart-header { padding: 5px 10px; }
-      #chart-header .asset-price { font-size: 15px; }
-      #chart-header .asset-meta { font-size: 10px; }
-      #trading-bar { height: 44px; padding: 4px 12px; }
-      #trading-bar button { padding: 7px 18px; font-size: 13px; }
-      #positions-panel { max-height: 36px; }
-      #positions-panel.open { max-height: 40vh; }
-      .pos-scroll { max-height: calc(40vh - 80px); }
-      #chart-toolbar { padding: 4px 8px; gap: 6px; }
-      #chart-toolbar button { font-size: 11px; padding: 3px 7px; }
+    @media (max-height:500px) and (orientation:landscape) {
+      #app-header { height:38px; padding:0 10px; }
+      :root { --hdr-h:38px; --nav-h:48px; }
+      #app-main { top:38px; bottom:48px; }
+      #bottom-nav { height:48px; }
+      .nav-btn span { display:none; }
+      .nav-btn svg { width:20px; height:20px; }
+      .nav-btn { padding:4px; }
+      #trading-bar { height:44px; padding:4px 12px; }
+      #positions-panel { max-height:36px; }
+      #positions-panel.open { max-height:40vh; }
+      .pos-scroll { max-height:calc(40vh - 80px); }
     }
 
     /* Trading bottom sheet */
@@ -149,12 +174,10 @@
     .lev-slider::-moz-range-thumb { width:20px; height:20px; border-radius:50%; background:var(--emerald); cursor:pointer; border:none; }
 
     /* Order buttons */
-    .btn-long-active { background:rgba(16,185,129,.18); border-color:rgba(16,185,129,.6)!important; color:#34d399!important; }
-    .btn-short-active { background:rgba(239,68,68,.18); border-color:rgba(239,68,68,.6)!important; color:#fb7185!important; }
-    .exec-btn { width:100%; padding:15px; border-radius:12px; font-weight:700; font-size:15px; border:none; cursor:pointer; transition:opacity .2s, transform .1s; letter-spacing:.3px; }
+    .exec-btn { width:100%; padding:15px; border-radius:12px; font-weight:700; font-size:15px; border:none; cursor:pointer; transition:opacity .2s,transform .1s; letter-spacing:.3px; }
     .exec-btn:active { transform:scale(.98); opacity:.9; }
 
-    /* Glow animation */
+    /* Glow */
     @keyframes glow { 0%,100%{box-shadow:0 0 8px rgba(16,185,129,.25)} 50%{box-shadow:0 0 22px rgba(16,185,129,.6)} }
     .glow { animation:glow 2.2s infinite; }
 
@@ -169,23 +192,23 @@
     .modal-close { position:absolute; top:16px; right:16px; background:none; border:none; color:#64748b; font-size:22px; cursor:pointer; line-height:1; }
 
     /* Toast */
-    .toast { transform:translateX(110%); opacity:0; transition:transform .28s ease, opacity .28s ease; border-radius:12px; }
+    .toast { transform:translateX(110%); opacity:0; transition:transform .28s ease,opacity .28s ease; border-radius:12px; }
     .toast.show { transform:translateX(0); opacity:1; }
 
     /* Profile */
     .profile-stat { background:rgba(255,255,255,.04); border:1px solid var(--line); border-radius:14px; padding:16px; text-align:center; }
 
     /* Achievements */
-    .ach-card { background:rgba(15,23,42,.7); border:1px solid var(--line); border-radius:14px; padding:14px; }
-    .ach-card.done { border-color:rgba(16,185,129,.4); background:linear-gradient(135deg,rgba(16,185,129,.1),rgba(15,23,42,.7)); }
+    .ach-card { background:var(--card-bg); border:1px solid var(--line); border-radius:14px; padding:14px; }
+    .ach-card.done { border-color:rgba(16,185,129,.4); background:linear-gradient(135deg,rgba(16,185,129,.1),var(--card-bg)); }
     .prog-track { background:rgba(255,255,255,.08); border-radius:99px; overflow:hidden; }
     .prog-bar { height:100%; border-radius:99px; background:linear-gradient(90deg,#10b981,#38bdf8); transition:width .8s ease; }
 
     /* League */
-    .league-card { background:rgba(15,23,42,.7); border:1px solid var(--line); border-radius:14px; padding:14px; cursor:pointer; transition:border-color .2s; }
+    .league-card { background:var(--card-bg); border:1px solid var(--line); border-radius:14px; padding:14px; cursor:pointer; transition:border-color .2s; }
     .league-card:active { border-color:rgba(16,185,129,.4); }
 
-    /* WS status pill */
+    /* WS status */
     .ws-pill { font-size:10px; padding:3px 8px; border-radius:99px; font-weight:600; letter-spacing:.5px; }
     .ws-live { background:rgba(16,185,129,.12); color:#34d399; border:1px solid rgba(16,185,129,.3); }
     .ws-dead { background:rgba(239,68,68,.12); color:#fb7185; border:1px solid rgba(239,68,68,.3); }
@@ -198,194 +221,88 @@
 
     /* Misc */
     .divider { height:1px; background:var(--line); margin:4px 0; }
-    .section-title { font-size:22px; font-weight:700; }
+    .section-title { font-size:22px; font-weight:700; color:var(--text); }
     .section-sub { font-size:13px; color:#64748b; margin-top:2px; }
     .kpi-card { background:rgba(255,255,255,.04); border:1px solid var(--line); border-radius:14px; padding:14px; }
     .kpi-label { font-size:11px; color:#64748b; text-transform:uppercase; letter-spacing:.5px; }
     .kpi-value { font-size:20px; font-weight:700; font-family:ui-monospace,monospace; margin-top:4px; }
+    .btn-icon { background:rgba(255,255,255,.08); border:none; color:#94a3b8; width:34px; height:34px; border-radius:8px; cursor:pointer; font-size:18px; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+    html.light .btn-icon { background:rgba(0,0,0,.07); }
+    html.light .pct-btn { background:rgba(0,0,0,.06); border-color:rgba(0,0,0,.1); }
+    html.light .prog-track { background:rgba(0,0,0,.08); }
 
-    /* ═══ GAME HOME SCREEN ═══ */
-    @import url('https://fonts.googleapis.com/css2?family=Russo+One&display=swap');
+    /* ══ MILLORA 2: Ordre tipus tabs ══ */
+    .order-type-btn { flex:1; padding:10px; border-radius:8px; font-size:13px; font-weight:600; cursor:pointer; border:1px solid rgba(255,255,255,.1); background:none; color:#64748b; transition:all .15s; }
+    .order-type-btn.active-market { background:rgba(59,130,246,.15); border-color:rgba(59,130,246,.5); color:#60a5fa; }
+    .order-type-btn.active-limit { background:rgba(251,191,36,.12); border-color:rgba(251,191,36,.4); color:#fcd34d; }
+    #limit-price-row { display:none; }
+    #limit-price-row.show { display:block; }
 
-    .game-home {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-      overflow: hidden;
-      background: linear-gradient(180deg, #0d001a 0%, #1a0533 20%, #2d1060 45%, #4a2080 65%, #6b3f9a 82%, #7c5aaa 100%);
-      padding: 24px 20px;
-      gap: 0;
-    }
+    /* ══ MILLORA 1: Liquidació badge ══ */
+    .liq-badge { display:inline-block; padding:2px 7px; border-radius:6px; background:rgba(239,68,68,.15); color:#fb7185; font-size:10px; font-weight:700; margin-left:4px; border:1px solid rgba(239,68,68,.3); }
 
-    /* Stars background */
-    .game-stars {
-      position: absolute;
-      inset: 0;
-      background-image:
-        radial-gradient(1px 1px at 15% 12%, rgba(255,255,255,.9) 0%, transparent 100%),
-        radial-gradient(1px 1px at 72% 8%,  rgba(255,255,255,.8) 0%, transparent 100%),
-        radial-gradient(1.5px 1.5px at 35% 5%, rgba(255,255,255,.7) 0%, transparent 100%),
-        radial-gradient(1px 1px at 88% 20%, rgba(255,255,255,.9) 0%, transparent 100%),
-        radial-gradient(1px 1px at 55% 3%,  rgba(255,255,255,.6) 0%, transparent 100%),
-        radial-gradient(1.5px 1.5px at 5%  30%, rgba(255,255,255,.8) 0%, transparent 100%),
-        radial-gradient(1px 1px at 92% 35%, rgba(255,255,255,.7) 0%, transparent 100%),
-        radial-gradient(1px 1px at 28% 18%, rgba(255,255,255,.5) 0%, transparent 100%),
-        radial-gradient(1px 1px at 65% 25%, rgba(255,255,255,.6) 0%, transparent 100%),
-        radial-gradient(1.5px 1.5px at 45% 15%, rgba(255,255,255,.9) 0%, transparent 100%);
-      pointer-events: none;
-      z-index: 0;
-    }
+    /* ══ MILLORA 5: Stats avançades ══ */
+    .stat-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:10px; }
+    .stat-card { background:rgba(255,255,255,.04); border:1px solid var(--line); border-radius:12px; padding:12px 14px; }
+    .stat-label { font-size:10px; color:#64748b; text-transform:uppercase; letter-spacing:.5px; }
+    .stat-value { font-size:16px; font-weight:700; font-family:ui-monospace,monospace; margin-top:4px; }
+    html.light .stat-card { background:rgba(0,0,0,.04); }
 
-    /* Mountain silhouettes using SVG background */
-    .game-mountains {
-      position: absolute;
-      bottom: 0; left: 0; right: 0;
-      height: 42%;
-      pointer-events: none;
-      z-index: 1;
-      overflow: hidden;
-    }
+    /* ══ MILLORA 7: Tutorial ══ */
+    #tutorial-overlay { position:fixed; inset:0; z-index:200; background:rgba(0,0,0,.85); backdrop-filter:blur(8px); display:flex; align-items:center; justify-content:center; padding:16px; }
+    #tutorial-overlay.hidden { display:none; }
+    .tutorial-card { background:var(--surface); border:1px solid var(--line); border-radius:24px; padding:28px 24px; width:100%; max-width:380px; }
+    .tutorial-icon { font-size:52px; text-align:center; margin-bottom:16px; }
+    .tutorial-title { font-size:20px; font-weight:700; text-align:center; margin-bottom:8px; color:var(--text); }
+    .tutorial-desc { font-size:14px; color:#94a3b8; text-align:center; line-height:1.6; }
+    .tutorial-dots { display:flex; justify-content:center; gap:6px; margin:20px 0; }
+    .tutorial-dot { width:8px; height:8px; border-radius:50%; background:rgba(255,255,255,.18); transition:background .2s; }
+    .tutorial-dot.active { background:var(--emerald); }
+    .tutorial-btns { display:flex; gap:10px; }
+
+    /* ══ MILLORA 6: Notificació TP/SL grande ══ */
+    #alert-overlay { position:fixed; inset:0; z-index:150; background:rgba(0,0,0,.7); backdrop-filter:blur(4px); display:flex; align-items:center; justify-content:center; padding:16px; }
+    #alert-overlay.hidden { display:none; }
+    .alert-card { border-radius:20px; padding:24px; width:100%; max-width:340px; text-align:center; animation:alertPop .35s cubic-bezier(.34,1.56,.64,1); }
+    @keyframes alertPop { 0%{transform:scale(.7);opacity:0} 100%{transform:scale(1);opacity:1} }
+    .alert-card.tp { background:rgba(16,185,129,.12); border:2px solid rgba(16,185,129,.5); }
+    .alert-card.sl { background:rgba(239,68,68,.12); border:2px solid rgba(239,68,68,.5); }
+    .alert-card.liq { background:rgba(239,68,68,.2); border:2px solid rgba(239,68,68,.8); }
+
+    /* ══ GAME HOME ══ */
+    .game-home { flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; position:relative; overflow:hidden; background:linear-gradient(180deg,#0d001a 0%,#1a0533 20%,#2d1060 45%,#4a2080 65%,#6b3f9a 82%,#7c5aaa 100%); padding:24px 20px; gap:0; }
+    .game-stars { position:absolute; inset:0; background-image:radial-gradient(1px 1px at 15% 12%,rgba(255,255,255,.9) 0%,transparent 100%),radial-gradient(1px 1px at 72% 8%,rgba(255,255,255,.8) 0%,transparent 100%),radial-gradient(1.5px 1.5px at 35% 5%,rgba(255,255,255,.7) 0%,transparent 100%),radial-gradient(1px 1px at 88% 20%,rgba(255,255,255,.9) 0%,transparent 100%),radial-gradient(1px 1px at 55% 3%,rgba(255,255,255,.6) 0%,transparent 100%),radial-gradient(1.5px 1.5px at 5% 30%,rgba(255,255,255,.8) 0%,transparent 100%),radial-gradient(1px 1px at 92% 35%,rgba(255,255,255,.7) 0%,transparent 100%),radial-gradient(1px 1px at 28% 18%,rgba(255,255,255,.5) 0%,transparent 100%),radial-gradient(1px 1px at 65% 25%,rgba(255,255,255,.6) 0%,transparent 100%),radial-gradient(1.5px 1.5px at 45% 15%,rgba(255,255,255,.9) 0%,transparent 100%); pointer-events:none; z-index:0; }
+    .game-mountains { position:absolute; bottom:0; left:0; right:0; height:42%; pointer-events:none; z-index:1; overflow:hidden; }
     .game-mountains svg { width:100%; height:100%; }
+    .game-title-wrap { text-align:center; margin-bottom:36px; z-index:2; position:relative; }
+    .game-title-main { font-family:'Russo One','Impact',sans-serif; font-size:clamp(58px,16vw,88px); font-weight:900; color:#ffffff; text-shadow:0 0 20px rgba(16,185,129,1),0 0 50px rgba(16,185,129,.8),0 0 100px rgba(16,185,129,.5),6px 6px 0 #000; letter-spacing:6px; text-transform:uppercase; line-height:1; animation:titlePulse 3s ease-in-out infinite; }
+    .game-title-of { font-family:'Russo One','Impact',sans-serif; font-size:clamp(58px,16vw,88px); font-weight:900; color:#10b981; text-shadow:0 0 20px rgba(16,185,129,1),0 0 50px rgba(16,185,129,.8),0 0 100px rgba(16,185,129,.4),6px 6px 0 #000; letter-spacing:6px; text-transform:uppercase; display:block; margin-top:-8px; line-height:1; animation:titlePulse 3s ease-in-out infinite .3s; }
+    @keyframes titlePulse { 0%,100%{filter:brightness(1)} 50%{filter:brightness(1.3)} }
+    .game-btns { display:flex; flex-direction:column; gap:13px; width:100%; max-width:300px; z-index:2; position:relative; }
+    .game-btn { padding:15px 32px; border-radius:14px; font-family:'Russo One','Impact',sans-serif; font-size:20px; font-weight:900; text-transform:uppercase; letter-spacing:2px; cursor:pointer; border:3px solid #92400e; background:linear-gradient(180deg,#fcd34d 0%,#f59e0b 40%,#d97706 100%); color:#451a03; text-shadow:0 1px 0 rgba(255,255,255,.35); box-shadow:0 7px 0 #78350f,0 10px 24px rgba(0,0,0,.6),inset 0 1px 0 rgba(255,255,255,.3); transition:transform .1s,box-shadow .1s; }
+    .game-btn:active { transform:translateY(5px); box-shadow:0 2px 0 #78350f,0 4px 10px rgba(0,0,0,.4); }
+    .game-btn-sec { font-size:17px; padding:13px 32px; background:linear-gradient(180deg,#e2e8f0 0%,#cbd5e1 40%,#94a3b8 100%); border-color:#475569; color:#1e293b; box-shadow:0 6px 0 #334155,0 8px 20px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.4); }
+    .game-btn-sec:active { transform:translateY(4px); box-shadow:0 2px 0 #334155,0 4px 10px rgba(0,0,0,.3); }
+    .game-balance-pill { position:absolute; top:12px; right:16px; background:rgba(0,0,0,.45); border:1px solid rgba(16,185,129,.3); border-radius:20px; padding:6px 14px; font-size:13px; font-weight:700; color:#10b981; font-family:ui-monospace,monospace; z-index:3; backdrop-filter:blur(8px); }
 
-    /* Title */
-    .game-title-wrap {
-      text-align: center;
-      margin-bottom: 36px;
-      z-index: 2;
-      position: relative;
-    }
-    .game-title-main {
-      font-family: 'Russo One', 'Impact', sans-serif;
-      font-size: clamp(58px, 16vw, 88px);
-      font-weight: 900;
-      color: #ffffff;
-      text-shadow:
-        0 0 0px #fff,
-        0 0 20px rgba(16,185,129,1),
-        0 0 50px rgba(16,185,129,.8),
-        0 0 100px rgba(16,185,129,.5),
-        6px 6px 0 #000;
-      letter-spacing: 6px;
-      text-transform: uppercase;
-      line-height: 1;
-      animation: titlePulse 3s ease-in-out infinite;
-    }
-    .game-title-of {
-      font-family: 'Russo One', 'Impact', sans-serif;
-      font-size: clamp(58px, 16vw, 88px);
-      font-weight: 900;
-      color: #10b981;
-      text-shadow:
-        0 0 20px rgba(16,185,129,1),
-        0 0 50px rgba(16,185,129,.8),
-        0 0 100px rgba(16,185,129,.4),
-        6px 6px 0 #000;
-      letter-spacing: 6px;
-      text-transform: uppercase;
-      display: block;
-      margin-top: -8px;
-      line-height: 1;
-      animation: titlePulse 3s ease-in-out infinite 0.3s;
-    }
-    @keyframes titlePulse {
-      0%, 100% {
-        filter: brightness(1);
-        text-shadow:
-          0 0 20px rgba(16,185,129,1),
-          0 0 50px rgba(16,185,129,.8),
-          0 0 100px rgba(16,185,129,.5),
-          6px 6px 0 #000;
-      }
-      50% {
-        filter: brightness(1.3);
-        text-shadow:
-          0 0 30px rgba(16,185,129,1),
-          0 0 80px rgba(16,185,129,1),
-          0 0 140px rgba(16,185,129,.7),
-          6px 6px 0 #000;
-      }
-    }
-
-    /* Buttons container */
-    .game-btns {
-      display: flex;
-      flex-direction: column;
-      gap: 13px;
-      width: 100%;
-      max-width: 300px;
-      z-index: 2;
-      position: relative;
-    }
-
-    /* Primary button (OPERAR/PLAY) */
-    .game-btn {
-      padding: 15px 32px;
-      border-radius: 14px;
-      font-family: 'Russo One', 'Impact', sans-serif;
-      font-size: 20px;
-      font-weight: 900;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      cursor: pointer;
-      border: 3px solid #92400e;
-      background: linear-gradient(180deg, #fcd34d 0%, #f59e0b 40%, #d97706 100%);
-      color: #451a03;
-      text-shadow: 0 1px 0 rgba(255,255,255,.35);
-      box-shadow: 0 7px 0 #78350f, 0 10px 24px rgba(0,0,0,.6), inset 0 1px 0 rgba(255,255,255,.3);
-      transition: transform .1s, box-shadow .1s;
-      -webkit-tap-highlight-color: transparent;
-    }
-    .game-btn:active {
-      transform: translateY(5px);
-      box-shadow: 0 2px 0 #78350f, 0 4px 10px rgba(0,0,0,.4);
-    }
-
-    /* Secondary buttons */
-    .game-btn-sec {
-      font-size: 17px;
-      padding: 13px 32px;
-      background: linear-gradient(180deg, #e2e8f0 0%, #cbd5e1 40%, #94a3b8 100%);
-      border-color: #475569;
-      color: #1e293b;
-      box-shadow: 0 6px 0 #334155, 0 8px 20px rgba(0,0,0,.5), inset 0 1px 0 rgba(255,255,255,.4);
-    }
-    .game-btn-sec:active {
-      transform: translateY(4px);
-      box-shadow: 0 2px 0 #334155, 0 4px 10px rgba(0,0,0,.3);
-    }
-
-    /* Balance pill on home */
-    .game-balance-pill {
-      position: absolute;
-      top: 12px; right: 16px;
-      background: rgba(0,0,0,.45);
-      border: 1px solid rgba(16,185,129,.3);
-      border-radius: 20px;
-      padding: 6px 14px;
-      font-size: 13px;
-      font-weight: 700;
-      color: #10b981;
-      font-family: ui-monospace, monospace;
-      z-index: 3;
-      backdrop-filter: blur(8px);
-    }
+    /* Theme toggle button */
+    .theme-btn { background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.12); border-radius:8px; color:#94a3b8; width:32px; height:32px; display:flex; align-items:center; justify-content:center; cursor:pointer; font-size:15px; transition:background .2s; flex-shrink:0; }
+    .theme-btn:hover { background:rgba(255,255,255,.14); }
+    html.light .theme-btn { background:rgba(0,0,0,.06); border-color:rgba(0,0,0,.1); }
   </style>
 </head>
 <body>
 
-<!-- ═══════════════════════════════════════════════════════
-     TOP HEADER
-════════════════════════════════════════════════════════ -->
+<!-- TOP HEADER -->
 <header id="app-header">
   <div style="display:flex;align-items:center;gap:10px;">
     <div style="width:32px;height:32px;border-radius:8px;background:linear-gradient(135deg,#10b981,#3b82f6);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;color:#fff;flex-shrink:0;">TL</div>
-    <span style="font-weight:700;font-size:16px;white-space:nowrap;">Trade<span style="color:#10b981;">League</span></span>
+    <span style="font-weight:700;font-size:16px;white-space:nowrap;color:var(--text);">Trade<span style="color:#10b981;">League</span></span>
   </div>
-  <div style="display:flex;align-items:center;gap:10px;">
+  <div style="display:flex;align-items:center;gap:8px;">
     <span id="ws-status" class="ws-pill ws-live">LIVE</span>
+    <!-- MILLORA 8: Toggle tema -->
+    <button id="theme-toggle-btn" class="theme-btn" onclick="toggleTheme()" title="Canviar tema">🌙</button>
     <div style="background:rgba(0,0,0,.4);border:1px solid var(--line);border-radius:10px;padding:6px 12px;display:flex;align-items:center;gap:6px;">
       <span style="font-size:11px;color:#64748b;">Saldo</span>
       <span id="balance-display" style="font-size:14px;font-weight:700;font-family:ui-monospace,monospace;color:#10b981;">10,000.00</span>
@@ -393,16 +310,38 @@
     </div>
   </div>
 </header>
-
-<!-- hidden ws-status-mobile ref -->
 <span id="ws-status-mobile" style="display:none;"></span>
 
-<!-- ═══════════════════════════════════════════════════════
-     MAIN CONTENT
-════════════════════════════════════════════════════════ -->
+<!-- MILLORA 7: Tutorial interactiu -->
+<div id="tutorial-overlay" class="hidden">
+  <div class="tutorial-card">
+    <div class="tutorial-icon" id="tut-icon">🚀</div>
+    <div class="tutorial-title" id="tut-title">Benvingut a TradeLeague!</div>
+    <div class="tutorial-desc" id="tut-desc">Aprèn a fer trading amb dades de mercat reals sense arriscar diners reals.</div>
+    <div class="tutorial-dots" id="tut-dots"></div>
+    <div class="tutorial-btns">
+      <button id="tut-prev" onclick="tutorialPrev()" style="flex:1;padding:12px;border-radius:10px;background:rgba(255,255,255,.06);border:1px solid var(--line);color:#94a3b8;font-weight:600;font-size:14px;cursor:pointer;">Anterior</button>
+      <button id="tut-next" onclick="tutorialNext()" style="flex:2;padding:12px;border-radius:10px;background:#10b981;border:none;color:#fff;font-weight:700;font-size:14px;cursor:pointer;">Següent →</button>
+    </div>
+    <button onclick="closeTutorial()" style="width:100%;margin-top:10px;padding:10px;background:none;border:none;color:#475569;font-size:13px;cursor:pointer;">Saltar tutorial</button>
+  </div>
+</div>
+
+<!-- MILLORA 6: Alert TP/SL/Liquidació -->
+<div id="alert-overlay" class="hidden">
+  <div id="alert-card" class="alert-card tp">
+    <div id="alert-icon" style="font-size:48px;margin-bottom:12px;">🎯</div>
+    <div id="alert-title" style="font-size:20px;font-weight:700;margin-bottom:6px;"></div>
+    <div id="alert-detail" style="font-size:28px;font-weight:700;font-family:ui-monospace,monospace;margin-bottom:8px;"></div>
+    <div id="alert-sub" style="font-size:13px;color:#94a3b8;margin-bottom:16px;"></div>
+    <button onclick="closeAlert()" style="padding:12px 28px;border-radius:10px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:#fff;font-weight:600;cursor:pointer;">Continua</button>
+  </div>
+</div>
+
+<!-- MAIN -->
 <main id="app-main">
 
-  <!-- ───── ASSETS SECTION → GAME HOME ───── -->
+  <!-- HOME -->
   <section id="assets-section" class="app-section active">
     <div class="game-home">
       <div class="game-stars"></div>
@@ -427,30 +366,37 @@
     </div>
   </section>
 
-  <!-- ───── TRADE SECTION (llista de criptos) ───── -->
+  <!-- ACTIUS -->
+  <!-- MILLORA 9: Afegit filtre i cerca -->
   <section id="trade-section" class="app-section" style="overflow-y:auto;">
     <div style="padding:12px 16px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:10px;flex-shrink:0;">
-      <button onclick="switchSection('assets')" style="background:rgba(255,255,255,.08);border:none;color:#94a3b8;width:34px;height:34px;border-radius:8px;cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">&#8592;</button>
-      <div>
+      <button onclick="switchSection('assets')" class="btn-icon">&#8592;</button>
+      <div style="flex:1;">
         <div class="section-title" style="font-size:18px;">Actius</div>
-        <div class="section-sub">Preus en temps real &middot; Toca per operar</div>
+        <div class="section-sub">Preus en temps real · Toca per operar</div>
       </div>
+    </div>
+    <!-- MILLORA 9: Filtre de categoria -->
+    <div style="padding:8px 16px;border-bottom:1px solid var(--line);display:flex;gap:6px;overflow-x:auto;flex-shrink:0;">
+      <button onclick="filterAssets('all')" id="filter-all" style="padding:5px 12px;border-radius:20px;font-size:12px;font-weight:600;border:1px solid rgba(16,185,129,.5);background:rgba(16,185,129,.12);color:#34d399;cursor:pointer;white-space:nowrap;">Tots</button>
+      <button onclick="filterAssets('layer1')" id="filter-layer1" style="padding:5px 12px;border-radius:20px;font-size:12px;font-weight:600;border:1px solid var(--line);background:none;color:#64748b;cursor:pointer;white-space:nowrap;">Layer 1</button>
+      <button onclick="filterAssets('defi')" id="filter-defi" style="padding:5px 12px;border-radius:20px;font-size:12px;font-weight:600;border:1px solid var(--line);background:none;color:#64748b;cursor:pointer;white-space:nowrap;">DeFi</button>
+      <button onclick="filterAssets('meme')" id="filter-meme" style="padding:5px 12px;border-radius:20px;font-size:12px;font-weight:600;border:1px solid var(--line);background:none;color:#64748b;cursor:pointer;white-space:nowrap;">Meme</button>
     </div>
     <div id="assets-menu" style="flex:1;overflow-y:auto;"></div>
   </section>
 
-  <!-- ───── CHART SECTION ───── -->
+  <!-- CHART -->
   <section id="chart-section" class="app-section">
-    <!-- Chart mini header -->
     <div id="chart-header">
-      <button onclick="switchSection('trade')" style="background:rgba(255,255,255,.08);border:none;color:#94a3b8;width:34px;height:34px;border-radius:8px;cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">←</button>
+      <button onclick="switchSection('trade')" class="btn-icon" style="font-size:18px;">←</button>
       <div style="flex:1;min-width:0;">
         <div style="display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;">
-          <span id="mobile-symbol" style="font-size:15px;font-weight:700;">BTC/USDT</span>
+          <span id="mobile-symbol" style="font-size:15px;font-weight:700;color:var(--text);">BTC/USDT</span>
           <span id="mobile-price" style="font-size:15px;font-weight:700;font-family:ui-monospace,monospace;color:#10b981;">---</span>
           <span id="chart-change-pct" style="font-size:12px;font-weight:600;"></span>
         </div>
-        <div id="chart-stats-row" style="display:flex;gap:12px;margin-top:2px;font-size:11px;color:#64748b;flex-wrap:wrap;">
+        <div style="display:flex;gap:12px;margin-top:2px;font-size:11px;color:#64748b;flex-wrap:wrap;">
           <span>H: <span id="24h-high" style="color:#34d399;">---</span></span>
           <span>L: <span id="24h-low" style="color:#fb7185;">---</span></span>
           <span>Var: <span id="24h-change">---</span></span>
@@ -462,11 +408,9 @@
         <div style="font-size:11px;font-family:ui-monospace,monospace;color:#64748b;">Idx: <span id="index-price">---</span></div>
       </div>
     </div>
-
-    <!-- TradingView -->
     <div id="tv_chart_container" style="flex:1;width:100%;min-height:0;"></div>
 
-    <!-- Positions panel (slide up) -->
+    <!-- Positions panel -->
     <div id="positions-panel">
       <button onclick="togglePositionsPanel()" style="width:100%;height:46px;display:flex;align-items:center;justify-content:center;gap:8px;background:none;border:none;color:#94a3b8;cursor:pointer;font-size:13px;font-weight:500;">
         <span>Posicions obertes (<span id="positions-count">0</span>)</span>
@@ -474,32 +418,38 @@
       </button>
       <div class="pos-tabs">
         <button id="tab-positions" onclick="switchBottomTab('positions')" class="pos-tab active">Posicions (<span id="pos-count-tab">0</span>)</button>
-        <button id="tab-orders" onclick="switchBottomTab('orders')" class="pos-tab">Ordres (0)</button>
+        <!-- MILLORA 2: Ordres límit -->
+        <button id="tab-orders" onclick="switchBottomTab('orders')" class="pos-tab">Ordres límit (<span id="orders-count-tab">0</span>)</button>
         <button id="tab-history" onclick="switchBottomTab('history')" class="pos-tab">Historial (<span id="history-count">0</span>)</button>
       </div>
       <div class="pos-scroll">
         <div id="bottom-panel-positions" class="bottom-tab-panel active" style="padding:8px;overflow-x:auto;">
-          <table class="data-table" style="min-width:720px;">
+          <table class="data-table" style="min-width:760px;">
             <thead><tr>
-              <th>Actiu</th><th>Tipus</th><th>Mida</th><th>Entrada</th><th>Actual</th><th>PnL</th><th>ROE%</th><th>Temps</th><th>TP</th><th>SL</th><th style="text-align:right;">Tancar</th>
+              <th>Actiu</th><th>Tipus</th><th>Mida</th><th>Entrada</th><th>Actual</th><th>PnL</th><th>ROE%</th><th>Liq.</th><th>Temps</th><th>TP</th><th>SL</th><th style="text-align:right;">Tancar</th>
             </tr></thead>
             <tbody id="positions-table"></tbody>
           </table>
         </div>
-        <div id="bottom-panel-orders" class="bottom-tab-panel" style="padding:24px;text-align:center;color:#475569;font-size:13px;">Pròximament</div>
+        <!-- MILLORA 2: Taula d'ordres límit -->
+        <div id="bottom-panel-orders" class="bottom-tab-panel" style="padding:8px;overflow-x:auto;">
+          <table class="data-table" style="min-width:600px;">
+            <thead><tr><th>Actiu</th><th>Tipus</th><th>Direcció</th><th>Mida</th><th>Preu límit</th><th>Marge</th><th>Data</th><th style="text-align:right;">Cancel·lar</th></tr></thead>
+            <tbody id="orders-table"></tbody>
+          </table>
+        </div>
         <div id="bottom-panel-history" class="bottom-tab-panel" style="padding:8px;overflow-x:auto;">
           <table class="data-table" style="min-width:800px;">
             <thead><tr>
-              <th>Data</th><th>Actiu</th><th>Tipus</th><th>Mida</th><th>Entrada</th><th>Sortida</th><th>PnL</th><th>ROE%</th><th>Durada</th>
+              <th>Data</th><th>Actiu</th><th>Tipus</th><th>Mida</th><th>Entrada</th><th>Sortida</th><th>PnL</th><th>ROE%</th><th>Durada</th><th>Motiu</th>
             </tr></thead>
             <tbody id="history-table"></tbody>
-            <tfoot><tr><td colspan="9" id="history-footer" style="padding-top:10px;color:#64748b;font-size:11px;font-family:ui-monospace,monospace;"></td></tr></tfoot>
+            <tfoot><tr><td colspan="10" id="history-footer" style="padding-top:10px;color:#64748b;font-size:11px;font-family:ui-monospace,monospace;"></td></tr></tfoot>
           </table>
         </div>
       </div>
     </div>
 
-    <!-- Trading bar -->
     <div id="trading-bar">
       <div style="flex:1;min-width:0;">
         <div style="font-size:11px;color:#64748b;">PnL no realitzat</div>
@@ -509,14 +459,14 @@
     </div>
   </section>
 
-  <!-- ───── LEAGUE SECTION ───── -->
+  <!-- LLIGA -->
   <section id="league-section" class="app-section" style="overflow-y:auto;">
     <div style="padding:16px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;">
       <div style="display:flex;align-items:center;gap:10px;">
-        <button onclick="switchSection('assets')" style="background:rgba(255,255,255,.08);border:none;color:#94a3b8;width:34px;height:34px;border-radius:8px;cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">&#8592;</button>
+        <button onclick="switchSection('assets')" class="btn-icon">&#8592;</button>
         <div>
           <div class="section-title">Lliga Fantasy</div>
-          <div class="section-sub">Competeix amb saldo virtual contra amics</div>
+          <div class="section-sub">Competeix en temps real contra amics</div>
         </div>
       </div>
       <div style="display:flex;gap:8px;flex-wrap:wrap;">
@@ -530,17 +480,25 @@
     </div>
   </section>
 
-  <!-- ───── PORTFOLIO SECTION ───── -->
+  <!-- PORTFOLIO -->
+  <!-- MILLORA 5: Estadístiques avançades -->
   <section id="portfolio-section" class="app-section" style="overflow-y:auto;">
     <div style="padding:12px 16px 8px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:10px;">
-      <button onclick="switchSection('assets')" style="background:rgba(255,255,255,.08);border:none;color:#94a3b8;width:34px;height:34px;border-radius:8px;cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">&#8592;</button>
+      <button onclick="switchSection('assets')" class="btn-icon">&#8592;</button>
       <div>
         <div class="section-title">Portfolio</div>
-        <div class="section-sub">Rendiment en temps real</div>
+        <div class="section-sub">Rendiment i estadístiques</div>
       </div>
     </div>
     <div style="padding:16px;display:flex;flex-direction:column;gap:14px;">
       <div id="portfolio-kpis" style="display:grid;grid-template-columns:repeat(2,1fr);gap:10px;"></div>
+
+      <!-- Stats avançades -->
+      <div class="glass-sm" style="border-radius:14px;padding:14px;">
+        <div style="font-size:13px;font-weight:600;margin-bottom:10px;color:#94a3b8;">📊 Estadístiques avançades</div>
+        <div class="stat-grid" id="advanced-stats-grid"></div>
+      </div>
+
       <div class="glass-sm" style="border-radius:14px;padding:14px;">
         <div style="font-size:13px;font-weight:600;margin-bottom:10px;color:#94a3b8;">Rendiment del saldo</div>
         <canvas id="portfolio-chart" height="140" style="width:100%;"></canvas>
@@ -554,19 +512,19 @@
       </div>
       <div class="glass-sm" style="border-radius:14px;padding:14px;overflow-x:auto;">
         <div style="font-size:13px;font-weight:600;margin-bottom:10px;color:#94a3b8;">Historial de trades tancats</div>
-        <table class="data-table" style="min-width:680px;">
-          <thead><tr><th>Obertura</th><th>Tancament</th><th>Actiu</th><th>Dir.</th><th>Lev.</th><th>Entrada</th><th>Sortida</th><th>PnL</th><th>Durada</th></tr></thead>
+        <table class="data-table" style="min-width:700px;">
+          <thead><tr><th>Obertura</th><th>Tancament</th><th>Actiu</th><th>Dir.</th><th>Lev.</th><th>Entrada</th><th>Sortida</th><th>PnL</th><th>Motiu</th><th>Durada</th></tr></thead>
           <tbody id="portfolio-history"></tbody>
         </table>
       </div>
     </div>
   </section>
 
-  <!-- ───── ACHIEVEMENTS SECTION ───── -->
+  <!-- ASSOLIMENTS -->
   <section id="achievements-section" class="app-section" style="overflow-y:auto;">
     <div style="padding:16px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;">
       <div style="display:flex;align-items:center;gap:10px;">
-        <button onclick="switchSection('assets')" style="background:rgba(255,255,255,.08);border:none;color:#94a3b8;width:34px;height:34px;border-radius:8px;cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">&#8592;</button>
+        <button onclick="switchSection('assets')" class="btn-icon">&#8592;</button>
         <div>
           <div class="section-title">Assoliments</div>
           <div class="section-sub">Insígnies, fites i punts de progrés</div>
@@ -574,57 +532,57 @@
       </div>
       <div class="glass-sm" style="border-radius:12px;padding:10px 14px;text-align:center;">
         <div style="font-size:10px;color:#64748b;text-transform:uppercase;letter-spacing:.5px;">Completats</div>
-        <div style="font-size:16px;font-weight:700;margin-top:2px;"><span id="achievements-completed">0</span>/<span id="achievements-total">0</span> · <span id="achievement-points" style="color:#fbbf24;">0</span> pts</div>
+        <div style="font-size:16px;font-weight:700;margin-top:2px;color:var(--text);"><span id="achievements-completed">0</span>/<span id="achievements-total">0</span> · <span id="achievement-points" style="color:#fbbf24;">0</span> pts</div>
       </div>
     </div>
     <div id="achievements-grid" style="padding:14px;display:grid;grid-template-columns:1fr;gap:10px;"></div>
   </section>
 
-  <!-- ───── PROFILE SECTION ───── -->
+  <!-- PERFIL -->
   <section id="profile-section" class="app-section" style="overflow-y:auto;">
     <div style="padding:12px 16px 8px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:10px;">
-      <button onclick="switchSection('assets')" style="background:rgba(255,255,255,.08);border:none;color:#94a3b8;width:34px;height:34px;border-radius:8px;cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">&#8592;</button>
-      <div>
-        <div class="section-title">Perfil</div>
-        <div class="section-sub">Compte i configuració</div>
-      </div>
+      <button onclick="switchSection('assets')" class="btn-icon">&#8592;</button>
+      <div><div class="section-title">Perfil</div><div class="section-sub">Compte i configuració</div></div>
     </div>
     <div style="padding:16px;display:flex;flex-direction:column;gap:14px;">
-      <!-- Logged in view -->
       <div id="user-profile" class="hidden">
         <div style="display:flex;align-items:center;gap:14px;padding:16px;background:rgba(255,255,255,.04);border:1px solid var(--line);border-radius:16px;margin-bottom:14px;">
           <div id="user-avatar" style="width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,#10b981,#3b82f6);display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:700;color:#fff;flex-shrink:0;">U</div>
           <div style="flex:1;min-width:0;">
-            <div id="user-name" style="font-size:17px;font-weight:700;">Trader</div>
+            <div id="user-name" style="font-size:17px;font-weight:700;color:var(--text);">Trader</div>
             <div id="user-email" style="font-size:13px;color:#64748b;margin-top:2px;word-break:break-all;"></div>
           </div>
         </div>
         <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px;">
-          <div class="profile-stat"><div style="font-size:10px;color:#64748b;text-transform:uppercase;letter-spacing:.5px;">Trades</div><div style="font-size:20px;font-weight:700;margin-top:4px;" id="profile-trades">0</div></div>
+          <div class="profile-stat"><div style="font-size:10px;color:#64748b;text-transform:uppercase;letter-spacing:.5px;">Trades</div><div style="font-size:20px;font-weight:700;margin-top:4px;color:var(--text);" id="profile-trades">0</div></div>
           <div class="profile-stat"><div style="font-size:10px;color:#64748b;text-transform:uppercase;letter-spacing:.5px;">PnL Total</div><div style="font-size:16px;font-weight:700;margin-top:4px;font-family:ui-monospace,monospace;" id="profile-pnl">+0.00</div></div>
           <div class="profile-stat"><div style="font-size:10px;color:#64748b;text-transform:uppercase;letter-spacing:.5px;">Punts</div><div style="font-size:20px;font-weight:700;margin-top:4px;color:#fbbf24;" id="profile-points">0</div></div>
         </div>
+        <!-- MILLORA 8: Configuració funcional -->
         <div style="background:rgba(255,255,255,.04);border:1px solid var(--line);border-radius:14px;overflow:hidden;margin-bottom:14px;">
           <div style="padding:14px 16px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;">
             <span style="font-size:13px;color:#94a3b8;">Idioma</span>
-            <span style="font-size:13px;font-weight:500;">Català 🇪🇸</span>
+            <span style="font-size:13px;font-weight:500;color:var(--text);">Català 🇪🇸</span>
           </div>
           <div style="padding:14px 16px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;">
             <span style="font-size:13px;color:#94a3b8;">Tema</span>
-            <span style="font-size:13px;font-weight:500;">Fosc 🌙</span>
+            <button onclick="toggleTheme()" id="theme-profile-btn" style="font-size:13px;font-weight:500;background:rgba(255,255,255,.06);border:1px solid var(--line);color:#94a3b8;border-radius:8px;padding:5px 12px;cursor:pointer;">Fosc 🌙</button>
+          </div>
+          <div style="padding:14px 16px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;">
+            <span style="font-size:13px;color:#94a3b8;">Moneda</span>
+            <span style="font-size:13px;font-weight:500;color:var(--text);">USDT</span>
           </div>
           <div style="padding:14px 16px;display:flex;justify-content:space-between;align-items:center;">
-            <span style="font-size:13px;color:#94a3b8;">Moneda</span>
-            <span style="font-size:13px;font-weight:500;">USDT</span>
+            <span style="font-size:13px;color:#94a3b8;">Tutorial</span>
+            <button onclick="initTutorial(true)" style="font-size:13px;font-weight:500;background:rgba(255,255,255,.06);border:1px solid var(--line);color:#94a3b8;border-radius:8px;padding:5px 12px;cursor:pointer;">Revisar 📖</button>
           </div>
         </div>
         <button onclick="logout()" style="width:100%;padding:14px;border-radius:12px;background:rgba(239,68,68,.12);border:1px solid rgba(239,68,68,.3);color:#fb7185;font-weight:600;font-size:15px;cursor:pointer;">Tancar Sessió</button>
       </div>
-      <!-- Auth buttons -->
       <div id="auth-buttons">
         <div style="text-align:center;padding:32px 16px 24px;">
           <div style="width:72px;height:72px;border-radius:50%;background:linear-gradient(135deg,#10b981,#3b82f6);display:flex;align-items:center;justify-content:center;margin:0 auto 16px;font-size:32px;">👤</div>
-          <div style="font-size:18px;font-weight:700;margin-bottom:6px;">Inicia sessió</div>
+          <div style="font-size:18px;font-weight:700;margin-bottom:6px;color:var(--text);">Inicia sessió</div>
           <div style="font-size:13px;color:#64748b;margin-bottom:24px;">Guarda el teu progrés i competeix a les lligues</div>
           <button onclick="openAuthModal()" style="width:100%;padding:14px;border-radius:12px;background:#10b981;border:none;color:#fff;font-weight:700;font-size:15px;cursor:pointer;margin-bottom:10px;">Iniciar Sessió</button>
           <button onclick="openAuthModal()" style="width:100%;padding:14px;border-radius:12px;background:rgba(255,255,255,.06);border:1px solid var(--line);color:#94a3b8;font-weight:600;font-size:15px;cursor:pointer;">Crear Compte</button>
@@ -633,28 +591,41 @@
     </div>
   </section>
 
-</main><!-- end app-main -->
+</main>
 
-<!-- ═══════════════════════════════════════════════════════
-     TRADING BOTTOM SHEET
-════════════════════════════════════════════════════════ -->
+<!-- TRADING BOTTOM SHEET -->
 <div id="ts-backdrop" onclick="toggleOrderPanel(false)"></div>
-<div id="trading-sheet" id="order-panel">
+<div id="trading-sheet">
   <div class="sheet-handle"></div>
-  <!-- Sheet header -->
   <div style="display:flex;align-items:center;justify-content:space-between;padding:14px 16px 8px;">
     <div>
-      <span style="font-size:16px;font-weight:700;" id="sheet-symbol">BTCUSDT</span>
+      <span style="font-size:16px;font-weight:700;color:var(--text);" id="sheet-symbol">BTCUSDT</span>
       <span style="font-size:13px;color:#64748b;margin-left:6px;">Perpetu</span>
     </div>
     <button onclick="toggleOrderPanel(false)" style="background:rgba(255,255,255,.08);border:none;color:#94a3b8;width:32px;height:32px;border-radius:8px;cursor:pointer;font-size:20px;display:flex;align-items:center;justify-content:center;">×</button>
   </div>
 
   <div style="padding:0 16px 20px;">
-    <!-- Long / Short tabs -->
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:16px;">
+    <!-- Long / Short -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px;">
       <button id="btn-long" onclick="setTradeType('LONG')" style="padding:12px;border-radius:10px;font-weight:700;font-size:14px;cursor:pointer;border:1px solid rgba(16,185,129,.5);background:rgba(16,185,129,.15);color:#34d399;">LONG / COMPRAR</button>
       <button id="btn-short" onclick="setTradeType('SHORT')" style="padding:12px;border-radius:10px;font-weight:700;font-size:14px;cursor:pointer;border:1px solid rgba(255,255,255,.1);background:none;color:#64748b;">SHORT / VENDRE</button>
+    </div>
+
+    <!-- MILLORA 2: Tipus d'ordre -->
+    <div style="margin-bottom:14px;">
+      <div style="font-size:12px;color:#64748b;margin-bottom:8px;">Tipus d'ordre</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;">
+        <button id="otype-market" class="order-type-btn active-market" onclick="setOrderType('market')">⚡ Mercat</button>
+        <button id="otype-limit" class="order-type-btn" onclick="setOrderType('limit')">📋 Límit</button>
+      </div>
+    </div>
+    <div id="limit-price-row" style="margin-bottom:14px;">
+      <label style="font-size:12px;color:#64748b;display:block;margin-bottom:6px;">Preu límit d'entrada</label>
+      <div style="position:relative;">
+        <input type="number" id="limit-price" class="inp" placeholder="Ex: 80000" step="0.01" style="padding-right:48px;">
+        <span style="position:absolute;right:12px;top:50%;transform:translateY(-50%);font-size:12px;color:#475569;">USDT</span>
+      </div>
     </div>
 
     <!-- Leverage -->
@@ -665,10 +636,10 @@
       </div>
       <input type="range" id="leverage-slider" min="1" max="50" value="10" class="lev-slider" style="margin-bottom:6px;">
       <div style="position:relative;height:16px;margin-top:4px;">
-        <span style="position:absolute;left:0%;transform:translateX(0%);font-size:10px;color:#475569;">1x</span>
+        <span style="position:absolute;left:0%;font-size:10px;color:#475569;">1x</span>
         <span style="position:absolute;left:18.4%;transform:translateX(-50%);font-size:10px;color:#475569;">10x</span>
         <span style="position:absolute;left:49%;transform:translateX(-50%);font-size:10px;color:#475569;">25x</span>
-        <span style="position:absolute;right:0%;transform:translateX(0%);font-size:10px;color:#475569;">50x</span>
+        <span style="position:absolute;right:0%;font-size:10px;color:#475569;">50x</span>
       </div>
     </div>
 
@@ -689,41 +660,31 @@
 
     <!-- TP / SL -->
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px;">
-      <div>
-        <label style="font-size:11px;color:#64748b;display:block;margin-bottom:5px;">Take Profit</label>
-        <input type="number" id="tp-price" class="inp" placeholder="Opcional">
-      </div>
-      <div>
-        <label style="font-size:11px;color:#64748b;display:block;margin-bottom:5px;">Stop Loss</label>
-        <input type="number" id="sl-price" class="inp" placeholder="Opcional">
-      </div>
+      <div><label style="font-size:11px;color:#64748b;display:block;margin-bottom:5px;">Take Profit</label><input type="number" id="tp-price" class="inp" placeholder="Opcional"></div>
+      <div><label style="font-size:11px;color:#64748b;display:block;margin-bottom:5px;">Stop Loss</label><input type="number" id="sl-price" class="inp" placeholder="Opcional"></div>
     </div>
 
     <!-- Order info -->
     <div style="background:rgba(0,0,0,.25);border:1px solid var(--line);border-radius:10px;padding:10px 12px;margin-bottom:16px;display:flex;flex-direction:column;gap:6px;font-size:12px;">
       <div style="display:flex;justify-content:space-between;"><span style="color:#64748b;">Marge requerit</span><span id="margin-required" style="font-family:ui-monospace,monospace;">0.00 USDT</span></div>
       <div style="display:flex;justify-content:space-between;"><span style="color:#64748b;">Mida posició</span><span id="position-size" style="font-family:ui-monospace,monospace;">0.0000</span></div>
-      <div style="display:flex;justify-content:space-between;"><span style="color:#64748b;">Liquidació aprox.</span><span id="liquidation-price" style="font-family:ui-monospace,monospace;color:#fb7185;">---</span></div>
+      <!-- MILLORA 1: Preu de liquidació visible -->
+      <div style="display:flex;justify-content:space-between;"><span style="color:#64748b;">Liquidació aprox. <span class="liq-badge">AUTO</span></span><span id="liquidation-price" style="font-family:ui-monospace,monospace;color:#fb7185;">---</span></div>
       <div style="display:flex;justify-content:space-between;"><span style="color:#64748b;">Disponible</span><span id="sheet-balance" style="font-family:ui-monospace,monospace;color:#10b981;">---</span></div>
     </div>
 
-    <!-- Execute button -->
     <button id="execute-order" onclick="executeOrder()" class="exec-btn glow" style="background:#10b981;color:#fff;">Obrir Posició LONG</button>
   </div>
 
-  <!-- Market info accordion (collapsed by default) -->
   <details style="padding:0 16px 16px;">
     <summary style="font-size:12px;color:#64748b;cursor:pointer;padding:8px 0;border-top:1px solid var(--line);margin-bottom:8px;">Informació de mercat</summary>
     <div style="display:flex;flex-direction:column;gap:6px;font-size:12px;">
       <div style="display:flex;justify-content:space-between;"><span style="color:#64748b;">24h Volum</span><span id="24h-volume" style="font-family:ui-monospace,monospace;">---</span></div>
-      <span id="volume-label" style="display:none;"></span>
     </div>
   </details>
 </div>
 
-<!-- ═══════════════════════════════════════════════════════
-     BOTTOM NAVIGATION
-════════════════════════════════════════════════════════ -->
+<!-- BOTTOM NAV -->
 <nav id="bottom-nav">
   <button id="nav-home" onclick="switchSection('assets')" class="nav-btn active">
     <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
@@ -751,15 +712,11 @@
   </button>
 </nav>
 
-<!-- ═══════════════════════════════════════════════════════
-     MODALS
-════════════════════════════════════════════════════════ -->
-
-<!-- Auth modal -->
+<!-- MODALS -->
 <div id="auth-modal" class="modal-overlay hidden">
   <div class="modal-box">
     <button class="modal-close" onclick="closeAuthModal()">×</button>
-    <div class="modal-title">Accés TradeLeague</div>
+    <div class="modal-title" style="color:var(--text);">Accés TradeLeague</div>
     <div style="display:flex;flex-direction:column;gap:10px;">
       <input type="email" id="auth-email" class="inp" placeholder="correu@exemple.com">
       <input type="password" id="auth-pass" class="inp" placeholder="Contrasenya">
@@ -774,11 +731,10 @@
   </div>
 </div>
 
-<!-- Create league modal -->
 <div id="create-league-modal" class="modal-overlay hidden">
   <div class="modal-box">
     <button class="modal-close" onclick="closeCreateLeagueModal()">×</button>
-    <div class="modal-title">Crear Nova Lliga</div>
+    <div class="modal-title" style="color:var(--text);">Crear Nova Lliga</div>
     <div style="display:flex;flex-direction:column;gap:12px;">
       <div><label style="font-size:12px;color:#64748b;display:block;margin-bottom:5px;">Nom de la lliga</label><input id="league-name" class="inp" placeholder="Ex. Champions Crypto"></div>
       <div><label style="font-size:12px;color:#64748b;display:block;margin-bottom:5px;">Durada</label><select id="league-duration" class="inp"><option>Setmanal</option><option>Mensual</option><option>Trimestral</option><option>Anual</option></select></div>
@@ -793,29 +749,71 @@
   </div>
 </div>
 
-<!-- Join league modal -->
 <div id="join-league-modal" class="modal-overlay hidden">
   <div class="modal-box">
     <button class="modal-close" onclick="closeJoinLeagueModal()">×</button>
-    <div class="modal-title">Unir-se a una Lliga</div>
+    <div class="modal-title" style="color:var(--text);">Unir-se a una Lliga</div>
     <input id="join-league-code" class="inp" placeholder="Codi d'invitació" style="font-family:ui-monospace,monospace;text-transform:uppercase;margin-bottom:12px;">
     <button onclick="joinLeague()" style="width:100%;padding:13px;border-radius:10px;background:#10b981;border:none;color:#fff;font-weight:700;font-size:14px;cursor:pointer;">Unir-se</button>
   </div>
 </div>
 
-<!-- Toast container -->
 <div id="toast-container" style="position:fixed;right:12px;bottom:80px;z-index:130;display:flex;flex-direction:column;gap:6px;width:min(320px,calc(100vw - 24px));pointer-events:none;"></div>
 
-<!-- ═══════════════════════════════════════════════════════
+<!-- ════════════════════════════════════════════
      JAVASCRIPT
-════════════════════════════════════════════════════════ -->
+════════════════════════════════════════════ -->
 <script type="module">
-  /* ── Streams ── */
-  const STREAM_LIST = ['btcusdt@ticker','ethusdt@ticker','solusdt@ticker','xrpusdt@ticker','ltcusdt@ticker','adausdt@ticker','dogeusdt@ticker'];
+  /* ── MILLORA 9: Més actius (15 parells) ── */
+  const ALL_ASSETS = [
+    {name:'Bitcoin',   symbol:'BTCUSDT',  cat:'layer1', emoji:'₿', icon:'https://cdn.jsdelivr.net/gh/spothq/cryptocurrency-icons@master/svg/color/btc.svg',  decimals:2, cgId:'bitcoin'},
+    {name:'Ethereum',  symbol:'ETHUSDT',  cat:'layer1', emoji:'Ξ', icon:'https://cdn.jsdelivr.net/gh/spothq/cryptocurrency-icons@master/svg/color/eth.svg',  decimals:2, cgId:'ethereum'},
+    {name:'BNB',       symbol:'BNBUSDT',  cat:'layer1', emoji:'B', icon:'https://cdn.jsdelivr.net/gh/spothq/cryptocurrency-icons@master/svg/color/bnb.svg',  decimals:2, cgId:'binancecoin'},
+    {name:'Solana',    symbol:'SOLUSDT',  cat:'layer1', emoji:'◎', icon:'https://cdn.jsdelivr.net/gh/spothq/cryptocurrency-icons@master/svg/color/sol.svg',  decimals:3, cgId:'solana'},
+    {name:'XRP',       symbol:'XRPUSDT',  cat:'layer1', emoji:'✕', icon:'https://cdn.jsdelivr.net/gh/spothq/cryptocurrency-icons@master/svg/color/xrp.svg',  decimals:4, cgId:'ripple'},
+    {name:'Cardano',   symbol:'ADAUSDT',  cat:'layer1', emoji:'₳', icon:'https://cdn.jsdelivr.net/gh/spothq/cryptocurrency-icons@master/svg/color/ada.svg',  decimals:4, cgId:'cardano'},
+    {name:'Avalanche', symbol:'AVAXUSDT', cat:'layer1', emoji:'🔺', icon:'https://cdn.jsdelivr.net/gh/spothq/cryptocurrency-icons@master/svg/color/avax.svg', decimals:3, cgId:'avalanche-2'},
+    {name:'Polkadot',  symbol:'DOTUSDT',  cat:'layer1', emoji:'●', icon:'https://cdn.jsdelivr.net/gh/spothq/cryptocurrency-icons@master/svg/color/dot.svg',  decimals:3, cgId:'polkadot'},
+    {name:'Chainlink', symbol:'LINKUSDT', cat:'defi',   emoji:'⬡', icon:'https://cdn.jsdelivr.net/gh/spothq/cryptocurrency-icons@master/svg/color/link.svg', decimals:3, cgId:'chainlink'},
+    {name:'Uniswap',   symbol:'UNIUSDT',  cat:'defi',   emoji:'🦄', icon:'https://cdn.jsdelivr.net/gh/spothq/cryptocurrency-icons@master/svg/color/uni.svg',  decimals:3, cgId:'uniswap'},
+    {name:'Cosmos',    symbol:'ATOMUSDT', cat:'layer1', emoji:'⚛', icon:'https://cdn.jsdelivr.net/gh/spothq/cryptocurrency-icons@master/svg/color/atom.svg', decimals:3, cgId:'cosmos'},
+    {name:'SUI',       symbol:'SUIUSDT',  cat:'layer1', emoji:'☯', icon:'https://cdn.jsdelivr.net/gh/spothq/cryptocurrency-icons@master/svg/color/sui.svg',  decimals:4, cgId:'sui'},
+    {name:'Litecoin',  symbol:'LTCUSDT',  cat:'layer1', emoji:'Ł', icon:'https://cdn.jsdelivr.net/gh/spothq/cryptocurrency-icons@master/svg/color/ltc.svg',  decimals:2, cgId:'litecoin'},
+    {name:'Dogecoin',  symbol:'DOGEUSDT', cat:'meme',   emoji:'Ð', icon:'https://cdn.jsdelivr.net/gh/spothq/cryptocurrency-icons@master/svg/color/doge.svg', decimals:5, cgId:'dogecoin'},
+    {name:'PEPE',      symbol:'PEPEUSDT', cat:'meme',   emoji:'🐸', icon:'https://cdn.jsdelivr.net/gh/spothq/cryptocurrency-icons@master/svg/color/pepe.svg', decimals:8, cgId:'pepe'},
+  ];
+
+  let ASSETS = [...ALL_ASSETS];
+  let activeFilter = 'all';
+
+  window.filterAssets = function(cat) {
+    activeFilter = cat;
+    ASSETS = cat === 'all' ? [...ALL_ASSETS] : ALL_ASSETS.filter(a => a.cat === cat);
+    ['all','layer1','defi','meme'].forEach(f => {
+      const btn = document.getElementById('filter-' + f);
+      if (!btn) return;
+      if (f === cat) {
+        btn.style.cssText = 'padding:5px 12px;border-radius:20px;font-size:12px;font-weight:600;border:1px solid rgba(16,185,129,.5);background:rgba(16,185,129,.12);color:#34d399;cursor:pointer;white-space:nowrap;';
+      } else {
+        btn.style.cssText = 'padding:5px 12px;border-radius:20px;font-size:12px;font-weight:600;border:1px solid var(--line);background:none;color:#64748b;cursor:pointer;white-space:nowrap;';
+      }
+    });
+    renderAssetsList();
+  };
+
+  const ASSET_MAP = Object.fromEntries(ALL_ASSETS.map(a=>[a.symbol,a]));
+  const STARTING_BALANCE = 10000;
+  const INITIAL_PRICES = {
+    BTCUSDT:81821, ETHUSDT:3200, BNBUSDT:580, SOLUSDT:145, XRPUSDT:0.52,
+    ADAUSDT:0.46, AVAXUSDT:25, DOTUSDT:6.5, LINKUSDT:14, UNIUSDT:8,
+    ATOMUSDT:6.5, SUIUSDT:1.2, LTCUSDT:84, DOGEUSDT:0.16, PEPEUSDT:0.0000098
+  };
+
+  const STREAM_LIST = ALL_ASSETS.map(a=>a.symbol.toLowerCase()+'@ticker');
   const STREAMS = STREAM_LIST.join('/');
 
   const CONFIG = {
-    firebase: {
+    firebase:{
       apiKey:"AIzaSyD3SbE8g-ZA2mfqDzK7URFcGaMF8uDI-jk",
       authDomain:"tradeleague-pro.firebaseapp.com",
       projectId:"tradeleague-pro",
@@ -823,12 +821,10 @@
       storageBucket:"tradeleague-pro.firebasestorage.app",
       messagingSenderId:"794163545617",
       appId:"1:794163545617:web:fe2f5c87da3d97dfc713b0",
-      measurementId:"G-8ZVQYZBE1J"
     },
     wsFeeds:[
       {url:'wss://stream.binance.com:9443/ws/!ticker@arr',array:true},
       {url:'wss://fstream.binance.com/ws/!ticker@arr',array:true},
-      {url:'wss://stream.binance.com:9443/ws',subscribe:true},
       {url:`wss://stream.binance.com:9443/stream?streams=${STREAMS}`},
       {url:`wss://data-stream.binance.vision/stream?streams=${STREAMS}`},
       {url:`wss://fstream.binance.com/stream?streams=${STREAMS}`}
@@ -838,24 +834,10 @@
       'https://data-api.binance.vision/api/v3/ticker/24hr',
       'https://fapi.binance.com/fapi/v1/ticker/24hr'
     ],
-    coinGeckoUrl:'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=bitcoin,ethereum,solana,ripple,litecoin,cardano,dogecoin&sparkline=false',
-    cryptoCompareUrl:'https://min-api.cryptocompare.com/data/pricemultifull?fsyms=BTC,ETH,SOL,XRP,LTC,ADA,DOGE&tsyms=USD',
-    krakenPairs:'XXBTZUSD,XETHZUSD,SOLUSD,XXRPZUSD,XLTCZUSD,ADAUSD,XDGUSD'
+    coinGeckoUrl:`https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=bitcoin,ethereum,binancecoin,solana,ripple,cardano,avalanche-2,polkadot,chainlink,uniswap,cosmos,sui,litecoin,dogecoin,pepe&sparkline=false`,
+    cryptoCompareUrl:'https://min-api.cryptocompare.com/data/pricemultifull?fsyms=BTC,ETH,BNB,SOL,XRP,ADA,AVAX,DOT,LINK,UNI,ATOM,LTC,DOGE&tsyms=USD',
+    krakenPairs:'XXBTZUSD,XETHZUSD,SOLUSD,XXRPZUSD,XLTCZUSD,ADAUSD,AVAXUSD,DOTUSD,LINKUSD,UNIUSD,ATOMUSD,XDGUSD'
   };
-
-  const ASSETS = [
-    {name:'Bitcoin',  symbol:'BTCUSDT',  emoji:'₿', icon:'https://cdn.jsdelivr.net/gh/spothq/cryptocurrency-icons@master/svg/color/btc.svg',  decimals:2, coingeckoId:'bitcoin'},
-    {name:'Ethereum', symbol:'ETHUSDT',  emoji:'Ξ', icon:'https://cdn.jsdelivr.net/gh/spothq/cryptocurrency-icons@master/svg/color/eth.svg',  decimals:2, coingeckoId:'ethereum'},
-    {name:'Solana',   symbol:'SOLUSDT',  emoji:'◎', icon:'https://cdn.jsdelivr.net/gh/spothq/cryptocurrency-icons@master/svg/color/sol.svg',  decimals:3, coingeckoId:'solana'},
-    {name:'XRP',      symbol:'XRPUSDT',  emoji:'✕', icon:'https://cdn.jsdelivr.net/gh/spothq/cryptocurrency-icons@master/svg/color/xrp.svg',  decimals:4, coingeckoId:'ripple'},
-    {name:'Litecoin', symbol:'LTCUSDT',  emoji:'Ł', icon:'https://cdn.jsdelivr.net/gh/spothq/cryptocurrency-icons@master/svg/color/ltc.svg',  decimals:2, coingeckoId:'litecoin'},
-    {name:'Cardano',  symbol:'ADAUSDT',  emoji:'₳', icon:'https://cdn.jsdelivr.net/gh/spothq/cryptocurrency-icons@master/svg/color/ada.svg',  decimals:4, coingeckoId:'cardano'},
-    {name:'Dogecoin', symbol:'DOGEUSDT', emoji:'Ð', icon:'https://cdn.jsdelivr.net/gh/spothq/cryptocurrency-icons@master/svg/color/doge.svg', decimals:5, coingeckoId:'dogecoin'},
-    {name:'SUI',      symbol:'SUIUSDT',  emoji:'☯', icon:'https://cdn.jsdelivr.net/gh/spothq/cryptocurrency-icons@master/svg/color/sui.svg',  decimals:4, coingeckoId:'sui'},
-  ];
-  const ASSET_MAP = Object.fromEntries(ASSETS.map(a=>[a.symbol,a]));
-  const STARTING_BALANCE = 10000;
-  const INITIAL_PRICES = {BTCUSDT:81821,ETHUSDT:3200,SOLUSDT:145,XRPUSDT:0.52,LTCUSDT:84,ADAUSDT:0.46,DOGEUSDT:0.16,SUIUSDT:1.2};
 
   const State = {
     user:null, balance:STARTING_BALANCE, positions:[], tradeHistory:[],
@@ -863,33 +845,40 @@
     priceSource:'simulated', lastLiveTickAt:0,
     wsReconnectTimer:null, fallbackTimer:null, restPollingTimer:null, wsUrlIndex:0,
     chartSymbol:'BTCUSDT', currentAsset:'BTCUSDT', leverage:10, tradeType:'LONG',
+    orderType:'market', // MILLORA 2
     tvWidget:null, ws:null, chartLines:{}, achievements:{}, leagues:[],
-    activeLeagueId:null, activeSection:'assets', bottomTab:'positions'
+    activeLeagueId:null, activeSection:'assets', bottomTab:'positions',
+    pendingOrders:[], // MILLORA 2
+    balanceHistory:[], // MILLORA 5 (per Max Drawdown)
+    tutorialStep:0,
+    authReady:false
   };
 
-  const Firebase = {active:false,auth:null,db:null,helpers:{}};
+  const Firebase = {active:false,auth:null,db:null,helpers:{},leagueUnsubs:[]};
 
   const ACHIEVEMENTS = [
-    {id:'gran_coup',     category:'Millors Trades',       icon:'🏆',desc:'Millor trade del dia amb PnL positiu.',              points:100, target:1,    name:'El Gran Coup'},
-    {id:'trader_mes',    category:'Millors Trades',       icon:'🏆',desc:'Millor trade del mes amb PnL positiu.',              points:150, target:1,    name:'Trader del Mes'},
-    {id:'llegenda_anual',category:'Millors Trades',       icon:'🏆',desc:'Millor trade de l\'any amb PnL positiu.',           points:250, target:1,    name:'Llegenda Anual'},
-    {id:'centurio',      category:'Millors Trades',       icon:'💥',desc:'Tanca un trade amb +100% de ROE.',                  points:150, target:100,  name:'Centurió'},
-    {id:'multiplicador', category:'Millors Trades',       icon:'🚀',desc:'Tanca un trade amb +500% de ROE.',                  points:300, target:500,  name:'Multiplicador'},
-    {id:'primers_passos',category:'Volum i Activitat',    icon:'📊',desc:'Completa el primer trade.',                         points:50,  target:1,    name:'Primers Passos'},
-    {id:'actiu',         category:'Volum i Activitat',    icon:'📊',desc:'Realitza 10 trades.',                               points:100, target:10,   name:'Actiu'},
-    {id:'veterà',        category:'Volum i Activitat',    icon:'📊',desc:'Realitza 100 trades.',                              points:250, target:100,  name:'Veterà'},
-    {id:'maquina_guerra',category:'Volum i Activitat',    icon:'📊',desc:'Realitza 1.000 trades.',                            points:600, target:1000, name:'Màquina de Guerra'},
-    {id:'diversificat',  category:'Volum i Activitat',    icon:'🧭',desc:'Opera amb 5 actius diferents.',                    points:150, target:5,    name:'Diversificat'},
-    {id:'en_positiu',    category:'Beneficis Acumulats',  icon:'💰',desc:'Aconsegueix +100 USDT de PnL total.',               points:100, target:100,  name:'En Positiu'},
-    {id:'quatre_digits', category:'Beneficis Acumulats',  icon:'💰',desc:'Aconsegueix +1.000 USDT de PnL total.',             points:200, target:1000, name:'Quatre Dígits'},
-    {id:'cinc_digits',   category:'Beneficis Acumulats',  icon:'💰',desc:'Aconsegueix +10.000 USDT de PnL total.',            points:500, target:10000,name:'Cinc Dígits'},
-    {id:'franctirador',  category:'Precisió',             icon:'🎯',desc:'5 trades consecutius en positiu.',                  points:180, target:5,    name:'Franctirador'},
-    {id:'imparable',     category:'Precisió',             icon:'🎯',desc:'10 trades consecutius en positiu.',                 points:350, target:10,   name:'Imparable'},
-    {id:'perfeccionista',category:'Precisió',             icon:'🎯',desc:'Win rate > 80% amb mínim 20 trades.',               points:300, target:80,   name:'Perfeccionista'},
-    {id:'night_trader',  category:'Especials',            icon:'🌙',desc:'Obre una posició entre les 00:00 i les 06:00.',     points:120, target:1,    name:'Night Trader'},
-    {id:'matiner',       category:'Especials',            icon:'⚡',desc:'Obre una posició entre les 06:00 i les 08:00.',     points:120, target:1,    name:'Matiner'},
-    {id:'hodler',        category:'Especials',            icon:'⏳',desc:'Mantén una posició oberta durant més de 24h.',      points:220, target:24,   name:'Hodler'},
-    {id:'adrenalina',    category:'Especials',            icon:'⚡',desc:'Opera amb x50 de leverage.',                        points:160, target:50,   name:'Adrenalina'}
+    {id:'gran_coup',      category:'Millors Trades',      icon:'🏆',desc:'Millor trade del dia amb PnL positiu.',              points:100,  target:1,    name:'El Gran Coup'},
+    {id:'trader_mes',     category:'Millors Trades',      icon:'🏆',desc:'Millor trade del mes amb PnL positiu.',              points:150,  target:1,    name:'Trader del Mes'},
+    {id:'llegenda_anual', category:'Millors Trades',      icon:'🏆',desc:'Millor trade de l\'any amb PnL positiu.',           points:250,  target:1,    name:'Llegenda Anual'},
+    {id:'centurio',       category:'Millors Trades',      icon:'💥',desc:'Tanca un trade amb +100% de ROE.',                  points:150,  target:100,  name:'Centurió'},
+    {id:'multiplicador',  category:'Millors Trades',      icon:'🚀',desc:'Tanca un trade amb +500% de ROE.',                  points:300,  target:500,  name:'Multiplicador'},
+    {id:'primers_passos', category:'Volum i Activitat',   icon:'📊',desc:'Completa el primer trade.',                         points:50,   target:1,    name:'Primers Passos'},
+    {id:'actiu',          category:'Volum i Activitat',   icon:'📊',desc:'Realitza 10 trades.',                               points:100,  target:10,   name:'Actiu'},
+    {id:'veterà',         category:'Volum i Activitat',   icon:'📊',desc:'Realitza 100 trades.',                              points:250,  target:100,  name:'Veterà'},
+    {id:'maquina_guerra', category:'Volum i Activitat',   icon:'📊',desc:'Realitza 1.000 trades.',                            points:600,  target:1000, name:'Màquina de Guerra'},
+    {id:'diversificat',   category:'Volum i Activitat',   icon:'🧭',desc:'Opera amb 5 actius diferents.',                    points:150,  target:5,    name:'Diversificat'},
+    {id:'ordre_limit',    category:'Volum i Activitat',   icon:'📋',desc:'Executa la primera ordre límit.',                   points:80,   target:1,    name:'Ordre Límit'},
+    {id:'en_positiu',     category:'Beneficis Acumulats', icon:'💰',desc:'Aconsegueix +100 USDT de PnL total.',               points:100,  target:100,  name:'En Positiu'},
+    {id:'quatre_digits',  category:'Beneficis Acumulats', icon:'💰',desc:'Aconsegueix +1.000 USDT de PnL total.',             points:200,  target:1000, name:'Quatre Dígits'},
+    {id:'cinc_digits',    category:'Beneficis Acumulats', icon:'💰',desc:'Aconsegueix +10.000 USDT de PnL total.',            points:500,  target:10000,name:'Cinc Dígits'},
+    {id:'franctirador',   category:'Precisió',            icon:'🎯',desc:'5 trades consecutius en positiu.',                  points:180,  target:5,    name:'Franctirador'},
+    {id:'imparable',      category:'Precisió',            icon:'🎯',desc:'10 trades consecutius en positiu.',                 points:350,  target:10,   name:'Imparable'},
+    {id:'perfeccionista', category:'Precisió',            icon:'🎯',desc:'Win rate > 80% amb mínim 20 trades.',               points:300,  target:80,   name:'Perfeccionista'},
+    {id:'night_trader',   category:'Especials',           icon:'🌙',desc:'Obre una posició entre les 00:00 i les 06:00.',     points:120,  target:1,    name:'Night Trader'},
+    {id:'matiner',        category:'Especials',           icon:'⚡',desc:'Obre una posició entre les 06:00 i les 08:00.',     points:120,  target:1,    name:'Matiner'},
+    {id:'hodler',         category:'Especials',           icon:'⏳',desc:'Mantén una posició oberta durant més de 24h.',      points:220,  target:24,   name:'Hodler'},
+    {id:'adrenalina',     category:'Especials',           icon:'⚡',desc:'Opera amb x50 de leverage.',                        points:160,  target:50,   name:'Adrenalina'},
+    {id:'sobrevivent',    category:'Especials',           icon:'💀',desc:'Sobreviu a una liquidació i torna a operar.',       points:200,  target:1,    name:'Sobrevivent'},
   ];
 
   /* ── Formatters ── */
@@ -912,8 +901,7 @@
 
   function flashEl(el,dir){
     if(!el) return;
-    el.classList.remove('flash-up','flash-down');
-    void el.offsetWidth;
+    el.classList.remove('flash-up','flash-down'); void el.offsetWidth;
     el.classList.add(dir==='up'?'flash-up':'flash-down');
     setTimeout(()=>el.classList.remove('flash-up','flash-down'),900);
   }
@@ -932,39 +920,123 @@
     setTimeout(()=>{t.classList.remove('show');setTimeout(()=>t.remove(),320);},4000);
   };
 
-  /* ── State persistence ── */
-  function saveLocalState(){
-    localStorage.setItem('lot_balance',String(State.balance));
-    localStorage.setItem('lot_positions',JSON.stringify(State.positions));
-    localStorage.setItem('lot_trade_history',JSON.stringify(State.tradeHistory));
-    localStorage.setItem('lot_achievements',JSON.stringify(State.achievements));
-    localStorage.setItem('lot_leagues',JSON.stringify(State.leagues));
+  /* ── MILLORA 6: Alert gran per TP/SL/Liquidació ── */
+  window.closeAlert=function(){document.getElementById('alert-overlay').classList.add('hidden');};
+
+  function showAlert(reason, pos, pnl){
+    const isLiq = reason==='liquidated';
+    const isTp  = reason==='tp';
+    const overlay = document.getElementById('alert-overlay');
+    const card = document.getElementById('alert-card');
+    card.className = 'alert-card ' + (isLiq?'liq':isTp?'tp':'sl');
+    document.getElementById('alert-icon').textContent = isLiq?'💀':isTp?'🎯':'🛡️';
+    document.getElementById('alert-title').textContent = isLiq?'POSICIÓ LIQUIDADA':isTp?'TAKE PROFIT!':'STOP LOSS';
+    document.getElementById('alert-detail').textContent = (pnl>=0?'+':'')+fmtUSDT(pnl)+' USDT';
+    document.getElementById('alert-detail').style.color = pnl>=0?'#34d399':'#fb7185';
+    document.getElementById('alert-sub').textContent = `${assetBase(pos.symbol)} ${pos.type} · x${pos.leverage} · ${fmtPrice(pos.entryPrice,pos.symbol)} → ${fmtPrice(State.prices[pos.symbol]||pos.entryPrice,pos.symbol)}`;
+    overlay.classList.remove('hidden');
+    // Vibrar si possible
+    if(navigator.vibrate) navigator.vibrate(isLiq?[300,100,300,100,300]:[200,100,200]);
+    setTimeout(()=>overlay.classList.add('hidden'),6000);
   }
-  function loadLocalState(){
-    State.balance=Number(localStorage.getItem('lot_balance'))||STARTING_BALANCE;
-    State.positions=JSON.parse(localStorage.getItem('lot_positions')||'[]');
-    State.tradeHistory=JSON.parse(localStorage.getItem('lot_trade_history')||'[]');
-    State.achievements=JSON.parse(localStorage.getItem('lot_achievements')||'{}');
-    State.leagues=JSON.parse(localStorage.getItem('lot_leagues')||'[]');
+
+  /* ── MILLORA 8: Tema ── */
+  window.toggleTheme=function(){
+    const isLight=document.documentElement.classList.toggle('light');
+    document.documentElement.classList.toggle('dark',!isLight);
+    localStorage.setItem('lot_theme',isLight?'light':'dark');
+    document.getElementById('theme-toggle-btn').textContent=isLight?'☀️':'🌙';
+    const pbtn=document.getElementById('theme-profile-btn');
+    if(pbtn) pbtn.textContent=isLight?'Clar ☀️':'Fosc 🌙';
+  };
+  function loadTheme(){
+    const t=localStorage.getItem('lot_theme')||'dark';
+    document.documentElement.className=t;
+    const btn=document.getElementById('theme-toggle-btn');
+    if(btn) btn.textContent=t==='light'?'☀️':'🌙';
+    const pbtn=document.getElementById('theme-profile-btn');
+    if(pbtn) pbtn.textContent=t==='light'?'Clar ☀️':'Fosc 🌙';
+  }
+
+  /* ── MILLORA 7: Tutorial ── */
+  const TUTORIAL_STEPS = [
+    {icon:'🚀',title:'Benvingut a TradeLeague!',desc:'Aprèn a fer trading amb preus reals de mercat sense arriscar diners reals. Tens 10.000 USDT virtuals per començar.'},
+    {icon:'📈',title:'Tria un actiu',desc:'A "Actius" trobaràs 15 criptomonedes amb preus en temps real via Binance. Toca qualsevol carta per obrir el gràfic.'},
+    {icon:'⚡',title:'Palanquejament',desc:'El leverage multiplica els teus guanys i pèrdues. x10 significa que amb 100 USDT controles 1.000 USDT. Atenció: a x10 una baixada del 10% liquida la posició!'},
+    {icon:'📋',title:'Ordres de mercat i límit',desc:'Una ordre de mercat s\'executa immediatament al preu actual. Una ordre límit s\'activa quan el preu arriba al teu preu objectiu.'},
+    {icon:'🏆',title:'Lligues i assoliments',desc:'Competeix contra amics a les lligues fantasy amb saldo virtual independent. Desbloqueja assoliments mentre millores com a trader!'},
+  ];
+
+  window.initTutorial=function(force=false){
+    if(!force && localStorage.getItem('lot_tutorial_done')) return;
+    State.tutorialStep=0;
+    renderTutorialStep();
+    document.getElementById('tutorial-overlay').classList.remove('hidden');
+  };
+  window.closeTutorial=function(){
+    document.getElementById('tutorial-overlay').classList.add('hidden');
+    localStorage.setItem('lot_tutorial_done','1');
+  };
+  window.tutorialNext=function(){
+    if(State.tutorialStep<TUTORIAL_STEPS.length-1){State.tutorialStep++;renderTutorialStep();}
+    else closeTutorial();
+  };
+  window.tutorialPrev=function(){
+    if(State.tutorialStep>0){State.tutorialStep--;renderTutorialStep();}
+  };
+  function renderTutorialStep(){
+    const s=TUTORIAL_STEPS[State.tutorialStep];
+    document.getElementById('tut-icon').textContent=s.icon;
+    document.getElementById('tut-title').textContent=s.title;
+    document.getElementById('tut-desc').textContent=s.desc;
+    const dots=document.getElementById('tut-dots');
+    dots.innerHTML=TUTORIAL_STEPS.map((_,i)=>`<div class="tutorial-dot ${i===State.tutorialStep?'active':''}"></div>`).join('');
+    const prev=document.getElementById('tut-prev');
+    const next=document.getElementById('tut-next');
+    prev.style.visibility=State.tutorialStep===0?'hidden':'visible';
+    next.textContent=State.tutorialStep===TUTORIAL_STEPS.length-1?'Comencem! 🚀':'Següent →';
+  }
+
+  /* ── State persistence ── */
+  function clearLocalTradingState(){
+    ['lot_balance','lot_positions','lot_trade_history','lot_achievements','lot_leagues','lot_pending_orders','lot_balance_history'].forEach(k=>localStorage.removeItem(k));
+  }
+  function resetTradingState(){
+    State.balance=STARTING_BALANCE;
+    State.positions=[];
+    State.tradeHistory=[];
+    State.achievements={};
+    State.leagues=[];
+    State.pendingOrders=[];
+    State.balanceHistory=[];
+    State.activeLeagueId=null;
+    State.bottomTab='positions';
   }
   async function saveRemoteState(){
-    saveLocalState();
-    if(!Firebase.active||!State.user) return;
+    if(!Firebase.active||!State.user) return false;
     const {doc,setDoc}=Firebase.helpers;
-    await setDoc(doc(Firebase.db,'users',State.user.uid),{balance:State.balance,positions:State.positions,tradeHistory:State.tradeHistory,achievements:State.achievements,updatedAt:new Date()},{merge:true});
-    for(const lg of State.leagues) await setDoc(doc(Firebase.db,'leagues',lg.id),lg,{merge:true});
+    try{
+      await setDoc(doc(Firebase.db,'users',State.user.uid),{
+        balance:State.balance,positions:State.positions,tradeHistory:State.tradeHistory,
+        achievements:State.achievements,pendingOrders:State.pendingOrders,balanceHistory:State.balanceHistory,leagues:State.leagues,updatedAt:new Date()
+      },{merge:true});
+      for(const lg of State.leagues) await setDoc(doc(Firebase.db,'leagues',lg.id),lg,{merge:true});
+      return true;
+    }catch(e){
+      console.error('No s\'ha pogut desar a Firebase.',e);
+      showToast('No s\'ha pogut desar al núvol. Revisa la connexió.','error');
+      return false;
+    }
   }
 
   /* ── Balance ── */
   function updateBalance(){
     document.getElementById('balance-display').textContent=fmtUSDT(State.balance);
-    const sh=document.getElementById('sheet-balance');
-    if(sh) sh.textContent=fmtUSDT(State.balance)+' USDT';
-    const pill=document.getElementById('game-balance-pill');
-    if(pill) pill.textContent=fmtUSDT(State.balance)+' USDT';
+    const sh=document.getElementById('sheet-balance');if(sh) sh.textContent=fmtUSDT(State.balance)+' USDT';
+    const pill=document.getElementById('game-balance-pill');if(pill) pill.textContent=fmtUSDT(State.balance)+' USDT';
   }
 
-  /* ── Market info (chart header) ── */
+  /* ── Market info ── */
   function updateMarketInfo(){
     const sym=State.currentAsset;
     const stats=State.marketStats[sym]||{};
@@ -983,14 +1055,12 @@
     if(cc){cc.textContent=(change>=0?'+':'')+fmtPct(change);cc.style.color=change>=0?'#34d399':'#fb7185';}
     document.getElementById('24h-volume').textContent=stats.volume?`${fmtUSDT(stats.volume)} ${assetBase(sym)}`:'---';
     document.getElementById('sheet-symbol').textContent=sym;
-    calculateOrder();
-    updateUnrealizedPnlBar();
+    calculateOrder();updateUnrealizedPnlBar();
   }
 
   function updateUnrealizedPnlBar(){
     const total=State.positions.reduce((s,p)=>s+positionPnl(p),0);
-    const el=document.getElementById('unrealized-pnl');
-    if(!el) return;
+    const el=document.getElementById('unrealized-pnl');if(!el) return;
     el.textContent=(total>=0?'+':'')+fmtUSDT(total)+' USDT';
     el.style.color=total>=0?'#34d399':'#fb7185';
   }
@@ -998,45 +1068,33 @@
   /* ── Section switching ── */
   window.switchSection=function(section){
     State.activeSection=section;
-    // Map section → html id
     const sectionIds={assets:'assets-section',trade:'trade-section',chart:'chart-section',league:'league-section',portfolio:'portfolio-section',achievements:'achievements-section',profile:'profile-section'};
     document.querySelectorAll('.app-section').forEach(el=>el.classList.remove('active'));
-    const targetId=sectionIds[section];
-    if(targetId) document.getElementById(targetId)?.classList.add('active');
-    // Bottom nav active state
+    document.getElementById(sectionIds[section])?.classList.add('active');
     let navId;
     if(section==='assets') navId='nav-home';
     else if(section==='trade'||section==='chart') navId='nav-assets';
     else navId=`nav-${section}`;
     document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
     document.getElementById(navId)?.classList.add('active');
-    // Section-specific renders
     if(section==='league') renderLeagues();
-    if(section==='portfolio'){updatePortfolio();}
+    if(section==='portfolio') updatePortfolio();
     if(section==='achievements') renderAchievements();
     if(section==='profile') renderProfile();
   };
 
-  /* ── Asset selection → chart ── */
+  /* ── Asset selection ── */
   function setActiveAsset(sym){
     if(!ASSET_MAP[sym]) return;
-    State.currentAsset=sym;
-    updateMarketInfo();
-    updatePositionsTable();
-    renderAssetsList();
+    State.currentAsset=sym;updateMarketInfo();updatePositionsTable();renderAssetsList();
   }
-
   window.selectAsset=function(sym){
-    setActiveAsset(sym);
-    syncTradingViewSymbol(sym);
-    fetchAnyRealSnapshot().catch(()=>{});
-    switchSection('chart');
+    setActiveAsset(sym);syncTradingViewSymbol(sym);fetchAnyRealSnapshot().catch(()=>{});switchSection('chart');
   };
 
-  /* ── Render assets list (full cards) ── */
+  /* ── Render assets list ── */
   function renderAssetsList(){
-    const container=document.getElementById('assets-menu');
-    if(!container) return;
+    const container=document.getElementById('assets-menu');if(!container) return;
     container.innerHTML=ASSETS.map(asset=>{
       const price=State.prices[asset.symbol];
       const prev=State.prevPrices[asset.symbol];
@@ -1044,32 +1102,25 @@
       const vol=State.marketStats[asset.symbol]?.volume;
       const isActive=State.currentAsset===asset.symbol;
       const direction=prev&&price>prev?'price-up':prev&&price<prev?'price-down':'';
-      return `
-        <div onclick="selectAsset('${asset.symbol}')" class="asset-card${isActive?' active':''}">
-          <div class="asset-icon">
-            <img src="${asset.icon}" alt="${asset.name}" onerror="this.style.display='none';this.parentElement.textContent='${asset.emoji}'">
-          </div>
-          <div class="asset-info">
-            <div class="asset-name">${asset.name}</div>
-            <div class="asset-symbol">${asset.symbol}</div>
-            ${vol?`<div class="asset-vol">${fmtUSDT(vol/1e6)}M</div>`:''}
-          </div>
-          <div class="asset-price-col">
-            <div id="asset-price-${asset.symbol}" class="asset-price-val ${direction}">${price?fmtPrice(price,asset.symbol):'---'}</div>
-            <div><span class="asset-change ${change>=0?'change-up':'change-down'}">${change>=0?'+':''}${fmtPct(change)}</span></div>
-          </div>
-        </div>`;
+      return `<div onclick="selectAsset('${asset.symbol}')" class="asset-card${isActive?' active':''}">
+        <div class="asset-icon"><img src="${asset.icon}" alt="${asset.name}" onerror="this.style.display='none';this.parentElement.textContent='${asset.emoji}'"></div>
+        <div class="asset-info">
+          <div class="asset-name">${asset.name}</div>
+          <div class="asset-symbol">${asset.symbol}</div>
+          ${vol?`<div class="asset-vol">${fmtUSDT(vol/1e6)}M</div>`:''}
+        </div>
+        <div class="asset-price-col">
+          <div id="asset-price-${asset.symbol}" class="asset-price-val ${direction}">${price?fmtPrice(price,asset.symbol):'---'}</div>
+          <div><span class="asset-change ${change>=0?'change-up':'change-down'}">${change>=0?'+':''}${fmtPct(change)}</span></div>
+        </div>
+      </div>`;
     }).join('');
   }
-  // alias for legacy calls
-  function renderAssetsMenu(){renderAssetsList();}
 
   /* ── WS Status ── */
   function setWsStatus(connected,label=null){
-    const el=document.getElementById('ws-status');
-    const text=label||(connected?'LIVE':'OFF');
-    el.textContent=text;
-    el.className='ws-pill '+(connected?'ws-live':'ws-dead');
+    const el=document.getElementById('ws-status');const text=label||(connected?'LIVE':'OFF');
+    el.textContent=text;el.className='ws-pill '+(connected?'ws-live':'ws-dead');
   }
 
   /* ── TradingView ── */
@@ -1078,31 +1129,29 @@
     const container=document.getElementById('tv_chart_container');
     if(forceRebuild&&container){container.innerHTML='';State.tvWidget=null;}
     const w=new TradingView.widget({
-      width:'100%',height:'100%',symbol:`BINANCE:${sym}`,interval:'15',timezone:'Europe/Madrid',theme:'dark',style:'1',locale:'ca',
-      toolbar_bg:'#0f172a',enable_publishing:false,allow_symbol_change:true,container_id:'tv_chart_container',
-      drawings_access:{type:'all',tools:[{name:'Trend Line',grayed:false},{name:'Arrow Up',grayed:false},{name:'Arrow Down',grayed:false},{name:'Text',grayed:false},{name:'Measure',grayed:false}]},
-      show_popup_button:true,popup_width:'1000',popup_height:'650',
+      width:'100%',height:'100%',symbol:`BINANCE:${sym}`,interval:'15',timezone:'Europe/Madrid',
+      theme:'dark',style:'1',locale:'ca',toolbar_bg:'#0f172a',enable_publishing:false,
+      allow_symbol_change:true,container_id:'tv_chart_container',
+      drawings_access:{type:'all',tools:[{name:'Trend Line',grayed:false},{name:'Arrow Up',grayed:false},{name:'Arrow Down',grayed:false},{name:'Text',grayed:false}]},
       studies:['RSI@tv-basicstudies','MASimple@tv-basicstudies'],
-      hide_top_toolbar:false,hide_legend:false,hide_side_toolbar:false,save_image:false,
-      backgroundColor:'#020617',gridLineColor:'rgba(255,255,255,0.05)'
+      hide_top_toolbar:false,save_image:false,backgroundColor:'#020617',gridLineColor:'rgba(255,255,255,0.05)'
     });
     State.tvWidget=w;State.chartSymbol=sym;
     if(!w||typeof w.onChartReady!=='function') return;
     w.onChartReady(()=>{
-      try{
-        w.chart().onSymbolChanged().subscribe(null,info=>{
-          const s=String(info.name||info.ticker||'').replace('BINANCE:','').replace('/','');
-          if(ASSET_MAP[s]){State.currentAsset=s;updateMarketInfo();renderAssetsList();}
-        });
-      }catch(e){}
+      try{w.chart().onSymbolChanged().subscribe(null,info=>{
+        const s=String(info.name||info.ticker||'').replace('BINANCE:','').replace('/','');
+        if(ASSET_MAP[s]){State.currentAsset=s;updateMarketInfo();renderAssetsList();}
+      });}catch(e){}
+      // Redibuixar línies de posicions obertes
+      State.positions.forEach(p=>drawPositionLines(p));
     });
   }
 
   function syncTradingViewSymbol(sym){
     if(!window.TradingView) return;
     let changed=false;
-    try{
-      const chart=State.tvWidget&&typeof State.tvWidget.chart==='function'?State.tvWidget.chart():null;
+    try{const chart=State.tvWidget&&typeof State.tvWidget.chart==='function'?State.tvWidget.chart():null;
       if(chart&&typeof chart.setSymbol==='function'){chart.setSymbol(`BINANCE:${sym}`,'15');State.chartSymbol=sym;changed=true;}
     }catch(e){changed=false;}
     if(!changed||State.chartSymbol!==sym) initTradingView(sym,true);
@@ -1116,23 +1165,22 @@
   function drawPositionLines(position){
     if(!State.tvWidget) return;
     const bp={price:position.entryPrice,time:Math.floor(position.openTime/1000)};
-    const el=createShape(position,bp,{shape:'horizontal_line',overrides:{linecolor:position.type==='LONG'?'#10b981':'#ef4444',linewidth:2,linestyle:0,text:`${position.type} ${position.size.toFixed(4)} ${assetBase(position.symbol)}`,showText:true,textcolor:position.type==='LONG'?'#10b981':'#ef4444',fontsize:11}});
+    const el=createShape(position,bp,{shape:'horizontal_line',overrides:{linecolor:position.type==='LONG'?'#10b981':'#ef4444',linewidth:2,linestyle:0,text:`${position.type} x${position.leverage} · ${position.size.toFixed(4)} ${assetBase(position.symbol)}`,showText:true,textcolor:position.type==='LONG'?'#10b981':'#ef4444',fontsize:11}});
     const tl=position.tp?createShape(position,{price:position.tp,time:bp.time},{shape:'horizontal_line',overrides:{linecolor:'#f59e0b',linewidth:1,linestyle:2,text:`TP: ${fmtPrice(position.tp,position.symbol)}`,showText:true,textcolor:'#f59e0b',fontsize:10}}):null;
     const sl=position.sl?createShape(position,{price:position.sl,time:bp.time},{shape:'horizontal_line',overrides:{linecolor:'#fb7185',linewidth:1,linestyle:2,text:`SL: ${fmtPrice(position.sl,position.symbol)}`,showText:true,textcolor:'#fb7185',fontsize:10}}):null;
-    State.chartLines[position.id]={...(State.chartLines[position.id]||{}),entryLine:el,tpLine:tl,slLine:sl};
+    // MILLORA 3: Línia de liquidació al chart
+    const liqPrice=position.type==='LONG'?position.entryPrice*(1-1/position.leverage):position.entryPrice*(1+1/position.leverage);
+    const ll=createShape(position,{price:liqPrice,time:bp.time},{shape:'horizontal_line',overrides:{linecolor:'#dc2626',linewidth:1,linestyle:1,text:`LIQ: ${fmtPrice(liqPrice,position.symbol)}`,showText:true,textcolor:'#dc2626',fontsize:9}});
+    State.chartLines[position.id]={...(State.chartLines[position.id]||{}),entryLine:el,tpLine:tl,slLine:sl,liqLine:ll};
   }
   function removePositionLines(positionId){
-    const lines=State.chartLines[positionId];
-    if(!lines||!State.tvWidget||typeof State.tvWidget.chart!=='function') return;
-    try{const c=State.tvWidget.chart();['entryLine','tpLine','slLine','openMarker'].forEach(k=>{if(lines[k])c.removeEntity(lines[k]);});}catch(e){}
+    const lines=State.chartLines[positionId];if(!lines||!State.tvWidget||typeof State.tvWidget.chart!=='function') return;
+    try{const c=State.tvWidget.chart();['entryLine','tpLine','slLine','liqLine','openMarker'].forEach(k=>{if(lines[k])c.removeEntity(lines[k]);});}catch(e){}
     delete State.chartLines[positionId];
   }
   function addTradeMarker(position,action,closePrice=null,pnl=0){
     if(!State.tvWidget) return;
-    const isOpen=action==='OPEN';
-    const price=isOpen?position.entryPrice:closePrice;
-    const time=Math.floor((isOpen?position.openTime:Date.now())/1000);
-    const pos=pnl>=0;
+    const isOpen=action==='OPEN';const price=isOpen?position.entryPrice:closePrice;const time=Math.floor((isOpen?position.openTime:Date.now())/1000);const pos=pnl>=0;
     const marker=createShape(position,{price,time},{shape:isOpen?(position.type==='LONG'?'arrow_up':'arrow_down'):'label',overrides:{text:isOpen?`${position.type} x${position.leverage}`:`CLOSE ${pos?'+':''}${fmtUSDT(pnl)}$`,fontsize:12,color:isOpen?(position.type==='LONG'?'#10b981':'#ef4444'):(pos?'#10b981':'#ef4444'),textcolor:isOpen?(position.type==='LONG'?'#10b981':'#ef4444'):'#ffffff',backgroundColor:pos?'#10b981':'#ef4444'}});
     if(isOpen) State.chartLines[position.id]={...(State.chartLines[position.id]||{}),openMarker:marker};
     else State.chartLines[`${position.id}-close`]={closeMarker:marker};
@@ -1141,33 +1189,43 @@
   /* ── Trade type ── */
   window.setTradeType=function(type){
     State.tradeType=type;
-    const bl=document.getElementById('btn-long');
-    const bs=document.getElementById('btn-short');
-    const ex=document.getElementById('execute-order');
+    const bl=document.getElementById('btn-long'),bs=document.getElementById('btn-short'),ex=document.getElementById('execute-order');
     if(type==='LONG'){
       bl.style.cssText='padding:12px;border-radius:10px;font-weight:700;font-size:14px;cursor:pointer;border:1px solid rgba(16,185,129,.5);background:rgba(16,185,129,.15);color:#34d399;';
       bs.style.cssText='padding:12px;border-radius:10px;font-weight:700;font-size:14px;cursor:pointer;border:1px solid rgba(255,255,255,.1);background:none;color:#64748b;';
-      ex.textContent='Obrir Posició LONG';ex.style.background='#10b981';
+      ex.textContent=State.orderType==='limit'?'Crear Ordre Límit LONG':'Obrir Posició LONG';ex.style.background='#10b981';
     }else{
       bs.style.cssText='padding:12px;border-radius:10px;font-weight:700;font-size:14px;cursor:pointer;border:1px solid rgba(239,68,68,.5);background:rgba(239,68,68,.15);color:#fb7185;';
       bl.style.cssText='padding:12px;border-radius:10px;font-weight:700;font-size:14px;cursor:pointer;border:1px solid rgba(255,255,255,.1);background:none;color:#64748b;';
-      ex.textContent='Obrir Posició SHORT';ex.style.background='#ef4444';
+      ex.textContent=State.orderType==='limit'?'Crear Ordre Límit SHORT':'Obrir Posició SHORT';ex.style.background='#ef4444';
     }
     calculateOrder();
   };
 
-  window.setAmountPercent=function(pct){
-    document.getElementById('order-amount').value=Math.floor(State.balance*(pct/100));
+  /* ── MILLORA 2: Tipus d'ordre ── */
+  window.setOrderType=function(type){
+    State.orderType=type;
+    const mBtn=document.getElementById('otype-market'),lBtn=document.getElementById('otype-limit');
+    const lRow=document.getElementById('limit-price-row'),ex=document.getElementById('execute-order');
+    mBtn.className='order-type-btn'+(type==='market'?' active-market':'');
+    lBtn.className='order-type-btn'+(type==='limit'?' active-limit':'');
+    lRow.className='limit-price-row'+(type==='limit'?' show':'');
+    const dir=State.tradeType==='LONG'?'LONG':'SHORT';
+    ex.textContent=type==='limit'?`Crear Ordre Límit ${dir}`:`Obrir Posició ${dir}`;
     calculateOrder();
+  };
+
+  window.setAmountPercent=function(pct){
+    document.getElementById('order-amount').value=Math.floor(State.balance*(pct/100));calculateOrder();
   };
 
   function calculateOrder(){
     const amount=parseFloat(document.getElementById('order-amount')?.value)||0;
-    const price=State.prices[State.currentAsset]||0;
-    const lev=State.leverage;
+    const marketPrice=State.prices[State.currentAsset]||0;const lev=State.leverage;
+    const limitPrice=parseFloat(document.getElementById('limit-price')?.value)||0;
+    const price=State.orderType==='limit'&&limitPrice>0?limitPrice:marketPrice;
     if(amount>0&&price>0){
-      const sz=amount/price;
-      const mg=amount/lev;
+      const sz=(amount*lev)/price,mg=amount;
       document.getElementById('margin-required').textContent=`${fmtUSDT(mg)} USDT`;
       document.getElementById('position-size').textContent=`${sz.toFixed(4)} ${assetBase()}`;
       const lq=State.tradeType==='LONG'?price*(1-(1/lev)):price*(1+(1/lev));
@@ -1179,22 +1237,60 @@
     }
   }
 
+  function requireAuth(action='operar'){
+    if(State.user) return true;
+    showToast(`Has d'iniciar sessió per ${action}.`,'warning');
+    const sheet=document.getElementById('trading-sheet'),bd=document.getElementById('ts-backdrop');
+    sheet?.classList.remove('open');bd?.classList.remove('open');
+    document.getElementById('auth-modal')?.classList.remove('hidden');
+    return false;
+  }
+
   /* ── Execute order ── */
   window.executeOrder=async function(){
-    if(!State.user){
-      showToast('Has d\'iniciar sessió per operar.','warning');
-      toggleOrderPanel(false);
-      openAuthModal();
-      return;
-    }
+    if(!requireAuth('operar')) return;
     const amount=parseFloat(document.getElementById('order-amount').value)||0;
     const price=State.prices[State.currentAsset];
     if(!price){showToast('Encara no hi ha preu per a aquest actiu.','warning');return;}
-    if(amount<=0||amount>State.balance){showToast('Quantitat invàlida o saldo insuficient.','error');return;}
     const lev=State.leverage;
+    const margin=amount;
+    if(amount<=0||margin>State.balance){showToast('Quantitat invàlida o saldo insuficient.','error');return;}
     const tp=parseFloat(document.getElementById('tp-price').value)||null;
     const sl=parseFloat(document.getElementById('sl-price').value)||null;
-    const position={id:crypto.randomUUID(),symbol:State.currentAsset,type:State.tradeType,size:amount/price,entryPrice:price,leverage:lev,margin:amount/lev,tp,sl,openTime:Date.now()};
+    const validateStops=(entry)=>{
+      if(State.tradeType==='LONG'&&tp&&tp<=entry) return 'El Take Profit d\'un LONG ha d\'estar per sobre de l\'entrada.';
+      if(State.tradeType==='LONG'&&sl&&sl>=entry) return 'L\'Stop Loss d\'un LONG ha d\'estar per sota de l\'entrada.';
+      if(State.tradeType==='SHORT'&&tp&&tp>=entry) return 'El Take Profit d\'un SHORT ha d\'estar per sota de l\'entrada.';
+      if(State.tradeType==='SHORT'&&sl&&sl<=entry) return 'L\'Stop Loss d\'un SHORT ha d\'estar per sobre de l\'entrada.';
+      return null;
+    };
+
+    // MILLORA 2: Gestió ordre límit
+    if(State.orderType==='limit'){
+      const limitPrice=parseFloat(document.getElementById('limit-price').value)||null;
+      if(!limitPrice||limitPrice<=0){showToast('Introdueix un preu límit vàlid.','error');return;}
+      if(State.tradeType==='LONG'&&limitPrice>=price){showToast('Un LONG límit ha d\'estar per sota del preu actual.','warning');return;}
+      if(State.tradeType==='SHORT'&&limitPrice<=price){showToast('Un SHORT límit ha d\'estar per sobre del preu actual.','warning');return;}
+      const stopError=validateStops(limitPrice);if(stopError){showToast(stopError,'warning');return;}
+      const pendingOrder={
+        id:crypto.randomUUID(),symbol:State.currentAsset,type:State.tradeType,
+        amount,limitPrice,leverage:lev,margin,tp,sl,createdAt:Date.now()
+      };
+      State.balance-=pendingOrder.margin;
+      State.pendingOrders.push(pendingOrder);
+      updateBalance();updateOrdersTable();
+      document.getElementById('order-amount').value='';
+      document.getElementById('tp-price').value='';
+      document.getElementById('sl-price').value='';
+      document.getElementById('limit-price').value='';
+      await saveRemoteState();
+      showToast(`Ordre límit ${pendingOrder.type} creada a ${fmtPrice(limitPrice,State.currentAsset)}.`,'info');
+      toggleOrderPanel(false);
+      return;
+    }
+
+    const stopError=validateStops(price);if(stopError){showToast(stopError,'warning');return;}
+    const position={id:crypto.randomUUID(),symbol:State.currentAsset,type:State.tradeType,size:(amount*lev)/price,entryPrice:price,leverage:lev,margin,tp,sl,openTime:Date.now()};
     State.balance-=position.margin;
     State.positions.push(position);
     updateBalance();updatePositionsTable();drawPositionLines(position);addTradeMarker(position,'OPEN');
@@ -1204,33 +1300,112 @@
     calculateOrder();checkAchievements();
     await saveRemoteState();
     showToast(`Posició ${position.type} oberta a ${fmtPrice(price,position.symbol)}.`,'success');
-    toggleOrderPanel(false);
-    updateUnrealizedPnlBar();
+    toggleOrderPanel(false);updateUnrealizedPnlBar();
   };
 
-  window.closePosition=async function(positionId,reason='manual'){
-    const idx=State.positions.findIndex(p=>p.id===positionId);
-    if(idx===-1) return;
+  window.closePosition=async function(positionId,reason='manual',exitPrice=null){
+    if(!requireAuth('gestionar posicions')) return;
+    const idx=State.positions.findIndex(p=>p.id===positionId);if(idx===-1) return;
     const pos=State.positions[idx];
-    const cp=State.prices[pos.symbol]||pos.entryPrice;
+    const cp=exitPrice||State.prices[pos.symbol]||pos.entryPrice;
     const pnl=pos.type==='LONG'?(cp-pos.entryPrice)*pos.size:(pos.entryPrice-cp)*pos.size;
     const roe=pos.margin?(pnl/pos.margin)*100:0;
     const closeTime=Date.now();
     const trade={...pos,closeTime,exitPrice:cp,pnl,roe,duration:closeTime-pos.openTime,reason};
-    State.balance+=pos.margin+pnl;
+    // MILLORA 1: Si liquidat, el saldo és 0 d'aquesta posició (marge perdut)
+    State.balance+=reason==='liquidated'?0:pos.margin+pnl;
     State.positions.splice(idx,1);
     removePositionLines(positionId);
     addTradeMarker(pos,'CLOSE',cp,pnl);
     State.tradeHistory.unshift(trade);
+    // MILLORA 5: Guardar historial de saldo
+    State.balanceHistory.push({timestamp:closeTime,value:State.balance});
+    if(State.balanceHistory.length>500) State.balanceHistory=State.balanceHistory.slice(-500);
     updateBalance();updatePositionsTable();updateHistoryTable();updatePortfolio();updateLeaguesAfterTrade(trade);checkAchievements();
     await saveRemoteState();
-    showToast(`${reason==='tp'?'Take Profit':reason==='sl'?'Stop Loss':'Posició'} tancada: ${pnl>=0?'+':''}${fmtUSDT(pnl)} USDT.`,pnl>=0?'success':'warning');
+    // MILLORA 6: Alert gran per TP/SL/Liquidació
+    if(reason==='tp'||reason==='sl'||reason==='liquidated'){
+      showAlert(reason,pos,pnl);
+    } else {
+      showToast(`Posició tancada: ${pnl>=0?'+':''}${fmtUSDT(pnl)} USDT.`,pnl>=0?'success':'warning');
+    }
     updateUnrealizedPnlBar();
+    // Achievement sobrevivent si liquidat i segueix operant
+    if(reason==='liquidated'){
+      const prev=State.achievements['sobrevivent'];
+      if(!prev?.completed){State.achievements['sobrevivent']={progress:1,completed:false};}
+    }
   };
+
+  /* ── MILLORA 2: Cancel·lar ordre límit ── */
+  window.cancelOrder=async function(orderId){
+    if(!requireAuth('gestionar ordres')) return;
+    const idx=State.pendingOrders.findIndex(o=>o.id===orderId);if(idx===-1) return;
+    const order=State.pendingOrders[idx];
+    State.balance+=order.margin;
+    State.pendingOrders.splice(idx,1);
+    updateBalance();updateOrdersTable();
+    await saveRemoteState();
+    showToast('Ordre límit cancel·lada.','info');
+  };
+
+  /* ── MILLORA 2: Verificar ordres límit en cada tick de preu ── */
+  function checkPendingOrders(sym,price){
+    if(!State.user) return;
+    const toExecute=State.pendingOrders.filter(o=>o.symbol===sym&&(
+      (o.type==='LONG'&&price<=o.limitPrice)||(o.type==='SHORT'&&price>=o.limitPrice)
+    ));
+    toExecute.forEach(async o=>{
+      const idx=State.pendingOrders.findIndex(x=>x.id===o.id);if(idx===-1) return;
+      State.pendingOrders.splice(idx,1);
+      // Crear posició
+      const position={id:crypto.randomUUID(),symbol:o.symbol,type:o.type,size:(o.amount*o.leverage)/o.limitPrice,
+        entryPrice:o.limitPrice,leverage:o.leverage,margin:o.margin,tp:o.tp,sl:o.sl,openTime:Date.now()};
+      State.positions.push(position);
+      updatePositionsTable();drawPositionLines(position);addTradeMarker(position,'OPEN');
+      updateOrdersTable();
+      // Assoliment ordre límit
+      if(!State.achievements['ordre_limit']?.completed){
+        State.achievements['ordre_limit']={progress:1,completed:true};
+        showToast('🏆 Assoliment: Ordre Límit','success');
+      }
+      await saveRemoteState();
+      showToast(`Ordre límit executada: ${position.type} ${assetBase(position.symbol)} a ${fmtPrice(position.entryPrice,position.symbol)}.`,'success');
+      updateUnrealizedPnlBar();
+    });
+    if(toExecute.length>0) updateOrdersTable();
+  }
 
   function positionPnl(pos){
     const cp=State.prices[pos.symbol]||pos.entryPrice;
     return pos.type==='LONG'?(cp-pos.entryPrice)*pos.size:(pos.entryPrice-cp)*pos.size;
+  }
+
+  /* ── MILLORA 1: Motor de liquidació ── */
+  function checkLiquidation(){
+    const liquidated=new Set();
+    State.positions.slice().forEach(pos=>{
+      const p=State.prices[pos.symbol];if(!p) return;
+      const liqPrice=pos.type==='LONG'?pos.entryPrice*(1-1/pos.leverage):pos.entryPrice*(1+1/pos.leverage);
+      if((pos.type==='LONG'&&p<=liqPrice)||(pos.type==='SHORT'&&p>=liqPrice)){
+        setTimeout(()=>closePosition(pos.id,'liquidated',liqPrice),100);
+        liquidated.add(pos.id);
+      }
+    });
+    return liquidated;
+  }
+
+  /* ── TP/SL check ── */
+  function checkTPSL(){
+    const liquidated=checkLiquidation();
+    State.positions.slice().forEach(pos=>{
+      if(liquidated.has(pos.id)) return;
+      const p=State.prices[pos.symbol];if(!p) return;
+      let reason=null;
+      if(pos.type==='LONG'){if(pos.tp&&p>=pos.tp)reason='tp';if(pos.sl&&p<=pos.sl)reason='sl';}
+      else{if(pos.tp&&p<=pos.tp)reason='tp';if(pos.sl&&p>=pos.sl)reason='sl';}
+      if(reason) setTimeout(()=>closePosition(pos.id,reason,reason==='tp'?pos.tp:pos.sl),100);
+    });
   }
 
   /* ── Positions table ── */
@@ -1238,17 +1413,13 @@
     const tbody=document.getElementById('positions-table');
     const cnt=State.positions.length;
     document.getElementById('positions-count').textContent=cnt;
-    const tab=document.getElementById('pos-count-tab');
-    if(tab) tab.textContent=cnt;
-    if(cnt===0){
-      tbody.innerHTML='<tr><td colspan="11" style="padding:20px;text-align:center;color:#475569;font-size:13px;">No hi ha posicions obertes</td></tr>';
-      return;
-    }
+    const tab=document.getElementById('pos-count-tab');if(tab) tab.textContent=cnt;
+    if(cnt===0){tbody.innerHTML='<tr><td colspan="12" style="padding:20px;text-align:center;color:#475569;font-size:13px;">No hi ha posicions obertes</td></tr>';return;}
     tbody.innerHTML=State.positions.map(pos=>{
       const cp=State.prices[pos.symbol]||pos.entryPrice;
-      const pnl=positionPnl(pos);
-      const roe=pos.margin?(pnl/pos.margin)*100:0;
-      const col=pnl>=0?'#34d399':'#fb7185';
+      const pnl=positionPnl(pos);const roe=pos.margin?(pnl/pos.margin)*100:0;const col=pnl>=0?'#34d399':'#fb7185';
+      const liqPrice=pos.type==='LONG'?pos.entryPrice*(1-1/pos.leverage):pos.entryPrice*(1+1/pos.leverage);
+      const liqDist=Math.abs((cp-liqPrice)/cp*100);
       return `<tr style="border-bottom:1px solid rgba(255,255,255,.04);">
         <td style="padding:8px 4px;font-weight:600;">${assetBase(pos.symbol)}</td>
         <td style="padding:8px 4px;color:${pos.type==='LONG'?'#34d399':'#fb7185'};font-weight:700;">${pos.type}</td>
@@ -1257,6 +1428,7 @@
         <td style="padding:8px 4px;font-family:ui-monospace,monospace;">${fmtPrice(cp,pos.symbol)}</td>
         <td style="padding:8px 4px;font-family:ui-monospace,monospace;color:${col};font-weight:700;">${pnl>=0?'+':''}${fmtUSDT(pnl)}</td>
         <td style="padding:8px 4px;font-family:ui-monospace,monospace;color:${col};">${fmtPct(roe)}</td>
+        <td style="padding:8px 4px;font-family:ui-monospace,monospace;color:${liqDist<5?'#fb7185':'#64748b'};font-size:11px;">${fmtPrice(liqPrice,pos.symbol)} <span style="font-size:9px;">(${liqDist.toFixed(1)}%)</span></td>
         <td style="padding:8px 4px;font-family:ui-monospace,monospace;color:#64748b;">${fmtDur(Date.now()-pos.openTime)}</td>
         <td style="padding:8px 4px;font-family:ui-monospace,monospace;color:#64748b;">${pos.tp?fmtPrice(pos.tp,pos.symbol):'-'}</td>
         <td style="padding:8px 4px;font-family:ui-monospace,monospace;color:#64748b;">${pos.sl?fmtPrice(pos.sl,pos.symbol):'-'}</td>
@@ -1265,15 +1437,30 @@
     }).join('');
   }
 
+  /* ── MILLORA 2: Taula d'ordres límit ── */
+  function updateOrdersTable(){
+    const tbody=document.getElementById('orders-table');
+    const cnt=State.pendingOrders.length;
+    const tab=document.getElementById('orders-count-tab');if(tab) tab.textContent=cnt;
+    if(cnt===0){tbody.innerHTML='<tr><td colspan="8" style="padding:20px;text-align:center;color:#475569;font-size:13px;">No hi ha ordres límit pendents</td></tr>';return;}
+    tbody.innerHTML=State.pendingOrders.map(o=>`<tr style="border-bottom:1px solid rgba(255,255,255,.04);">
+      <td style="padding:8px 4px;font-weight:600;">${assetBase(o.symbol)}</td>
+      <td style="padding:8px 4px;color:#fcd34d;font-weight:700;">LIMIT</td>
+      <td style="padding:8px 4px;color:${o.type==='LONG'?'#34d399':'#fb7185'};font-weight:700;">${o.type}</td>
+      <td style="padding:8px 4px;font-family:ui-monospace,monospace;">${((o.amount*o.leverage)/o.limitPrice).toFixed(4)}</td>
+      <td style="padding:8px 4px;font-family:ui-monospace,monospace;color:#fcd34d;">${fmtPrice(o.limitPrice,o.symbol)}</td>
+      <td style="padding:8px 4px;font-family:ui-monospace,monospace;">${fmtUSDT(o.margin)} USDT</td>
+      <td style="padding:8px 4px;font-size:11px;color:#64748b;">${fmtDT(o.createdAt)}</td>
+      <td style="text-align:right;padding:8px 4px;"><button onclick="cancelOrder('${o.id}')" style="padding:5px 10px;border-radius:7px;background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.2);color:#fb7185;font-size:11px;cursor:pointer;">Cancel·lar</button></td>
+    </tr>`).join('');
+  }
+
   /* ── History table ── */
   function updateHistoryTable(){
-    const tbody=document.getElementById('history-table');
-    const footer=document.getElementById('history-footer');
+    const tbody=document.getElementById('history-table');const footer=document.getElementById('history-footer');
     document.getElementById('history-count').textContent=State.tradeHistory.length;
-    if(State.tradeHistory.length===0){
-      tbody.innerHTML='<tr><td colspan="9" style="padding:20px;text-align:center;color:#475569;font-size:13px;">Encara no hi ha trades tancats</td></tr>';
-      if(footer) footer.textContent='0 trades';return;
-    }
+    if(State.tradeHistory.length===0){tbody.innerHTML='<tr><td colspan="10" style="padding:20px;text-align:center;color:#475569;font-size:13px;">Encara no hi ha trades tancats</td></tr>';if(footer) footer.textContent='0 trades';return;}
+    const reasonLabel={manual:'Manual',tp:'Take Profit 🎯',sl:'Stop Loss 🛡️',liquidated:'Liquidat 💀'};
     tbody.innerHTML=State.tradeHistory.map(t=>{
       const col=t.pnl>=0?'#34d399':'#fb7185';
       return `<tr style="border-bottom:1px solid rgba(255,255,255,.04);">
@@ -1285,6 +1472,7 @@
         <td style="padding:8px 4px;font-family:ui-monospace,monospace;">${fmtPrice(t.exitPrice,t.symbol)}</td>
         <td style="padding:8px 4px;font-family:ui-monospace,monospace;color:${col};font-weight:700;">${t.pnl>=0?'+':''}${fmtUSDT(t.pnl)}</td>
         <td style="padding:8px 4px;font-family:ui-monospace,monospace;color:${col};">${fmtPct(t.roe)}</td>
+        <td style="padding:8px 4px;font-size:11px;color:#64748b;">${reasonLabel[t.reason]||t.reason||'-'}</td>
         <td style="padding:8px 4px;font-family:ui-monospace,monospace;color:#64748b;">${fmtDur(t.duration)}</td>
       </tr>`;
     }).join('');
@@ -1297,44 +1485,19 @@
     const dir=oldP&&newP>oldP?'up':oldP&&newP<oldP?'down':null;
     const ids=[`asset-price-${sym}`];
     if(sym===State.currentAsset) ids.push('mark-price','mobile-price');
-    ids.forEach(id=>{
-      const el=document.getElementById(id);
-      if(!el) return;
-      el.textContent=fmtPrice(newP,sym);
-      if(dir){el.classList.toggle('price-up',dir==='up');el.classList.toggle('price-down',dir==='down');flashEl(el,dir);}
-    });
+    ids.forEach(id=>{const el=document.getElementById(id);if(!el) return;el.textContent=fmtPrice(newP,sym);if(dir){el.classList.toggle('price-up',dir==='up');el.classList.toggle('price-down',dir==='down');flashEl(el,dir);}});
   }
 
-  /* ── TP/SL check ── */
-  function checkTPSL(){
-    State.positions.slice().forEach(pos=>{
-      const p=State.prices[pos.symbol];if(!p) return;
-      let reason=null;
-      if(pos.type==='LONG'){if(pos.tp&&p>=pos.tp)reason='tp';if(pos.sl&&p<=pos.sl)reason='sl';}
-      else{if(pos.tp&&p<=pos.tp)reason='tp';if(pos.sl&&p>=pos.sl)reason='sl';}
-      if(reason) setTimeout(()=>closePosition(pos.id,reason),100);
-    });
-  }
-
-  /* ── Order panel (bottom sheet) ── */
+  /* ── Order panel ── */
   window.toggleOrderPanel=function(force){
-    if(force===true&&!State.user){
-      showToast('Has d\'iniciar sessió per operar.','warning');
-      openAuthModal();
-      return;
-    }
-    const sheet=document.getElementById('trading-sheet');
-    const bd=document.getElementById('ts-backdrop');
+    if(force===true&&!State.user){showToast('Has d\'iniciar sessió per operar.','warning');openAuthModal();return;}
+    const sheet=document.getElementById('trading-sheet'),bd=document.getElementById('ts-backdrop');
     const open=typeof force==='boolean'?force:!sheet.classList.contains('open');
-    sheet.classList.toggle('open',open);
-    bd.classList.toggle('open',open);
-    if(open){ calculateOrder(); document.getElementById('sheet-balance').textContent=fmtUSDT(State.balance)+' USDT'; }
+    sheet.classList.toggle('open',open);bd.classList.toggle('open',open);
+    if(open){calculateOrder();document.getElementById('sheet-balance').textContent=fmtUSDT(State.balance)+' USDT';}
   };
 
-  /* ── Positions panel ── */
-  window.togglePositionsPanel=function(){
-    document.getElementById('positions-panel').classList.toggle('open');
-  };
+  window.togglePositionsPanel=function(){document.getElementById('positions-panel').classList.toggle('open');};
 
   window.switchBottomTab=function(tab){
     State.bottomTab=tab;
@@ -1343,22 +1506,22 @@
       document.getElementById(`bottom-panel-${t}`)?.classList.toggle('active',t===tab);
     });
     if(tab==='history') updateHistoryTable();
+    if(tab==='orders') updateOrdersTable();
   };
 
   /* ── Price feeds ── */
   function applyTicker(data,source='live'){
-    const sym=data.s;
-    if(!ASSET_MAP[sym]) return;
+    const sym=data.s;if(!ASSET_MAP[sym]) return;
     const oldPrice=State.prices[sym]||INITIAL_PRICES[sym]||0;
-    const nextPrice=parseFloat(data.c);
-    if(!Number.isFinite(nextPrice)||nextPrice<=0) return;
-    State.prevPrices[sym]=oldPrice;
-    State.prices[sym]=nextPrice;
+    const nextPrice=parseFloat(data.c);if(!Number.isFinite(nextPrice)||nextPrice<=0) return;
+    State.prevPrices[sym]=oldPrice;State.prices[sym]=nextPrice;
     State.marketStats[sym]={high:parseFloat(data.h)||Math.max(oldPrice,nextPrice),low:parseFloat(data.l)||Math.min(oldPrice,nextPrice),volume:parseFloat(data.v)||0,changePercent:parseFloat(data.P)||0};
     if(source==='live'||source==='rest'||source==='coingecko'){State.priceSource='live';State.lastLiveTickAt=Date.now();setWsStatus(true,source==='coingecko'?'API':source==='rest'?'REST':'LIVE');}
     updateTickerDom(sym,oldPrice,nextPrice);
     if(sym===State.currentAsset) updateMarketInfo();
-    if(State.positions.length>0){updatePositionsTable();checkTPSL();if(State.activeSection==='portfolio')updatePortfolio();}
+    if(State.positions.length>0){updatePositionsTable();checkTPSL();}
+    if(State.pendingOrders.length>0) checkPendingOrders(sym,nextPrice); // MILLORA 2
+    if(State.activeSection==='portfolio') updatePortfolio();
   }
 
   function fetchWithTimeout(url,t=5000){const c=new AbortController();const id=setTimeout(()=>c.abort(),t);return fetch(url,{cache:'no-store',signal:c.signal}).finally(()=>clearTimeout(id));}
@@ -1366,7 +1529,7 @@
   async function fetchBinanceSnapshot(){
     let err=null;
     for(const u of CONFIG.tickerRestUrls){
-      try{const rs=await Promise.all(ASSETS.map(a=>fetchWithTimeout(`${u}?symbol=${a.symbol}`,5000)));if(!rs.every(r=>r.ok))throw new Error('incomplete');const ts=await Promise.all(rs.map(r=>r.json()));ts.forEach(t=>applyTicker(t,'rest'));renderAssetsList();return true;}
+      try{const rs=await Promise.all(ALL_ASSETS.map(a=>fetchWithTimeout(`${u}?symbol=${a.symbol}`,5000)));if(!rs.every(r=>r.ok))throw new Error('incomplete');const ts=await Promise.all(rs.map(r=>r.json()));ts.forEach(t=>applyTicker(t,'rest'));renderAssetsList();return true;}
       catch(e){err=e;}
     }
     throw err||new Error('Binance REST unavailable');
@@ -1375,7 +1538,7 @@
     const r=await fetchWithTimeout(CONFIG.coinGeckoUrl,6000);if(!r.ok)throw new Error('CG fail');
     const data=await r.json();if(!Array.isArray(data)||!data.length)throw new Error('CG empty');
     data.forEach(item=>{
-      const asset=ASSETS.find(a=>a.coingeckoId===item.id);if(!asset||!item.current_price)return;
+      const asset=ALL_ASSETS.find(a=>a.cgId===item.id);if(!asset||!item.current_price)return;
       const p=item.current_price,old=State.prices[asset.symbol]||INITIAL_PRICES[asset.symbol]||p;
       applyTicker({s:asset.symbol,c:String(p),h:String(item.high_24h||Math.max(State.marketStats[asset.symbol]?.high||old,p)),l:String(item.low_24h||Math.min(State.marketStats[asset.symbol]?.low||old,p)),v:String(item.total_volume||0),P:String(item.price_change_percentage_24h||0)},'coingecko');
     });
@@ -1384,16 +1547,18 @@
   async function fetchCryptoCompareSnapshot(){
     const r=await fetchWithTimeout(CONFIG.cryptoCompareUrl,6000);if(!r.ok)throw new Error('CC fail');
     const data=await r.json();if(!data.RAW)throw new Error('CC invalid');
-    const m={BTCUSDT:'BTC',ETHUSDT:'ETH',SOLUSDT:'SOL',XRPUSDT:'XRP',LTCUSDT:'LTC',ADAUSDT:'ADA',DOGEUSDT:'DOGE'};
-    ASSETS.forEach(asset=>{const key=m[asset.symbol];const item=data.RAW[key]?.USD;if(!item||!item.PRICE)return;const old=State.prices[asset.symbol]||INITIAL_PRICES[asset.symbol]||item.PRICE;applyTicker({s:asset.symbol,c:String(item.PRICE),h:String(item.HIGH24HOUR||Math.max(old,item.PRICE)),l:String(item.LOW24HOUR||Math.min(old,item.PRICE)),v:String(item.VOLUME24HOUR||0),P:String(item.CHANGEPCT24HOUR||0)},'coingecko');});
+    const m={BTCUSDT:'BTC',ETHUSDT:'ETH',BNBUSDT:'BNB',SOLUSDT:'SOL',XRPUSDT:'XRP',LTCUSDT:'LTC',ADAUSDT:'ADA',DOGEUSDT:'DOGE',AVAXUSDT:'AVAX',DOTUSDT:'DOT',LINKUSDT:'LINK',UNIUSDT:'UNI',ATOMUSDT:'ATOM'};
+    ALL_ASSETS.forEach(asset=>{const key=m[asset.symbol];const item=data.RAW[key]?.USD;if(!item||!item.PRICE)return;const old=State.prices[asset.symbol]||INITIAL_PRICES[asset.symbol]||item.PRICE;applyTicker({s:asset.symbol,c:String(item.PRICE),h:String(item.HIGH24HOUR||Math.max(old,item.PRICE)),l:String(item.LOW24HOUR||Math.min(old,item.PRICE)),v:String(item.VOLUME24HOUR||0),P:String(item.CHANGEPCT24HOUR||0)},'coingecko');});
     renderAssetsList();return true;
   }
   async function fetchKrakenSnapshot(){
-    const r=await fetchWithTimeout('https://api.kraken.com/0/public/Ticker?pair='+CONFIG.krakenPairs,6000);if(!r.ok)throw new Error('K fail');
-    const data=await r.json();if(data.error&&data.error.length)throw new Error('K err');
-    const km={XXBTZUSD:'BTCUSDT',XETHZUSD:'ETHUSDT',SOLUSD:'SOLUSDT',XXRPZUSD:'XRPUSDT',XLTCZUSD:'LTCUSDT',ADAUSD:'ADAUSDT',XDGUSD:'DOGEUSDT'};
-    Object.entries(data.result||{}).forEach(([pair,ticker])=>{const sym=km[pair];if(!sym)return;const p=parseFloat(ticker.c&&ticker.c[0]);if(!p)return;const old=State.prices[sym]||INITIAL_PRICES[sym]||p;const open=parseFloat(ticker.o)||p;applyTicker({s:sym,c:String(p),h:String(parseFloat(ticker.h&&ticker.h[1])||Math.max(old,p)),l:String(parseFloat(ticker.l&&ticker.l[1])||Math.min(old,p)),v:String(parseFloat(ticker.v&&ticker.v[1])||0),P:String(open?((p-open)/open)*100:0)},'coingecko');});
-    renderAssetsList();return true;
+    try{
+      const r=await fetchWithTimeout('https://api.kraken.com/0/public/Ticker?pair='+CONFIG.krakenPairs,6000);if(!r.ok)throw new Error('K fail');
+      const data=await r.json();if(data.error&&data.error.length)throw new Error('K err');
+      const km={XXBTZUSD:'BTCUSDT',XETHZUSD:'ETHUSDT',SOLUSD:'SOLUSDT',XXRPZUSD:'XRPUSDT',XLTCZUSD:'LTCUSDT',ADAUSD:'ADAUSDT',AVAXUSD:'AVAXUSDT',DOTUSD:'DOTUSDT',LINKUSD:'LINKUSDT',UNIUSD:'UNIUSDT',ATOMUSD:'ATOMUSDT',XDGUSD:'DOGEUSDT'};
+      Object.entries(data.result||{}).forEach(([pair,ticker])=>{const sym=km[pair];if(!sym)return;const p=parseFloat(ticker.c&&ticker.c[0]);if(!p)return;const old=State.prices[sym]||INITIAL_PRICES[sym]||p;const open=parseFloat(ticker.o)||p;applyTicker({s:sym,c:String(p),h:String(parseFloat(ticker.h&&ticker.h[1])||Math.max(old,p)),l:String(parseFloat(ticker.l&&ticker.l[1])||Math.min(old,p)),v:String(parseFloat(ticker.v&&ticker.v[1])||0),P:String(open?((p-open)/open)*100:0)},'coingecko');});
+      renderAssetsList();return true;
+    }catch(e){throw e;}
   }
   async function fetchAnyRealSnapshot(){return Promise.any([fetchCoinGeckoSnapshot(),fetchCryptoCompareSnapshot(),fetchKrakenSnapshot(),fetchBinanceSnapshot()]);}
 
@@ -1406,7 +1571,7 @@
     State.fallbackTimer=setInterval(()=>{
       if(Date.now()-State.lastLiveTickAt<12000) return;
       State.priceSource='simulated';setWsStatus(false,'SIM');
-      ASSETS.forEach(a=>{const old=State.prices[a.symbol]||INITIAL_PRICES[a.symbol];const drift=(Math.random()-.48)*.0016;const next=Math.max(.00001,old*(1+drift));const ps=State.marketStats[a.symbol]||{};applyTicker({s:a.symbol,c:String(next),h:String(Math.max(ps.high||old,next)),l:String(Math.min(ps.low||old,next)),v:String(ps.volume||0),P:String(((next-(INITIAL_PRICES[a.symbol]||old))/(INITIAL_PRICES[a.symbol]||old))*100)},'simulated');});
+      ALL_ASSETS.forEach(a=>{const old=State.prices[a.symbol]||INITIAL_PRICES[a.symbol];const drift=(Math.random()-.48)*.0016;const next=Math.max(.00001,old*(1+drift));const ps=State.marketStats[a.symbol]||{};applyTicker({s:a.symbol,c:String(next),h:String(Math.max(ps.high||old,next)),l:String(Math.min(ps.low||old,next)),v:String(ps.volume||0),P:String(((next-(INITIAL_PRICES[a.symbol]||old))/(INITIAL_PRICES[a.symbol]||old))*100)},'simulated');});
       renderAssetsList();
     },1000);
   }
@@ -1421,6 +1586,52 @@
     State.ws.onclose=()=>{if(Date.now()-State.lastLiveTickAt>8000)setWsStatus(false,'SIM');scheduleWsReconnect();};
   }
   function scheduleWsReconnect(){if(State.wsReconnectTimer)clearTimeout(State.wsReconnectTimer);State.wsUrlIndex=(State.wsUrlIndex+1)%CONFIG.wsFeeds.length;State.wsReconnectTimer=setTimeout(initWebSocket,5000);}
+
+  /* ── MILLORA 5: Estadístiques avançades ── */
+  function calcMaxDrawdown(){
+    const hist=[STARTING_BALANCE,...State.balanceHistory.map(b=>b.value)];
+    let maxDD=0,peak=hist[0];
+    for(const v of hist){if(v>peak)peak=v;const dd=peak>0?(peak-v)/peak*100:0;if(dd>maxDD)maxDD=dd;}
+    return maxDD;
+  }
+  function calcSharpe(){
+    const rets=State.tradeHistory.map(t=>t.roe);if(rets.length<2) return null;
+    const mean=rets.reduce((s,r)=>s+r,0)/rets.length;
+    const variance=rets.reduce((s,r)=>s+(r-mean)**2,0)/(rets.length-1);
+    const std=Math.sqrt(variance);return std>0?mean/std:0;
+  }
+  function calcWinRate(){
+    if(!State.tradeHistory.length) return 0;
+    return(State.tradeHistory.filter(t=>t.pnl>0).length/State.tradeHistory.length)*100;
+  }
+  function calcAvgDuration(){
+    if(!State.tradeHistory.length) return 0;
+    return State.tradeHistory.reduce((s,t)=>s+t.duration,0)/State.tradeHistory.length;
+  }
+  function renderAdvancedStats(){
+    const winRate=calcWinRate();const maxDD=calcMaxDrawdown();const sharpe=calcSharpe();
+    const avgDur=calcAvgDuration();
+    const wins=State.tradeHistory.filter(t=>t.pnl>0);const losses=State.tradeHistory.filter(t=>t.pnl<=0);
+    const avgWin=wins.length?wins.reduce((s,t)=>s+t.pnl,0)/wins.length:0;
+    const avgLoss=losses.length?losses.reduce((s,t)=>s+t.pnl,0)/losses.length:0;
+    const bestTrade=State.tradeHistory.reduce((mx,t)=>t.pnl>mx.pnl?t:mx,{pnl:-Infinity,symbol:'?',type:'?'})||null;
+    const worstTrade=State.tradeHistory.reduce((mn,t)=>t.pnl<mn.pnl?t:mn,{pnl:Infinity,symbol:'?',type:'?'})||null;
+    const rr=avgLoss!==0?Math.abs(avgWin/avgLoss):null;
+    const grid=document.getElementById('advanced-stats-grid');if(!grid) return;
+    if(!State.tradeHistory.length){grid.innerHTML='<div style="grid-column:1/-1;text-align:center;padding:20px;color:#475569;font-size:13px;">Tanca el primer trade per veure estadístiques.</div>';return;}
+    grid.innerHTML=[
+      {label:'Win Rate',value:`${fmtPct(winRate)}`,color:winRate>=50?'#34d399':'#fb7185'},
+      {label:'Max Drawdown',value:`-${maxDD.toFixed(2)}%`,color:maxDD>20?'#fb7185':'#fcd34d'},
+      {label:'Sharpe (simplif.)',value:sharpe!==null?sharpe.toFixed(2):'—',color:sharpe!==null&&sharpe>0.5?'#34d399':'#94a3b8'},
+      {label:'Durada mitjana',value:avgDur>0?fmtDur(avgDur):'—',color:'#94a3b8'},
+      {label:'Guany mitjà',value:avgWin>0?`+${fmtUSDT(avgWin)}`:'—',color:'#34d399'},
+      {label:'Pèrdua mitjana',value:avgLoss<0?fmtUSDT(avgLoss):'—',color:'#fb7185'},
+      {label:'Risk/Reward',value:rr!==null?`1:${rr.toFixed(2)}`:'—',color:'#94a3b8'},
+      {label:'Millor trade',value:bestTrade&&bestTrade.pnl>-Infinity?`+${fmtUSDT(bestTrade.pnl)}`:' — ',color:'#34d399'},
+      {label:'Pitjor trade',value:worstTrade&&worstTrade.pnl<Infinity?fmtUSDT(worstTrade.pnl):'—',color:'#fb7185'},
+      {label:'Trades totals',value:String(State.tradeHistory.length),color:'#94a3b8'},
+    ].map(s=>`<div class="stat-card"><div class="stat-label">${s.label}</div><div class="stat-value" style="color:${s.color};">${s.value}</div></div>`).join('');
+  }
 
   /* ── Portfolio ── */
   function totalRealizedPnl(){return State.tradeHistory.reduce((s,t)=>s+t.pnl,0);}
@@ -1437,31 +1648,32 @@
       ['PnL total',`${lifePnl>=0?'+':''}${fmtUSDT(lifePnl)} USDT`,lifePnl>=0?'#34d399':'#fb7185'],
       ['Trades',State.tradeHistory.length,'#94a3b8']
     ].map(([l,v,c])=>`<div class="kpi-card"><div class="kpi-label">${l}</div><div class="kpi-value" style="color:${c};font-size:16px;">${v}</div></div>`).join('');
-
+    renderAdvancedStats();
     const grouped=new Map();
     State.positions.forEach(pos=>{const cur=grouped.get(pos.symbol)||{symbol:pos.symbol,size:0,weightedEntry:0,pnl:0};cur.weightedEntry+=pos.entryPrice*pos.size;cur.size+=pos.size;cur.pnl+=positionPnl(pos);grouped.set(pos.symbol,cur);});
     const rows=[...grouped.values()].map(item=>{const cp=State.prices[item.symbol]||0;const ent=item.size?item.weightedEntry/item.size:0;const notional=cp*item.size;const pct=totalVal?(notional/totalVal)*100:0;const pnlPct=ent?(item.pnl/(ent*item.size))*100:0;return `<tr><td style="padding:8px 4px;font-weight:600;">${ASSET_MAP[item.symbol]?.name||item.symbol}</td><td style="padding:8px 4px;font-family:ui-monospace,monospace;">${item.size.toFixed(4)}</td><td style="padding:8px 4px;font-family:ui-monospace,monospace;">${fmtPrice(ent,item.symbol)}</td><td style="padding:8px 4px;font-family:ui-monospace,monospace;">${fmtPrice(cp,item.symbol)}</td><td style="padding:8px 4px;font-family:ui-monospace,monospace;color:${item.pnl>=0?'#34d399':'#fb7185'};">${item.pnl>=0?'+':''}${fmtUSDT(item.pnl)} · ${fmtPct(pnlPct)}</td><td style="padding:8px 4px;font-family:ui-monospace,monospace;">${fmtPct(pct)}</td></tr>`;}).join('');
     document.getElementById('portfolio-assets').innerHTML=rows||'<tr><td colspan="6" style="padding:20px;text-align:center;color:#475569;font-size:13px;">No hi ha actius en posicions obertes</td></tr>';
-    document.getElementById('portfolio-history').innerHTML=State.tradeHistory.map(t=>`<tr><td style="padding:8px 4px;font-size:11px;">${fmtDT(t.openTime)}</td><td style="padding:8px 4px;font-size:11px;">${fmtDT(t.closeTime)}</td><td style="padding:8px 4px;font-weight:600;">${assetBase(t.symbol)}</td><td style="padding:8px 4px;color:${t.type==='LONG'?'#34d399':'#fb7185'};font-weight:700;">${t.type}</td><td style="padding:8px 4px;font-family:ui-monospace,monospace;">x${t.leverage}</td><td style="padding:8px 4px;font-family:ui-monospace,monospace;">${fmtPrice(t.entryPrice,t.symbol)}</td><td style="padding:8px 4px;font-family:ui-monospace,monospace;">${fmtPrice(t.exitPrice,t.symbol)}</td><td style="padding:8px 4px;font-family:ui-monospace,monospace;color:${t.pnl>=0?'#34d399':'#fb7185'};font-weight:700;">${t.pnl>=0?'+':''}${fmtUSDT(t.pnl)} · ${fmtPct(t.roe)}</td><td style="padding:8px 4px;font-family:ui-monospace,monospace;color:#64748b;">${fmtDur(t.duration)}</td></tr>`).join('')||'<tr><td colspan="9" style="padding:20px;text-align:center;color:#475569;font-size:13px;">Sense historial tancat</td></tr>';
+    const reasonLabel={manual:'Manual',tp:'🎯 TP',sl:'🛡️ SL',liquidated:'💀 Liq.'};
+    document.getElementById('portfolio-history').innerHTML=State.tradeHistory.map(t=>`<tr><td style="padding:8px 4px;font-size:11px;">${fmtDT(t.openTime)}</td><td style="padding:8px 4px;font-size:11px;">${fmtDT(t.closeTime)}</td><td style="padding:8px 4px;font-weight:600;">${assetBase(t.symbol)}</td><td style="padding:8px 4px;color:${t.type==='LONG'?'#34d399':'#fb7185'};font-weight:700;">${t.type}</td><td style="padding:8px 4px;font-family:ui-monospace,monospace;">x${t.leverage}</td><td style="padding:8px 4px;font-family:ui-monospace,monospace;">${fmtPrice(t.entryPrice,t.symbol)}</td><td style="padding:8px 4px;font-family:ui-monospace,monospace;">${fmtPrice(t.exitPrice,t.symbol)}</td><td style="padding:8px 4px;font-family:ui-monospace,monospace;color:${t.pnl>=0?'#34d399':'#fb7185'};font-weight:700;">${t.pnl>=0?'+':''}${fmtUSDT(t.pnl)} · ${fmtPct(t.roe)}</td><td style="padding:8px 4px;font-size:11px;color:#64748b;">${reasonLabel[t.reason]||'-'}</td><td style="padding:8px 4px;font-family:ui-monospace,monospace;color:#64748b;">${fmtDur(t.duration)}</td></tr>`).join('')||'<tr><td colspan="10" style="padding:20px;text-align:center;color:#475569;font-size:13px;">Sense historial tancat</td></tr>';
     renderPortfolioChart();
   }
 
   function renderPortfolioChart(){
-    const canvas=document.getElementById('portfolio-chart');
-    if(!canvas) return;
-    const ctx=canvas.getContext('2d');
-    const w=canvas.clientWidth,h=canvas.height;
-    canvas.width=w*devicePixelRatio;canvas.height=h*devicePixelRatio;
-    ctx.scale(devicePixelRatio,devicePixelRatio);
-    ctx.clearRect(0,0,w,h);
-    const trades=[...State.tradeHistory].reverse();
-    const pts=[STARTING_BALANCE];
-    trades.forEach(t=>pts.push(pts[pts.length-1]+t.pnl));
+    const canvas=document.getElementById('portfolio-chart');if(!canvas) return;
+    const ctx=canvas.getContext('2d');const w=canvas.clientWidth,h=canvas.height;
+    canvas.width=w*devicePixelRatio;canvas.height=h*devicePixelRatio;ctx.scale(devicePixelRatio,devicePixelRatio);ctx.clearRect(0,0,w,h);
+    const trades=[...State.tradeHistory].reverse();const pts=[STARTING_BALANCE];trades.forEach(t=>pts.push(pts[pts.length-1]+t.pnl));
     const min=Math.min(...pts),max=Math.max(...pts),pad=16;
     ctx.strokeStyle='rgba(255,255,255,0.1)';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(pad,pad);ctx.lineTo(pad,h-pad);ctx.lineTo(w-pad,h-pad);ctx.stroke();
-    ctx.strokeStyle=totalRealizedPnl()>=0?'#10b981':'#ef4444';ctx.lineWidth=2;ctx.beginPath();
+    const color=totalRealizedPnl()>=0?'#10b981':'#ef4444';
+    ctx.strokeStyle=color;ctx.lineWidth=2;ctx.beginPath();
     pts.forEach((v,i)=>{const x=pad+(pts.length===1?0:(i/(pts.length-1))*(w-pad*2));const y=h-pad-((v-min)/Math.max(1,max-min))*(h-pad*2);if(i===0)ctx.moveTo(x,y);else ctx.lineTo(x,y);});
     ctx.stroke();
+    // Zona de color sota la línia
+    const grad=ctx.createLinearGradient(0,0,0,h);grad.addColorStop(0,color.replace(')',',0.2)').replace('rgb','rgba'));grad.addColorStop(1,'rgba(0,0,0,0)');
+    ctx.fillStyle=grad;ctx.beginPath();
+    pts.forEach((v,i)=>{const x=pad+(pts.length===1?0:(i/(pts.length-1))*(w-pad*2));const y=h-pad-((v-min)/Math.max(1,max-min))*(h-pad*2);if(i===0)ctx.moveTo(x,y);else ctx.lineTo(x,y);});
+    ctx.lineTo(pad+(pts.length===1?0:1)*(w-pad*2),h-pad);ctx.lineTo(pad,h-pad);ctx.closePath();ctx.fill();
     ctx.fillStyle='#64748b';ctx.font=`11px ui-monospace`;ctx.fillText(fmtUSDT(max),pad+4,pad+10);ctx.fillText(fmtUSDT(min),pad+4,h-pad-4);
   }
 
@@ -1469,62 +1681,80 @@
   function renderProfile(){
     const totalPnl=totalRealizedPnl()+totalUnrealizedPnl();
     const points=ACHIEVEMENTS.filter(a=>State.achievements[a.id]?.completed).reduce((s,a)=>s+a.points,0);
-    const el=document.getElementById('profile-trades');if(el)el.textContent=State.tradeHistory.length;
+    const el=document.getElementById('profile-trades');if(el) el.textContent=State.tradeHistory.length;
     const ep=document.getElementById('profile-pnl');if(ep){ep.textContent=(totalPnl>=0?'+':'')+fmtUSDT(totalPnl)+' USDT';ep.style.color=totalPnl>=0?'#34d399':'#fb7185';}
-    const pts=document.getElementById('profile-points');if(pts)pts.textContent=points;
+    const pts=document.getElementById('profile-points');if(pts) pts.textContent=points;
+    const t=localStorage.getItem('lot_theme')||'dark';
+    const pbtn=document.getElementById('theme-profile-btn');if(pbtn) pbtn.textContent=t==='light'?'Clar ☀️':'Fosc 🌙';
   }
 
   /* ── Leagues ── */
   function currentUserName(){return State.user?.displayName||State.user?.email?.split('@')[0]||'Tu';}
-  function createLeagueMember(pnl=0){return{id:State.user?.uid||'local-user',name:currentUserName(),avatar:currentUserName()[0]?.toUpperCase()||'T',balance:STARTING_BALANCE+pnl,pnl,trades:State.tradeHistory.length,joinedAt:Date.now()};}
+  function createLeagueMember(pnl=0){
+    if(!State.user) return null;
+    const name=currentUserName();
+    return{id:State.user.uid,name,avatar:name[0]?.toUpperCase()||'T',balance:STARTING_BALANCE+pnl,pnl,trades:State.tradeHistory.length,joinedAt:Date.now()};
+  }
   function leagueEndDate(dur){const d=new Date();if(dur==='Setmanal')d.setDate(d.getDate()+7);if(dur==='Mensual')d.setMonth(d.getMonth()+1);if(dur==='Trimestral')d.setMonth(d.getMonth()+3);if(dur==='Anual')d.setFullYear(d.getFullYear()+1);return d.getTime();}
-  function remainingTime(endAt){const diff=Math.max(0,endAt-Date.now());return fmtDur(diff);}
+  function remainingTime(endAt){return fmtDur(Math.max(0,endAt-Date.now()));}
 
-  window.openCreateLeagueModal=()=>{document.getElementById('create-league-modal').classList.remove('hidden');if(!document.getElementById('league-code').value)generateInviteCode();};
+  window.openCreateLeagueModal=()=>{if(!requireAuth('crear lligues')) return;document.getElementById('create-league-modal').classList.remove('hidden');if(!document.getElementById('league-code').value)generateInviteCode();};
   window.closeCreateLeagueModal=()=>document.getElementById('create-league-modal').classList.add('hidden');
-  window.openJoinLeagueModal=()=>document.getElementById('join-league-modal').classList.remove('hidden');
+  window.openJoinLeagueModal=()=>{if(!requireAuth('unir-te a lligues')) return;document.getElementById('join-league-modal').classList.remove('hidden');};
   window.closeJoinLeagueModal=()=>document.getElementById('join-league-modal').classList.add('hidden');
 
   window.generateInviteCode=function(){const code=Math.random().toString(36).toUpperCase().replace(/[^A-Z0-9]/g,'').slice(0,6).padEnd(6,'7');document.getElementById('league-code').value=code;return code;};
-  window.copyInviteCode=async function(){const code=document.getElementById('league-code').value||generateInviteCode();await navigator.clipboard?.writeText(code);showToast(`Codi ${code} copiat.`,'success');};
+  window.copyInviteCode=async function(){if(!requireAuth('copiar codis de lliga')) return;const code=document.getElementById('league-code').value||generateInviteCode();await navigator.clipboard?.writeText(code);showToast(`Codi ${code} copiat.`,'success');};
 
   window.createLeague=async function(){
-    const name=document.getElementById('league-name').value.trim();
-    const duration=document.getElementById('league-duration').value;
+    if(!requireAuth('crear lligues')) return;
+    const name=document.getElementById('league-name').value.trim();const duration=document.getElementById('league-duration').value;
     const startingBalance=Number(document.getElementById('league-balance').value)||STARTING_BALANCE;
     const code=document.getElementById('league-code').value||generateInviteCode();
     if(!name){showToast('Indica un nom per a la lliga.','warning');return;}
-    const league={id:crypto.randomUUID(),name,code,duration,startingBalance,createdAt:Date.now(),endAt:leagueEndDate(duration),members:[createLeagueMember(0)],trades:[]};
+    const member=createLeagueMember(0);if(!member) return;
+    const league={id:crypto.randomUUID(),name,code,duration,startingBalance,createdAt:Date.now(),endAt:leagueEndDate(duration),members:[member],trades:[]};
     State.leagues.unshift(league);State.activeLeagueId=league.id;
-    closeCreateLeagueModal();await saveRemoteState();renderLeagues();openLeague(league.id);showToast(`Lliga "${name}" creada.`,'success');
+    closeCreateLeagueModal();await saveRemoteState();startLeagueSnapshots(Firebase.helpers.onSnapshot,Firebase.helpers.doc);renderLeagues();openLeague(league.id);showToast(`Lliga "${name}" creada.`,'success');
   };
 
   window.joinLeague=async function(){
+    if(!requireAuth('unir-te a lligues')) return;
     const code=document.getElementById('join-league-code').value.trim().toUpperCase();
-    const league=State.leagues.find(l=>l.code===code);
-    if(!league){showToast('No s\'ha trobat cap lliga local amb aquest codi.','error');return;}
-    const uid=State.user?.uid||'local-user';
-    if(!league.members.some(m=>m.id===uid)) league.members.push(createLeagueMember(0));
-    closeJoinLeagueModal();await saveRemoteState();renderLeagues();openLeague(league.id);showToast(`T\'has unit a "${league.name}".`,'success');
+    let league=State.leagues.find(l=>l.code===code);
+    if(!league&&Firebase.active){
+      try{
+        const {collection,query,where,getDocs}=Firebase.helpers;
+        const qs=await getDocs(query(collection(Firebase.db,'leagues'),where('code','==',code)));
+        const snap=qs.docs[0];
+        if(snap) league={id:snap.id,...snap.data()};
+      }catch(e){showToast('No s\'ha pogut buscar la lliga al núvol.','error');return;}
+    }
+    if(!league){showToast('No s\'ha trobat cap lliga amb aquest codi.','error');return;}
+    league.members=Array.isArray(league.members)?league.members:[];
+    league.trades=Array.isArray(league.trades)?league.trades:[];
+    const uid=State.user.uid;const member=createLeagueMember(0);
+    if(member&&!league.members.some(m=>m.id===uid)) league.members.push(member);
+    const existing=State.leagues.findIndex(l=>l.id===league.id);
+    if(existing===-1) State.leagues.unshift(league); else State.leagues[existing]=league;
+    closeJoinLeagueModal();await saveRemoteState();startLeagueSnapshots(Firebase.helpers.onSnapshot,Firebase.helpers.doc);renderLeagues();openLeague(league.id);showToast(`T\'has unit a "${league.name}".`,'success');
   };
 
   function renderLeagues(){
-    const list=document.getElementById('league-list');
-    const detail=document.getElementById('league-detail');
+    const list=document.getElementById('league-list'),detail=document.getElementById('league-detail');
     detail.classList.add('hidden');list.classList.remove('hidden');
+    if(!State.user){list.innerHTML='<div style="padding:32px;text-align:center;color:#475569;font-size:14px;background:rgba(255,255,255,.03);border:1px solid var(--line);border-radius:14px;">Inicia sessió per crear lligues i competir amb altres jugadors.</div>';return;}
     if(State.leagues.length===0){list.innerHTML='<div style="padding:32px;text-align:center;color:#475569;font-size:14px;background:rgba(255,255,255,.03);border:1px solid var(--line);border-radius:14px;">Encara no tens cap lliga activa.<br>Crea\'n una o uneix-te amb un codi.</div>';return;}
     list.innerHTML=State.leagues.map(league=>{
-      const sorted=[...league.members].sort((a,b)=>b.pnl-a.pnl);
-      const uid=State.user?.uid||'local-user';
-      const rank=Math.max(1,sorted.findIndex(m=>m.id===uid)+1);
-      const me=sorted.find(m=>m.id===uid)||sorted[0];
+      const sorted=[...league.members].sort((a,b)=>b.pnl-a.pnl);const uid=State.user.uid;
+      const rank=Math.max(1,sorted.findIndex(m=>m.id===uid)+1);const me=sorted.find(m=>m.id===uid)||sorted[0];
       return `<div onclick="openLeague('${league.id}')" class="league-card">
         <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;">
-          <div><div style="font-size:16px;font-weight:700;">${league.name}</div><div style="font-size:12px;color:#64748b;margin-top:3px;">Codi ${league.code} · ${league.duration} · ${remainingTime(league.endAt)} restants</div></div>
-          <div style="text-align:right;flex-shrink:0;"><div style="font-size:11px;color:#64748b;">Posició</div><div style="font-size:18px;font-weight:700;">#${rank}</div></div>
+          <div><div style="font-size:16px;font-weight:700;color:var(--text);">${league.name}</div><div style="font-size:12px;color:#64748b;margin-top:3px;">Codi ${league.code} · ${league.duration} · ${remainingTime(league.endAt)} restants</div></div>
+          <div style="text-align:right;flex-shrink:0;"><div style="font-size:11px;color:#64748b;">Posició</div><div style="font-size:18px;font-weight:700;color:var(--text);">#${rank}</div></div>
         </div>
         <div style="display:flex;gap:16px;margin-top:12px;">
-          <div><div style="font-size:11px;color:#64748b;">Participants</div><div style="font-size:14px;font-weight:600;margin-top:2px;">${league.members.length}</div></div>
+          <div><div style="font-size:11px;color:#64748b;">Participants</div><div style="font-size:14px;font-weight:600;margin-top:2px;color:var(--text);">${league.members.length}</div></div>
           <div><div style="font-size:11px;color:#64748b;">PnL del període</div><div style="font-size:14px;font-weight:700;font-family:ui-monospace,monospace;color:${me.pnl>=0?'#34d399':'#fb7185'};margin-top:2px;">${me.pnl>=0?'+':''}${fmtUSDT(me.pnl)} USDT</div></div>
         </div>
       </div>`;
@@ -1532,32 +1762,30 @@
   }
 
   window.openLeague=function(id){
-    State.activeLeagueId=id;
-    const league=State.leagues.find(l=>l.id===id);if(!league) return;
+    if(!requireAuth('veure lligues')) return;
+    State.activeLeagueId=id;const league=State.leagues.find(l=>l.id===id);if(!league) return;
     document.getElementById('league-list').classList.add('hidden');
-    const detail=document.getElementById('league-detail');
-    detail.classList.remove('hidden');
-    const uid=State.user?.uid||'local-user';
-    const sorted=[...league.members].sort((a,b)=>b.pnl-a.pnl);
-    const me=sorted.find(m=>m.id===uid)||createLeagueMember(0);
+    const detail=document.getElementById('league-detail');detail.classList.remove('hidden');
+    const uid=State.user.uid;const sorted=[...league.members].sort((a,b)=>b.pnl-a.pnl);const me=sorted.find(m=>m.id===uid)||createLeagueMember(0);
+    if(!me) return;
     detail.innerHTML=`
       <button onclick="renderLeagues()" style="background:none;border:none;color:#64748b;font-size:13px;cursor:pointer;padding:4px 0;text-align:left;">← Tornar a lligues</button>
       <div class="league-card">
         <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap;">
-          <div><div style="font-size:20px;font-weight:700;">${league.name}</div><div style="font-size:12px;color:#64748b;margin-top:3px;">Codi ${league.code} · ${remainingTime(league.endAt)} restants</div></div>
+          <div><div style="font-size:20px;font-weight:700;color:var(--text);">${league.name}</div><div style="font-size:12px;color:#64748b;margin-top:3px;">Codi ${league.code} · ${remainingTime(league.endAt)} restants</div></div>
           <div style="font-family:ui-monospace,monospace;font-size:16px;font-weight:700;color:${me.pnl>=0?'#34d399':'#fb7185'};">El teu PnL: ${me.pnl>=0?'+':''}${fmtUSDT(me.pnl)} USDT</div>
         </div>
       </div>
-      <div style="background:rgba(15,23,42,.7);border:1px solid var(--line);border-radius:14px;padding:14px;overflow-x:auto;">
-        <div style="font-size:13px;font-weight:600;margin-bottom:10px;">Classificació</div>
+      <div style="background:var(--card-bg);border:1px solid var(--line);border-radius:14px;padding:14px;overflow-x:auto;">
+        <div style="font-size:13px;font-weight:600;margin-bottom:10px;color:var(--text);">Classificació en temps real</div>
         <table class="data-table" style="min-width:500px;">
           <thead><tr><th>#</th><th>Jugador</th><th>Saldo</th><th>PnL</th><th>Trades</th></tr></thead>
           <tbody>${sorted.map((m,i)=>{const medal=['🥇','🥈','🥉'][i]||`#${i+1}`;return `<tr style="${m.id===uid?'background:rgba(16,185,129,.08);':''}"><td style="padding:10px 4px;font-weight:700;">${medal}</td><td style="padding:10px 4px;"><span style="display:inline-flex;width:26px;height:26px;border-radius:50%;background:rgba(255,255,255,.1);align-items:center;justify-content:center;font-weight:700;font-size:12px;margin-right:6px;">${m.avatar}</span>${m.name}</td><td style="padding:10px 4px;font-family:ui-monospace,monospace;">${fmtUSDT(m.balance)} USDT</td><td style="padding:10px 4px;font-family:ui-monospace,monospace;color:${m.pnl>=0?'#34d399':'#fb7185'};font-weight:700;">${m.pnl>=0?'+':''}${fmtUSDT(m.pnl)}</td><td style="padding:10px 4px;font-family:ui-monospace,monospace;">${m.trades}</td></tr>`;}).join('')}</tbody>
         </table>
       </div>
-      <div style="background:rgba(15,23,42,.7);border:1px solid var(--line);border-radius:14px;padding:14px;overflow-x:auto;">
-        <div style="font-size:13px;font-weight:600;margin-bottom:10px;">Historial de la Lliga</div>
-        <table class="data-table" style="min-width:480px;">
+      <div style="background:var(--card-bg);border:1px solid var(--line);border-radius:14px;padding:14px;overflow-x:auto;">
+        <div style="font-size:13px;font-weight:600;margin-bottom:10px;color:var(--text);">Historial de la Lliga</div>
+        <table class="data-table" style="min-width:500px;">
           <thead><tr><th>Jugador</th><th>Data</th><th>Actiu</th><th>Tipus</th><th>PnL</th><th>Durada</th></tr></thead>
           <tbody>${league.trades.length?league.trades.map(t=>`<tr><td style="padding:8px 4px;">${t.player}</td><td style="padding:8px 4px;">${fmtDT(t.closeTime)}</td><td style="padding:8px 4px;">${assetBase(t.symbol)}</td><td style="padding:8px 4px;color:${t.type==='LONG'?'#34d399':'#fb7185'};font-weight:700;">${t.type}</td><td style="padding:8px 4px;font-family:ui-monospace,monospace;color:${t.pnl>=0?'#34d399':'#fb7185'};font-weight:700;">${t.pnl>=0?'+':''}${fmtUSDT(t.pnl)}</td><td style="padding:8px 4px;font-family:ui-monospace,monospace;color:#64748b;">${fmtDur(t.duration)}</td></tr>`).join(''):'<tr><td colspan="6" style="padding:20px;text-align:center;color:#475569;font-size:13px;">Sense trades a la lliga</td></tr>'}</tbody>
         </table>
@@ -1565,10 +1793,10 @@
   };
 
   function updateLeaguesAfterTrade(trade){
-    const uid=State.user?.uid||'local-user';
+    if(!State.user) return;
+    const uid=State.user.uid;
     State.leagues.forEach(lg=>{
-      let m=lg.members.find(x=>x.id===uid);
-      if(!m){m=createLeagueMember(0);lg.members.push(m);}
+      let m=lg.members.find(x=>x.id===uid);if(!m){m=createLeagueMember(0);if(!m) return;lg.members.push(m);}
       m.pnl+=trade.pnl;m.balance=lg.startingBalance+m.pnl;m.trades+=1;
       lg.trades.unshift({...trade,player:m.name});
     });
@@ -1579,8 +1807,7 @@
   function achievementProgress(){
     const trades=State.tradeHistory,now=new Date();
     const today=now.toDateString(),month=now.getMonth(),year=now.getFullYear();
-    const pos=trades.filter(t=>t.pnl>0);
-    const totalPnl=totalRealizedPnl();
+    const pos=trades.filter(t=>t.pnl>0);const totalPnl=totalRealizedPnl();
     const bestRoe=trades.reduce((mx,t)=>Math.max(mx,t.roe||0),0);
     const assets=new Set(trades.map(t=>t.symbol).concat(State.positions.map(p=>p.symbol)));
     const bestToday=pos.some(t=>new Date(t.closeTime).toDateString()===today)?1:0;
@@ -1591,7 +1818,9 @@
     const openedHours=trades.map(t=>new Date(t.openTime).getHours()).concat(State.positions.map(p=>new Date(p.openTime).getHours()));
     const maxOpenHours=State.positions.reduce((mx,p)=>Math.max(mx,(Date.now()-p.openTime)/3600000),0);
     const maxLev=Math.max(0,...trades.map(t=>t.leverage),...State.positions.map(p=>p.leverage));
-    return{gran_coup:bestToday,trader_mes:bestMonth,llegenda_anual:bestYear,centurio:bestRoe,multiplicador:bestRoe,primers_passos:trades.length,actiu:trades.length,'veterà':trades.length,maquina_guerra:trades.length,diversificat:assets.size,en_positiu:totalPnl,quatre_digits:totalPnl,cinc_digits:totalPnl,franctirador:streak,imparable:streak,perfeccionista:winRate,night_trader:openedHours.some(h=>h>=0&&h<6)?1:0,matiner:openedHours.some(h=>h>=6&&h<8)?1:0,hodler:maxOpenHours,adrenalina:maxLev};
+    const limitExecuted=trades.filter(t=>t.reason==='limit'||State.pendingOrders.length>0).length>0?1:State.achievements['ordre_limit']?.completed?1:0;
+    const liquidated=trades.some(t=>t.reason==='liquidated')?1:0;
+    return{gran_coup:bestToday,trader_mes:bestMonth,llegenda_anual:bestYear,centurio:bestRoe,multiplicador:bestRoe,primers_passos:trades.length,actiu:trades.length,'veterà':trades.length,maquina_guerra:trades.length,diversificat:assets.size,ordre_limit:limitExecuted,en_positiu:totalPnl,quatre_digits:totalPnl,cinc_digits:totalPnl,franctirador:streak,imparable:streak,perfeccionista:winRate,night_trader:openedHours.some(h=>h>=0&&h<6)?1:0,matiner:openedHours.some(h=>h>=6&&h<8)?1:0,hodler:maxOpenHours,adrenalina:maxLev,sobrevivent:liquidated};
   }
 
   function checkAchievements(render=true){
@@ -1601,9 +1830,8 @@
       const completed=v>=a.target&&(a.id!=='perfeccionista'||State.tradeHistory.length>=20);
       const prev=State.achievements[a.id]?.completed;
       State.achievements[a.id]={progress:v,completed};
-      if(completed&&!prev) showToast(`🏆 Assoliment: ${a.name}`,'success');
+      if(completed&&!prev) showToast(`🏆 Assoliment desblocat: ${a.name}`,'success');
     });
-    saveLocalState();
     if(render&&State.activeSection==='achievements') renderAchievements();
   }
 
@@ -1624,7 +1852,7 @@
             <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px;flex-wrap:wrap;">
               <div>
                 <div style="font-size:10px;color:#475569;text-transform:uppercase;letter-spacing:.5px;">${a.category}</div>
-                <div style="font-size:14px;font-weight:700;margin-top:1px;">${a.name}</div>
+                <div style="font-size:14px;font-weight:700;margin-top:1px;color:var(--text);">${a.name}</div>
               </div>
               <span style="font-size:10px;padding:3px 8px;border-radius:99px;background:${st.completed?'rgba(16,185,129,.15)':'rgba(255,255,255,.06)'};color:${st.completed?'#34d399':'#64748b'};font-weight:600;white-space:nowrap;">${st.completed?'✓ COMPLETAT':st.progress>0?'EN PROGRÉS':'BLOQUEJAT'}</span>
             </div>
@@ -1645,44 +1873,139 @@
   window.closeAuthModal=()=>document.getElementById('auth-modal').classList.add('hidden');
 
   function setUserUi(user){
-    State.user=user;
-    const logged=Boolean(user);
+    State.user=user;const logged=Boolean(user);
     document.getElementById('user-profile').classList.toggle('hidden',!logged);
     document.getElementById('auth-buttons').classList.toggle('hidden',logged);
     if(logged){
       const name=user.displayName||user.email?.split('@')[0]||'Trader';
       document.getElementById('user-name').textContent=name;
-      document.getElementById('user-email').textContent=user.email||'mode local';
+      document.getElementById('user-email').textContent=user.email||'Compte Google';
       document.getElementById('user-avatar').textContent=name[0].toUpperCase();
     }
     renderProfile();
   }
 
-  function setupLocalAuth(){
-    window.login=()=>{setUserUi({uid:'local-user',email:document.getElementById('auth-email').value||'local@leagueoftraders.app',displayName:'Trader Local'});closeAuthModal();showToast('Sessió local iniciada.','success');};
-    window.signup=window.login;
-    window.googleSignIn=window.login;
-    window.logout=()=>{setUserUi(null);showToast('Sessió tancada.','info');};
+  function authErrorMessage(e){
+    const code=e?.code||'';
+    if(code.includes('invalid-email')) return 'El correu no és vàlid.';
+    if(code.includes('missing-password')) return 'Introdueix la contrasenya.';
+    if(code.includes('weak-password')) return 'La contrasenya ha de tenir mínim 6 caràcters.';
+    if(code.includes('email-already-in-use')) return 'Aquest correu ja té un compte.';
+    if(code.includes('user-not-found')||code.includes('invalid-credential')||code.includes('wrong-password')) return 'Correu o contrasenya incorrectes.';
+    if(code.includes('popup-closed-by-user')) return 'Has tancat la finestra de Google abans d\'acabar.';
+    if(code.includes('unauthorized-domain')) return 'Aquest domini no està autoritzat a Firebase Auth.';
+    if(code.includes('operation-not-allowed')) return 'Aquest mètode d\'entrada no està activat a Firebase.';
+    if(code.includes('network-request-failed')) return 'No hi ha connexió amb Firebase.';
+    return 'No s\'ha pogut iniciar sessió. Revisa les dades i torna-ho a provar.';
+  }
+
+  function authUnavailable(){
+    showToast('Autenticació no disponible. Revisa la configuració de Firebase.','error');
+  }
+
+  function stopLeagueSnapshots(){
+    (Firebase.leagueUnsubs||[]).forEach(unsub=>{try{unsub();}catch(e){}});
+    Firebase.leagueUnsubs=[];
+  }
+
+  function startLeagueSnapshots(onSnapshot,doc){
+    stopLeagueSnapshots();
+    State.leagues.forEach(lg=>{
+      try{
+        const unsub=onSnapshot(doc(Firebase.db,'leagues',lg.id),(snap)=>{
+          if(!snap.exists()) return;
+          const idx=State.leagues.findIndex(l=>l.id===lg.id);
+          if(idx!==-1) State.leagues[idx]={...State.leagues[idx],...snap.data(),id:lg.id};
+          if(State.activeSection==='league'){if(State.activeLeagueId===lg.id)openLeague(lg.id);else renderLeagues();}
+        });
+        Firebase.leagueUnsubs.push(unsub);
+      }catch(e){}
+    });
   }
 
   async function initFirebase(){
-    setupLocalAuth();
-    if(CONFIG.firebase.apiKey==='YOUR_API_KEY') return;
+    window.login=authUnavailable;
+    window.signup=authUnavailable;
+    window.googleSignIn=authUnavailable;
+    window.logout=()=>{setUserUi(null);resetTradingState();clearLocalTradingState();updateAll();showToast('Sessió tancada.','info');};
+
+    if(!CONFIG.firebase.apiKey||CONFIG.firebase.apiKey==='YOUR_API_KEY'){
+      State.authReady=true;
+      return;
+    }
     try{
       const {initializeApp}=await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js');
       const {getAuth,signInWithEmailAndPassword,createUserWithEmailAndPassword,signInWithPopup,GoogleAuthProvider,onAuthStateChanged,signOut}=await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js');
-      const {getFirestore,doc,setDoc,getDoc}=await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js');
+      const {getFirestore,doc,setDoc,getDoc,onSnapshot,collection,query,where,getDocs}=await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js');
       const app=initializeApp(CONFIG.firebase);
-      Firebase.active=true;Firebase.auth=getAuth(app);Firebase.db=getFirestore(app);Firebase.helpers={doc,setDoc,getDoc};
+      Firebase.active=true;Firebase.auth=getAuth(app);Firebase.db=getFirestore(app);Firebase.helpers={doc,setDoc,getDoc,onSnapshot,collection,query,where,getDocs};
+
       onAuthStateChanged(Firebase.auth,async user=>{
-        setUserUi(user);
-        if(user){const ud=await getDoc(doc(Firebase.db,'users',user.uid));if(ud.exists()){const data=ud.data();State.balance=data.balance??STARTING_BALANCE;State.positions=data.positions??[];State.tradeHistory=data.tradeHistory??State.tradeHistory;State.achievements=data.achievements??State.achievements;updateAll();}}
+        State.authReady=true;
+        if(user){
+          resetTradingState();
+          setUserUi(user);
+          try{
+            const ud=await getDoc(doc(Firebase.db,'users',user.uid));
+            if(ud.exists()){
+              const data=ud.data();
+              State.balance=data.balance??STARTING_BALANCE;State.positions=data.positions??[];
+              State.tradeHistory=data.tradeHistory??[];
+              State.achievements=data.achievements??{};
+              State.pendingOrders=data.pendingOrders??[];
+              State.balanceHistory=data.balanceHistory??[];
+              State.leagues=data.leagues??[];
+            }else{
+              await saveRemoteState();
+            }
+            startLeagueSnapshots(onSnapshot,doc);
+          }catch(e){showToast('No s\'han pogut carregar les dades del compte.','error');}
+          updateAll();
+        }else{
+          stopLeagueSnapshots();
+          setUserUi(null);
+          resetTradingState();
+          clearLocalTradingState();
+          updateAll();
+        }
       });
-      window.login=async()=>{try{await signInWithEmailAndPassword(Firebase.auth,document.getElementById('auth-email').value,document.getElementById('auth-pass').value);closeAuthModal();showToast('Benvingut!','success');}catch(e){showToast('Error: '+e.message,'error');}};
-      window.signup=async()=>{try{await createUserWithEmailAndPassword(Firebase.auth,document.getElementById('auth-email').value,document.getElementById('auth-pass').value);closeAuthModal();showToast('Compte creat!','success');}catch(e){showToast('Error: '+e.message,'error');}};
-      window.googleSignIn=async()=>{try{await signInWithPopup(Firebase.auth,new GoogleAuthProvider());closeAuthModal();}catch(e){showToast('Error: '+e.message,'error');}};
-      window.logout=async()=>{await signOut(Firebase.auth);location.reload();};
-    }catch(e){showToast('Firebase no disponible. Mode local.','warning');}
+
+      window.login=async()=>{
+        const email=(document.getElementById('auth-email')?.value||'').trim();
+        const pass=document.getElementById('auth-pass')?.value||'';
+        if(!email){showToast('Introdueix el correu electrònic.','warning');return;}
+        if(!pass){showToast('Introdueix la contrasenya.','warning');return;}
+        try{
+          await signInWithEmailAndPassword(Firebase.auth,email,pass);
+          closeAuthModal();showToast('Benvingut!','success');
+        }catch(e){showToast(authErrorMessage(e),'error');}
+      };
+      window.signup=async()=>{
+        const email=(document.getElementById('auth-email')?.value||'').trim();
+        const pass=document.getElementById('auth-pass')?.value||'';
+        if(!email){showToast('Introdueix el correu electrònic.','warning');return;}
+        if(pass.length<6){showToast('La contrasenya ha de tenir mínim 6 caràcters.','warning');return;}
+        try{
+          await createUserWithEmailAndPassword(Firebase.auth,email,pass);
+          closeAuthModal();showToast('Compte creat!','success');
+        }catch(e){showToast(authErrorMessage(e),'error');}
+      };
+      window.googleSignIn=async()=>{
+        try{
+          await signInWithPopup(Firebase.auth,new GoogleAuthProvider());
+          closeAuthModal();showToast('Sessió iniciada amb Google.','success');
+        }catch(e){showToast(authErrorMessage(e),'error');}
+      };
+      window.logout=async()=>{
+        try{ await signOut(Firebase.auth); }catch(e){}
+        stopLeagueSnapshots();
+        setUserUi(null);resetTradingState();clearLocalTradingState();updateAll();showToast('Sessió tancada.','info');
+      };
+    }catch(e){
+      State.authReady=true;
+      console.error('Firebase no disponible.',e);
+      showToast('No s\'ha pogut carregar Firebase. Obre el joc amb connexió a internet.','error');
+    }
   }
 
   function updateAll(){
@@ -1690,7 +2013,7 @@
     if(State.activeSection==='portfolio') updatePortfolio();
     if(State.activeSection==='league') renderLeagues();
     if(State.activeSection==='profile') renderProfile();
-    updateUnrealizedPnlBar();
+    updateUnrealizedPnlBar();updateOrdersTable();
   }
 
   /* ── Leverage slider ── */
@@ -1702,10 +2025,10 @@
     calculateOrder();
   });
   document.getElementById('order-amount').addEventListener('input',calculateOrder);
+  document.getElementById('limit-price').addEventListener('input',calculateOrder);
 
   /* ── Positions panel swipe ── */
-  const ppEl=document.getElementById('positions-panel');
-  let ptStart=null;
+  const ppEl=document.getElementById('positions-panel');let ptStart=null;
   ppEl.addEventListener('touchstart',e=>{ptStart=e.changedTouches[0]?.clientY??null;},{passive:true});
   ppEl.addEventListener('touchend',e=>{if(ptStart===null) return;const end=e.changedTouches[0]?.clientY??ptStart;const delta=end-ptStart;if(Math.abs(delta)>40) ppEl.classList.toggle('open',delta<0);ptStart=null;},{passive:true});
 
@@ -1713,33 +2036,24 @@
 
   /* ── Init ── */
   (async function init(){
-    loadLocalState();
-    const sl=document.getElementById('leverage-slider');
-    const ip=((State.leverage-1)/49)*100;
-    sl.value=State.leverage;
-    sl.style.background=`linear-gradient(to right,#10b981 ${ip}%,rgba(255,255,255,0.12) ${ip}%)`;
-    await initFirebase();
-    updateAll();
-    initTradingView();
-    initWebSocket();
-    startRestPricePolling();
-    startFallbackMarket();
-    setWsStatus(false,'...');
-    fetchAnyRealSnapshot().catch(()=>{});
+    clearLocalTradingState();loadTheme();
+    const sl=document.getElementById('leverage-slider');const ip=((State.leverage-1)/49)*100;
+    sl.value=State.leverage;sl.style.background=`linear-gradient(to right,#10b981 ${ip}%,rgba(255,255,255,0.12) ${ip}%)`;
+    await initFirebase();updateAll();
+    initTradingView();initWebSocket();startRestPricePolling();startFallbackMarket();
+    setWsStatus(false,'...');fetchAnyRealSnapshot().catch(()=>{});
     setInterval(()=>{
       if(State.positions.length){updatePositionsTable();checkAchievements();updateUnrealizedPnlBar();}
       if(State.activeLeagueId&&State.activeSection==='league') openLeague(State.activeLeagueId);
     },1000);
+    // MILLORA 7: Tutorial primer ús
+    setTimeout(()=>initTutorial(),800);
   })();
 </script>
 
 <script src="https://s3.tradingview.com/tv.js"></script>
 <script>
-  if('serviceWorker' in navigator){
-    window.addEventListener('load',()=>{
-      navigator.serviceWorker.register('/sw.js').catch(()=>{});
-    });
-  }
+  if('serviceWorker' in navigator){window.addEventListener('load',()=>{navigator.serviceWorker.register('/sw.js').catch(()=>{});});}
 </script>
 </body>
 </html>
