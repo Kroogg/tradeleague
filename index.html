@@ -598,9 +598,15 @@
 <div id="trading-sheet">
   <div class="sheet-handle"></div>
   <div style="display:flex;align-items:center;justify-content:space-between;padding:14px 16px 8px;">
-    <div>
-      <span style="font-size:16px;font-weight:700;color:var(--text);" id="sheet-symbol">BTCUSDT</span>
-      <span style="font-size:13px;color:#64748b;margin-left:6px;">Perpetu</span>
+    <div style="display:flex;flex-direction:column;gap:2px;">
+      <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+        <span style="font-size:16px;font-weight:700;color:var(--text);" id="sheet-symbol">BTCUSDT</span>
+        <span style="font-size:13px;color:#64748b;">Perpetu</span>
+      </div>
+      <div style="display:flex;align-items:baseline;gap:8px;">
+        <span id="sheet-live-price" style="font-size:22px;font-weight:800;font-family:ui-monospace,monospace;color:#10b981;transition:color .3s;">---</span>
+        <span id="sheet-live-change" style="font-size:12px;font-weight:600;"></span>
+      </div>
     </div>
     <button onclick="toggleOrderPanel(false)" style="background:rgba(255,255,255,.08);border:none;color:#94a3b8;width:32px;height:32px;border-radius:8px;cursor:pointer;font-size:20px;display:flex;align-items:center;justify-content:center;">×</button>
   </div>
@@ -682,6 +688,56 @@
       <div style="display:flex;justify-content:space-between;"><span style="color:#64748b;">24h Volum</span><span id="24h-volume" style="font-family:ui-monospace,monospace;">---</span></div>
     </div>
   </details>
+</div>
+
+<!-- MODAL EDITAR TP/SL -->
+<div id="edit-tpsl-modal" class="hidden" style="position:fixed;inset:0;z-index:95;background:rgba(0,0,0,.75);backdrop-filter:blur(6px);display:flex;align-items:flex-end;justify-content:center;padding-bottom:env(safe-area-inset-bottom);" onclick="if(event.target===this)closeEditTpSlModal();">
+  <div style="background:var(--surface);border:1px solid var(--line);border-radius:20px 20px 0 0;width:100%;max-width:480px;padding:0 0 24px;">
+    <div style="width:36px;height:4px;background:rgba(255,255,255,.18);border-radius:2px;margin:12px auto 0;"></div>
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:14px 16px 10px;">
+      <div>
+        <div style="font-size:16px;font-weight:700;color:var(--text);">Editar TP / SL</div>
+        <div id="edit-tpsl-subtitle" style="font-size:12px;color:#64748b;margin-top:2px;"></div>
+      </div>
+      <button onclick="closeEditTpSlModal()" style="background:rgba(255,255,255,.08);border:none;color:#94a3b8;width:32px;height:32px;border-radius:8px;cursor:pointer;font-size:20px;display:flex;align-items:center;justify-content:center;">×</button>
+    </div>
+    <div style="padding:0 16px;display:flex;flex-direction:column;gap:12px;">
+      <!-- Preu actual -->
+      <div style="background:rgba(0,0,0,.25);border:1px solid var(--line);border-radius:10px;padding:10px 14px;display:flex;justify-content:space-between;align-items:center;">
+        <span style="font-size:12px;color:#64748b;">Preu actual</span>
+        <span id="edit-tpsl-current-price" style="font-size:15px;font-weight:700;font-family:ui-monospace,monospace;color:#10b981;">---</span>
+      </div>
+      <!-- Entrada -->
+      <div style="background:rgba(0,0,0,.25);border:1px solid var(--line);border-radius:10px;padding:10px 14px;display:flex;justify-content:space-between;align-items:center;">
+        <span style="font-size:12px;color:#64748b;">Preu d'entrada</span>
+        <span id="edit-tpsl-entry-price" style="font-size:13px;font-weight:600;font-family:ui-monospace,monospace;color:var(--text);">---</span>
+      </div>
+      <!-- TP -->
+      <div>
+        <label style="font-size:12px;color:#34d399;display:flex;align-items:center;gap:6px;margin-bottom:6px;font-weight:600;">
+          🎯 Take Profit
+          <span style="font-size:10px;color:#475569;font-weight:400;" id="edit-tp-hint"></span>
+        </label>
+        <div style="position:relative;">
+          <input type="number" id="edit-tp-price" class="inp" placeholder="Opcional – deixa buit per eliminar" step="0.01" style="padding-right:52px;">
+          <span style="position:absolute;right:12px;top:50%;transform:translateY(-50%);font-size:11px;color:#475569;">USDT</span>
+        </div>
+      </div>
+      <!-- SL -->
+      <div>
+        <label style="font-size:12px;color:#fb7185;display:flex;align-items:center;gap:6px;margin-bottom:6px;font-weight:600;">
+          🛡️ Stop Loss
+          <span style="font-size:10px;color:#475569;font-weight:400;" id="edit-sl-hint"></span>
+        </label>
+        <div style="position:relative;">
+          <input type="number" id="edit-sl-price" class="inp" placeholder="Opcional – deixa buit per eliminar" step="0.01" style="padding-right:52px;">
+          <span style="position:absolute;right:12px;top:50%;transform:translateY(-50%);font-size:11px;color:#475569;">USDT</span>
+        </div>
+      </div>
+      <input type="hidden" id="edit-tpsl-position-id">
+      <button onclick="saveEditTpSl()" style="width:100%;padding:14px;border-radius:12px;background:#10b981;border:none;color:#fff;font-weight:700;font-size:15px;cursor:pointer;margin-top:4px;">Desar canvis</button>
+    </div>
+  </div>
 </div>
 
 <!-- BOTTOM NAV -->
@@ -1055,6 +1111,11 @@
     if(cc){cc.textContent=(change>=0?'+':'')+fmtPct(change);cc.style.color=change>=0?'#34d399':'#fb7185';}
     document.getElementById('24h-volume').textContent=stats.volume?`${fmtUSDT(stats.volume)} ${assetBase(sym)}`:'---';
     document.getElementById('sheet-symbol').textContent=sym;
+    // Actualitzar preu en temps real del sheet de trading
+    const slp=document.getElementById('sheet-live-price');
+    const slc=document.getElementById('sheet-live-change');
+    if(slp&&price){slp.textContent=fmtPrice(price,sym);}
+    if(slc){slc.textContent=(change>=0?'+':'')+fmtPct(change);slc.style.color=change>=0?'#34d399':'#fb7185';}
     calculateOrder();updateUnrealizedPnlBar();
   }
 
@@ -1132,9 +1193,11 @@
       width:'100%',height:'100%',symbol:`BINANCE:${sym}`,interval:'15',timezone:'Europe/Madrid',
       theme:'dark',style:'1',locale:'ca',toolbar_bg:'#0f172a',enable_publishing:false,
       allow_symbol_change:true,container_id:'tv_chart_container',
-      drawings_access:{type:'all',tools:[{name:'Trend Line',grayed:false},{name:'Arrow Up',grayed:false},{name:'Arrow Down',grayed:false},{name:'Text',grayed:false}]},
+      drawings_access:{type:'all',tools:[{name:'Trend Line',grayed:false},{name:'Arrow Up',grayed:false},{name:'Arrow Down',grayed:false},{name:'Text',grayed:false},{name:'Horizontal Line',grayed:false},{name:'Rectangle',grayed:false},{name:'Fibonacci Retracement',grayed:false}]},
       studies:['RSI@tv-basicstudies','MASimple@tv-basicstudies'],
-      hide_top_toolbar:false,save_image:false,backgroundColor:'#020617',gridLineColor:'rgba(255,255,255,0.05)'
+      hide_top_toolbar:false,hide_side_toolbar:false,withdateranges:true,
+      save_image:false,backgroundColor:'#020617',gridLineColor:'rgba(255,255,255,0.05)',
+      overrides:{'mainSeriesProperties.candleStyle.upColor':'#10b981','mainSeriesProperties.candleStyle.downColor':'#ef4444','mainSeriesProperties.candleStyle.borderUpColor':'#10b981','mainSeriesProperties.candleStyle.borderDownColor':'#ef4444','mainSeriesProperties.candleStyle.wickUpColor':'#10b981','mainSeriesProperties.candleStyle.wickDownColor':'#ef4444'}
     });
     State.tvWidget=w;State.chartSymbol=sym;
     if(!w||typeof w.onChartReady!=='function') return;
@@ -1162,13 +1225,18 @@
     try{const c=State.tvWidget.chart();return typeof c.createShape==='function'?c.createShape(point,options):c.createMultipointShape([point],options);}
     catch(e){return null;}
   }
-  function drawPositionLines(position){
-    if(!State.tvWidget) return;
+  function drawPositionLines(position, retries=0){
+    if(!State.tvWidget) { if(retries<10) setTimeout(()=>drawPositionLines(position,retries+1),500); return; }
+    try{
+      const chart=typeof State.tvWidget.chart==='function'?State.tvWidget.chart():null;
+      if(!chart||typeof chart.createShape!=='function'){ if(retries<10) setTimeout(()=>drawPositionLines(position,retries+1),500); return; }
+    }catch(e){ if(retries<10) setTimeout(()=>drawPositionLines(position,retries+1),500); return; }
+
     const bp={price:position.entryPrice,time:Math.floor(position.openTime/1000)};
-    const el=createShape(position,bp,{shape:'horizontal_line',overrides:{linecolor:position.type==='LONG'?'#10b981':'#ef4444',linewidth:2,linestyle:0,text:`${position.type} x${position.leverage} · ${position.size.toFixed(4)} ${assetBase(position.symbol)}`,showText:true,textcolor:position.type==='LONG'?'#10b981':'#ef4444',fontsize:11}});
+    const color=position.type==='LONG'?'#10b981':'#ef4444';
+    const el=createShape(position,bp,{shape:'horizontal_line',overrides:{linecolor:color,linewidth:2,linestyle:0,text:`${position.type} x${position.leverage} · ${position.size.toFixed(4)} ${assetBase(position.symbol)}`,showText:true,textcolor:color,fontsize:11}});
     const tl=position.tp?createShape(position,{price:position.tp,time:bp.time},{shape:'horizontal_line',overrides:{linecolor:'#f59e0b',linewidth:1,linestyle:2,text:`TP: ${fmtPrice(position.tp,position.symbol)}`,showText:true,textcolor:'#f59e0b',fontsize:10}}):null;
     const sl=position.sl?createShape(position,{price:position.sl,time:bp.time},{shape:'horizontal_line',overrides:{linecolor:'#fb7185',linewidth:1,linestyle:2,text:`SL: ${fmtPrice(position.sl,position.symbol)}`,showText:true,textcolor:'#fb7185',fontsize:10}}):null;
-    // MILLORA 3: Línia de liquidació al chart
     const liqPrice=position.type==='LONG'?position.entryPrice*(1-1/position.leverage):position.entryPrice*(1+1/position.leverage);
     const ll=createShape(position,{price:liqPrice,time:bp.time},{shape:'horizontal_line',overrides:{linecolor:'#dc2626',linewidth:1,linestyle:1,text:`LIQ: ${fmtPrice(liqPrice,position.symbol)}`,showText:true,textcolor:'#dc2626',fontsize:9}});
     State.chartLines[position.id]={...(State.chartLines[position.id]||{}),entryLine:el,tpLine:tl,slLine:sl,liqLine:ll};
@@ -1349,7 +1417,59 @@
     showToast('Ordre límit cancel·lada.','info');
   };
 
-  /* ── MILLORA 2: Verificar ordres límit en cada tick de preu ── */
+  /* ── Editar TP/SL posició oberta ── */
+  window.openEditTpSlModal=function(positionId){
+    if(!requireAuth('editar TP/SL')) return;
+    const pos=State.positions.find(p=>p.id===positionId);if(!pos) return;
+    const price=State.prices[pos.symbol]||pos.entryPrice;
+    const modal=document.getElementById('edit-tpsl-modal');
+    document.getElementById('edit-tpsl-position-id').value=positionId;
+    document.getElementById('edit-tpsl-subtitle').textContent=`${assetBase(pos.symbol)} ${pos.type} x${pos.leverage} · Entrada: ${fmtPrice(pos.entryPrice,pos.symbol)}`;
+    document.getElementById('edit-tpsl-current-price').textContent=fmtPrice(price,pos.symbol);
+    document.getElementById('edit-tpsl-entry-price').textContent=fmtPrice(pos.entryPrice,pos.symbol);
+    document.getElementById('edit-tp-price').value=pos.tp||'';
+    document.getElementById('edit-sl-price').value=pos.sl||'';
+    const tpHint=pos.type==='LONG'?'(ha d\'estar per sobre de l\'entrada)':'(ha d\'estar per sota de l\'entrada)';
+    const slHint=pos.type==='LONG'?'(ha d\'estar per sota de l\'entrada)':'(ha d\'estar per sobre de l\'entrada)';
+    document.getElementById('edit-tp-hint').textContent=tpHint;
+    document.getElementById('edit-sl-hint').textContent=slHint;
+    // Actualitzar preu en temps real mentre el modal és obert
+    modal._priceInterval=setInterval(()=>{
+      const p=State.prices[pos.symbol];
+      if(p) document.getElementById('edit-tpsl-current-price').textContent=fmtPrice(p,pos.symbol);
+    },500);
+    modal.classList.remove('hidden');
+    modal.style.display='flex';
+  };
+  window.closeEditTpSlModal=function(){
+    const modal=document.getElementById('edit-tpsl-modal');
+    if(modal._priceInterval){clearInterval(modal._priceInterval);modal._priceInterval=null;}
+    modal.classList.add('hidden');
+    modal.style.display='none';
+  };
+  window.saveEditTpSl=async function(){
+    const positionId=document.getElementById('edit-tpsl-position-id').value;
+    const pos=State.positions.find(p=>p.id===positionId);if(!pos){closeEditTpSlModal();return;}
+    const tp=parseFloat(document.getElementById('edit-tp-price').value)||null;
+    const sl=parseFloat(document.getElementById('edit-sl-price').value)||null;
+    const entry=pos.entryPrice;
+    // Validacions
+    if(pos.type==='LONG'){
+      if(tp&&tp<=entry){showToast('El Take Profit d\'un LONG ha d\'estar per sobre de l\'entrada.','warning');return;}
+      if(sl&&sl>=entry){showToast('L\'Stop Loss d\'un LONG ha d\'estar per sota de l\'entrada.','warning');return;}
+    }else{
+      if(tp&&tp>=entry){showToast('El Take Profit d\'un SHORT ha d\'estar per sota de l\'entrada.','warning');return;}
+      if(sl&&sl<=entry){showToast('L\'Stop Loss d\'un SHORT ha d\'estar per sobre de l\'entrada.','warning');return;}
+    }
+    pos.tp=tp;pos.sl=sl;
+    // Redibuixar línies al gràfic
+    removePositionLines(positionId);
+    drawPositionLines(pos);
+    updatePositionsTable();
+    await saveRemoteState();
+    closeEditTpSlModal();
+    showToast('TP/SL actualitzats correctament.','success');
+  };
   function checkPendingOrders(sym,price){
     if(!State.user) return;
     const toExecute=State.pendingOrders.filter(o=>o.symbol===sym&&(
@@ -1430,9 +1550,12 @@
         <td style="padding:8px 4px;font-family:ui-monospace,monospace;color:${col};">${fmtPct(roe)}</td>
         <td style="padding:8px 4px;font-family:ui-monospace,monospace;color:${liqDist<5?'#fb7185':'#64748b'};font-size:11px;">${fmtPrice(liqPrice,pos.symbol)} <span style="font-size:9px;">(${liqDist.toFixed(1)}%)</span></td>
         <td style="padding:8px 4px;font-family:ui-monospace,monospace;color:#64748b;">${fmtDur(Date.now()-pos.openTime)}</td>
-        <td style="padding:8px 4px;font-family:ui-monospace,monospace;color:#64748b;">${pos.tp?fmtPrice(pos.tp,pos.symbol):'-'}</td>
-        <td style="padding:8px 4px;font-family:ui-monospace,monospace;color:#64748b;">${pos.sl?fmtPrice(pos.sl,pos.symbol):'-'}</td>
-        <td style="padding:8px 4px;text-align:right;"><button onclick="closePosition('${pos.id}')" style="padding:5px 10px;border-radius:7px;background:rgba(239,68,68,.15);border:1px solid rgba(239,68,68,.3);color:#fb7185;font-size:11px;cursor:pointer;font-weight:600;">Tancar</button></td>
+        <td style="padding:8px 4px;font-family:ui-monospace,monospace;color:${pos.tp?'#34d399':'#475569'};">${pos.tp?fmtPrice(pos.tp,pos.symbol):'-'}</td>
+        <td style="padding:8px 4px;font-family:ui-monospace,monospace;color:${pos.sl?'#fb7185':'#475569'};">${pos.sl?fmtPrice(pos.sl,pos.symbol):'-'}</td>
+        <td style="padding:8px 4px;text-align:right;white-space:nowrap;">
+          <button onclick="openEditTpSlModal('${pos.id}')" style="padding:5px 8px;border-radius:7px;background:rgba(251,191,36,.12);border:1px solid rgba(251,191,36,.3);color:#fcd34d;font-size:11px;cursor:pointer;font-weight:600;margin-right:4px;">TP/SL</button>
+          <button onclick="closePosition('${pos.id}')" style="padding:5px 10px;border-radius:7px;background:rgba(239,68,68,.15);border:1px solid rgba(239,68,68,.3);color:#fb7185;font-size:11px;cursor:pointer;font-weight:600;">Tancar</button>
+        </td>
       </tr>`;
     }).join('');
   }
@@ -1486,6 +1609,16 @@
     const ids=[`asset-price-${sym}`];
     if(sym===State.currentAsset) ids.push('mark-price','mobile-price');
     ids.forEach(id=>{const el=document.getElementById(id);if(!el) return;el.textContent=fmtPrice(newP,sym);if(dir){el.classList.toggle('price-up',dir==='up');el.classList.toggle('price-down',dir==='down');flashEl(el,dir);}});
+    // Actualitzar preu del sheet si és l'actiu actual i el sheet és obert
+    if(sym===State.currentAsset){
+      const slp=document.getElementById('sheet-live-price');
+      if(slp){
+        slp.textContent=fmtPrice(newP,sym);
+        slp.style.color=dir==='up'?'#34d399':dir==='down'?'#fb7185':'#10b981';
+        clearTimeout(slp._colorTimer);
+        slp._colorTimer=setTimeout(()=>{slp.style.color='#10b981';},1200);
+      }
+    }
   }
 
   /* ── Order panel ── */
@@ -1494,7 +1627,17 @@
     const sheet=document.getElementById('trading-sheet'),bd=document.getElementById('ts-backdrop');
     const open=typeof force==='boolean'?force:!sheet.classList.contains('open');
     sheet.classList.toggle('open',open);bd.classList.toggle('open',open);
-    if(open){calculateOrder();document.getElementById('sheet-balance').textContent=fmtUSDT(State.balance)+' USDT';}
+    if(open){
+      calculateOrder();
+      document.getElementById('sheet-balance').textContent=fmtUSDT(State.balance)+' USDT';
+      const sym=State.currentAsset;
+      const price=State.prices[sym];
+      const change=Number(State.marketStats[sym]?.changePercent||0);
+      const slp=document.getElementById('sheet-live-price');
+      const slc=document.getElementById('sheet-live-change');
+      if(slp&&price) slp.textContent=fmtPrice(price,sym);
+      if(slc){slc.textContent=(change>=0?'+':'')+fmtPct(change);slc.style.color=change>=0?'#34d399':'#fb7185';}
+    }
   };
 
   window.togglePositionsPanel=function(){document.getElementById('positions-panel').classList.toggle('open');};
