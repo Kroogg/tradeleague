@@ -460,8 +460,8 @@
   </section>
 
   <!-- LLIGA -->
-  <section id="league-section" class="app-section" style="overflow-y:auto;">
-    <div style="padding:16px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;">
+  <section id="league-section" class="app-section" style="overflow:hidden;">
+    <div style="padding:16px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;flex-shrink:0;">
       <div style="display:flex;align-items:center;gap:10px;">
         <button onclick="switchSection('assets')" class="btn-icon">&#8592;</button>
         <div>
@@ -474,7 +474,7 @@
         <button onclick="openJoinLeagueModal()" style="background:rgba(255,255,255,.06);border:1px solid var(--line);color:#94a3b8;border-radius:10px;padding:9px 16px;font-weight:600;font-size:13px;cursor:pointer;">Unir-se</button>
       </div>
     </div>
-    <div style="padding:16px;flex:1;">
+    <div style="padding:16px;flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;">
       <div id="league-list" style="display:flex;flex-direction:column;gap:10px;"></div>
       <div id="league-detail" class="hidden" style="display:flex;flex-direction:column;gap:12px;"></div>
     </div>
@@ -482,15 +482,15 @@
 
   <!-- PORTFOLIO -->
   <!-- MILLORA 5: Estadístiques avançades -->
-  <section id="portfolio-section" class="app-section" style="overflow-y:auto;">
-    <div style="padding:12px 16px 8px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:10px;">
+  <section id="portfolio-section" class="app-section" style="overflow:hidden;">
+    <div style="padding:12px 16px 8px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:10px;flex-shrink:0;">
       <button onclick="switchSection('assets')" class="btn-icon">&#8592;</button>
       <div>
         <div class="section-title">Portfolio</div>
         <div class="section-sub">Rendiment i estadístiques</div>
       </div>
     </div>
-    <div style="padding:16px;display:flex;flex-direction:column;gap:14px;">
+    <div style="padding:16px;display:flex;flex-direction:column;gap:14px;flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;">
       <div id="portfolio-kpis" style="display:grid;grid-template-columns:repeat(2,1fr);gap:10px;"></div>
 
       <!-- Stats avançades -->
@@ -691,7 +691,7 @@
 </div>
 
 <!-- MODAL EDITAR TP/SL -->
-<div id="edit-tpsl-modal" class="hidden" style="position:fixed;inset:0;z-index:95;background:rgba(0,0,0,.75);backdrop-filter:blur(6px);display:flex;align-items:flex-end;justify-content:center;padding-bottom:env(safe-area-inset-bottom);" onclick="if(event.target===this)closeEditTpSlModal();">
+<div id="edit-tpsl-modal" class="hidden" style="position:fixed;inset:0;z-index:95;background:rgba(0,0,0,.75);backdrop-filter:blur(6px);align-items:flex-end;justify-content:center;padding-bottom:env(safe-area-inset-bottom);" onclick="if(event.target===this)closeEditTpSlModal();">
   <div style="background:var(--surface);border:1px solid var(--line);border-radius:20px 20px 0 0;width:100%;max-width:480px;padding:0 0 24px;">
     <div style="width:36px;height:4px;background:rgba(255,255,255,.18);border-radius:2px;margin:12px auto 0;"></div>
     <div style="display:flex;align-items:center;justify-content:space-between;padding:14px 16px 10px;">
@@ -1139,7 +1139,7 @@
     document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
     document.getElementById(navId)?.classList.add('active');
     if(section==='league') renderLeagues();
-    if(section==='portfolio') updatePortfolio();
+    if(section==='portfolio') requestAnimationFrame(()=>requestAnimationFrame(updatePortfolio));
     if(section==='achievements') renderAchievements();
     if(section==='profile') renderProfile();
   };
@@ -1803,21 +1803,46 @@
 
   function renderPortfolioChart(){
     const canvas=document.getElementById('portfolio-chart');if(!canvas) return;
-    const ctx=canvas.getContext('2d');const w=canvas.clientWidth,h=canvas.height;
-    canvas.width=w*devicePixelRatio;canvas.height=h*devicePixelRatio;ctx.scale(devicePixelRatio,devicePixelRatio);ctx.clearRect(0,0,w,h);
-    const trades=[...State.tradeHistory].reverse();const pts=[STARTING_BALANCE];trades.forEach(t=>pts.push(pts[pts.length-1]+t.pnl));
-    const min=Math.min(...pts),max=Math.max(...pts),pad=16;
-    ctx.strokeStyle='rgba(255,255,255,0.1)';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(pad,pad);ctx.lineTo(pad,h-pad);ctx.lineTo(w-pad,h-pad);ctx.stroke();
+    // Esperar que el canvas sigui visible i tingui dimensions reals
+    const w=canvas.offsetWidth||canvas.getBoundingClientRect().width||canvas.parentElement?.offsetWidth||300;
+    const h=140;
+    canvas.width=Math.round(w*devicePixelRatio);
+    canvas.height=Math.round(h*devicePixelRatio);
+    canvas.style.height=h+'px';
+    const ctx=canvas.getContext('2d');
+    ctx.scale(devicePixelRatio,devicePixelRatio);
+    ctx.clearRect(0,0,w,h);
+    const trades=[...State.tradeHistory].reverse();
+    const pts=[STARTING_BALANCE];trades.forEach(t=>pts.push(pts[pts.length-1]+t.pnl));
+    if(pts.length<2){
+      ctx.fillStyle='#475569';ctx.font='13px ui-sans-serif';ctx.textAlign='center';
+      ctx.fillText('Fes el primer trade per veure el gràfic',w/2,h/2);return;
+    }
+    const min=Math.min(...pts),max=Math.max(...pts),pad=24;
+    const range=Math.max(1,max-min);
+    // Grid
+    ctx.strokeStyle='rgba(255,255,255,0.07)';ctx.lineWidth=1;
+    [0,0.25,0.5,0.75,1].forEach(t=>{const y=pad+(1-t)*(h-pad*2);ctx.beginPath();ctx.moveTo(pad,y);ctx.lineTo(w-4,y);ctx.stroke();});
+    // Eixos
+    ctx.strokeStyle='rgba(255,255,255,0.12)';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(pad,pad);ctx.lineTo(pad,h-pad);ctx.lineTo(w-4,h-pad);ctx.stroke();
     const color=totalRealizedPnl()>=0?'#10b981':'#ef4444';
-    ctx.strokeStyle=color;ctx.lineWidth=2;ctx.beginPath();
-    pts.forEach((v,i)=>{const x=pad+(pts.length===1?0:(i/(pts.length-1))*(w-pad*2));const y=h-pad-((v-min)/Math.max(1,max-min))*(h-pad*2);if(i===0)ctx.moveTo(x,y);else ctx.lineTo(x,y);});
-    ctx.stroke();
-    // Zona de color sota la línia
-    const grad=ctx.createLinearGradient(0,0,0,h);grad.addColorStop(0,color.replace(')',',0.2)').replace('rgb','rgba'));grad.addColorStop(1,'rgba(0,0,0,0)');
+    // Àrea
+    const grad=ctx.createLinearGradient(0,0,0,h);
+    grad.addColorStop(0,totalRealizedPnl()>=0?'rgba(16,185,129,0.25)':'rgba(239,68,68,0.25)');
+    grad.addColorStop(1,'rgba(0,0,0,0)');
     ctx.fillStyle=grad;ctx.beginPath();
-    pts.forEach((v,i)=>{const x=pad+(pts.length===1?0:(i/(pts.length-1))*(w-pad*2));const y=h-pad-((v-min)/Math.max(1,max-min))*(h-pad*2);if(i===0)ctx.moveTo(x,y);else ctx.lineTo(x,y);});
-    ctx.lineTo(pad+(pts.length===1?0:1)*(w-pad*2),h-pad);ctx.lineTo(pad,h-pad);ctx.closePath();ctx.fill();
-    ctx.fillStyle='#64748b';ctx.font=`11px ui-monospace`;ctx.fillText(fmtUSDT(max),pad+4,pad+10);ctx.fillText(fmtUSDT(min),pad+4,h-pad-4);
+    pts.forEach((v,i)=>{const x=pad+(i/(pts.length-1))*(w-pad-4);const y=pad+((max-v)/range)*(h-pad*2);if(i===0)ctx.moveTo(x,y);else ctx.lineTo(x,y);});
+    ctx.lineTo(pad+(w-pad-4),h-pad);ctx.lineTo(pad,h-pad);ctx.closePath();ctx.fill();
+    // Línia
+    ctx.strokeStyle=color;ctx.lineWidth=2;ctx.lineJoin='round';ctx.beginPath();
+    pts.forEach((v,i)=>{const x=pad+(i/(pts.length-1))*(w-pad-4);const y=pad+((max-v)/range)*(h-pad*2);if(i===0)ctx.moveTo(x,y);else ctx.lineTo(x,y);});
+    ctx.stroke();
+    // Punt final
+    const lx=pad+(w-pad-4),ly=pad+((max-pts[pts.length-1])/range)*(h-pad*2);
+    ctx.beginPath();ctx.arc(lx,ly,4,0,Math.PI*2);ctx.fillStyle=color;ctx.fill();
+    // Labels
+    ctx.fillStyle='#64748b';ctx.font='10px ui-monospace,monospace';ctx.textAlign='left';
+    ctx.fillText(fmtUSDT(max),pad+4,pad+9);ctx.fillText(fmtUSDT(min),pad+4,h-pad+13);
   }
 
   /* ── Profile ── */
