@@ -462,7 +462,7 @@
   </section>
 
   <!-- LLIGA -->
-  <section id="league-section" class="app-section" style="overflow-y:auto;overflow-x:clip;-webkit-overflow-scrolling:touch;">
+  <section id="league-section" class="app-section" style="overflow-y:auto;-webkit-overflow-scrolling:touch;">
     <div style="position:sticky;top:0;z-index:20;background:var(--deep);padding:16px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;">
       <div style="display:flex;align-items:center;gap:10px;">
         <button onclick="switchSection('assets')" class="btn-icon">&#8592;</button>
@@ -484,7 +484,7 @@
 
   <!-- PORTFOLIO -->
   <!-- MILLORA 5: Estadístiques avançades -->
-  <section id="portfolio-section" class="app-section" style="overflow-y:auto;overflow-x:clip;-webkit-overflow-scrolling:touch;">
+  <section id="portfolio-section" class="app-section" style="overflow-y:auto;-webkit-overflow-scrolling:touch;">
     <div style="position:sticky;top:0;z-index:20;background:var(--deep);padding:12px 16px 8px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:10px;">
       <button onclick="switchSection('assets')" class="btn-icon">&#8592;</button>
       <div>
@@ -507,7 +507,7 @@
       </div>
       <div class="glass-sm" style="border-radius:14px;padding:14px;">
         <div style="font-size:13px;font-weight:600;margin-bottom:10px;color:#94a3b8;">Actius en cartera</div>
-        <div style="overflow-x:auto;-webkit-overflow-scrolling:touch;margin:0 -14px;padding:0 14px;">
+        <div style="overflow-x:auto;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain;touch-action:pan-x;margin:0 -14px;padding:0 14px;">
           <table class="data-table" style="min-width:520px;">
             <thead><tr><th>Actiu</th><th>Mida</th><th>Entrada</th><th>Actual</th><th>PnL</th><th>%Portfolio</th></tr></thead>
             <tbody id="portfolio-assets"></tbody>
@@ -516,7 +516,7 @@
       </div>
       <div class="glass-sm" style="border-radius:14px;padding:14px;">
         <div style="font-size:13px;font-weight:600;margin-bottom:10px;color:#94a3b8;">Historial de trades tancats</div>
-        <div style="overflow-x:auto;-webkit-overflow-scrolling:touch;margin:0 -14px;padding:0 14px;">
+        <div style="overflow-x:auto;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain;touch-action:pan-x;margin:0 -14px;padding:0 14px;">
           <table class="data-table" style="min-width:700px;">
             <thead><tr><th>Obertura</th><th>Tancament</th><th>Actiu</th><th>Dir.</th><th>Lev.</th><th>Entrada</th><th>Sortida</th><th>PnL</th><th>Motiu</th><th>Durada</th></tr></thead>
             <tbody id="portfolio-history"></tbody>
@@ -1952,8 +1952,8 @@
       </div>
       <div style="background:var(--card-bg);border:1px solid var(--line);border-radius:14px;padding:14px;">
         <div style="font-size:13px;font-weight:600;margin-bottom:10px;color:var(--text);">Classificació en temps real</div>
-        <div style="overflow-x:auto;-webkit-overflow-scrolling:touch;margin:0 -14px;padding:0 14px;">
-          <table class="data-table" style="min-width:420px;">
+        <div style="overflow-x:auto;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain;touch-action:pan-x;margin:0 -14px;padding:0 14px;">
+          <table class="data-table" style="min-width:560px;">
             <thead><tr><th>#</th><th>Jugador</th><th>Saldo</th><th>PnL</th><th>Trades</th></tr></thead>
             <tbody>${sorted.map((m,i)=>{const medal=['🥇','🥈','🥉'][i]||`#${i+1}`;return `<tr style="${m.id===uid?'background:rgba(16,185,129,.08);':''}"><td style="font-weight:700;white-space:nowrap;">${medal}</td><td style="white-space:nowrap;"><span style="display:inline-flex;width:26px;height:26px;border-radius:50%;background:rgba(255,255,255,.1);align-items:center;justify-content:center;font-weight:700;font-size:12px;margin-right:6px;">${m.avatar}</span>${m.name}</td><td style="font-family:ui-monospace,monospace;white-space:nowrap;">${fmtUSDT(m.balance)} USDT</td><td style="font-family:ui-monospace,monospace;color:${m.pnl>=0?'#34d399':'#fb7185'};font-weight:700;white-space:nowrap;">${m.pnl>=0?'+':''}${fmtUSDT(m.pnl)}</td><td style="font-family:ui-monospace,monospace;white-space:nowrap;">${m.trades}</td></tr>`;}).join('')}</tbody>
           </table>
@@ -1961,8 +1961,8 @@
       </div>
       <div style="background:var(--card-bg);border:1px solid var(--line);border-radius:14px;padding:14px;">
         <div style="font-size:13px;font-weight:600;margin-bottom:10px;color:var(--text);">Historial de la Lliga</div>
-        <div style="overflow-x:auto;-webkit-overflow-scrolling:touch;margin:0 -14px;padding:0 14px;">
-          <table class="data-table" style="min-width:440px;">
+        <div style="overflow-x:auto;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain;touch-action:pan-x;margin:0 -14px;padding:0 14px;">
+          <table class="data-table" style="min-width:560px;">
             <thead><tr><th>Jugador</th><th>Data</th><th>Actiu</th><th>Tipus</th><th>PnL</th><th>Durada</th></tr></thead>
             <tbody>${league.trades.length?league.trades.map(t=>`<tr><td style="white-space:nowrap;">${t.player}</td><td style="white-space:nowrap;">${fmtDT(t.closeTime)}</td><td style="white-space:nowrap;">${assetBase(t.symbol)}</td><td style="color:${t.type==='LONG'?'#34d399':'#fb7185'};font-weight:700;white-space:nowrap;">${t.type}</td><td style="font-family:ui-monospace,monospace;color:${t.pnl>=0?'#34d399':'#fb7185'};font-weight:700;white-space:nowrap;">${t.pnl>=0?'+':''}${fmtUSDT(t.pnl)}</td><td style="font-family:ui-monospace,monospace;color:#64748b;white-space:nowrap;">${fmtDur(t.duration)}</td></tr>`).join(''):'<tr><td colspan="6" style="padding:20px;text-align:center;color:#475569;font-size:13px;">Sense trades a la lliga</td></tr>'}</tbody>
           </table>
