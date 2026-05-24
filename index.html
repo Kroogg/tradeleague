@@ -25,7 +25,7 @@
     /* ══ CSS VARIABLES (dark mode default) ══ */
     :root {
       --emerald:#10b981; --rose:#ef4444; --surface:#0a0d1a; --deep:#05070a;
-      --nav-h:64px; --hdr-h:56px; --line:rgba(176,141,87,0.18); --glass:rgba(10,13,26,0.85);
+      --nav-h:64px; --hdr-h:56px; --safe-top:env(safe-area-inset-top,0px); --line:rgba(176,141,87,0.18); --glass:rgba(10,13,26,0.85);
       --text:#f0e6d3; --text-muted:#9a8a72; --card-bg:rgba(10,13,26,0.75);
       --inp-bg:rgba(0,0,0,0.45); --inp-border:rgba(176,141,87,0.2);
       /* RPG palette */
@@ -83,8 +83,8 @@
     html.light *::-webkit-scrollbar-thumb { background:rgba(0,0,0,.15); }
 
     /* Layout */
-    #app-header { position:fixed; top:0; left:0; right:0; height:var(--hdr-h); z-index:60; background:rgba(5,7,15,0.97); border-bottom:1px solid var(--line); display:flex; align-items:center; justify-content:space-between; padding:0 16px; backdrop-filter:blur(20px); box-shadow:0 1px 20px rgba(0,0,0,0.6); }
-    #app-main { position:fixed; top:var(--hdr-h); left:0; right:0; bottom:var(--nav-h); overflow:hidden; }
+    #app-header { position:fixed; top:0; left:0; right:0; height:calc(var(--hdr-h) + var(--safe-top)); z-index:60; background:rgba(5,7,15,0.97); border-bottom:1px solid var(--line); display:flex; align-items:flex-end; justify-content:space-between; padding:0 16px calc(8px); padding-top:calc(var(--safe-top) + 8px); backdrop-filter:blur(20px); box-shadow:0 1px 20px rgba(0,0,0,0.6); }
+    #app-main { position:fixed; top:calc(var(--hdr-h) + var(--safe-top)); left:0; right:0; bottom:var(--nav-h); overflow:hidden; }
     #bottom-nav { position:fixed; bottom:0; left:0; right:0; height:var(--nav-h); z-index:60; background:rgba(5,7,15,0.99); border-top:1px solid var(--line); display:grid; grid-template-columns:repeat(6,1fr); backdrop-filter:blur(20px); padding-bottom:env(safe-area-inset-bottom); box-shadow:0 -1px 20px rgba(0,0,0,0.5); }
 
     /* Sections */
