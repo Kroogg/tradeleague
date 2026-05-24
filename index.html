@@ -366,15 +366,14 @@
     .game-title-wrap { text-align:center; margin-bottom:36px; z-index:2; position:relative; }
     .game-title-main{
   font-family:'Russo One',sans-serif;
-  font-size:72px;
+  font-size:clamp(36px, 11vw, 72px);
   color:#d6a77a;
-
+  white-space:nowrap;
   text-shadow:
     0 2px 0 #fff1,
     0 4px 0 #8b5e3c,
     0 8px 18px rgba(0,0,0,.8);
-
-  letter-spacing:3px;
+  letter-spacing:clamp(1px, 1vw, 3px);
 }
     .game-btns { display:flex; flex-direction:column; gap:13px; width:100%; max-width:300px; z-index:2; position:relative; }
     .game-btn{
