@@ -998,12 +998,12 @@
      JAVASCRIPT
 ════════════════════════════════════════════ -->
 <script type="module">
-  /* ── MILLORA 9: Més actius (15 parells) ── */
+  /* ── MILLORA 9: Més actius (24 parells) ── */
   const ALL_ASSETS = [
     {name:'Bitcoin',   symbol:'BTCUSDT',  cat:'layer1', emoji:'₿', icon:'https://cdn.jsdelivr.net/gh/spothq/cryptocurrency-icons@master/svg/color/btc.svg',  decimals:2, cgId:'bitcoin'},
     {name:'Ethereum',  symbol:'ETHUSDT',  cat:'layer1', emoji:'Ξ', icon:'https://cdn.jsdelivr.net/gh/spothq/cryptocurrency-icons@master/svg/color/eth.svg',  decimals:2, cgId:'ethereum'},
     {name:'BNB',       symbol:'BNBUSDT',  cat:'layer1', emoji:'B', icon:'https://cdn.jsdelivr.net/gh/spothq/cryptocurrency-icons@master/svg/color/bnb.svg',  decimals:2, cgId:'binancecoin'},
-    {name:'Solana',    symbol:'SOLUSDT',  cat:'layer1', emoji:'◎', icon:'https://cdn.jsdelivr.net/gh/spothq/cryptocurrency-icons@master/svg/color/sol.svg',  decimals:3, cgId:'solana'},
+    {name:'Solana',    symbol:'SOLUSDT',  cat:'layer1', emoji:'◎', icon:'https://assets.coingecko.com/coins/images/4128/small/solana.png', decimals:3, cgId:'solana'},
     {name:'XRP',       symbol:'XRPUSDT',  cat:'layer1', emoji:'✕', icon:'https://cdn.jsdelivr.net/gh/spothq/cryptocurrency-icons@master/svg/color/xrp.svg',  decimals:4, cgId:'ripple'},
     {name:'Cardano',   symbol:'ADAUSDT',  cat:'layer1', emoji:'₳', icon:'https://cdn.jsdelivr.net/gh/spothq/cryptocurrency-icons@master/svg/color/ada.svg',  decimals:4, cgId:'cardano'},
     {name:'Avalanche', symbol:'AVAXUSDT', cat:'layer1', emoji:'🔺', icon:'https://cdn.jsdelivr.net/gh/spothq/cryptocurrency-icons@master/svg/color/avax.svg', decimals:3, cgId:'avalanche-2'},
@@ -1011,10 +1011,19 @@
     {name:'Chainlink', symbol:'LINKUSDT', cat:'defi',   emoji:'⬡', icon:'https://cdn.jsdelivr.net/gh/spothq/cryptocurrency-icons@master/svg/color/link.svg', decimals:3, cgId:'chainlink'},
     {name:'Uniswap',   symbol:'UNIUSDT',  cat:'defi',   emoji:'🦄', icon:'https://cdn.jsdelivr.net/gh/spothq/cryptocurrency-icons@master/svg/color/uni.svg',  decimals:3, cgId:'uniswap'},
     {name:'Cosmos',    symbol:'ATOMUSDT', cat:'layer1', emoji:'⚛', icon:'https://cdn.jsdelivr.net/gh/spothq/cryptocurrency-icons@master/svg/color/atom.svg', decimals:3, cgId:'cosmos'},
-    {name:'SUI',       symbol:'SUIUSDT',  cat:'layer1', emoji:'☯', icon:'https://assets.coingecko.com/coins/images/26375/small/sui_asset.jpeg',  decimals:4, cgId:'sui'},
-    {name:'Litecoin',  symbol:'LTCUSDT',  cat:'layer1', emoji:'Ł', icon:'https://cdn.jsdelivr.net/gh/spothq/cryptocurrency-icons@master/svg/color/ltc.svg',  decimals:2, cgId:'litecoin'},
+    {name:'SUI',       symbol:'SUIUSDT',  cat:'layer1', emoji:'☯', icon:'https://assets.coingecko.com/coins/images/26375/small/sui-ocean-square.png', decimals:4, cgId:'sui'},
+    {name:'Litecoin',  symbol:'LTCUSDT',  cat:'layer1', emoji:'Ł', icon:'https://assets.coingecko.com/coins/images/2/small/litecoin.png', decimals:2, cgId:'litecoin'},
     {name:'Dogecoin',  symbol:'DOGEUSDT', cat:'meme',   emoji:'Ð', icon:'https://cdn.jsdelivr.net/gh/spothq/cryptocurrency-icons@master/svg/color/doge.svg', decimals:5, cgId:'dogecoin'},
     {name:'PEPE',      symbol:'PEPEUSDT', cat:'meme',   emoji:'🐸', icon:'https://assets.coingecko.com/coins/images/29850/small/pepe-token.jpeg', decimals:8, cgId:'pepe'},
+    {name:'TRON',      symbol:'TRXUSDT',  cat:'layer1', emoji:'△', icon:'https://assets.coingecko.com/coins/images/1094/small/tron-logo.png', decimals:5, cgId:'tron'},
+    {name:'HYPE',      symbol:'HYPEUSDT', cat:'defi',   emoji:'⟠', icon:'https://assets.coingecko.com/coins/images/50882/small/hyperliquid.jpg', decimals:3, cgId:'hyperliquid'},
+    {name:'ASTER',     symbol:'ASTERUSDT',cat:'defi',   emoji:'✦', icon:'https://assets.coingecko.com/coins/images/55135/small/aster.jpg', decimals:4, cgId:'aster-2'},
+    {name:'Toncoin',   symbol:'TONUSDT',  cat:'layer1', emoji:'◉', icon:'https://assets.coingecko.com/coins/images/17980/small/ton_symbol.png', decimals:3, cgId:'toncoin'},
+    {name:'Stellar',   symbol:'XLMUSDT',  cat:'layer1', emoji:'✶', icon:'https://assets.coingecko.com/coins/images/100/small/Stellar_symbol_black_RGB.png', decimals:5, cgId:'stellar'},
+    {name:'Hedera',    symbol:'HBARUSDT', cat:'layer1', emoji:'ℏ', icon:'https://assets.coingecko.com/coins/images/3688/small/hbar.png', decimals:5, cgId:'hedera-hashgraph'},
+    {name:'Shiba Inu', symbol:'SHIBUSDT', cat:'meme',   emoji:'🐕', icon:'https://assets.coingecko.com/coins/images/11939/small/shiba.png', decimals:8, cgId:'shiba-inu'},
+    {name:'Ondo',      symbol:'ONDOUSDT', cat:'defi',   emoji:'◌', icon:'https://assets.coingecko.com/coins/images/26580/small/ONDO.png', decimals:4, cgId:'ondo'},
+    {name:'Aave',      symbol:'AAVEUSDT', cat:'defi',   emoji:'A', icon:'https://assets.coingecko.com/coins/images/12645/small/AAVE.png', decimals:2, cgId:'aave'},
   ];
 
   let ASSETS = [...ALL_ASSETS];
@@ -1040,7 +1049,9 @@
   const INITIAL_PRICES = {
     BTCUSDT:81821, ETHUSDT:3200, BNBUSDT:580, SOLUSDT:145, XRPUSDT:0.52,
     ADAUSDT:0.46, AVAXUSDT:25, DOTUSDT:6.5, LINKUSDT:14, UNIUSDT:8,
-    ATOMUSDT:6.5, SUIUSDT:1.2, LTCUSDT:84, DOGEUSDT:0.16, PEPEUSDT:0.0000098
+    ATOMUSDT:6.5, SUIUSDT:1.2, LTCUSDT:84, DOGEUSDT:0.16, PEPEUSDT:0.0000098,
+    TRXUSDT:0.11, HYPEUSDT:40, ASTERUSDT:1.6, TONUSDT:6.5, XLMUSDT:0.12,
+    HBARUSDT:0.08, SHIBUSDT:0.00002, ONDOUSDT:0.9, AAVEUSDT:95
   };
 
   const STREAM_LIST = ALL_ASSETS.map(a=>a.symbol.toLowerCase()+'@ticker');
@@ -1068,14 +1079,14 @@
       'https://data-api.binance.vision/api/v3/ticker/24hr',
       'https://fapi.binance.com/fapi/v1/ticker/24hr'
     ],
-    coinGeckoUrl:`https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=bitcoin,ethereum,binancecoin,solana,ripple,cardano,avalanche-2,polkadot,chainlink,uniswap,cosmos,sui,litecoin,dogecoin,pepe&sparkline=false`,
-    cryptoCompareUrl:'https://min-api.cryptocompare.com/data/pricemultifull?fsyms=BTC,ETH,BNB,SOL,XRP,ADA,AVAX,DOT,LINK,UNI,ATOM,LTC,DOGE&tsyms=USD',
-    krakenPairs:'XXBTZUSD,XETHZUSD,SOLUSD,XXRPZUSD,XLTCZUSD,ADAUSD,AVAXUSD,DOTUSD,LINKUSD,UNIUSD,ATOMUSD,XDGUSD'
+    coinGeckoUrl:`https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=bitcoin,ethereum,binancecoin,solana,ripple,cardano,avalanche-2,polkadot,chainlink,uniswap,cosmos,sui,litecoin,dogecoin,pepe,tron,hyperliquid,aster-2,toncoin,stellar,hedera-hashgraph,shiba-inu,ondo,aave&sparkline=false`,
+    cryptoCompareUrl:'https://min-api.cryptocompare.com/data/pricemultifull?fsyms=BTC,ETH,BNB,SOL,XRP,ADA,AVAX,DOT,LINK,UNI,ATOM,LTC,DOGE,TRX,TON,XLM,HBAR,SHIB,ONDO,AAVE&tsyms=USD',
+    krakenPairs:'XXBTZUSD,XETHZUSD,SOLUSD,XXRPZUSD,XLTCZUSD,ADAUSD,AVAXUSD,DOTUSD,LINKUSD,UNIUSD,ATOMUSD,XDGUSD,XXLMZUSD,TRXUSD'
   };
 
   const State = {
     user:null, balance:STARTING_BALANCE, positions:[], tradeHistory:[],
-    prices:{...INITIAL_PRICES}, prevPrices:{}, marketStats:{},
+    prices:{...INITIAL_PRICES}, prevPrices:{}, marketStats:{}, assetTickAt:{},
     priceSource:'simulated', lastLiveTickAt:0,
     wsReconnectTimer:null, fallbackTimer:null, restPollingTimer:null, wsUrlIndex:0,
     chartSymbol:'BTCUSDT', currentAsset:'BTCUSDT', leverage:10, tradeType:'LONG',
@@ -1195,7 +1206,7 @@
   /* ── MILLORA 7: Tutorial ── */
   const TUTORIAL_STEPS = [
     {icon:'🚀',title:'Benvingut a TradeLeague!',desc:'Aprèn a fer trading amb preus reals de mercat sense arriscar diners reals. Tens 10.000 USDT virtuals per començar.'},
-    {icon:'📈',title:'Tria un actiu',desc:'A "Actius" trobaràs 15 criptomonedes amb preus en temps real via Binance. Toca qualsevol carta per obrir el gràfic.'},
+    {icon:'📈',title:'Tria un actiu',desc:'A "Actius" trobaràs 24 criptomonedes amb preus en temps real via Binance. Toca qualsevol carta per obrir el gràfic.'},
     {icon:'⚡',title:'Palanquejament',desc:'El leverage multiplica els teus guanys i pèrdues. x10 significa que amb 100 USDT controles 1.000 USDT. Atenció: a x10 una baixada del 10% liquida la posició!'},
     {icon:'📋',title:'Ordres de mercat i límit',desc:'Una ordre de mercat s\'executa immediatament al preu actual. Una ordre límit s\'activa quan el preu arriba al teu preu objectiu.'},
     {icon:'🏆',title:'Lligues i assoliments',desc:'Competeix contra amics a les lligues fantasy amb saldo virtual independent. Desbloqueja assoliments mentre millores com a trader!'},
@@ -1838,6 +1849,7 @@
     const oldPrice=State.prices[sym]||INITIAL_PRICES[sym]||0;
     const nextPrice=parseFloat(data.c);if(!Number.isFinite(nextPrice)||nextPrice<=0) return;
     State.prevPrices[sym]=oldPrice;State.prices[sym]=nextPrice;
+    State.assetTickAt[sym]=Date.now();
     State.marketStats[sym]={high:parseFloat(data.h)||Math.max(oldPrice,nextPrice),low:parseFloat(data.l)||Math.min(oldPrice,nextPrice),volume:parseFloat(data.v)||0,changePercent:parseFloat(data.P)||0};
     if(source==='live'||source==='rest'||source==='coingecko'){State.priceSource='live';State.lastLiveTickAt=Date.now();setWsStatus(true,source==='coingecko'?'API':source==='rest'?'REST':'LIVE');}
     updateTickerDom(sym,oldPrice,nextPrice);
@@ -1862,6 +1874,7 @@
     const data=await r.json();if(!Array.isArray(data)||!data.length)throw new Error('CG empty');
     data.forEach(item=>{
       const asset=ALL_ASSETS.find(a=>a.cgId===item.id);if(!asset||!item.current_price)return;
+      if(item.image&&typeof item.image==='string') asset.icon=item.image;
       const p=item.current_price,old=State.prices[asset.symbol]||INITIAL_PRICES[asset.symbol]||p;
       applyTicker({s:asset.symbol,c:String(p),h:String(item.high_24h||Math.max(State.marketStats[asset.symbol]?.high||old,p)),l:String(item.low_24h||Math.min(State.marketStats[asset.symbol]?.low||old,p)),v:String(item.total_volume||0),P:String(item.price_change_percentage_24h||0)},'coingecko');
     });
@@ -1870,7 +1883,7 @@
   async function fetchCryptoCompareSnapshot(){
     const r=await fetchWithTimeout(CONFIG.cryptoCompareUrl,6000);if(!r.ok)throw new Error('CC fail');
     const data=await r.json();if(!data.RAW)throw new Error('CC invalid');
-    const m={BTCUSDT:'BTC',ETHUSDT:'ETH',BNBUSDT:'BNB',SOLUSDT:'SOL',XRPUSDT:'XRP',LTCUSDT:'LTC',ADAUSDT:'ADA',DOGEUSDT:'DOGE',AVAXUSDT:'AVAX',DOTUSDT:'DOT',LINKUSDT:'LINK',UNIUSDT:'UNI',ATOMUSDT:'ATOM'};
+    const m={BTCUSDT:'BTC',ETHUSDT:'ETH',BNBUSDT:'BNB',SOLUSDT:'SOL',XRPUSDT:'XRP',LTCUSDT:'LTC',ADAUSDT:'ADA',DOGEUSDT:'DOGE',AVAXUSDT:'AVAX',DOTUSDT:'DOT',LINKUSDT:'LINK',UNIUSDT:'UNI',ATOMUSDT:'ATOM',TRXUSDT:'TRX',TONUSDT:'TON',XLMUSDT:'XLM',HBARUSDT:'HBAR',SHIBUSDT:'SHIB',ONDOUSDT:'ONDO',AAVEUSDT:'AAVE'};
     ALL_ASSETS.forEach(asset=>{const key=m[asset.symbol];const item=data.RAW[key]?.USD;if(!item||!item.PRICE)return;const old=State.prices[asset.symbol]||INITIAL_PRICES[asset.symbol]||item.PRICE;applyTicker({s:asset.symbol,c:String(item.PRICE),h:String(item.HIGH24HOUR||Math.max(old,item.PRICE)),l:String(item.LOW24HOUR||Math.min(old,item.PRICE)),v:String(item.VOLUME24HOUR||0),P:String(item.CHANGEPCT24HOUR||0)},'coingecko');});
     renderAssetsList();return true;
   }
@@ -1878,7 +1891,7 @@
     try{
       const r=await fetchWithTimeout('https://api.kraken.com/0/public/Ticker?pair='+CONFIG.krakenPairs,6000);if(!r.ok)throw new Error('K fail');
       const data=await r.json();if(data.error&&data.error.length)throw new Error('K err');
-      const km={XXBTZUSD:'BTCUSDT',XETHZUSD:'ETHUSDT',SOLUSD:'SOLUSDT',XXRPZUSD:'XRPUSDT',XLTCZUSD:'LTCUSDT',ADAUSD:'ADAUSDT',AVAXUSD:'AVAXUSDT',DOTUSD:'DOTUSDT',LINKUSD:'LINKUSDT',UNIUSD:'UNIUSDT',ATOMUSD:'ATOMUSDT',XDGUSD:'DOGEUSDT'};
+      const km={XXBTZUSD:'BTCUSDT',XETHZUSD:'ETHUSDT',SOLUSD:'SOLUSDT',XXRPZUSD:'XRPUSDT',XLTCZUSD:'LTCUSDT',ADAUSD:'ADAUSDT',AVAXUSD:'AVAXUSDT',DOTUSD:'DOTUSDT',LINKUSD:'LINKUSDT',UNIUSD:'UNIUSDT',ATOMUSD:'ATOMUSDT',XDGUSD:'DOGEUSDT',XXLMZUSD:'XLMUSDT',TRXUSD:'TRXUSDT'};
       Object.entries(data.result||{}).forEach(([pair,ticker])=>{const sym=km[pair];if(!sym)return;const p=parseFloat(ticker.c&&ticker.c[0]);if(!p)return;const old=State.prices[sym]||INITIAL_PRICES[sym]||p;const open=parseFloat(ticker.o)||p;applyTicker({s:sym,c:String(p),h:String(parseFloat(ticker.h&&ticker.h[1])||Math.max(old,p)),l:String(parseFloat(ticker.l&&ticker.l[1])||Math.min(old,p)),v:String(parseFloat(ticker.v&&ticker.v[1])||0),P:String(open?((p-open)/open)*100:0)},'coingecko');});
       renderAssetsList();return true;
     }catch(e){throw e;}
@@ -1887,7 +1900,12 @@
 
   function startRestPricePolling(){
     if(State.restPollingTimer) return;
-    State.restPollingTimer=setInterval(()=>{if(State.priceSource==='live'&&Date.now()-State.lastLiveTickAt<2500)return;fetchAnyRealSnapshot().catch(()=>{if(Date.now()-State.lastLiveTickAt>10000)setWsStatus(false,'SIM');});},1500);
+    State.restPollingTimer=setInterval(()=>{
+      const now=Date.now();
+      const hasStaleAssets=ALL_ASSETS.some(a=>now-(State.assetTickAt[a.symbol]||0)>20000);
+      if(!hasStaleAssets&&State.priceSource==='live'&&now-State.lastLiveTickAt<2500) return;
+      fetchAnyRealSnapshot().catch(()=>{if(now-State.lastLiveTickAt>10000)setWsStatus(false,'SIM');});
+    },1500);
   }
   function startFallbackMarket(){
     if(State.fallbackTimer) return;
