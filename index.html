@@ -253,7 +253,7 @@
     .data-table th { color:var(--text-muted); font-weight:500; padding:8px 8px 8px 4px; border-bottom:1px solid var(--line); text-align:left; white-space:nowrap; text-transform:uppercase; letter-spacing:.4px; font-size:10px; }
     .data-table td { padding:10px 8px 10px 4px; border-bottom:1px solid rgba(176,141,87,.05); white-space:nowrap; }
     .data-table tbody tr:last-child td { border-bottom:none; }
-    .h-scroll { overflow-x:auto; overflow-y:hidden; -webkit-overflow-scrolling:touch; overscroll-behavior-x:contain; width:100%; max-width:100%; min-width:0; touch-action:pan-x; }
+    .h-scroll { overflow-x:auto; overflow-y:hidden; -webkit-overflow-scrolling:touch; overscroll-behavior-x:contain; width:100%; max-width:100%; min-width:0; }
 
     /* Misc */
     .divider { height:1px; background:var(--line); margin:4px 0; }
@@ -2127,7 +2127,7 @@
       <button onclick="renderLeagues()" style="background:none;border:none;color:var(--text-muted);font-size:13px;cursor:pointer;padding:4px 0;text-align:left;">← Tornar a lligues</button>
       <div class="league-card">
         <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap;">
-          <div><div style="font-size:20px;font-weight:700;color:var(--text);">${league.name}</div><div style="font-size:12px;color:var(--text-muted);margin-top:3px;">Codi ${league.code} · ${remainingTime(league.endAt)} restants</div></div>
+          <div><div style="font-size:20px;font-weight:700;color:var(--text);">${league.name}</div><div style="font-size:12px;color:var(--text-muted);margin-top:3px;">Codi ${league.code} · <span id="league-remaining-time">${remainingTime(league.endAt)} restants</span></div></div>
           <div style="font-family:ui-monospace,monospace;font-size:16px;font-weight:700;color:${me.pnl>=0?'#34d399':'#fb7185'};">El teu PnL: ${me.pnl>=0?'+':''}${fmtUSDT(me.pnl)} USDT</div>
         </div>
       </div>
@@ -2150,6 +2150,14 @@
         </div>
       </div>`;
   };
+
+  function updateLeagueCountdownLabel(){
+    if(State.activeSection!=='league'||!State.activeLeagueId) return;
+    const league=State.leagues.find(l=>l.id===State.activeLeagueId);
+    if(!league) return;
+    const el=document.getElementById('league-remaining-time');
+    if(el) el.textContent=`${remainingTime(league.endAt)} restants`;
+  }
 
   function updateLeaguesAfterTrade(trade){
     if(!State.user) return;
@@ -2403,7 +2411,7 @@
     setWsStatus(false,'...');fetchAnyRealSnapshot().catch(()=>{});
     setInterval(()=>{
       if(State.positions.length){updatePositionsTable();checkAchievements();updateUnrealizedPnlBar();}
-      if(State.activeLeagueId&&State.activeSection==='league') openLeague(State.activeLeagueId);
+      updateLeagueCountdownLabel();
     },1000);
     // MILLORA 7: Tutorial primer ús
     setTimeout(()=>initTutorial(),800);
