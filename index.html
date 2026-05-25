@@ -35,40 +35,68 @@
       --steel:#565b63; --steel-light:#7b7f86;
     }
 
-    /* ══ Mode clar (adaptat al tema fantasy) ══ */
+    /* ══ Mode clar (pergamí / day) ══ */
     html.light {
-      --emerald:#059669; --rose:#dc2626; --surface:#0e1220; --deep:#08090f;
-      --line:rgba(176,141,87,0.22); --glass:rgba(8,9,15,0.88);
-      --text:#f0e6d3; --text-muted:#9a8a72; --card-bg:rgba(8,9,15,0.78);
-      --inp-bg:rgba(0,0,0,0.35); --inp-border:rgba(176,141,87,0.22);
+      --emerald:#059669; --rose:#dc2626;
+      --surface:#ede8dc; --deep:#f5f0e8;
+      --line:rgba(139,107,76,0.25);
+      --glass:rgba(245,240,232,0.92);
+      --text:#1c1208; --text-muted:#6b5a3e;
+      --card-bg:rgba(245,240,232,0.9);
+      --inp-bg:rgba(255,255,255,0.7); --inp-border:rgba(139,107,76,0.3);
+      --gold:#8b6b2a; --gold-mid:#a07830; --gold-dark:#7a5c1e;
+      --gold-glow:rgba(139,107,42,0.15);
+      --forest:#1a7a58; --forest-dark:#0d4a35; --forest-light:#1f9068;
+      --steel:#7a7060; --steel-light:#9a8a72;
     }
     html.light body { background:var(--deep); color:var(--text); }
-    html.light #app-header { background:rgba(5,7,15,0.98); border-bottom:1px solid var(--line); }
-    html.light #bottom-nav { background:rgba(5,7,15,0.99); border-top:1px solid var(--line); }
-    html.light .app-section { background:var(--deep); }
-    html.light .asset-card:hover { background:rgba(176,141,87,0.06); }
-    html.light .asset-card.active { background:rgba(26,122,88,0.1); }
+    html.light #app-header { background:rgba(237,232,220,0.97); border-bottom:1px solid var(--line); box-shadow:0 1px 12px rgba(0,0,0,0.1); }
+    html.light #bottom-nav { background:rgba(237,232,220,0.99); border-top:1px solid var(--line); box-shadow:0 -1px 12px rgba(0,0,0,0.08); }
+    html.light .app-section { background:var(--deep); background-image:none; }
+    html.light .asset-card { border-bottom-color:rgba(139,107,76,0.1); }
+    html.light .asset-card:hover { background:rgba(139,107,76,0.07); }
+    html.light .asset-card.active { background:rgba(26,122,88,0.08); border-left-color:var(--gold-mid); }
     html.light .asset-name { color:var(--text); }
     html.light .asset-price-val { color:var(--text); }
-    html.light .glass { background:rgba(8,9,15,0.82); }
-    html.light .glass-sm { background:rgba(8,9,15,0.88); }
-    html.light .kpi-card,.html.light .profile-stat { background:rgba(176,141,87,0.06); }
-    html.light .ach-card { background:var(--card-bg); }
-    html.light .ach-card.done { border-color:rgba(176,141,87,0.5); }
-    html.light .league-card { background:var(--card-bg); }
-    html.light .data-table th { color:var(--text-muted); }
+    html.light .asset-symbol { color:var(--text-muted); }
+    html.light .glass { background:rgba(237,232,220,0.88); border-color:var(--line); box-shadow:inset 0 1px 0 rgba(255,255,255,0.6); }
+    html.light .glass-sm { background:rgba(237,232,220,0.9); border-color:var(--line); }
+    html.light .kpi-card { background:rgba(255,255,255,0.6); border-color:var(--line); }
+    html.light .profile-stat { background:rgba(255,255,255,0.6); border-color:var(--line); }
+    html.light .ach-card { background:rgba(255,255,255,0.55); border-color:var(--line); }
+    html.light .ach-card.done { border-color:rgba(139,107,76,0.5); background:linear-gradient(135deg,rgba(139,107,76,0.08),rgba(255,255,255,0.55)); }
+    html.light .league-card { background:rgba(255,255,255,0.55); border-color:var(--line); }
+    html.light .data-table th { color:var(--text-muted); border-bottom-color:var(--line); }
+    html.light .data-table td { border-bottom-color:rgba(139,107,76,0.07); }
     html.light #trading-sheet { background:var(--surface); }
-    html.light #positions-panel,html.light #trading-bar,html.light #chart-header { background:rgba(5,7,15,0.98); }
-    html.light .pos-tab.active { color:var(--gold); border-bottom-color:var(--gold); }
-    html.light .nav-btn { color:#5a5040; }
+    html.light #positions-panel,html.light #trading-bar,html.light #chart-header { background:rgba(237,232,220,0.98); border-color:var(--line); }
+    html.light .pos-tab { color:var(--text-muted); }
+    html.light .pos-tab.active { color:var(--gold); border-bottom-color:var(--gold); background:rgba(139,107,76,0.06); }
+    html.light .nav-btn { color:var(--steel); }
     html.light .nav-btn.active { color:var(--gold); }
     html.light .nav-btn.active span { color:var(--gold); }
-    html.light .modal-box { background:var(--surface); }
+    html.light .modal-box { background:var(--surface); border-color:var(--line); }
     html.light .inp { background:var(--inp-bg); border-color:var(--inp-border); color:var(--text); }
-    html.light .ws-pill.ws-dead { background:rgba(220,38,38,.1); }
-    html.light .ws-pill.ws-live { background:rgba(26,122,88,.1); }
+    html.light .inp::placeholder { color:#a89070; }
+    html.light .inp:focus { border-color:var(--gold-mid); box-shadow:0 0 0 3px rgba(139,107,76,0.15); }
+    html.light .ws-pill.ws-dead { background:rgba(220,38,38,.12); border-color:rgba(220,38,38,.3); }
+    html.light .ws-pill.ws-live { background:rgba(26,122,88,.12); border-color:rgba(26,122,88,.3); color:#167a50; }
+    html.light .section-title { color:var(--text); }
     html.light .section-sub { color:var(--text-muted); }
-    html.light .game-home { background:radial-gradient(circle at top,#243447 0%,#0b1220 35%,#05070a 100%); }
+    html.light .btn-icon { background:rgba(139,107,76,0.1); border-color:rgba(139,107,76,0.22); color:var(--text-muted); }
+    html.light .btn-icon:hover { background:rgba(139,107,76,0.18); }
+    html.light .pct-btn { background:rgba(139,107,76,0.08); border-color:rgba(139,107,76,0.2); color:var(--text-muted); }
+    html.light .stat-card { background:rgba(255,255,255,0.55); border-color:var(--line); }
+    html.light .theme-btn { background:rgba(139,107,76,0.1); border-color:rgba(139,107,76,0.25); }
+    html.light .lev-slider { background:rgba(139,107,76,0.18); }
+    html.light .prog-track { background:rgba(139,107,76,0.15); }
+    html.light .game-home { background:radial-gradient(circle at top,#c8b89a 0%,#d4c8a8 35%,#e8dfc8 100%); }
+    html.light .game-title-main { color:#5c3a14; text-shadow:0 2px 0 rgba(255,255,255,0.3),0 4px 0 #a07030,0 8px 18px rgba(0,0,0,.3); }
+    html.light .game-balance-pill { background:rgba(255,255,255,0.6); border-color:rgba(139,107,76,0.4); color:var(--gold); }
+    html.light .game-btn-sec { background:linear-gradient(180deg,#b0a890 0%,#8a8070 50%,#6a6050 100%); color:#f5ead8; }
+    html.light .game-stars { opacity:0.15; }
+    html.light .modal-title { color:var(--gold); }
+    html.light .section-sub { color:var(--text-muted); }
     html.light #league-section [style*="position:sticky"],
     html.light #portfolio-section [style*="position:sticky"] { background:var(--deep) !important; }
 
@@ -445,9 +473,9 @@
     <span style="font-weight:400;font-size:16px;white-space:nowrap;color:var(--text);font-family:'Russo One',sans-serif;letter-spacing:.5px;">Trade<span style="color:var(--gold);">League</span></span>
   </div>
   <div style="display:flex;align-items:center;gap:8px;">
-    <span id="ws-status" class="ws-pill ws-live">LIVE</span>
-    <!-- MILLORA 8: Toggle tema -->
-    <button id="theme-toggle-btn" class="theme-btn" onclick="toggleTheme()" title="Canviar tema">🌙</button>
+    <span id="ws-status" class="ws-pill ws-live" style="display:none;">LIVE</span>
+    <!-- Theme toggle: hidden from header, accessible from profile -->
+    <button id="theme-toggle-btn" class="theme-btn" onclick="toggleTheme()" title="Canviar tema" style="display:none;">🌙</button>
     <div style="background:rgba(0,0,0,.5);border:1px solid rgba(176,141,87,.25);border-radius:10px;padding:6px 12px;display:flex;align-items:center;gap:6px;">
       <span style="font-size:11px;color:var(--text-muted);">Saldo</span>
       <span id="balance-display" style="font-size:14px;font-weight:700;font-family:ui-monospace,monospace;color:var(--gold);">10,000.00</span>
@@ -649,7 +677,7 @@
       </div>
       <div class="glass-sm" style="border-radius:14px;padding:14px;">
         <div style="font-size:13px;font-weight:600;margin-bottom:10px;color:var(--text-muted);">Actius en cartera</div>
-        <div style="overflow-x:scroll;overflow-y:hidden;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain;overscroll-behavior-y:none;touch-action:pan-x pinch-zoom;margin:0 -14px;padding:0 14px;">
+        <div style="overflow-x:auto;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain;">
           <table class="data-table" style="min-width:520px;">
             <thead><tr><th>Actiu</th><th>Mida</th><th>Entrada</th><th>Actual</th><th>PnL</th><th>%Portfolio</th></tr></thead>
             <tbody id="portfolio-assets"></tbody>
@@ -658,7 +686,7 @@
       </div>
       <div class="glass-sm" style="border-radius:14px;padding:14px;">
         <div style="font-size:13px;font-weight:600;margin-bottom:10px;color:var(--text-muted);">Historial de trades tancats</div>
-        <div style="overflow-x:scroll;overflow-y:hidden;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain;overscroll-behavior-y:none;touch-action:pan-x pinch-zoom;margin:0 -14px;padding:0 14px;">
+        <div style="overflow-x:auto;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain;">
           <table class="data-table" style="min-width:700px;">
             <thead><tr><th>Obertura</th><th>Tancament</th><th>Actiu</th><th>Dir.</th><th>Lev.</th><th>Entrada</th><th>Sortida</th><th>PnL</th><th>Motiu</th><th>Durada</th></tr></thead>
             <tbody id="portfolio-history"></tbody>
@@ -701,10 +729,11 @@
             <div id="user-email" style="font-size:13px;color:var(--text-muted);margin-top:2px;word-break:break-all;"></div>
           </div>
         </div>
-        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px;">
+        <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:10px;">
           <div class="profile-stat"><div style="font-size:10px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px;">Trades</div><div style="font-size:20px;font-weight:700;margin-top:4px;color:var(--text);" id="profile-trades">0</div></div>
           <div class="profile-stat"><div style="font-size:10px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px;">PnL Total</div><div style="font-size:16px;font-weight:700;margin-top:4px;font-family:ui-monospace,monospace;" id="profile-pnl">+0.00</div></div>
           <div class="profile-stat"><div style="font-size:10px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px;">Punts</div><div style="font-size:20px;font-weight:700;margin-top:4px;color:#fbbf24;" id="profile-points">0</div></div>
+          <div class="profile-stat" style="position:relative;overflow:hidden;"><div style="font-size:10px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px;">Lligues guanyades</div><div style="font-size:20px;font-weight:700;margin-top:4px;color:var(--gold);display:flex;align-items:center;gap:6px;"><span id="profile-leagues-won">0</span><span style="font-size:16px;">🏆</span></div></div>
         </div>
         <!-- MILLORA 8: Configuració funcional -->
         <div style="background:rgba(176,141,87,.05);border:1px solid var(--line);border-radius:14px;overflow:hidden;margin-bottom:14px;">
@@ -981,10 +1010,10 @@
     {name:'Chainlink', symbol:'LINKUSDT', cat:'defi',   emoji:'⬡', icon:'https://cdn.jsdelivr.net/gh/spothq/cryptocurrency-icons@master/svg/color/link.svg', decimals:3, cgId:'chainlink'},
     {name:'Uniswap',   symbol:'UNIUSDT',  cat:'defi',   emoji:'🦄', icon:'https://cdn.jsdelivr.net/gh/spothq/cryptocurrency-icons@master/svg/color/uni.svg',  decimals:3, cgId:'uniswap'},
     {name:'Cosmos',    symbol:'ATOMUSDT', cat:'layer1', emoji:'⚛', icon:'https://cdn.jsdelivr.net/gh/spothq/cryptocurrency-icons@master/svg/color/atom.svg', decimals:3, cgId:'cosmos'},
-    {name:'SUI',       symbol:'SUIUSDT',  cat:'layer1', emoji:'☯', icon:'https://cdn.jsdelivr.net/gh/spothq/cryptocurrency-icons@master/svg/color/sui.svg',  decimals:4, cgId:'sui'},
+    {name:'SUI',       symbol:'SUIUSDT',  cat:'layer1', emoji:'☯', icon:'https://assets.coingecko.com/coins/images/26375/small/sui_asset.jpeg',  decimals:4, cgId:'sui'},
     {name:'Litecoin',  symbol:'LTCUSDT',  cat:'layer1', emoji:'Ł', icon:'https://cdn.jsdelivr.net/gh/spothq/cryptocurrency-icons@master/svg/color/ltc.svg',  decimals:2, cgId:'litecoin'},
     {name:'Dogecoin',  symbol:'DOGEUSDT', cat:'meme',   emoji:'Ð', icon:'https://cdn.jsdelivr.net/gh/spothq/cryptocurrency-icons@master/svg/color/doge.svg', decimals:5, cgId:'dogecoin'},
-    {name:'PEPE',      symbol:'PEPEUSDT', cat:'meme',   emoji:'🐸', icon:'https://cdn.jsdelivr.net/gh/spothq/cryptocurrency-icons@master/svg/color/pepe.svg', decimals:8, cgId:'pepe'},
+    {name:'PEPE',      symbol:'PEPEUSDT', cat:'meme',   emoji:'🐸', icon:'https://assets.coingecko.com/coins/images/29850/small/pepe-token.jpeg', decimals:8, cgId:'pepe'},
   ];
 
   let ASSETS = [...ALL_ASSETS];
@@ -2002,6 +2031,13 @@
     const el=document.getElementById('profile-trades');if(el) el.textContent=State.tradeHistory.length;
     const ep=document.getElementById('profile-pnl');if(ep){ep.textContent=(totalPnl>=0?'+':'')+fmtUSDT(totalPnl)+' USDT';ep.style.color=totalPnl>=0?'#34d399':'#fb7185';}
     const pts=document.getElementById('profile-points');if(pts) pts.textContent=points;
+    // Lligues guanyades: lligues on l'usuari és #1 al rànquing
+    const uid=State.user?.uid;
+    const leaguesWon=uid?State.leagues.filter(lg=>{
+      const sorted=[...lg.members].sort((a,b)=>b.pnl-a.pnl);
+      return sorted.length>0&&sorted[0].id===uid&&sorted[0].pnl>0;
+    }).length:0;
+    const lw=document.getElementById('profile-leagues-won');if(lw) lw.textContent=leaguesWon;
     const t=localStorage.getItem('lot_theme')||'dark';
     const pbtn=document.getElementById('theme-profile-btn');if(pbtn) pbtn.textContent=t==='light'?'Clar ☀️':'Fosc 🌙';
   }
@@ -2096,7 +2132,7 @@
       </div>
       <div style="background:var(--card-bg);border:1px solid var(--line);border-radius:14px;padding:14px;">
         <div style="font-size:13px;font-weight:600;margin-bottom:10px;color:var(--text);">Classificació en temps real</div>
-        <div style="overflow-x:scroll;overflow-y:hidden;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain;overscroll-behavior-y:none;touch-action:pan-x pinch-zoom;margin:0 -14px;padding:0 14px;">
+        <div style="overflow-x:auto;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain;">
           <table class="data-table" style="min-width:560px;">
             <thead><tr><th>#</th><th>Jugador</th><th>Saldo</th><th>PnL</th><th>Trades</th></tr></thead>
             <tbody>${sorted.map((m,i)=>{const medal=['🥇','🥈','🥉'][i]||`#${i+1}`;return `<tr style="${m.id===uid?'background:rgba(176,141,87,.07);border-left:2px solid var(--gold-mid);':''}"><td style="font-weight:700;white-space:nowrap;">${medal}</td><td style="white-space:nowrap;"><span style="display:inline-flex;width:26px;height:26px;border-radius:50%;background:rgba(176,141,87,.12);border:1px solid rgba(176,141,87,.2);align-items:center;justify-content:center;font-weight:700;font-size:12px;margin-right:6px;">${m.avatar}</span>${m.name}</td><td style="font-family:ui-monospace,monospace;white-space:nowrap;">${fmtUSDT(m.balance)} USDT</td><td style="font-family:ui-monospace,monospace;color:${m.pnl>=0?'#4ade80':'#fb7185'};font-weight:700;white-space:nowrap;">${m.pnl>=0?'+':''}${fmtUSDT(m.pnl)}</td><td style="font-family:ui-monospace,monospace;white-space:nowrap;">${m.trades}</td></tr>`;}).join('')}</tbody>
@@ -2105,7 +2141,7 @@
       </div>
       <div style="background:var(--card-bg);border:1px solid var(--line);border-radius:14px;padding:14px;">
         <div style="font-size:13px;font-weight:600;margin-bottom:10px;color:var(--text);">Historial de la Lliga</div>
-        <div style="overflow-x:scroll;overflow-y:hidden;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain;overscroll-behavior-y:none;touch-action:pan-x pinch-zoom;margin:0 -14px;padding:0 14px;">
+        <div style="overflow-x:auto;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain;">
           <table class="data-table" style="min-width:560px;">
             <thead><tr><th>Jugador</th><th>Data</th><th>Actiu</th><th>Tipus</th><th>PnL</th><th>Durada</th></tr></thead>
             <tbody>${league.trades.length?league.trades.map(t=>`<tr><td style="white-space:nowrap;">${t.player}</td><td style="white-space:nowrap;">${fmtDT(t.closeTime)}</td><td style="white-space:nowrap;">${assetBase(t.symbol)}</td><td style="color:${t.type==='LONG'?'#34d399':'#fb7185'};font-weight:700;white-space:nowrap;">${t.type}</td><td style="font-family:ui-monospace,monospace;color:${t.pnl>=0?'#34d399':'#fb7185'};font-weight:700;white-space:nowrap;">${t.pnl>=0?'+':''}${fmtUSDT(t.pnl)}</td><td style="font-family:ui-monospace,monospace;color:var(--text-muted);white-space:nowrap;">${fmtDur(t.duration)}</td></tr>`).join(''):'<tr><td colspan="6" style="padding:20px;text-align:center;color:#5a4a35;font-size:13px;">Sense trades a la lliga</td></tr>'}</tbody>
