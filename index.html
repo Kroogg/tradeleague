@@ -1882,11 +1882,22 @@
       renderAssetsList();return true;
     }catch(e){throw e;}
   }
-  async function fetchAnyRealSnapshot(){return Promise.any([fetchCoinGeckoSnapshot(),fetchCryptoCompareSnapshot(),fetchKrakenSnapshot(),fetchBinanceSnapshot()]);}
+  // Timestamp de l'última crida a CoinGecko per throttle (mínim 60s entre crides)
+  let _lastCGCall=0;
+  async function fetchCoinGeckoThrottled(){
+    const now=Date.now();if(now-_lastCGCall<60000)throw new Error('CG throttled');
+    _lastCGCall=now;return fetchCoinGeckoSnapshot();
+  }
+  // Ordre: Kraken (CORS OK, il·limitat) → CryptoCompare → Binance REST → CoinGecko (últim, throttled)
+  async function fetchAnyRealSnapshot(){return Promise.any([fetchKrakenSnapshot(),fetchCryptoCompareSnapshot(),fetchBinanceSnapshot(),fetchCoinGeckoThrottled()]);}
 
   function startRestPricePolling(){
     if(State.restPollingTimer) return;
-    State.restPollingTimer=setInterval(()=>{if(State.priceSource==='live'&&Date.now()-State.lastLiveTickAt<2500)return;fetchAnyRealSnapshot().catch(()=>{if(Date.now()-State.lastLiveTickAt>10000)setWsStatus(false,'SIM');});},1500);
+    // 12s entre crides REST - Binance WS ja dona preus en temps real, aixo es nomes fallback
+    State.restPollingTimer=setInterval(()=>{
+      if(State.priceSource==='live'&&Date.now()-State.lastLiveTickAt<2500)return;
+      fetchAnyRealSnapshot().catch(()=>{if(Date.now()-State.lastLiveTickAt>15000)setWsStatus(false,'SIM');});
+    },12000);
   }
   function startFallbackMarket(){
     if(State.fallbackTimer) return;
@@ -1903,7 +1914,8 @@
     setWsStatus(false,State.priceSource==='live'?'...':'SIM');
     try{State.ws=new WebSocket(CONFIG.wsFeeds[State.wsUrlIndex].url);}catch(e){scheduleWsReconnect();return;}
     State.ws.onopen=()=>{const feed=CONFIG.wsFeeds[State.wsUrlIndex];if(feed.subscribe)State.ws.send(JSON.stringify({method:'SUBSCRIBE',params:STREAM_LIST,id:1}));fetchAnyRealSnapshot().catch(()=>{});};
-    State.ws.onmessage=event=>{const raw=JSON.parse(event.data);const data=raw.data||raw;if(Array.isArray(data)){data.filter(t=>ASSET_MAP[t.s]).forEach(t=>applyTicker(t,'live'));renderAssetsList();return;}if(raw.result===null||data.result===null)return;if(data.e!=='ticker')return;applyTicker(data,'live');renderAssetsList();};
+    State.ws.onmessage=event=>{let raw;try{raw=JSON.parse(event.data);}catch(e){return;}// missatge invàlid ignorat
+const data=raw.data||raw;if(Array.isArray(data)){data.filter(t=>ASSET_MAP[t.s]).forEach(t=>applyTicker(t,'live'));renderAssetsList();return;}if(raw.result===null||data.result===null)return;if(data.e!=='ticker')return;applyTicker(data,'live');renderAssetsList();};
     State.ws.onerror=()=>{setWsStatus(false,'SIM');};
     State.ws.onclose=()=>{if(Date.now()-State.lastLiveTickAt>8000)setWsStatus(false,'SIM');scheduleWsReconnect();};
   }
