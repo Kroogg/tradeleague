@@ -2310,7 +2310,7 @@ const data=raw.data||raw;if(Array.isArray(data)){data.filter(t=>ASSET_MAP[t.s]).
       const {initializeAppCheck,ReCaptchaV3Provider}=await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-app-check.js');
       const app=initializeApp(CONFIG.firebase);
       // App Check — protegeix les claus de Firebase per domini
-      initializeAppCheck(app,{provider:new ReCaptchaV3Provider('6LfRKv4sAAAAAACF-xiPp5Fi5DEV7EdcVyESOEm5s'),isTokenAutoRefreshEnabled:true});
+      initializeAppCheck(app,{provider:new ReCaptchaV3Provider('6LdOgAEtAAAAG49MT84ZdWfpRD1BKWVq5EfKKlC'),isTokenAutoRefreshEnabled:true});
       Firebase.active=true;Firebase.auth=getAuth(app);Firebase.db=getFirestore(app);Firebase.helpers={doc,setDoc,getDoc,onSnapshot,collection,query,where,getDocs};
 
       onAuthStateChanged(Firebase.auth,async user=>{
