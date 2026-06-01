@@ -765,8 +765,8 @@
         <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:10px;">
           <div class="profile-stat"><div style="font-size:10px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px;">Trades</div><div style="font-size:20px;font-weight:700;margin-top:4px;color:var(--text);" id="profile-trades">0</div></div>
           <div class="profile-stat"><div style="font-size:10px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px;">PnL Total</div><div style="font-size:16px;font-weight:700;margin-top:4px;font-family:ui-monospace,monospace;" id="profile-pnl">+0.00</div></div>
-          <div class="profile-stat"><div style="font-size:10px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px;">Punts</div><div style="font-size:20px;font-weight:700;margin-top:4px;color:#fbbf24;" id="profile-points">0</div></div>
-          <div class="profile-stat" style="position:relative;overflow:hidden;"><div style="font-size:10px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px;">Lligues guanyades</div><div style="font-size:20px;font-weight:700;margin-top:4px;color:var(--gold);display:flex;align-items:center;gap:6px;"><span id="profile-leagues-won">0</span><span style="font-size:16px;">🏆</span></div></div>
+          <div class="profile-stat"><div style="font-size:10px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px;" data-i18n="profile.points">Punts</div><div style="font-size:20px;font-weight:700;margin-top:4px;color:#fbbf24;" id="profile-points">0</div></div>
+          <div class="profile-stat" style="position:relative;overflow:hidden;"><div style="font-size:10px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px;" data-i18n="profile.leagues_won">Lligues guanyades</div><div style="font-size:20px;font-weight:700;margin-top:4px;color:var(--gold);display:flex;align-items:center;gap:6px;"><span id="profile-leagues-won">0</span><span style="font-size:16px;">🏆</span></div></div>
         </div>
         <!-- MILLORA 8: Configuració funcional -->
         <div style="background:rgba(176,141,87,.05);border:1px solid var(--line);border-radius:14px;overflow:hidden;margin-bottom:14px;">
@@ -776,7 +776,7 @@
           </div>
           <div style="padding:14px 16px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;">
             <span style="font-size:13px;color:var(--text-muted);" data-i18n="profile.theme">Tema</span>
-            <button onclick="toggleTheme()" id="theme-profile-btn" style="font-size:13px;font-weight:500;background:rgba(176,141,87,.07);border:1px solid rgba(176,141,87,.18);color:var(--text-muted);border-radius:8px;padding:5px 12px;cursor:pointer;">Fosc 🌙</button>
+            <button onclick="toggleTheme()" id="theme-profile-btn" style="font-size:13px;font-weight:500;background:rgba(176,141,87,.07);border:1px solid rgba(176,141,87,.18);color:var(--text-muted);border-radius:8px;padding:5px 12px;cursor:pointer;" data-i18n="js.theme_dark">Fosc 🌙</button>
           </div>
           <div style="padding:14px 16px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;">
             <span style="font-size:13px;color:var(--text-muted);" data-i18n="profile.currency">Moneda</span>
@@ -885,7 +885,7 @@
       <div style="display:flex;justify-content:space-between;"><span style="color:var(--text-muted);" data-i18n="sheet.margin">Marge requerit</span><span id="margin-required" style="font-family:ui-monospace,monospace;">0.00 USDT</span></div>
       <div style="display:flex;justify-content:space-between;"><span style="color:var(--text-muted);" data-i18n="sheet.pos_size">Mida posició</span><span id="position-size" style="font-family:ui-monospace,monospace;">0.0000</span></div>
       <!-- MILLORA 1: Preu de liquidació visible -->
-      <div style="display:flex;justify-content:space-between;"><span style="color:var(--text-muted);">Liquidació aprox. <span class="liq-badge">AUTO</span></span><span id="liquidation-price" style="font-family:ui-monospace,monospace;color:#fb7185;">---</span></div>
+      <div style="display:flex;justify-content:space-between;"><span style="color:var(--text-muted);"><span data-i18n="trade.liq_approx">Liquidació aprox.</span> <span class="liq-badge">AUTO</span></span><span id="liquidation-price" style="font-family:ui-monospace,monospace;color:#fb7185;">---</span></div>
       <div style="display:flex;justify-content:space-between;"><span style="color:var(--text-muted);" data-i18n="sheet.available">Disponible</span><span id="sheet-balance" style="font-family:ui-monospace,monospace;color:var(--gold);">---</span></div>
     </div>
 
@@ -893,7 +893,7 @@
   </div>
 
   <details style="padding:0 16px 16px;">
-    <summary style="font-size:12px;color:var(--text-muted);cursor:pointer;padding:8px 0;border-top:1px solid var(--line);margin-bottom:8px;">Informació de mercat</summary>
+    <summary style="font-size:12px;color:var(--text-muted);cursor:pointer;padding:8px 0;border-top:1px solid var(--line);margin-bottom:8px;" data-i18n="trade.market_info">Informació de mercat</summary>
     <div style="display:flex;flex-direction:column;gap:6px;font-size:12px;">
       <div style="display:flex;justify-content:space-between;"><span style="color:var(--text-muted);">24h Volum</span><span id="24h-volume" style="font-family:ui-monospace,monospace;">---</span></div>
     </div>
@@ -1002,11 +1002,11 @@
     <button class="modal-close" onclick="closeCreateLeagueModal()">×</button>
     <div class="modal-title" data-i18n="modal.create_league">⚔ Crear Nova Lliga</div>
     <div style="display:flex;flex-direction:column;gap:12px;">
-      <div><label style="font-size:12px;color:var(--text-muted);display:block;margin-bottom:5px;">Nom de la lliga</label><input id="league-name" class="inp" placeholder="Ex. Champions Crypto"></div>
-      <div><label style="font-size:12px;color:var(--text-muted);display:block;margin-bottom:5px;">Durada</label><select id="league-duration" class="inp"><option>Setmanal</option><option>Mensual</option><option>Trimestral</option><option>Anual</option></select></div>
-      <div><label style="font-size:12px;color:var(--text-muted);display:block;margin-bottom:5px;">Saldo inicial virtual</label><input id="league-balance" type="number" class="inp" value="10000"></div>
+      <div><label style="font-size:12px;color:var(--text-muted);display:block;margin-bottom:5px;" data-i18n="league.name_label">Nom de la lliga</label><input id="league-name" class="inp" placeholder="Ex. Champions Crypto"></div>
+      <div><label style="font-size:12px;color:var(--text-muted);display:block;margin-bottom:5px;" data-i18n="league.duration_label">Durada</label><select id="league-duration" class="inp"><option value="Setmanal" data-i18n-opt="dur.weekly">Setmanal</option><option value="Mensual" data-i18n-opt="dur.monthly">Mensual</option><option value="Trimestral" data-i18n-opt="dur.quarterly">Trimestral</option><option value="Anual" data-i18n-opt="dur.yearly">Anual</option></select></div>
+      <div><label style="font-size:12px;color:var(--text-muted);display:block;margin-bottom:5px;" data-i18n="league.balance_label">Saldo inicial virtual</label><input id="league-balance" type="number" class="inp" value="10000"></div>
       <div>
-        <label style="font-size:12px;color:var(--text-muted);display:block;margin-bottom:5px;">Visibilitat</label>
+        <label style="font-size:12px;color:var(--text-muted);display:block;margin-bottom:5px;" data-i18n="league.visibility">Visibilitat</label>
         <div style="display:flex;gap:8px;">
           <button id="btn-public" onclick="setLeagueVisibility('public')" data-i18n="modal.public" style="flex:1;padding:9px;border-radius:10px;background:rgba(26,122,88,.15);border:1px solid rgba(26,122,88,.5);color:#4ade80;font-size:13px;font-weight:600;cursor:pointer;">🌍 Pública</button>
           <button id="btn-private" onclick="setLeagueVisibility('private')" data-i18n="modal.private" style="flex:1;padding:9px;border-radius:10px;background:none;border:1px solid var(--line);color:var(--text-muted);font-size:13px;font-weight:600;cursor:pointer;">🔒 Privada</button>
@@ -1014,7 +1014,7 @@
         <div id="visibility-hint" style="font-size:11px;color:var(--text-muted);margin-top:5px;">Qualsevol pot unir-se des del cercador</div>
       </div>
       <div>
-        <label style="font-size:12px;color:var(--text-muted);display:block;margin-bottom:5px;">Màxim de jugadors</label>
+        <label style="font-size:12px;color:var(--text-muted);display:block;margin-bottom:5px;" data-i18n="league.max_players">Màxim de jugadors</label>
         <div style="display:flex;gap:6px;">
           <button onclick="setMaxMembers(10)"  id="max-10"  style="flex:1;padding:8px;border-radius:10px;background:none;border:1px solid var(--line);color:var(--text-muted);font-size:13px;cursor:pointer;">10</button>
           <button onclick="setMaxMembers(20)"  id="max-20"  style="flex:1;padding:8px;border-radius:10px;background:rgba(26,122,88,.15);border:1px solid rgba(26,122,88,.5);color:#4ade80;font-size:13px;cursor:pointer;">20</button>
@@ -1036,8 +1036,8 @@
   <div class="modal-box">
     <button class="modal-close" onclick="closeJoinLeagueModal()">×</button>
     <div class="modal-title" data-i18n="modal.join_league">🏅 Unir-se a una Lliga</div>
-    <input id="join-league-code" class="inp" placeholder="Codi d'invitació" style="font-family:ui-monospace,monospace;text-transform:uppercase;margin-bottom:12px;">
-    <button onclick="joinLeague()" style="width:100%;padding:13px;border-radius:10px;background:linear-gradient(180deg,var(--forest-light) 0%,var(--forest) 50%,var(--forest-dark) 100%);border:1px solid var(--gold-dark);color:var(--cream);font-weight:400;font-size:14px;cursor:pointer;font-family:'Russo One',sans-serif;box-shadow:inset 0 1px 0 rgba(255,255,255,.12);">Unir-se</button>
+    <input id="join-league-code" class="inp" data-i18n-placeholder="league.invite_code_ph" placeholder="Codi d'invitació" style="font-family:ui-monospace,monospace;text-transform:uppercase;margin-bottom:12px;">
+    <button onclick="joinLeague()" style="width:100%;padding:13px;border-radius:10px;background:linear-gradient(180deg,var(--forest-light) 0%,var(--forest) 50%,var(--forest-dark) 100%);border:1px solid var(--gold-dark);color:var(--cream);font-weight:400;font-size:14px;cursor:pointer;font-family:'Russo One',sans-serif;box-shadow:inset 0 1px 0 rgba(255,255,255,.12);" data-i18n="league.join">Unir-se</button>
   </div>
 </div>
 
@@ -1145,6 +1145,30 @@
       'js.league.duration.weekly':'Setmanal','js.league.duration.monthly':'Mensual',
       'js.league.duration.quarterly':'Trimestral','js.league.duration.yearly':'Anual',
       'chart.var':'Var',
+      'profile.points': "Punts",
+      'profile.leagues_won': "Lligues guanyades",
+      'trade.liq_approx': "Liquidació aprox.",
+      'trade.market_info': "Informació de mercat",
+      'trade.pnl_accumulated': "PnL acumulat",
+      'league.name_label': "Nom de la lliga",
+      'league.duration_label': "Durada",
+      'league.balance_label': "Saldo inicial virtual",
+      'league.visibility': "Visibilitat",
+      'league.max_players': "Màxim de jugadors",
+      'league.invite_code_ph': "Codi d'invitació",
+      'league.player': "Jugador",
+      'league.balance_col': "Saldo",
+      'league.table.player': "Jugador",
+      'league.table.date': "Data",
+      'league.table.asset': "Actiu",
+      'league.table.type': "Tipus",
+      'league.table.duration': "Durada",
+      'portfolio.no_assets': "No hi ha actius en posicions obertes",
+      'js.history_footer': "trades · PnL acumulat",
+      'dur.weekly': "Setmanal",
+      'dur.monthly': "Mensual",
+      'dur.quarterly': "Trimestral",
+      'dur.yearly': "Anual",
     },
     es: {
       'header.balance':'Saldo','home.btn.trade':'▶ OPERAR','home.btn.league':'🏆 LIGA',
@@ -1239,6 +1263,30 @@
       'js.league.duration.weekly':'Semanal','js.league.duration.monthly':'Mensual',
       'js.league.duration.quarterly':'Trimestral','js.league.duration.yearly':'Anual',
       'chart.var':'Var',
+      'profile.points': "Puntos",
+      'profile.leagues_won': "Ligas ganadas",
+      'trade.liq_approx': "Liquidación aprox.",
+      'trade.market_info': "Información de mercado",
+      'trade.pnl_accumulated': "PnL acumulado",
+      'league.name_label': "Nombre de la liga",
+      'league.duration_label': "Duración",
+      'league.balance_label': "Saldo inicial virtual",
+      'league.visibility': "Visibilidad",
+      'league.max_players': "Máximo de jugadores",
+      'league.invite_code_ph': "Código de invitación",
+      'league.player': "Jugador",
+      'league.balance_col': "Saldo",
+      'league.table.player': "Jugador",
+      'league.table.date': "Fecha",
+      'league.table.asset': "Activo",
+      'league.table.type': "Tipo",
+      'league.table.duration': "Duración",
+      'portfolio.no_assets': "No hay activos en posiciones abiertas",
+      'js.history_footer': "trades · PnL acumulado",
+      'dur.weekly': "Semanal",
+      'dur.monthly': "Mensual",
+      'dur.quarterly': "Trimestral",
+      'dur.yearly': "Anual",
     },
     en: {
       'header.balance':'Balance','home.btn.trade':'▶ TRADE','home.btn.league':'🏆 LEAGUE',
@@ -1333,6 +1381,30 @@
       'js.league.duration.weekly':'Weekly','js.league.duration.monthly':'Monthly',
       'js.league.duration.quarterly':'Quarterly','js.league.duration.yearly':'Yearly',
       'chart.var':'Chg',
+      'profile.points': "Points",
+      'profile.leagues_won': "Leagues won",
+      'trade.liq_approx': "Liq. approx.",
+      'trade.market_info': "Market info",
+      'trade.pnl_accumulated': "Accumulated PnL",
+      'league.name_label': "League name",
+      'league.duration_label': "Duration",
+      'league.balance_label': "Virtual starting balance",
+      'league.visibility': "Visibility",
+      'league.max_players': "Max players",
+      'league.invite_code_ph': "Invitation code",
+      'league.player': "Player",
+      'league.balance_col': "Balance",
+      'league.table.player': "Player",
+      'league.table.date': "Date",
+      'league.table.asset': "Asset",
+      'league.table.type': "Type",
+      'league.table.duration': "Duration",
+      'portfolio.no_assets': "No assets in open positions",
+      'js.history_footer': "trades · Accumulated PnL",
+      'dur.weekly': "Weekly",
+      'dur.monthly': "Monthly",
+      'dur.quarterly': "Quarterly",
+      'dur.yearly': "Yearly",
     }
   };
 
@@ -1654,12 +1726,12 @@
     if(pbtn) pbtn.textContent=isLight?t('js.theme_light'):t('js.theme_dark');
   };
   function loadTheme(){
-    const t=localStorage.getItem('lot_theme')||'dark';
-    document.documentElement.className=t;
+    const thm=localStorage.getItem('lot_theme')||'dark';
+    document.documentElement.className=thm;
     const btn=document.getElementById('theme-toggle-btn');
-    if(btn) btn.textContent=t==='light'?'☀️':'🌙';
+    if(btn) btn.textContent=thm==='light'?'☀️':'🌙';
     const pbtn=document.getElementById('theme-profile-btn');
-    if(pbtn) pbtn.textContent=t==='light'?(TRANSLATIONS[_lang]||TRANSLATIONS.ca)['js.theme_light']:(TRANSLATIONS[_lang]||TRANSLATIONS.ca)['js.theme_dark'];
+    if(pbtn) pbtn.textContent=thm==='light'?t('js.theme_light'):t('js.theme_dark');
   }
 
   /* ── MILLORA 7: Tutorial ── */
@@ -2270,7 +2342,7 @@
       </tr>`;
     }).join('');
     const totalPnl=State.tradeHistory.reduce((s,t)=>s+t.pnl,0);
-    if(footer) footer.textContent=`${State.tradeHistory.length} trades · PnL acumulat ${totalPnl>=0?'+':''}${fmtUSDT(totalPnl)} USDT`;
+    if(footer) footer.textContent=`${State.tradeHistory.length} ${t('js.history_footer')} ${totalPnl>=0?'+':''}${fmtUSDT(totalPnl)} USDT`;
   }
 
   /* ── Ticker DOM ── */
@@ -2477,7 +2549,7 @@ const data=raw.data||raw;if(Array.isArray(data)){data.filter(t=>ASSET_MAP[t.s]).
     const grouped=new Map();
     State.positions.forEach(pos=>{const cur=grouped.get(pos.symbol)||{symbol:pos.symbol,size:0,weightedEntry:0,pnl:0};cur.weightedEntry+=pos.entryPrice*pos.size;cur.size+=pos.size;cur.pnl+=positionPnl(pos);grouped.set(pos.symbol,cur);});
     const rows=[...grouped.values()].map(item=>{const cp=State.prices[item.symbol]||0;const ent=item.size?item.weightedEntry/item.size:0;const notional=cp*item.size;const pct=totalVal?(notional/totalVal)*100:0;const pnlPct=ent?(item.pnl/(ent*item.size))*100:0;return `<tr><td style="padding:8px 4px;font-weight:600;">${ASSET_MAP[item.symbol]?.name||item.symbol}</td><td style="padding:8px 4px;font-family:ui-monospace,monospace;">${item.size.toFixed(4)}</td><td style="padding:8px 4px;font-family:ui-monospace,monospace;">${fmtPrice(ent,item.symbol)}</td><td style="padding:8px 4px;font-family:ui-monospace,monospace;">${fmtPrice(cp,item.symbol)}</td><td style="padding:8px 4px;font-family:ui-monospace,monospace;color:${item.pnl>=0?'#34d399':'#fb7185'};">${item.pnl>=0?'+':''}${fmtUSDT(item.pnl)} · ${fmtPct(pnlPct)}</td><td style="padding:8px 4px;font-family:ui-monospace,monospace;">${fmtPct(pct)}</td></tr>`;}).join('');
-    document.getElementById('portfolio-assets').innerHTML=rows||'<tr><td colspan="6" style="padding:20px;text-align:center;color:#5a4a35;font-size:13px;">No hi ha actius en posicions obertes</td></tr>';
+    document.getElementById('portfolio-assets').innerHTML=rows||`<tr><td colspan="6" style="padding:20px;text-align:center;color:#5a4a35;font-size:13px;">${t('portfolio.no_assets')}</td></tr>`;
     const reasonLabel={manual:'Manual',tp:'🎯 TP',sl:'🛡️ SL',liquidated:'💀 Liq.'};
     document.getElementById('portfolio-history').innerHTML=State.tradeHistory.map(t=>`<tr><td style="padding:8px 4px;font-size:11px;">${fmtDT(t.openTime)}</td><td style="padding:8px 4px;font-size:11px;">${fmtDT(t.closeTime)}</td><td style="padding:8px 4px;font-weight:600;">${assetBase(t.symbol)}</td><td style="padding:8px 4px;color:${t.type==='LONG'?'#34d399':'#fb7185'};font-weight:700;">${t.type}</td><td style="padding:8px 4px;font-family:ui-monospace,monospace;">x${t.leverage}</td><td style="padding:8px 4px;font-family:ui-monospace,monospace;">${fmtPrice(t.entryPrice,t.symbol)}</td><td style="padding:8px 4px;font-family:ui-monospace,monospace;">${fmtPrice(t.exitPrice,t.symbol)}</td><td style="padding:8px 4px;font-family:ui-monospace,monospace;color:${t.pnl>=0?'#34d399':'#fb7185'};font-weight:700;">${t.pnl>=0?'+':''}${fmtUSDT(t.pnl)} · ${fmtPct(t.roe)}</td><td style="padding:8px 4px;font-size:11px;color:var(--text-muted);">${reasonLabel[t.reason]||'-'}</td><td style="padding:8px 4px;font-family:ui-monospace,monospace;color:var(--text-muted);">${fmtDur(t.duration)}</td></tr>`).join('')||'<tr><td colspan="10" style="padding:20px;text-align:center;color:#5a4a35;font-size:13px;">Sense historial tancat</td></tr>';
     renderPortfolioChart();
@@ -2541,8 +2613,8 @@ const data=raw.data||raw;if(Array.isArray(data)){data.filter(t=>ASSET_MAP[t.s]).
       return sorted.length>0&&sorted[0].id===uid&&sorted[0].pnl>0;
     }).length:0;
     const lw=document.getElementById('profile-leagues-won');if(lw) lw.textContent=leaguesWon;
-    const t=localStorage.getItem('lot_theme')||'dark';
-    const pbtn=document.getElementById('theme-profile-btn');if(pbtn) pbtn.textContent=t==='light'?'Clar ☀️':'Fosc 🌙';
+    const thm=localStorage.getItem('lot_theme')||'dark';
+    const pbtn=document.getElementById('theme-profile-btn');if(pbtn) pbtn.textContent=thm==='light'?t('js.theme_light'):t('js.theme_dark');
   }
 
   /* ── Leagues ── */
@@ -2706,7 +2778,7 @@ const data=raw.data||raw;if(Array.isArray(data)){data.filter(t=>ASSET_MAP[t.s]).
                 <div style="font-size:16px;font-weight:700;color:var(--text);">${league.name}</div>
                 <span style="font-size:10px;padding:2px 7px;border-radius:99px;background:${visColor};color:${visTextColor};border:1px solid ${visTextColor};">${visLabel}</span>
               </div>
-              <div style="font-size:12px;color:var(--text-muted);margin-top:3px;">${league.duration} · ${remainingTime(league.endAt)} ${t('js.remaining')}</div>
+              <div style="font-size:12px;color:var(--text-muted);margin-top:3px;">${((d)=>({Setmanal:t('dur.weekly'),Mensual:t('dur.monthly'),Trimestral:t('dur.quarterly'),Anual:t('dur.yearly')})[d]||d)(league.duration)} · ${remainingTime(league.endAt)} ${t('js.remaining')}</div>
             </div>
             <div style="text-align:right;flex-shrink:0;"><div style="font-size:11px;color:var(--text-muted);">${t('js.position_label')}</div><div style="font-size:18px;font-weight:700;color:var(--text);">#${rank}</div></div>
           </div>
@@ -2783,7 +2855,7 @@ const data=raw.data||raw;if(Array.isArray(data)){data.filter(t=>ASSET_MAP[t.s]).
         <div style="font-size:13px;font-weight:600;margin-bottom:10px;color:var(--text);">${t('js.real_time_ranking')}</div>
         <div style="overflow-x:auto;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain;">
           <table class="data-table" style="min-width:560px;">
-            <thead><tr><th>#</th><th>Jugador</th><th>Saldo</th><th>PnL</th><th>Trades</th></tr></thead>
+            <thead><tr><th>#</th><th>${t('league.table.player')}</th><th>${t('league.balance_col')}</th><th>PnL</th><th>Trades</th></tr></thead>
             <tbody>${sorted.map((m,i)=>{const medal=['🥇','🥈','🥉'][i]||`#${i+1}`;return `<tr style="${m.id===uid?'background:rgba(176,141,87,.07);border-left:2px solid var(--gold-mid);':''}"><td style="font-weight:700;white-space:nowrap;">${medal}</td><td style="white-space:nowrap;"><span style="display:inline-flex;width:26px;height:26px;border-radius:50%;background:rgba(176,141,87,.12);border:1px solid rgba(176,141,87,.2);align-items:center;justify-content:center;font-weight:700;font-size:12px;margin-right:6px;">${m.avatar}</span>${m.name}</td><td style="font-family:ui-monospace,monospace;white-space:nowrap;">${fmtUSDT(m.balance)} USDT</td><td style="font-family:ui-monospace,monospace;color:${m.pnl>=0?'#4ade80':'#fb7185'};font-weight:700;white-space:nowrap;">${m.pnl>=0?'+':''}${fmtUSDT(m.pnl)}</td><td style="font-family:ui-monospace,monospace;white-space:nowrap;">${m.trades}</td></tr>`;}).join('')}</tbody>
           </table>
         </div>
@@ -2792,7 +2864,7 @@ const data=raw.data||raw;if(Array.isArray(data)){data.filter(t=>ASSET_MAP[t.s]).
         <div style="font-size:13px;font-weight:600;margin-bottom:10px;color:var(--text);">${t('js.league_history')}</div>
         <div style="overflow-x:auto;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain;">
           <table class="data-table" style="min-width:560px;">
-            <thead><tr><th>Jugador</th><th>Data</th><th>Actiu</th><th>Tipus</th><th>PnL</th><th>Durada</th></tr></thead>
+            <thead><tr><th>${t('league.table.player')}</th><th>${t('league.table.date')}</th><th>${t('league.table.asset')}</th><th>${t('league.table.type')}</th><th>PnL</th><th>${t('league.table.duration')}</th></tr></thead>
             <tbody>${league.trades.length?league.trades.map(t=>`<tr><td style="white-space:nowrap;">${t.player}</td><td style="white-space:nowrap;">${fmtDT(t.closeTime)}</td><td style="white-space:nowrap;">${assetBase(t.symbol)}</td><td style="color:${t.type==='LONG'?'#34d399':'#fb7185'};font-weight:700;white-space:nowrap;">${t.type}</td><td style="font-family:ui-monospace,monospace;color:${t.pnl>=0?'#34d399':'#fb7185'};font-weight:700;white-space:nowrap;">${t.pnl>=0?'+':''}${fmtUSDT(t.pnl)}</td><td style="font-family:ui-monospace,monospace;color:var(--text-muted);white-space:nowrap;">${fmtDur(t.duration)}</td></tr>`).join(''):(`<tr><td colspan="6" style="padding:20px;text-align:center;color:#5a4a35;font-size:13px;">${t('js.no_league_trades')}</td></tr>`)}</tbody>
           </table>
         </div>
