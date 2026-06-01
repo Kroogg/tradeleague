@@ -570,7 +570,7 @@
     </div>
     <!-- MILLORA 9: Filtre de categoria -->
     <div style="padding:8px 16px;border-bottom:1px solid var(--line);display:flex;gap:6px;overflow-x:auto;flex-shrink:0;background:rgba(5,7,15,.9);">
-      <button onclick="filterAssets('all')" id="filter-all" style="padding:5px 12px;border-radius:20px;font-size:12px;font-weight:600;border:1px solid rgba(176,141,87,.5);background:rgba(176,141,87,.12);color:var(--gold);cursor:pointer;white-space:nowrap;">Tots</button>
+      <button onclick="filterAssets('all')" id="filter-all" data-i18n="filter.all" style="padding:5px 12px;border-radius:20px;font-size:12px;font-weight:600;border:1px solid rgba(176,141,87,.5);background:rgba(176,141,87,.12);color:var(--gold);cursor:pointer;white-space:nowrap;">Tots</button>
       <button onclick="filterAssets('layer1')" id="filter-layer1" style="padding:5px 12px;border-radius:20px;font-size:12px;font-weight:600;border:1px solid var(--line);background:none;color:var(--text-muted);cursor:pointer;white-space:nowrap;">Layer 1</button>
       <button onclick="filterAssets('defi')" id="filter-defi" style="padding:5px 12px;border-radius:20px;font-size:12px;font-weight:600;border:1px solid var(--line);background:none;color:var(--text-muted);cursor:pointer;white-space:nowrap;">DeFi</button>
       <button onclick="filterAssets('meme')" id="filter-meme" style="padding:5px 12px;border-radius:20px;font-size:12px;font-weight:600;border:1px solid var(--line);background:none;color:var(--text-muted);cursor:pointer;white-space:nowrap;">Meme</button>
@@ -618,7 +618,7 @@
         <div id="bottom-panel-positions" class="bottom-tab-panel active" style="padding:8px;overflow-x:auto;min-width:0;">
           <table class="data-table" style="min-width:760px;">
             <thead><tr>
-              <th>Actiu</th><th>Tipus</th><th>Mida</th><th>Entrada</th><th>Actual</th><th>PnL</th><th>ROE%</th><th>Liq.</th><th>Temps</th><th>TP</th><th>SL</th><th style="text-align:right;">Tancar</th>
+              <th data-i18n="th.asset">Actiu</th><th data-i18n="th.type">Tipus</th><th data-i18n="th.size">Mida</th><th data-i18n="th.entry">Entrada</th><th data-i18n="th.current">Actual</th><th>PnL</th><th>ROE%</th><th data-i18n="th.liq">Liq.</th><th data-i18n="th.time">Temps</th><th>TP</th><th>SL</th><th style="text-align:right;" data-i18n="th.close">Tancar</th>
             </tr></thead>
             <tbody id="positions-table"></tbody>
           </table>
@@ -626,14 +626,14 @@
         <!-- MILLORA 2: Taula d'ordres límit -->
         <div id="bottom-panel-orders" class="bottom-tab-panel" style="padding:8px;overflow-x:auto;min-width:0;">
           <table class="data-table" style="min-width:600px;">
-            <thead><tr><th>Actiu</th><th>Tipus</th><th>Direcció</th><th>Mida</th><th>Preu límit</th><th>Marge</th><th>Data</th><th style="text-align:right;">Cancel·lar</th></tr></thead>
+            <thead><tr><th data-i18n="th.asset">Actiu</th><th data-i18n="th.type">Tipus</th><th data-i18n="th.direction">Direcció</th><th data-i18n="th.size">Mida</th><th data-i18n="th.limit_price">Preu límit</th><th data-i18n="th.margin">Marge</th><th data-i18n="th.date">Data</th><th style="text-align:right;" data-i18n="th.cancel">Cancel·lar</th></tr></thead>
             <tbody id="orders-table"></tbody>
           </table>
         </div>
         <div id="bottom-panel-history" class="bottom-tab-panel" style="padding:8px;overflow-x:auto;min-width:0;">
           <table class="data-table" style="min-width:800px;">
             <thead><tr>
-              <th>Data</th><th>Actiu</th><th>Tipus</th><th>Mida</th><th>Entrada</th><th>Sortida</th><th>PnL</th><th>ROE%</th><th>Durada</th><th>Motiu</th>
+              <th data-i18n="th.date">Data</th><th data-i18n="th.asset">Actiu</th><th data-i18n="th.type">Tipus</th><th data-i18n="th.size">Mida</th><th data-i18n="th.entry">Entrada</th><th data-i18n="th.exit">Sortida</th><th>PnL</th><th>ROE%</th><th data-i18n="th.duration">Durada</th><th data-i18n="th.reason">Motiu</th>
             </tr></thead>
             <tbody id="history-table"></tbody>
             <tfoot><tr><td colspan="10" id="history-footer" style="padding-top:10px;color:var(--text-muted);font-size:11px;font-family:ui-monospace,monospace;"></td></tr></tfoot>
@@ -644,10 +644,10 @@
 
     <div id="trading-bar">
       <div style="flex:1;min-width:0;">
-        <div style="font-size:11px;color:var(--text-muted);">PnL no realitzat</div>
+        <div style="font-size:11px;color:var(--text-muted);" data-i18n="trading.unrealized_pnl">PnL no realitzat</div>
         <div id="unrealized-pnl" style="font-size:14px;font-weight:700;font-family:ui-monospace,monospace;color:var(--text-muted);">+0.00 USDT</div>
       </div>
-      <button onclick="toggleOrderPanel(true)" style="background:linear-gradient(180deg,var(--forest-light) 0%,var(--forest) 50%,var(--forest-dark) 100%);color:var(--cream);border:1px solid var(--gold-dark);border-radius:12px;padding:11px 28px;font-weight:400;font-size:15px;cursor:pointer;flex-shrink:0;letter-spacing:.5px;font-family:'Russo One',sans-serif;box-shadow:inset 0 1px 0 rgba(255,255,255,.15),0 4px 12px rgba(0,0,0,.5);">⚔ Fer trading</button>
+      <button onclick="toggleOrderPanel(true)" style="background:linear-gradient(180deg,var(--forest-light) 0%,var(--forest) 50%,var(--forest-dark) 100%);color:var(--cream);border:1px solid var(--gold-dark);border-radius:12px;padding:11px 28px;font-weight:400;font-size:15px;cursor:pointer;flex-shrink:0;letter-spacing:.5px;font-family:'Russo One',sans-serif;box-shadow:inset 0 1px 0 rgba(255,255,255,.15),0 4px 12px rgba(0,0,0,.5);" data-i18n="trading.btn">⚔ Fer trading</button>
     </div>
   </section>
 
@@ -663,8 +663,8 @@
           </div>
         </div>
         <div style="display:flex;gap:8px;flex-wrap:wrap;">
-          <button onclick="openCreateLeagueModal()" style="background:linear-gradient(180deg,var(--forest-light) 0%,var(--forest) 50%,var(--forest-dark) 100%);color:var(--cream);border:1px solid var(--gold-dark);border-radius:10px;padding:9px 16px;font-weight:400;font-size:13px;cursor:pointer;font-family:'Russo One',sans-serif;letter-spacing:.3px;box-shadow:inset 0 1px 0 rgba(255,255,255,.12);">+ Crear</button>
-          <button onclick="openJoinLeagueModal()" style="background:rgba(176,141,87,.08);border:1px solid rgba(176,141,87,.2);color:var(--text-muted);border-radius:10px;padding:9px 16px;font-weight:600;font-size:13px;cursor:pointer;">Unir-se</button>
+          <button onclick="openCreateLeagueModal()" style="background:linear-gradient(180deg,var(--forest-light) 0%,var(--forest) 50%,var(--forest-dark) 100%);color:var(--cream);border:1px solid var(--gold-dark);border-radius:10px;padding:9px 16px;font-weight:400;font-size:13px;cursor:pointer;font-family:'Russo One',sans-serif;letter-spacing:.3px;box-shadow:inset 0 1px 0 rgba(255,255,255,.12);" data-i18n="league.create">+ Crear</button>
+          <button onclick="openJoinLeagueModal()" style="background:rgba(176,141,87,.08);border:1px solid rgba(176,141,87,.2);color:var(--text-muted);border-radius:10px;padding:9px 16px;font-weight:600;font-size:13px;cursor:pointer;" data-i18n="league.join">Unir-se</button>
         </div>
       </div>
       <div style="padding:0 16px 10px;display:flex;flex-direction:column;gap:8px;" id="league-search-area">
@@ -673,9 +673,9 @@
           <input id="league-search-input" oninput="filterLeagueList()" class="inp" placeholder="Cerca per nom de lliga..." style="border:none;background:none;padding:0;font-size:13px;flex:1;outline:none;">
         </div>
         <div style="display:flex;gap:6px;">
-          <button id="ltab-all"    onclick="setLeagueTab('all')"    style="padding:5px 12px;border-radius:20px;font-size:12px;font-weight:600;border:1px solid rgba(176,141,87,.5);background:rgba(176,141,87,.12);color:var(--gold);cursor:pointer;">Totes</button>
-          <button id="ltab-mine"   onclick="setLeagueTab('mine')"   style="padding:5px 12px;border-radius:20px;font-size:12px;font-weight:600;border:1px solid var(--line);background:none;color:var(--text-muted);cursor:pointer;">Les meves</button>
-          <button id="ltab-public" onclick="setLeagueTab('public')" style="padding:5px 12px;border-radius:20px;font-size:12px;font-weight:600;border:1px solid var(--line);background:none;color:var(--text-muted);cursor:pointer;">Públiques</button>
+          <button id="ltab-all"    onclick="setLeagueTab('all')" data-i18n="league.tab.all"    style="padding:5px 12px;border-radius:20px;font-size:12px;font-weight:600;border:1px solid rgba(176,141,87,.5);background:rgba(176,141,87,.12);color:var(--gold);cursor:pointer;">Totes</button>
+          <button id="ltab-mine"   onclick="setLeagueTab('mine')" data-i18n="league.tab.mine"   style="padding:5px 12px;border-radius:20px;font-size:12px;font-weight:600;border:1px solid var(--line);background:none;color:var(--text-muted);cursor:pointer;">Les meves</button>
+          <button id="ltab-public" onclick="setLeagueTab('public')" data-i18n="league.tab.public" style="padding:5px 12px;border-radius:20px;font-size:12px;font-weight:600;border:1px solid var(--line);background:none;color:var(--text-muted);cursor:pointer;">Públiques</button>
         </div>
       </div>
     </div>
@@ -712,7 +712,7 @@
         <div style="font-size:13px;font-weight:600;margin-bottom:10px;color:var(--text-muted);">Actius en cartera</div>
         <div style="overflow-x:auto;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain;">
           <table class="data-table" style="min-width:520px;">
-            <thead><tr><th>Actiu</th><th>Mida</th><th>Entrada</th><th>Actual</th><th>PnL</th><th>%Portfolio</th></tr></thead>
+            <thead><tr><th data-i18n="th.asset">Actiu</th><th data-i18n="th.size">Mida</th><th data-i18n="th.entry">Entrada</th><th data-i18n="th.current">Actual</th><th>PnL</th><th>%Portfolio</th></tr></thead>
             <tbody id="portfolio-assets"></tbody>
           </table>
         </div>
@@ -721,7 +721,7 @@
         <div style="font-size:13px;font-weight:600;margin-bottom:10px;color:var(--text-muted);">Historial de trades tancats</div>
         <div style="overflow-x:auto;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain;">
           <table class="data-table" style="min-width:700px;">
-            <thead><tr><th>Obertura</th><th>Tancament</th><th>Actiu</th><th>Dir.</th><th>Lev.</th><th>Entrada</th><th>Sortida</th><th>PnL</th><th>Motiu</th><th>Durada</th></tr></thead>
+            <thead><tr><th data-i18n="th.open_time">Obertura</th><th data-i18n="th.close_time">Tancament</th><th data-i18n="th.asset">Actiu</th><th data-i18n="th.dir">Dir.</th><th data-i18n="th.lev">Lev.</th><th data-i18n="th.entry">Entrada</th><th data-i18n="th.exit">Sortida</th><th>PnL</th><th data-i18n="th.reason">Motiu</th><th data-i18n="th.duration">Durada</th></tr></thead>
             <tbody id="portfolio-history"></tbody>
           </table>
         </div>
@@ -740,7 +740,7 @@
         </div>
       </div>
       <div class="glass-sm" style="border-radius:12px;padding:10px 14px;text-align:center;">
-        <div style="font-size:10px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px;">Completats</div>
+        <div style="font-size:10px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px;" data-i18n="ach.completed_label">Completats</div>
         <div style="font-size:16px;font-weight:700;margin-top:2px;color:var(--text);"><span id="achievements-completed">0</span>/<span id="achievements-total">0</span> · <span id="achievement-points" style="color:#fbbf24;">0</span> pts</div>
       </div>
     </div>
@@ -794,8 +794,8 @@
           <div style="width:72px;height:72px;border-radius:50%;background:linear-gradient(135deg,var(--forest-light),var(--gold-mid));display:flex;align-items:center;justify-content:center;margin:0 auto 16px;font-size:32px;box-shadow:0 0 20px rgba(176,141,87,0.3);">👤</div>
           <div style="font-size:18px;font-weight:400;margin-bottom:6px;color:var(--gold);font-family:'Russo One',sans-serif;" data-i18n="auth.title">Inicia sessió</div>
           <div style="font-size:13px;color:var(--text-muted);margin-bottom:24px;" data-i18n="auth.sub">Guarda el teu progrés i competeix a les lligues</div>
-          <button onclick="openAuthModal()" style="width:100%;padding:14px;border-radius:12px;background:linear-gradient(180deg,var(--forest-light) 0%,var(--forest) 50%,var(--forest-dark) 100%);border:1px solid var(--gold-dark);color:var(--cream);font-weight:400;font-size:15px;cursor:pointer;margin-bottom:10px;font-family:'Russo One',sans-serif;box-shadow:inset 0 1px 0 rgba(255,255,255,.12);">Iniciar Sessió</button>
-          <button onclick="openAuthModal()" style="width:100%;padding:14px;border-radius:12px;background:rgba(176,141,87,.08);border:1px solid rgba(176,141,87,.2);color:var(--text-muted);font-weight:600;font-size:15px;cursor:pointer;">Crear Compte</button>
+          <button onclick="openAuthModal()" style="width:100%;padding:14px;border-radius:12px;background:linear-gradient(180deg,var(--forest-light) 0%,var(--forest) 50%,var(--forest-dark) 100%);border:1px solid var(--gold-dark);color:var(--cream);font-weight:400;font-size:15px;cursor:pointer;margin-bottom:10px;font-family:'Russo One',sans-serif;box-shadow:inset 0 1px 0 rgba(255,255,255,.12);" data-i18n="auth.login_btn">Iniciar Sessió</button>
+          <button onclick="openAuthModal()" style="width:100%;padding:14px;border-radius:12px;background:rgba(176,141,87,.08);border:1px solid rgba(176,141,87,.2);color:var(--text-muted);font-weight:600;font-size:15px;cursor:pointer;" data-i18n="auth.signup_btn">Crear Compte</button>
         </div>
       </div>
     </div>
@@ -811,7 +811,7 @@
     <div style="display:flex;flex-direction:column;gap:2px;">
       <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
         <span style="font-size:16px;font-weight:700;color:var(--text);" id="sheet-symbol">BTCUSDT</span>
-        <span style="font-size:13px;color:var(--text-muted);">Perpetu</span>
+        <span style="font-size:13px;color:var(--text-muted);" data-i18n="js.perpetu">Perpetu</span>
       </div>
       <div style="display:flex;align-items:baseline;gap:8px;">
         <span id="sheet-live-price" style="font-size:22px;font-weight:800;font-family:ui-monospace,monospace;color:var(--gold);transition:color .3s;">---</span>
@@ -832,12 +832,12 @@
     <div style="margin-bottom:14px;">
       <div style="font-size:12px;color:var(--text-muted);margin-bottom:8px;">Tipus d'ordre</div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;">
-        <button id="otype-market" class="order-type-btn active-market" onclick="setOrderType('market')">⚡ Mercat</button>
-        <button id="otype-limit" class="order-type-btn" onclick="setOrderType('limit')">📋 Límit</button>
+        <button id="otype-market" class="order-type-btn active-market" onclick="setOrderType('market')" data-i18n="sheet.market">⚡ Mercat</button>
+        <button id="otype-limit" class="order-type-btn" onclick="setOrderType('limit')" data-i18n="sheet.limit">📋 Límit</button>
       </div>
     </div>
     <div id="limit-price-row" style="margin-bottom:14px;">
-      <label style="font-size:12px;color:var(--text-muted);display:block;margin-bottom:6px;">Preu límit d'entrada</label>
+      <label style="font-size:12px;color:var(--text-muted);display:block;margin-bottom:6px;" data-i18n="sheet.limit_price">Preu límit d'entrada</label>
       <div style="position:relative;">
         <input type="number" id="limit-price" class="inp" placeholder="Ex: 80000" step="0.01" style="padding-right:48px;">
         <span style="position:absolute;right:12px;top:50%;transform:translateY(-50%);font-size:12px;color:#5a4a35;">USDT</span>
@@ -847,7 +847,7 @@
     <!-- Leverage -->
     <div style="background:rgba(0,0,0,.3);border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin-bottom:14px;">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
-        <span style="font-size:12px;color:var(--text-muted);">Palanquejament</span>
+        <span style="font-size:12px;color:var(--text-muted);" data-i18n="sheet.leverage">Palanquejament</span>
         <span id="leverage-display" style="font-size:16px;font-weight:700;color:var(--gold);">x10</span>
       </div>
       <input type="range" id="leverage-slider" min="1" max="50" value="10" class="lev-slider" style="margin-bottom:6px;">
@@ -861,7 +861,7 @@
 
     <!-- Amount -->
     <div style="margin-bottom:10px;">
-      <label style="font-size:12px;color:var(--text-muted);display:block;margin-bottom:6px;">Quantitat a invertir (USDT)</label>
+      <label style="font-size:12px;color:var(--text-muted);display:block;margin-bottom:6px;" data-i18n="sheet.amount">Quantitat a invertir (USDT)</label>
       <div style="position:relative;">
         <input type="number" id="order-amount" class="inp" placeholder="Ex: 1000" step="10" style="padding-right:48px;">
         <span style="position:absolute;right:12px;top:50%;transform:translateY(-50%);font-size:12px;color:#5a4a35;">USDT</span>
@@ -882,14 +882,14 @@
 
     <!-- Order info -->
     <div style="background:rgba(0,0,0,.25);border:1px solid var(--line);border-radius:10px;padding:10px 12px;margin-bottom:16px;display:flex;flex-direction:column;gap:6px;font-size:12px;">
-      <div style="display:flex;justify-content:space-between;"><span style="color:var(--text-muted);">Marge requerit</span><span id="margin-required" style="font-family:ui-monospace,monospace;">0.00 USDT</span></div>
-      <div style="display:flex;justify-content:space-between;"><span style="color:var(--text-muted);">Mida posició</span><span id="position-size" style="font-family:ui-monospace,monospace;">0.0000</span></div>
+      <div style="display:flex;justify-content:space-between;"><span style="color:var(--text-muted);" data-i18n="sheet.margin">Marge requerit</span><span id="margin-required" style="font-family:ui-monospace,monospace;">0.00 USDT</span></div>
+      <div style="display:flex;justify-content:space-between;"><span style="color:var(--text-muted);" data-i18n="sheet.pos_size">Mida posició</span><span id="position-size" style="font-family:ui-monospace,monospace;">0.0000</span></div>
       <!-- MILLORA 1: Preu de liquidació visible -->
       <div style="display:flex;justify-content:space-between;"><span style="color:var(--text-muted);">Liquidació aprox. <span class="liq-badge">AUTO</span></span><span id="liquidation-price" style="font-family:ui-monospace,monospace;color:#fb7185;">---</span></div>
-      <div style="display:flex;justify-content:space-between;"><span style="color:var(--text-muted);">Disponible</span><span id="sheet-balance" style="font-family:ui-monospace,monospace;color:var(--gold);">---</span></div>
+      <div style="display:flex;justify-content:space-between;"><span style="color:var(--text-muted);" data-i18n="sheet.available">Disponible</span><span id="sheet-balance" style="font-family:ui-monospace,monospace;color:var(--gold);">---</span></div>
     </div>
 
-    <button id="execute-order" onclick="executeOrder()" class="exec-btn glow" style="background:linear-gradient(180deg,var(--forest-light) 0%,var(--forest) 50%,var(--forest-dark) 100%);color:var(--cream);border:1px solid var(--gold-dark);box-shadow:inset 0 1px 0 rgba(255,255,255,.15);">⚔ Obrir Posició LONG</button>
+    <button id="execute-order" onclick="executeOrder()" class="exec-btn glow" style="background:linear-gradient(180deg,var(--forest-light) 0%,var(--forest) 50%,var(--forest-dark) 100%);color:var(--cream);border:1px solid var(--gold-dark);box-shadow:inset 0 1px 0 rgba(255,255,255,.15);" data-i18n="js.open_long">⚔ Obrir Posició LONG</button>
   </div>
 
   <details style="padding:0 16px 16px;">
@@ -914,12 +914,12 @@
     <div style="padding:0 16px;display:flex;flex-direction:column;gap:12px;">
       <!-- Preu actual -->
       <div style="background:rgba(0,0,0,.25);border:1px solid var(--line);border-radius:10px;padding:10px 14px;display:flex;justify-content:space-between;align-items:center;">
-        <span style="font-size:12px;color:var(--text-muted);">Preu actual</span>
+        <span style="font-size:12px;color:var(--text-muted);" data-i18n="tpsl.current_price">Preu actual</span>
         <span id="edit-tpsl-current-price" style="font-size:15px;font-weight:700;font-family:ui-monospace,monospace;color:var(--gold);">---</span>
       </div>
       <!-- Entrada -->
       <div style="background:rgba(0,0,0,.25);border:1px solid var(--line);border-radius:10px;padding:10px 14px;display:flex;justify-content:space-between;align-items:center;">
-        <span style="font-size:12px;color:var(--text-muted);">Preu d'entrada</span>
+        <span style="font-size:12px;color:var(--text-muted);" data-i18n="tpsl.entry_price">Preu d'entrada</span>
         <span id="edit-tpsl-entry-price" style="font-size:13px;font-weight:600;font-family:ui-monospace,monospace;color:var(--text);">---</span>
       </div>
       <!-- TP -->
@@ -945,7 +945,7 @@
         </div>
       </div>
       <input type="hidden" id="edit-tpsl-position-id">
-      <button onclick="saveEditTpSl()" style="width:100%;padding:14px;border-radius:12px;background:linear-gradient(180deg,var(--forest-light) 0%,var(--forest) 50%,var(--forest-dark) 100%);border:1px solid var(--gold-dark);color:var(--cream);font-weight:400;font-size:15px;cursor:pointer;margin-top:4px;font-family:'Russo One',sans-serif;box-shadow:inset 0 1px 0 rgba(255,255,255,.12);">Desar canvis</button>
+      <button onclick="saveEditTpSl()" style="width:100%;padding:14px;border-radius:12px;background:linear-gradient(180deg,var(--forest-light) 0%,var(--forest) 50%,var(--forest-dark) 100%);border:1px solid var(--gold-dark);color:var(--cream);font-weight:400;font-size:15px;cursor:pointer;margin-top:4px;font-family:'Russo One',sans-serif;box-shadow:inset 0 1px 0 rgba(255,255,255,.12);" data-i18n="tpsl.save">Desar canvis</button>
     </div>
   </div>
 </div>
@@ -1008,8 +1008,8 @@
       <div>
         <label style="font-size:12px;color:var(--text-muted);display:block;margin-bottom:5px;">Visibilitat</label>
         <div style="display:flex;gap:8px;">
-          <button id="btn-public" onclick="setLeagueVisibility('public')" style="flex:1;padding:9px;border-radius:10px;background:rgba(26,122,88,.15);border:1px solid rgba(26,122,88,.5);color:#4ade80;font-size:13px;font-weight:600;cursor:pointer;">🌍 Pública</button>
-          <button id="btn-private" onclick="setLeagueVisibility('private')" style="flex:1;padding:9px;border-radius:10px;background:none;border:1px solid var(--line);color:var(--text-muted);font-size:13px;font-weight:600;cursor:pointer;">🔒 Privada</button>
+          <button id="btn-public" onclick="setLeagueVisibility('public')" data-i18n="modal.public" style="flex:1;padding:9px;border-radius:10px;background:rgba(26,122,88,.15);border:1px solid rgba(26,122,88,.5);color:#4ade80;font-size:13px;font-weight:600;cursor:pointer;">🌍 Pública</button>
+          <button id="btn-private" onclick="setLeagueVisibility('private')" data-i18n="modal.private" style="flex:1;padding:9px;border-radius:10px;background:none;border:1px solid var(--line);color:var(--text-muted);font-size:13px;font-weight:600;cursor:pointer;">🔒 Privada</button>
         </div>
         <div id="visibility-hint" style="font-size:11px;color:var(--text-muted);margin-top:5px;">Qualsevol pot unir-se des del cercador</div>
       </div>
@@ -1027,7 +1027,7 @@
         <button onclick="generateInviteCode()" style="padding:10px 12px;border-radius:10px;background:rgba(176,141,87,.08);border:1px solid rgba(176,141,87,.2);color:var(--text-muted);cursor:pointer;font-size:13px;">Gen.</button>
         <button onclick="copyInviteCode()" style="padding:10px 12px;border-radius:10px;background:rgba(26,122,88,.1);border:1px solid rgba(26,122,88,.3);color:#4ade80;cursor:pointer;font-size:13px;">Copiar</button>
       </div>
-      <button onclick="createLeague()" style="padding:13px;border-radius:10px;background:linear-gradient(180deg,var(--forest-light) 0%,var(--forest) 50%,var(--forest-dark) 100%);border:1px solid var(--gold-dark);color:var(--cream);font-weight:400;font-size:14px;cursor:pointer;font-family:'Russo One',sans-serif;box-shadow:inset 0 1px 0 rgba(255,255,255,.12);">Crear Lliga</button>
+      <button onclick="createLeague()" style="padding:13px;border-radius:10px;background:linear-gradient(180deg,var(--forest-light) 0%,var(--forest) 50%,var(--forest-dark) 100%);border:1px solid var(--gold-dark);color:var(--cream);font-weight:400;font-size:14px;cursor:pointer;font-family:'Russo One',sans-serif;box-shadow:inset 0 1px 0 rgba(255,255,255,.12);" data-i18n="modal.create_league_btn">Crear Lliga</button>
     </div>
   </div>
 </div>
@@ -1659,7 +1659,7 @@
     const btn=document.getElementById('theme-toggle-btn');
     if(btn) btn.textContent=t==='light'?'☀️':'🌙';
     const pbtn=document.getElementById('theme-profile-btn');
-    if(pbtn) pbtn.textContent=t==='light'?'Clar ☀️':'Fosc 🌙';
+    if(pbtn) pbtn.textContent=t==='light'?(TRANSLATIONS[_lang]||TRANSLATIONS.ca)['js.theme_light']:(TRANSLATIONS[_lang]||TRANSLATIONS.ca)['js.theme_dark'];
   }
 
   /* ── MILLORA 7: Tutorial ── */
@@ -1949,7 +1949,7 @@
     lBtn.className='order-type-btn'+(type==='limit'?' active-limit':'');
     lRow.className='limit-price-row'+(type==='limit'?' show':'');
     const dir=State.tradeType==='LONG'?'LONG':'SHORT';
-    ex.textContent=type==='limit'?`Crear Ordre Límit ${dir}`:`Obrir Posició ${dir}`;
+    ex.textContent=type==='limit'?`${t('js.create_limit')} ${dir}`:dir==='LONG'?t('js.open_long'):t('js.open_short');
     calculateOrder();
   };
 
@@ -2037,7 +2037,7 @@
     document.getElementById('sl-price').value='';
     calculateOrder();checkAchievements();
     await saveRemoteState();
-    showToast(`Posició ${position.type} oberta a ${fmtPrice(price,position.symbol)}.`,'success');
+    showToast(`${position.type} @ ${fmtPrice(price,position.symbol)}`,'success');
     toggleOrderPanel(false);updateUnrealizedPnlBar();
   };
 
@@ -2065,7 +2065,7 @@
     if(reason==='tp'||reason==='sl'||reason==='liquidated'){
       showAlert(reason,pos,pnl);
     } else {
-      showToast(`Posició tancada: ${pnl>=0?'+':''}${fmtUSDT(pnl)} USDT.`,pnl>=0?'success':'warning');
+      showToast(`${pnl>=0?'+':''}${fmtUSDT(pnl)} USDT`,pnl>=0?'success':'warning');
     }
     updateUnrealizedPnlBar();
     // Achievement sobrevivent si liquidat i segueix operant
@@ -2706,13 +2706,13 @@ const data=raw.data||raw;if(Array.isArray(data)){data.filter(t=>ASSET_MAP[t.s]).
                 <div style="font-size:16px;font-weight:700;color:var(--text);">${league.name}</div>
                 <span style="font-size:10px;padding:2px 7px;border-radius:99px;background:${visColor};color:${visTextColor};border:1px solid ${visTextColor};">${visLabel}</span>
               </div>
-              <div style="font-size:12px;color:var(--text-muted);margin-top:3px;">${league.duration} · ${remainingTime(league.endAt)} restants</div>
+              <div style="font-size:12px;color:var(--text-muted);margin-top:3px;">${league.duration} · ${remainingTime(league.endAt)} ${t('js.remaining')}</div>
             </div>
-            <div style="text-align:right;flex-shrink:0;"><div style="font-size:11px;color:var(--text-muted);">Posició</div><div style="font-size:18px;font-weight:700;color:var(--text);">#${rank}</div></div>
+            <div style="text-align:right;flex-shrink:0;"><div style="font-size:11px;color:var(--text-muted);">${t('js.position_label')}</div><div style="font-size:18px;font-weight:700;color:var(--text);">#${rank}</div></div>
           </div>
           <div style="display:flex;gap:16px;margin-top:10px;align-items:flex-end;">
             <div style="flex:1;">
-              <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--text-muted);margin-bottom:4px;"><span>Participants</span><span style="color:${isFull?'#ef4444':'var(--text-muted)'};">${count}/${maxM}</span></div>
+              <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--text-muted);margin-bottom:4px;"><span>${t('js.participants')}</span><span style="color:${isFull?'#ef4444':'var(--text-muted)'};">${count}/${maxM}</span></div>
               <div style="height:4px;background:rgba(176,141,87,.12);border-radius:99px;overflow:hidden;"><div style="width:${pct}%;height:4px;background:${barColor};border-radius:99px;"></div></div>
             </div>
             <div style="text-align:right;"><div style="font-size:11px;color:var(--text-muted);">PnL</div><div style="font-size:14px;font-weight:700;font-family:ui-monospace,monospace;color:${me&&me.pnl>=0?'#34d399':'#fb7185'};">${me?(me.pnl>=0?'+':'')+fmtUSDT(me.pnl)+' USDT':'—'}</div></div>
@@ -2720,8 +2720,8 @@ const data=raw.data||raw;if(Array.isArray(data)){data.filter(t=>ASSET_MAP[t.s]).
         </div>`;
       }else{
         const joinBtn=isFull
-          ?'<span style="font-size:11px;padding:5px 10px;border-radius:8px;background:rgba(239,68,68,.1);color:#fb7185;border:1px solid rgba(239,68,68,.3);">Plena</span>'
-          :'<button onclick="joinPublicLeague(\''+league.id+'\')" style="padding:7px 14px;border-radius:10px;background:linear-gradient(180deg,var(--forest-light) 0%,var(--forest) 50%,var(--forest-dark) 100%);border:1px solid var(--gold-dark);color:var(--cream);font-size:12px;cursor:pointer;font-family:\'Russo One\',sans-serif;flex-shrink:0;">+ Unir-se</button>';
+          ?`<span style="font-size:11px;padding:5px 10px;border-radius:8px;background:rgba(239,68,68,.1);color:#fb7185;border:1px solid rgba(239,68,68,.3);">${t('js.full')}</span>`
+          :(`<button onclick="joinPublicLeague('${league.id}')" style="padding:7px 14px;border-radius:10px;background:linear-gradient(180deg,var(--forest-light) 0%,var(--forest) 50%,var(--forest-dark) 100%);border:1px solid var(--gold-dark);color:var(--cream);font-size:12px;cursor:pointer;font-family:'Russo One',sans-serif;flex-shrink:0;">${t('js.join_public')}</button>`);
         const opacityStyle=isFull?'opacity:.6':'';
         return '<div class="league-card" style="'+opacityStyle+'">'
           +'<div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;">'
@@ -2730,12 +2730,12 @@ const data=raw.data||raw;if(Array.isArray(data)){data.filter(t=>ASSET_MAP[t.s]).
           +'<div style="font-size:16px;font-weight:700;color:var(--text);">'+league.name+'</div>'
           +'<span style="font-size:10px;padding:2px 7px;border-radius:99px;background:'+visColor+';color:'+visTextColor+';border:1px solid '+visTextColor+';">'+visLabel+'</span>'
           +'</div>'
-          +'<div style="font-size:12px;color:var(--text-muted);margin-top:3px;">'+league.duration+' · '+remainingTime(league.endAt)+' restants</div>'
+          +'<div style="font-size:12px;color:var(--text-muted);margin-top:3px;">'+league.duration+` · ${remainingTime(league.endAt)} ${t('js.remaining')}</div>`
           +'</div>'
           +joinBtn
           +'</div>'
           +'<div style="margin-top:10px;">'
-          +'<div style="display:flex;justify-content:space-between;font-size:11px;color:var(--text-muted);margin-bottom:4px;"><span>Participants</span><span style="color:'+(isFull?'#ef4444':'var(--text-muted)')+'">'+count+'/'+maxM+'</span></div>'
+          +'<div style="display:flex;justify-content:space-between;font-size:11px;color:var(--text-muted);margin-bottom:4px;"><span>'+t('js.participants')+'</span><span style="color:'+(isFull?'#ef4444':'var(--text-muted)')+'">'+count+'/'+maxM+'</span></div>'
           +'<div style="height:4px;background:rgba(176,141,87,.12);border-radius:99px;overflow:hidden;"><div style="width:'+pct+'%;height:4px;background:'+barColor+';border-radius:99px;"></div></div>'
           +'</div>'
           +'</div>';
@@ -2772,15 +2772,15 @@ const data=raw.data||raw;if(Array.isArray(data)){data.filter(t=>ASSET_MAP[t.s]).
     const uid=State.user.uid;const sorted=[...league.members].sort((a,b)=>b.pnl-a.pnl);const me=sorted.find(m=>m.id===uid)||createLeagueMember(0);
     if(!me) return;
     detail.innerHTML=`
-      <button onclick="renderLeagues()" style="background:none;border:none;color:var(--text-muted);font-size:13px;cursor:pointer;padding:4px 0;text-align:left;">← Tornar a lligues</button>
+      <button onclick="renderLeagues()" style="background:none;border:none;color:var(--text-muted);font-size:13px;cursor:pointer;padding:4px 0;text-align:left;">${t('js.back_leagues')}</button>
       <div class="league-card">
         <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap;">
-          <div><div style="font-size:20px;font-weight:700;color:var(--text);">${league.name}</div><div style="font-size:12px;color:var(--text-muted);margin-top:3px;">Codi ${league.code} · ${remainingTime(league.endAt)} restants</div></div>
-          <div style="font-family:ui-monospace,monospace;font-size:16px;font-weight:700;color:${me.pnl>=0?'#34d399':'#fb7185'};">El teu PnL: ${me.pnl>=0?'+':''}${fmtUSDT(me.pnl)} USDT</div>
+          <div><div style="font-size:20px;font-weight:700;color:var(--text);">${league.name}</div><div style="font-size:12px;color:var(--text-muted);margin-top:3px;">${t('js.code_label')} ${league.code} · ${remainingTime(league.endAt)} ${t('js.remaining')}</div></div>
+          <div style="font-family:ui-monospace,monospace;font-size:16px;font-weight:700;color:${me.pnl>=0?'#34d399':'#fb7185'};">${t('js.your_pnl')} ${me.pnl>=0?'+':''}${fmtUSDT(me.pnl)} USDT</div>
         </div>
       </div>
       <div style="background:var(--card-bg);border:1px solid var(--line);border-radius:14px;padding:14px;">
-        <div style="font-size:13px;font-weight:600;margin-bottom:10px;color:var(--text);">Classificació en temps real</div>
+        <div style="font-size:13px;font-weight:600;margin-bottom:10px;color:var(--text);">${t('js.real_time_ranking')}</div>
         <div style="overflow-x:auto;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain;">
           <table class="data-table" style="min-width:560px;">
             <thead><tr><th>#</th><th>Jugador</th><th>Saldo</th><th>PnL</th><th>Trades</th></tr></thead>
@@ -2789,11 +2789,11 @@ const data=raw.data||raw;if(Array.isArray(data)){data.filter(t=>ASSET_MAP[t.s]).
         </div>
       </div>
       <div style="background:var(--card-bg);border:1px solid var(--line);border-radius:14px;padding:14px;">
-        <div style="font-size:13px;font-weight:600;margin-bottom:10px;color:var(--text);">Historial de la Lliga</div>
+        <div style="font-size:13px;font-weight:600;margin-bottom:10px;color:var(--text);">${t('js.league_history')}</div>
         <div style="overflow-x:auto;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain;">
           <table class="data-table" style="min-width:560px;">
             <thead><tr><th>Jugador</th><th>Data</th><th>Actiu</th><th>Tipus</th><th>PnL</th><th>Durada</th></tr></thead>
-            <tbody>${league.trades.length?league.trades.map(t=>`<tr><td style="white-space:nowrap;">${t.player}</td><td style="white-space:nowrap;">${fmtDT(t.closeTime)}</td><td style="white-space:nowrap;">${assetBase(t.symbol)}</td><td style="color:${t.type==='LONG'?'#34d399':'#fb7185'};font-weight:700;white-space:nowrap;">${t.type}</td><td style="font-family:ui-monospace,monospace;color:${t.pnl>=0?'#34d399':'#fb7185'};font-weight:700;white-space:nowrap;">${t.pnl>=0?'+':''}${fmtUSDT(t.pnl)}</td><td style="font-family:ui-monospace,monospace;color:var(--text-muted);white-space:nowrap;">${fmtDur(t.duration)}</td></tr>`).join(''):'<tr><td colspan="6" style="padding:20px;text-align:center;color:#5a4a35;font-size:13px;">Sense trades a la lliga</td></tr>'}</tbody>
+            <tbody>${league.trades.length?league.trades.map(t=>`<tr><td style="white-space:nowrap;">${t.player}</td><td style="white-space:nowrap;">${fmtDT(t.closeTime)}</td><td style="white-space:nowrap;">${assetBase(t.symbol)}</td><td style="color:${t.type==='LONG'?'#34d399':'#fb7185'};font-weight:700;white-space:nowrap;">${t.type}</td><td style="font-family:ui-monospace,monospace;color:${t.pnl>=0?'#34d399':'#fb7185'};font-weight:700;white-space:nowrap;">${t.pnl>=0?'+':''}${fmtUSDT(t.pnl)}</td><td style="font-family:ui-monospace,monospace;color:var(--text-muted);white-space:nowrap;">${fmtDur(t.duration)}</td></tr>`).join(''):(`<tr><td colspan="6" style="padding:20px;text-align:center;color:#5a4a35;font-size:13px;">${t('js.no_league_trades')}</td></tr>`)}</tbody>
           </table>
         </div>
       </div>`;
