@@ -652,7 +652,7 @@
   </section>
 
   <!-- LLIGA -->
-  <section id="league-section" class="app-section" style="overflow-y:scroll;overflow-x:hidden;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;">
+  <section id="league-section" class="app-section" style="overflow-y:scroll;overflow-x:clip;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;">
     <div style="position:sticky;top:0;z-index:20;background:var(--deep);border-bottom:1px solid var(--line);">
       <div style="padding:12px 16px 10px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;">
         <div style="display:flex;align-items:center;gap:10px;">
@@ -687,7 +687,7 @@
 
   <!-- PORTFOLIO -->
   <!-- MILLORA 5: Estadístiques avançades -->
-  <section id="portfolio-section" class="app-section" style="overflow-y:scroll;overflow-x:hidden;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;">
+  <section id="portfolio-section" class="app-section" style="overflow-y:scroll;overflow-x:clip;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;">
     <div style="position:sticky;top:0;z-index:20;background:var(--deep);padding:12px 16px 8px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:10px;">
       <button onclick="switchSection('assets')" class="btn-icon">&#8592;</button>
       <div>
@@ -772,7 +772,7 @@
         <div style="background:rgba(176,141,87,.05);border:1px solid var(--line);border-radius:14px;overflow:hidden;margin-bottom:14px;">
           <div style="padding:14px 16px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;">
             <span style="font-size:13px;color:var(--text-muted);" data-i18n="profile.language">Idioma</span>
-            <button onclick="openLangModal()" id="lang-display-btn" style="font-size:13px;font-weight:500;background:rgba(176,141,87,.07);border:1px solid rgba(176,141,87,.18);color:var(--text-muted);border-radius:8px;padding:5px 12px;cursor:pointer;">🏴 Català</button>
+            <button onclick="openLangModal()" id="lang-display-btn" style="font-size:13px;font-weight:500;background:rgba(176,141,87,.07);border:1px solid rgba(176,141,87,.18);color:var(--text-muted);border-radius:8px;padding:5px 12px;cursor:pointer;">CA Català</button>
           </div>
           <div style="padding:14px 16px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;">
             <span style="font-size:13px;color:var(--text-muted);" data-i18n="profile.theme">Tema</span>
@@ -1056,7 +1056,7 @@
       'header.balance':'Saldo','home.btn.trade':'▶ OPERAR','home.btn.league':'🏆 LLIGA',
       'home.btn.portfolio':'💼 PORTFOLI','home.btn.achievements':'🎖 ASSOLIMENTS',
       'nav.home':'Inici','nav.assets':'Actius','nav.league':'Lliga',
-      'nav.portfolio':'Portfolio','nav.achievements':'Assoliments','nav.profile':'Perfil',
+      'nav.portfolio':'Portfoli','nav.achievements':'Assoliments','nav.profile':'Perfil',
       'trade.title':'Actius','trade.sub':'Preus en temps real · Toca per operar','filter.all':'Tots',
       'panel.open_pos':'Posicions obertes','tab.positions':'Posicions',
       'tab.orders':'Ordres límit','tab.history':'Historial',
@@ -1078,7 +1078,7 @@
       'league.create':'+ Crear','league.join':'Unir-se',
       'league.search_placeholder':'Cerca per nom de lliga...',
       'league.tab.all':'Totes','league.tab.mine':'Les meves','league.tab.public':'Públiques',
-      'portfolio.title':'Portfolio','portfolio.sub':'Rendiment i estadístiques',
+      'portfolio.title':'Portfoli','portfolio.sub':'Rendiment i estadístiques',
       'ach.title':'Assoliments','ach.sub':'Insígnies, fites i punts de progrés',
       'ach.completed_label':'Completats',
       'profile.title':'Perfil','profile.sub':'Compte i configuració',
@@ -1169,6 +1169,8 @@
       'dur.monthly': "Mensual",
       'dur.quarterly': "Trimestral",
       'dur.yearly': "Anual",
+      'vis.public': "Pública",
+      'vis.private': "Privada",
     },
     es: {
       'header.balance':'Saldo','home.btn.trade':'▶ OPERAR','home.btn.league':'🏆 LIGA',
@@ -1287,6 +1289,8 @@
       'dur.monthly': "Mensual",
       'dur.quarterly': "Trimestral",
       'dur.yearly': "Anual",
+      'vis.public': "Pública",
+      'vis.private': "Privada",
     },
     en: {
       'header.balance':'Balance','home.btn.trade':'▶ TRADE','home.btn.league':'🏆 LEAGUE',
@@ -1405,6 +1409,8 @@
       'dur.monthly': "Monthly",
       'dur.quarterly': "Quarterly",
       'dur.yearly': "Yearly",
+      'vis.public': "Public",
+      'vis.private': "Private",
     }
   };
 
@@ -1448,12 +1454,17 @@
     var btn = document.getElementById('lang-display-btn');
     if (btn) btn.textContent = flags[lang] || flags.ca;
     document.documentElement.lang = lang;
+    // Actualitzar botons que gestiona JS
+    if (window.setOrderType) window.setOrderType(State.orderType||'market');
+    if (window.setTradeType) window.setTradeType(State.tradeType||'LONG');
     updateAll();
     renderTutorialStep();
   };
 
   function applyTranslations() {
     document.querySelectorAll('[data-i18n]').forEach(function(el) {
+      // No sobreescriure botons de tipus ordre que gestiona setOrderType/setTradeType
+      if (el.id === 'execute-order') return;
       el.textContent = t(el.dataset.i18n);
     });
     document.querySelectorAll('[data-i18n-placeholder]').forEach(function(el) {
@@ -2370,6 +2381,7 @@
     const open=typeof force==='boolean'?force:!sheet.classList.contains('open');
     sheet.classList.toggle('open',open);bd.classList.toggle('open',open);
     if(open){
+      applyTranslations();
       calculateOrder();
       document.getElementById('sheet-balance').textContent=fmtUSDT(State.balance)+' USDT';
       const sym=State.currentAsset;
@@ -2386,9 +2398,9 @@
 
   window.switchBottomTab=function(tab){
     State.bottomTab=tab;
-    ['positions','orders','history'].forEach(t=>{
-      document.getElementById(`tab-${t}`)?.classList.toggle('active',t===tab);
-      document.getElementById(`bottom-panel-${t}`)?.classList.toggle('active',t===tab);
+    ['positions','orders','history'].forEach(tabId=>{
+      document.getElementById(`tab-${tabId}`)?.classList.toggle('active',tabId===tab);
+      document.getElementById(`bottom-panel-${tabId}`)?.classList.toggle('active',tabId===tab);
     });
     if(tab==='history') updateHistoryTable();
     if(tab==='orders') updateOrdersTable();
@@ -2576,7 +2588,7 @@ const data=raw.data||raw;if(Array.isArray(data)){data.filter(t=>ASSET_MAP[t.s]).
     const range=Math.max(1,max-min);
     // Grid
     ctx.strokeStyle='rgba(255,255,255,0.07)';ctx.lineWidth=1;
-    [0,0.25,0.5,0.75,1].forEach(t=>{const y=pad+(1-t)*(h-pad*2);ctx.beginPath();ctx.moveTo(pad,y);ctx.lineTo(w-4,y);ctx.stroke();});
+    [0,0.25,0.5,0.75,1].forEach(frac=>{const y=pad+(1-frac)*(h-pad*2);ctx.beginPath();ctx.moveTo(pad,y);ctx.lineTo(w-4,y);ctx.stroke();});
     // Eixos
     ctx.strokeStyle='rgba(255,255,255,0.12)';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(pad,pad);ctx.lineTo(pad,h-pad);ctx.lineTo(w-4,h-pad);ctx.stroke();
     const color=totalRealizedPnl()>=0?'#1a7a58':'#ef4444';
@@ -2706,7 +2718,7 @@ const data=raw.data||raw;if(Array.isArray(data)){data.filter(t=>ASSET_MAP[t.s]).
 
   window.setLeagueTab=function(tab){
     _leagueTab=tab;
-    ['all','mine','public'].forEach(t=>{
+    ['all','mine','public'].forEach(tabKey=>{
       const btn=document.getElementById('ltab-'+t);if(!btn)return;
       if(t===tab){btn.style.background='rgba(176,141,87,.12)';btn.style.borderColor='rgba(176,141,87,.5)';btn.style.color='var(--gold)';}
       else{btn.style.background='none';btn.style.borderColor='var(--line)';btn.style.color='var(--text-muted)';}
@@ -2764,7 +2776,7 @@ const data=raw.data||raw;if(Array.isArray(data)){data.filter(t=>ASSET_MAP[t.s]).
       const isFull=count>=maxM;
       const pct=Math.min(100,Math.round((count/maxM)*100));
       const barColor=pct>=100?'#ef4444':pct>=75?'#f59e0b':'#10b981';
-      const visLabel=league.isPublic===false?'🔒 Privada':'🌍 Pública';
+      const visLabel=league.isPublic===false?`🔒 ${t('vis.private')}`:`🌍 ${t('vis.public')}`;
       const visColor=league.isPublic===false?'rgba(139,107,76,.15)':'rgba(26,122,88,.12)';
       const visTextColor=league.isPublic===false?'var(--gold)':'#4ade80';
       if(isMine){
