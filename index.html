@@ -97,15 +97,16 @@
     html.light .game-stars { opacity:0.15; }
     html.light .modal-title { color:var(--gold); }
     html.light .section-sub { color:var(--text-muted); }
-    html.light #league-section > div:first-child,
-    html.light #portfolio-section > div:first-child { background:var(--deep) !important; }
+    html.light #league-section [style*="position:sticky"],
+    html.light #portfolio-section [style*="position:sticky"] { background:var(--deep) !important; }
 
-    /* iOS Safari: allow horizontal scroll inside vertical scroll containers */
-    #league-scroll-body > div [style*="overflow-x:auto"],
-    #league-detail [style*="overflow-x:auto"] {
-      touch-action: pan-x pan-y;
+    /* iOS Safari: scroll horitzontal de taules dins scroll vertical */
+    .tbl-scroll-x {
+      overflow-x: auto;
       -webkit-overflow-scrolling: touch;
+      touch-action: pan-x;
     }
+    #league-scroll-body { touch-action: pan-y; }
 
     * { box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
     html,body { height:100%; overflow:hidden; background:var(--deep); color:var(--text); font-family:Inter,system-ui,sans-serif; transition:background .3s,color .3s; }
@@ -660,7 +661,7 @@
 
   <!-- LLIGA -->
   <section id="league-section" class="app-section" style="overflow:hidden;">
-    <div style="z-index:20;background:var(--deep);border-bottom:1px solid var(--line);flex-shrink:0;">
+    <div style="flex-shrink:0;z-index:20;background:var(--deep);border-bottom:1px solid var(--line);">
       <div style="padding:12px 16px 10px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;">
         <div style="display:flex;align-items:center;gap:10px;">
           <button onclick="switchSection('assets')" class="btn-icon">&#8592;</button>
@@ -686,7 +687,7 @@
         </div>
       </div>
     </div>
-    <div id="league-scroll-body" style="flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;overscroll-behavior-y:contain;">
+    <div id="league-scroll-body" style="flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;overscroll-behavior-y:contain;touch-action:pan-y;">
       <div style="padding:16px;display:flex;flex-direction:column;gap:10px;">
         <div id="league-list" style="display:flex;flex-direction:column;gap:10px;"></div>
         <div id="league-detail" class="hidden" style="display:flex;flex-direction:column;gap:12px;"></div>
@@ -696,15 +697,14 @@
 
   <!-- PORTFOLIO -->
   <!-- MILLORA 5: Estadístiques avançades -->
-  <section id="portfolio-section" class="app-section" style="overflow:hidden;">
-    <div style="z-index:20;background:var(--deep);padding:12px 16px 8px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:10px;flex-shrink:0;">
+  <section id="portfolio-section" class="app-section" style="overflow-y:scroll;overflow-x:clip;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;">
+    <div style="position:sticky;top:0;z-index:20;background:var(--deep);padding:12px 16px 8px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:10px;">
       <button onclick="switchSection('assets')" class="btn-icon">&#8592;</button>
       <div>
         <div class="section-title" data-i18n="portfolio.title">Portfolio</div>
         <div class="section-sub" data-i18n="portfolio.sub">Rendiment i estadístiques</div>
       </div>
     </div>
-    <div style="flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;overscroll-behavior-y:contain;">
     <div style="padding:16px;display:flex;flex-direction:column;gap:14px;">
       <div id="portfolio-kpis" style="display:grid;grid-template-columns:repeat(2,1fr);gap:10px;"></div>
 
@@ -720,7 +720,7 @@
       </div>
       <div class="glass-sm" style="border-radius:14px;padding:14px;">
         <div style="font-size:13px;font-weight:600;margin-bottom:10px;color:var(--text-muted);" data-i18n="js.pf.open_assets">Actius en cartera</div>
-        <div style="overflow-x:auto;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain;">
+        <div class="tbl-scroll-x">
           <table class="data-table" style="min-width:520px;">
             <thead><tr><th data-i18n="th.asset">Actiu</th><th data-i18n="th.size">Mida</th><th data-i18n="th.entry">Entrada</th><th data-i18n="th.current">Actual</th><th>PnL</th><th>%Portfolio</th></tr></thead>
             <tbody id="portfolio-assets"></tbody>
@@ -729,14 +729,13 @@
       </div>
       <div class="glass-sm" style="border-radius:14px;padding:14px;">
         <div style="font-size:13px;font-weight:600;margin-bottom:10px;color:var(--text-muted);" data-i18n="js.pf.history">Historial de trades tancats</div>
-        <div style="overflow-x:auto;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain;">
+        <div class="tbl-scroll-x">
           <table class="data-table" style="min-width:700px;">
             <thead><tr><th data-i18n="th.open_time">Obertura</th><th data-i18n="th.close_time">Tancament</th><th data-i18n="th.asset">Actiu</th><th data-i18n="th.dir">Dir.</th><th data-i18n="th.lev">Lev.</th><th data-i18n="th.entry">Entrada</th><th data-i18n="th.exit">Sortida</th><th>PnL</th><th data-i18n="th.reason">Motiu</th><th data-i18n="th.duration">Durada</th></tr></thead>
             <tbody id="portfolio-history"></tbody>
           </table>
         </div>
       </div>
-    </div>
     </div>
   </section>
 
@@ -2876,7 +2875,7 @@ const data=raw.data||raw;if(Array.isArray(data)){data.filter(t=>ASSET_MAP[t.s]).
       </div>
       <div style="background:var(--card-bg);border:1px solid var(--line);border-radius:14px;padding:14px;">
         <div style="font-size:13px;font-weight:600;margin-bottom:10px;color:var(--text);">${t('js.real_time_ranking')}</div>
-        <div style="overflow-x:auto;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain;">
+        <div class="tbl-scroll-x">
           <table class="data-table" style="min-width:560px;">
             <thead><tr><th>#</th><th>${t('league.table.player')}</th><th>${t('league.balance_col')}</th><th>PnL</th><th>Trades</th></tr></thead>
             <tbody>${sorted.map((m,i)=>{const medal=['🥇','🥈','🥉'][i]||`#${i+1}`;return `<tr style="${m.id===uid?'background:rgba(176,141,87,.07);border-left:2px solid var(--gold-mid);':''}"><td style="font-weight:700;white-space:nowrap;">${medal}</td><td style="white-space:nowrap;"><span style="display:inline-flex;width:26px;height:26px;border-radius:50%;background:rgba(176,141,87,.12);border:1px solid rgba(176,141,87,.2);align-items:center;justify-content:center;font-weight:700;font-size:12px;margin-right:6px;">${m.avatar}</span>${m.name}</td><td style="font-family:ui-monospace,monospace;white-space:nowrap;">${fmtUSDT(m.balance)} USDT</td><td style="font-family:ui-monospace,monospace;color:${m.pnl>=0?'#4ade80':'#fb7185'};font-weight:700;white-space:nowrap;">${m.pnl>=0?'+':''}${fmtUSDT(m.pnl)}</td><td style="font-family:ui-monospace,monospace;white-space:nowrap;">${m.trades}</td></tr>`;}).join('')}</tbody>
@@ -2885,7 +2884,7 @@ const data=raw.data||raw;if(Array.isArray(data)){data.filter(t=>ASSET_MAP[t.s]).
       </div>
       <div style="background:var(--card-bg);border:1px solid var(--line);border-radius:14px;padding:14px;">
         <div style="font-size:13px;font-weight:600;margin-bottom:10px;color:var(--text);">${t('js.league_history')}</div>
-        <div style="overflow-x:auto;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain;">
+        <div class="tbl-scroll-x">
           <table class="data-table" style="min-width:560px;">
             <thead><tr><th>${t('league.table.player')}</th><th>${t('league.table.date')}</th><th>${t('league.table.asset')}</th><th>${t('league.table.type')}</th><th>PnL</th><th>${t('league.table.duration')}</th></tr></thead>
             <tbody>${league.trades.length?league.trades.map(tr=>`<tr><td style="white-space:nowrap;">${tr.player}</td><td style="white-space:nowrap;">${fmtDT(tr.closeTime)}</td><td style="white-space:nowrap;">${assetBase(tr.symbol)}</td><td style="color:${tr.type==='LONG'?'#34d399':'#fb7185'};font-weight:700;white-space:nowrap;">${tr.type}</td><td style="font-family:ui-monospace,monospace;color:${tr.pnl>=0?'#34d399':'#fb7185'};font-weight:700;white-space:nowrap;">${tr.pnl>=0?'+':''}${fmtUSDT(tr.pnl)}</td><td style="font-family:ui-monospace,monospace;color:var(--text-muted);white-space:nowrap;">${fmtDur(tr.duration)}</td></tr>`).join(''):(`<tr><td colspan="6" style="padding:20px;text-align:center;color:#5a4a35;font-size:13px;">${t('js.no_league_trades')}</td></tr>`)}</tbody>
