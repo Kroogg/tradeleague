@@ -103,16 +103,6 @@
     * { box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
     html,body { height:100%; overflow:hidden; background:var(--deep); color:var(--text); font-family:Inter,system-ui,sans-serif; transition:background .3s,color .3s; }
 
-    /* Mobile table horizontal scroll fix */
-    .tbl-scroll {
-      overflow-x: auto;
-      -webkit-overflow-scrolling: touch;
-      overscroll-behavior-x: contain;
-      touch-action: pan-x pan-y;
-      isolation: isolate;
-      position: relative;
-    }
-
     /* Scrollbars */
     * { scrollbar-width:thin; scrollbar-color:rgba(176,141,87,.18) transparent; }
     *::-webkit-scrollbar { width:4px; height:4px; }
@@ -472,6 +462,10 @@
     .theme-btn { background:rgba(176,141,87,.08); border:1px solid rgba(176,141,87,.2); border-radius:8px; color:var(--text-muted); width:32px; height:32px; display:flex; align-items:center; justify-content:center; cursor:pointer; font-size:15px; transition:background .2s; flex-shrink:0; }
     .theme-btn:hover { background:rgba(176,141,87,.16); }
     html.light .theme-btn { background:rgba(176,141,87,.1); border-color:rgba(176,141,87,.25); }
+
+    /* ── Mobile horizontal table scroll ── */
+    .tbl-scroll { overflow-x:auto; overflow-y:hidden; -webkit-overflow-scrolling:touch; overscroll-behavior-x:contain; }
+    .tbl-scroll.scrolling-x { touch-action:pan-x; }
   </style>
 </head>
 <body>
@@ -663,7 +657,7 @@
 
   <!-- LLIGA -->
   <section id="league-section" class="app-section" style="overflow:hidden;">
-    <div style="position:absolute;inset:0;overflow-y:auto;overflow-x:clip;-webkit-overflow-scrolling:touch;">
+    <div style="position:absolute;inset:0;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;">
     <div style="position:sticky;top:0;z-index:20;background:var(--deep);border-bottom:1px solid var(--line);">
       <div style="padding:12px 16px 10px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;">
         <div style="display:flex;align-items:center;gap:10px;">
@@ -3160,6 +3154,75 @@ const data=raw.data||raw;if(Array.isArray(data)){data.filter(t=>ASSET_MAP[t.s]).
 <script src="https://s3.tradingview.com/tv.js"></script>
 <script>
   if('serviceWorker' in navigator){window.addEventListener('load',()=>{navigator.serviceWorker.register('/sw.js').catch(()=>{});});}
+</script>
+
+<script>
+/* ── iOS horizontal table scroll fix ──
+   iOS Safari intercepts touch events at the parent scroller level.
+   We detect if the gesture is more horizontal than vertical,
+   and if so, add touch-action:pan-x to the wrapper so iOS lets
+   the inner element scroll instead of the outer page.
+*/
+(function(){
+  function initTblScroll(){
+    document.querySelectorAll('.tbl-scroll').forEach(el=>{
+      let startX=0, startY=0, locked=false;
+      el.addEventListener('touchstart', e=>{
+        startX = e.touches[0].clientX;
+        startY = e.touches[0].clientY;
+        locked = false;
+      }, {passive:true});
+      el.addEventListener('touchmove', e=>{
+        if(locked) return;
+        const dx = Math.abs(e.touches[0].clientX - startX);
+        const dy = Math.abs(e.touches[0].clientY - startY);
+        if(dx > dy && dx > 6){
+          // Horizontal gesture → allow pan-x, block parent scroll
+          el.classList.add('scrolling-x');
+          locked = true;
+        } else if(dy > dx && dy > 6){
+          // Vertical gesture → remove pan-x, let parent scroll
+          el.classList.remove('scrolling-x');
+          locked = true;
+        }
+      }, {passive:true});
+      el.addEventListener('touchend', ()=>{
+        el.classList.remove('scrolling-x');
+        locked = false;
+      }, {passive:true});
+    });
+  }
+
+  // Run once on load, and again whenever new .tbl-scroll elements
+  // are injected dynamically (e.g. after openLeague())
+  document.addEventListener('DOMContentLoaded', initTblScroll);
+
+  // Re-run after dynamic renders (MutationObserver on league-detail)
+  const observer = new MutationObserver(()=> {
+    document.querySelectorAll('.tbl-scroll:not([data-tscroll])').forEach(el=>{
+      el.setAttribute('data-tscroll','1');
+      let startX=0, startY=0, locked=false;
+      el.addEventListener('touchstart', e=>{
+        startX=e.touches[0].clientX; startY=e.touches[0].clientY; locked=false;
+      },{passive:true});
+      el.addEventListener('touchmove', e=>{
+        if(locked) return;
+        const dx=Math.abs(e.touches[0].clientX-startX);
+        const dy=Math.abs(e.touches[0].clientY-startY);
+        if(dx>dy&&dx>6){el.classList.add('scrolling-x');locked=true;}
+        else if(dy>dx&&dy>6){el.classList.remove('scrolling-x');locked=true;}
+      },{passive:true});
+      el.addEventListener('touchend',()=>{el.classList.remove('scrolling-x');locked=false;},{passive:true});
+    });
+  });
+  document.addEventListener('DOMContentLoaded',()=>{
+    const target=document.getElementById('league-detail');
+    if(target) observer.observe(target,{childList:true,subtree:true});
+    // Also observe positions panel in case it's rebuilt
+    const pos=document.getElementById('positions-panel');
+    if(pos) observer.observe(pos,{childList:true,subtree:true});
+  });
+})();
 </script>
 </body>
 </html>
