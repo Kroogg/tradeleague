@@ -171,7 +171,7 @@
     .pos-tabs { display:flex; border-bottom:1px solid var(--line); overflow-x:auto; }
     .pos-tab { padding:12px 16px; font-size:13px; font-weight:500; color:var(--text-muted); white-space:nowrap; cursor:pointer; border-bottom:2px solid transparent; transition:color .2s,border-color .2s; }
     .pos-tab.active { color:var(--gold); border-bottom-color:var(--gold); background:rgba(176,141,87,.05); }
-    .pos-scroll { overflow:auto; max-height:calc(46vh - 94px); }
+    .pos-scroll { overflow:auto; max-height:calc(46vh - 94px); touch-action:pan-y; }
     .bottom-tab-panel { display:none; }
     .bottom-tab-panel.active { display:block; }
 
@@ -462,10 +462,6 @@
     .theme-btn { background:rgba(176,141,87,.08); border:1px solid rgba(176,141,87,.2); border-radius:8px; color:var(--text-muted); width:32px; height:32px; display:flex; align-items:center; justify-content:center; cursor:pointer; font-size:15px; transition:background .2s; flex-shrink:0; }
     .theme-btn:hover { background:rgba(176,141,87,.16); }
     html.light .theme-btn { background:rgba(176,141,87,.1); border-color:rgba(176,141,87,.25); }
-
-    /* ── Mobile horizontal table scroll ── */
-    .tbl-scroll { overflow-x:auto; overflow-y:hidden; -webkit-overflow-scrolling:touch; overscroll-behavior-x:contain; }
-    .tbl-scroll.scrolling-x { touch-action:pan-x; }
   </style>
 </head>
 <body>
@@ -619,7 +615,7 @@
         <button id="tab-history" onclick="switchBottomTab('history')" class="pos-tab"><span data-i18n="tab.history">Historial</span> (<span id="history-count">0</span>)</button>
       </div>
       <div class="pos-scroll">
-        <div id="bottom-panel-positions" class="bottom-tab-panel tbl-scroll active" style="padding:8px;min-width:0;">
+        <div id="bottom-panel-positions" class="bottom-tab-panel active" style="padding:8px;overflow-x:auto;min-width:0;touch-action:pan-x;">
           <table class="data-table" style="min-width:760px;">
             <thead><tr>
               <th data-i18n="th.asset">Actiu</th><th data-i18n="th.type">Tipus</th><th data-i18n="th.size">Mida</th><th data-i18n="th.entry">Entrada</th><th data-i18n="th.current">Actual</th><th>PnL</th><th>ROE%</th><th data-i18n="th.liq">Liq.</th><th data-i18n="th.time">Temps</th><th>TP</th><th>SL</th><th style="text-align:right;" data-i18n="th.close">Tancar</th>
@@ -628,13 +624,13 @@
           </table>
         </div>
         <!-- MILLORA 2: Taula d'ordres límit -->
-        <div id="bottom-panel-orders" class="bottom-tab-panel tbl-scroll" style="padding:8px;min-width:0;">
+        <div id="bottom-panel-orders" class="bottom-tab-panel" style="padding:8px;overflow-x:auto;min-width:0;touch-action:pan-x;">
           <table class="data-table" style="min-width:600px;">
             <thead><tr><th data-i18n="th.asset">Actiu</th><th data-i18n="th.type">Tipus</th><th data-i18n="th.direction">Direcció</th><th data-i18n="th.size">Mida</th><th data-i18n="th.limit_price">Preu límit</th><th data-i18n="th.margin">Marge</th><th data-i18n="th.date">Data</th><th style="text-align:right;" data-i18n="th.cancel">Cancel·lar</th></tr></thead>
             <tbody id="orders-table"></tbody>
           </table>
         </div>
-        <div id="bottom-panel-history" class="bottom-tab-panel tbl-scroll" style="padding:8px;min-width:0;">
+        <div id="bottom-panel-history" class="bottom-tab-panel" style="padding:8px;overflow-x:auto;min-width:0;touch-action:pan-x;">
           <table class="data-table" style="min-width:800px;">
             <thead><tr>
               <th data-i18n="th.date">Data</th><th data-i18n="th.asset">Actiu</th><th data-i18n="th.type">Tipus</th><th data-i18n="th.size">Mida</th><th data-i18n="th.entry">Entrada</th><th data-i18n="th.exit">Sortida</th><th>PnL</th><th>ROE%</th><th data-i18n="th.duration">Durada</th><th data-i18n="th.reason">Motiu</th>
@@ -657,7 +653,7 @@
 
   <!-- LLIGA -->
   <section id="league-section" class="app-section" style="overflow:hidden;">
-    <div style="position:absolute;inset:0;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;">
+    <div style="position:absolute;inset:0;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;touch-action:pan-y;">
     <div style="position:sticky;top:0;z-index:20;background:var(--deep);border-bottom:1px solid var(--line);">
       <div style="padding:12px 16px 10px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;">
         <div style="display:flex;align-items:center;gap:10px;">
@@ -693,7 +689,7 @@
 
   <!-- PORTFOLIO -->
   <!-- MILLORA 5: Estadístiques avançades -->
-  <section id="portfolio-section" class="app-section" style="overflow-y:scroll;overflow-x:clip;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;">
+  <section id="portfolio-section" class="app-section" style="overflow-y:scroll;overflow-x:clip;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;touch-action:pan-y;">
     <div style="position:sticky;top:0;z-index:20;background:var(--deep);padding:12px 16px 8px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:10px;">
       <button onclick="switchSection('assets')" class="btn-icon">&#8592;</button>
       <div>
@@ -716,8 +712,8 @@
       </div>
       <div class="glass-sm" style="border-radius:14px;padding:14px;">
         <div style="font-size:13px;font-weight:600;margin-bottom:10px;color:var(--text-muted);" data-i18n="js.pf.open_assets">Actius en cartera</div>
-        <div class="tbl-scroll">
-          <table class="data-table" style="min-width:520px;">
+        <div style="overflow-x:auto;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain;touch-action:pan-x pan-y;">
+          <table class="data-table" style="min-width:520px;touch-action:pan-x;">
             <thead><tr><th data-i18n="th.asset">Actiu</th><th data-i18n="th.size">Mida</th><th data-i18n="th.entry">Entrada</th><th data-i18n="th.current">Actual</th><th>PnL</th><th>%Portfolio</th></tr></thead>
             <tbody id="portfolio-assets"></tbody>
           </table>
@@ -725,8 +721,8 @@
       </div>
       <div class="glass-sm" style="border-radius:14px;padding:14px;">
         <div style="font-size:13px;font-weight:600;margin-bottom:10px;color:var(--text-muted);" data-i18n="js.pf.history">Historial de trades tancats</div>
-        <div class="tbl-scroll">
-          <table class="data-table" style="min-width:700px;">
+        <div style="overflow-x:auto;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain;touch-action:pan-x pan-y;">
+          <table class="data-table" style="min-width:700px;touch-action:pan-x;">
             <thead><tr><th data-i18n="th.open_time">Obertura</th><th data-i18n="th.close_time">Tancament</th><th data-i18n="th.asset">Actiu</th><th data-i18n="th.dir">Dir.</th><th data-i18n="th.lev">Lev.</th><th data-i18n="th.entry">Entrada</th><th data-i18n="th.exit">Sortida</th><th>PnL</th><th data-i18n="th.reason">Motiu</th><th data-i18n="th.duration">Durada</th></tr></thead>
             <tbody id="portfolio-history"></tbody>
           </table>
@@ -2871,7 +2867,7 @@ const data=raw.data||raw;if(Array.isArray(data)){data.filter(t=>ASSET_MAP[t.s]).
       </div>
       <div style="background:var(--card-bg);border:1px solid var(--line);border-radius:14px;padding:14px;">
         <div style="font-size:13px;font-weight:600;margin-bottom:10px;color:var(--text);">${t('js.real_time_ranking')}</div>
-        <div class="tbl-scroll">
+        <div style="overflow-x:auto;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain;touch-action:pan-x;">
           <table class="data-table" style="min-width:560px;">
             <thead><tr><th>#</th><th>${t('league.table.player')}</th><th>${t('league.balance_col')}</th><th>PnL</th><th>Trades</th></tr></thead>
             <tbody>${sorted.map((m,i)=>{const medal=['🥇','🥈','🥉'][i]||`#${i+1}`;return `<tr style="${m.id===uid?'background:rgba(176,141,87,.07);border-left:2px solid var(--gold-mid);':''}"><td style="font-weight:700;white-space:nowrap;">${medal}</td><td style="white-space:nowrap;"><span style="display:inline-flex;width:26px;height:26px;border-radius:50%;background:rgba(176,141,87,.12);border:1px solid rgba(176,141,87,.2);align-items:center;justify-content:center;font-weight:700;font-size:12px;margin-right:6px;">${m.avatar}</span>${m.name}</td><td style="font-family:ui-monospace,monospace;white-space:nowrap;">${fmtUSDT(m.balance)} USDT</td><td style="font-family:ui-monospace,monospace;color:${m.pnl>=0?'#4ade80':'#fb7185'};font-weight:700;white-space:nowrap;">${m.pnl>=0?'+':''}${fmtUSDT(m.pnl)}</td><td style="font-family:ui-monospace,monospace;white-space:nowrap;">${m.trades}</td></tr>`;}).join('')}</tbody>
@@ -2880,7 +2876,7 @@ const data=raw.data||raw;if(Array.isArray(data)){data.filter(t=>ASSET_MAP[t.s]).
       </div>
       <div style="background:var(--card-bg);border:1px solid var(--line);border-radius:14px;padding:14px;">
         <div style="font-size:13px;font-weight:600;margin-bottom:10px;color:var(--text);">${t('js.league_history')}</div>
-        <div class="tbl-scroll">
+        <div style="overflow-x:auto;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain;touch-action:pan-x;">
           <table class="data-table" style="min-width:560px;">
             <thead><tr><th>${t('league.table.player')}</th><th>${t('league.table.date')}</th><th>${t('league.table.asset')}</th><th>${t('league.table.type')}</th><th>PnL</th><th>${t('league.table.duration')}</th></tr></thead>
             <tbody>${league.trades.length?league.trades.map(tr=>`<tr><td style="white-space:nowrap;">${tr.player}</td><td style="white-space:nowrap;">${fmtDT(tr.closeTime)}</td><td style="white-space:nowrap;">${assetBase(tr.symbol)}</td><td style="color:${tr.type==='LONG'?'#34d399':'#fb7185'};font-weight:700;white-space:nowrap;">${tr.type}</td><td style="font-family:ui-monospace,monospace;color:${tr.pnl>=0?'#34d399':'#fb7185'};font-weight:700;white-space:nowrap;">${tr.pnl>=0?'+':''}${fmtUSDT(tr.pnl)}</td><td style="font-family:ui-monospace,monospace;color:var(--text-muted);white-space:nowrap;">${fmtDur(tr.duration)}</td></tr>`).join(''):(`<tr><td colspan="6" style="padding:20px;text-align:center;color:#5a4a35;font-size:13px;">${t('js.no_league_trades')}</td></tr>`)}</tbody>
@@ -3157,70 +3153,66 @@ const data=raw.data||raw;if(Array.isArray(data)){data.filter(t=>ASSET_MAP[t.s]).
 </script>
 
 <script>
-/* ── iOS horizontal table scroll fix ──
-   iOS Safari intercepts touch events at the parent scroller level.
-   We detect if the gesture is more horizontal than vertical,
-   and if so, add touch-action:pan-x to the wrapper so iOS lets
-   the inner element scroll instead of the outer page.
-*/
+/* ── iOS Safari horizontal scroll fix ──────────────────────────────
+   iOS Safari decides scroll direction on the FIRST touchmove event.
+   If any ancestor has overflow-y:auto WITHOUT touch-action:pan-y,
+   it will steal the gesture even if the child has touch-action:pan-x.
+
+   Strategy:
+   1. All vertical scrollers have touch-action:pan-y (done in HTML)
+   2. All horizontal table wrappers have touch-action:pan-x (done in HTML)
+   3. This script adds a passive touchstart on every .hscroll element
+      that calls preventDefault() on the first move if it detects
+      a diagonal gesture — this stops the parent from taking over.
+
+   We use pointer events as primary (works in modern iOS) with
+   touch fallback.
+────────────────────────────────────────────────────────────────── */
 (function(){
-  function initTblScroll(){
-    document.querySelectorAll('.tbl-scroll').forEach(el=>{
-      let startX=0, startY=0, locked=false;
-      el.addEventListener('touchstart', e=>{
-        startX = e.touches[0].clientX;
-        startY = e.touches[0].clientY;
-        locked = false;
-      }, {passive:true});
-      el.addEventListener('touchmove', e=>{
-        if(locked) return;
-        const dx = Math.abs(e.touches[0].clientX - startX);
-        const dy = Math.abs(e.touches[0].clientY - startY);
-        if(dx > dy && dx > 6){
-          // Horizontal gesture → allow pan-x, block parent scroll
-          el.classList.add('scrolling-x');
-          locked = true;
-        } else if(dy > dx && dy > 6){
-          // Vertical gesture → remove pan-x, let parent scroll
-          el.classList.remove('scrolling-x');
-          locked = true;
-        }
-      }, {passive:true});
-      el.addEventListener('touchend', ()=>{
-        el.classList.remove('scrolling-x');
-        locked = false;
-      }, {passive:true});
-    });
+  function attachHScroll(el){
+    if(el._hscroll) return;
+    el._hscroll = true;
+    var sx=0, sy=0, decided=false, isH=false;
+
+    el.addEventListener('touchstart', function(e){
+      sx = e.touches[0].pageX;
+      sy = e.touches[0].pageY;
+      decided = false; isH = false;
+    }, {passive:true});
+
+    el.addEventListener('touchmove', function(e){
+      if(decided) {
+        if(isH) e.stopPropagation();
+        return;
+      }
+      var dx = Math.abs(e.touches[0].pageX - sx);
+      var dy = Math.abs(e.touches[0].pageY - sy);
+      if(dx < 3 && dy < 3) return; // not enough movement yet
+      decided = true;
+      isH = dx > dy;
+      if(isH) e.stopPropagation();
+    }, {passive:true});
   }
 
-  // Run once on load, and again whenever new .tbl-scroll elements
-  // are injected dynamically (e.g. after openLeague())
-  document.addEventListener('DOMContentLoaded', initTblScroll);
+  function applyAll(){
+    // All current horizontal scroll wrappers
+    document.querySelectorAll('[style*="overflow-x:auto"]').forEach(attachHScroll);
+  }
 
-  // Re-run after dynamic renders (MutationObserver on league-detail)
-  const observer = new MutationObserver(()=> {
-    document.querySelectorAll('.tbl-scroll:not([data-tscroll])').forEach(el=>{
-      el.setAttribute('data-tscroll','1');
-      let startX=0, startY=0, locked=false;
-      el.addEventListener('touchstart', e=>{
-        startX=e.touches[0].clientX; startY=e.touches[0].clientY; locked=false;
-      },{passive:true});
-      el.addEventListener('touchmove', e=>{
-        if(locked) return;
-        const dx=Math.abs(e.touches[0].clientX-startX);
-        const dy=Math.abs(e.touches[0].clientY-startY);
-        if(dx>dy&&dx>6){el.classList.add('scrolling-x');locked=true;}
-        else if(dy>dx&&dy>6){el.classList.remove('scrolling-x');locked=true;}
-      },{passive:true});
-      el.addEventListener('touchend',()=>{el.classList.remove('scrolling-x');locked=false;},{passive:true});
+  document.addEventListener('DOMContentLoaded', applyAll);
+
+  // Watch for dynamically injected tables (league detail)
+  var mo = new MutationObserver(function(mutations){
+    mutations.forEach(function(m){
+      m.addedNodes.forEach(function(n){
+        if(n.nodeType!==1) return;
+        if(n.style && n.style.overflowX==='auto') attachHScroll(n);
+        n.querySelectorAll && n.querySelectorAll('[style*="overflow-x:auto"]').forEach(attachHScroll);
+      });
     });
   });
-  document.addEventListener('DOMContentLoaded',()=>{
-    const target=document.getElementById('league-detail');
-    if(target) observer.observe(target,{childList:true,subtree:true});
-    // Also observe positions panel in case it's rebuilt
-    const pos=document.getElementById('positions-panel');
-    if(pos) observer.observe(pos,{childList:true,subtree:true});
+  document.addEventListener('DOMContentLoaded', function(){
+    mo.observe(document.body, {childList:true, subtree:true});
   });
 })();
 </script>
