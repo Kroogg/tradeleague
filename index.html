@@ -689,8 +689,7 @@
 
   <!-- PORTFOLIO -->
   <!-- MILLORA 5: Estadístiques avançades -->
-  <section id="portfolio-section" class="app-section" style="overflow:hidden;">
-    <div style="position:absolute;inset:0;overflow-y:auto;-webkit-overflow-scrolling:touch;touch-action:pan-y;">
+  <section id="portfolio-section" class="app-section" style="overflow-y:scroll;overflow-x:hidden;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;touch-action:pan-y;">
     <div style="position:sticky;top:0;z-index:20;background:var(--deep);padding:12px 16px 8px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:10px;">
       <button onclick="switchSection('assets')" class="btn-icon">&#8592;</button>
       <div>
@@ -729,7 +728,6 @@
           </table>
         </div>
       </div>
-    </div>
     </div>
   </section>
 
@@ -3155,89 +3153,56 @@ const data=raw.data||raw;if(Array.isArray(data)){data.filter(t=>ASSET_MAP[t.s]).
 </script>
 
 <script>
-/* ── iOS Safari dual-scroll fix ─────────────────────────────────────
-   Problem: iOS Safari locks scroll direction on first touchmove.
-   If a vertical scroller gets the gesture first, it keeps it even
-   if the finger is moving horizontally over a child table wrapper.
-
-   Solution: attach a NON-PASSIVE touchmove to each VERTICAL scroller.
-   If the touch started inside a horizontal wrapper (overflow-x:auto)
-   AND the gesture is more horizontal than vertical, preventDefault()
-   to stop the vertical scroller from locking the gesture. The
-   horizontal wrapper then handles it natively via CSS overflow-x:auto.
-
-   Key insight: the listener is on the VERTICAL scroller, not the
-   horizontal wrapper. This way vertical scrolling outside tables is
-   never interrupted.
+/* ── iOS Safari scroll fix ───────────────────────────────────────────
+   Listener NON-PASSIVE al contenidor VERTICAL.
+   Només intervé quan el toc comença dins d'un wrapper overflow-x:auto.
+   Si el gest és horitzontal → preventDefault() atura el scroll vertical.
+   Si el gest és vertical o ve de fora de la taula → no fa res.
 ──────────────────────────────────────────────────────────────────── */
 (function(){
-  // Find the closest horizontal scroll wrapper ancestor (or self)
-  function closestHScroll(el){
-    while(el && el !== document.body){
-      var s = el.style;
-      if(s && (s.overflowX === 'auto' || s.overflowX === 'scroll')) return el;
+  function nearestHScroll(el){
+    while(el && el.tagName !== 'BODY'){
+      if(el.style && el.style.overflowX === 'auto') return el;
       el = el.parentElement;
     }
     return null;
   }
 
-  function attachToVScroll(container){
-    if(container._vfix) return;
-    container._vfix = true;
+  function setupVScroll(el){
+    if(el._iosFix) return;
+    el._iosFix = true;
+    var x0=0, y0=0, inTable=false, locked=false, isH=false;
 
-    var startX=0, startY=0, startedInH=false, decided=false, isH=false;
+    el.addEventListener('touchstart', function(e){
+      var t=e.touches[0];
+      x0=t.clientX; y0=t.clientY;
+      locked=false; isH=false;
+      inTable = !!nearestHScroll(e.target);
+    },{passive:true});
 
-    container.addEventListener('touchstart', function(e){
-      var t = e.touches[0];
-      startX = t.clientX;
-      startY = t.clientY;
-      decided = false;
-      isH = false;
-      startedInH = !!closestHScroll(e.target);
-    }, {passive:true});
-
-    // NON-PASSIVE on the vertical scroller so we can preventDefault
-    container.addEventListener('touchmove', function(e){
-      if(!startedInH) return; // not in a table, let vertical scroll work normally
-
-      if(!decided){
-        var dx = Math.abs(e.touches[0].clientX - startX);
-        var dy = Math.abs(e.touches[0].clientY - startY);
-        if(dx < 3 && dy < 3) return;
-        decided = true;
-        isH = dx > dy;
-      }
-
-      if(isH){
-        // Let the horizontal wrapper scroll; stop the vertical scroller
-        e.preventDefault();
-      }
-      // If vertical (isH=false), do nothing — normal scroll continues
-    }, {passive:false});
+    el.addEventListener('touchmove', function(e){
+      if(!inTable) return;       // fora de taula: scroll vertical normal
+      if(locked){ if(isH) e.preventDefault(); return; }
+      var dx=Math.abs(e.touches[0].clientX-x0);
+      var dy=Math.abs(e.touches[0].clientY-y0);
+      if(dx<4 && dy<4) return;
+      locked=true; isH=dx>dy;
+      if(isH) e.preventDefault();
+    },{passive:false});
   }
 
-  function applyAll(){
-    // All vertical scrollers that contain horizontal tables
+  function init(){
+    // Contenidors verticals de les seccions lliga i portfolio
     document.querySelectorAll(
-      '[style*="overflow-y:auto"], [style*="overflow-y:scroll"], [style*="overflow-y: auto"], [style*="overflow-y: scroll"]'
-    ).forEach(attachToVScroll);
+      '#league-section > div, #portfolio-section'
+    ).forEach(setupVScroll);
   }
 
-  document.addEventListener('DOMContentLoaded', applyAll);
-
-  // Also watch for dynamically added containers (league detail re-renders)
-  var mo = new MutationObserver(function(mutations){
-    mutations.forEach(function(m){
-      m.addedNodes.forEach(function(n){
-        if(n.nodeType !== 1) return;
-        // Re-run on added subtrees that might be new scroll containers
-        applyAll();
-      });
-    });
-  });
-  document.addEventListener('DOMContentLoaded', function(){
-    mo.observe(document.body, {childList:true, subtree:false});
-  });
+  if(document.readyState==='loading'){
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
 })();
 </script>
 </body>
