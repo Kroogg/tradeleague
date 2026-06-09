@@ -97,8 +97,8 @@
     html.light .game-stars { opacity:0.15; }
     html.light .modal-title { color:var(--gold); }
     html.light .section-sub { color:var(--text-muted); }
-    html.light #league-vscroll [style*="position:sticky"],
-    html.light #portfolio-vscroll [style*="position:sticky"] { background:var(--deep) !important; }
+    html.light #league-section [style*="position:sticky"],
+    html.light #portfolio-section [style*="position:sticky"] { background:var(--deep) !important; }
 
     * { box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
     html,body { height:100%; overflow:hidden; background:var(--deep); color:var(--text); font-family:Inter,system-ui,sans-serif; transition:background .3s,color .3s; }
@@ -653,7 +653,7 @@
 
   <!-- LLIGA -->
   <section id="league-section" class="app-section" style="overflow:hidden;">
-    <div id="league-vscroll" style="position:absolute;inset:0;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;touch-action:pan-y;">
+    <div style="position:absolute;inset:0;overflow-y:auto;-webkit-overflow-scrolling:touch;touch-action:pan-y;">
     <div style="position:sticky;top:0;z-index:20;background:var(--deep);border-bottom:1px solid var(--line);">
       <div style="padding:12px 16px 10px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;">
         <div style="display:flex;align-items:center;gap:10px;">
@@ -690,7 +690,7 @@
   <!-- PORTFOLIO -->
   <!-- MILLORA 5: Estadístiques avançades -->
   <section id="portfolio-section" class="app-section" style="overflow:hidden;">
-    <div id="portfolio-vscroll" style="position:absolute;inset:0;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;touch-action:pan-y;">
+    <div style="position:absolute;inset:0;overflow-y:auto;-webkit-overflow-scrolling:touch;touch-action:pan-y;">
     <div style="position:sticky;top:0;z-index:20;background:var(--deep);padding:12px 16px 8px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:10px;">
       <button onclick="switchSection('assets')" class="btn-icon">&#8592;</button>
       <div>
@@ -713,7 +713,7 @@
       </div>
       <div class="glass-sm" style="border-radius:14px;padding:14px;">
         <div style="font-size:13px;font-weight:600;margin-bottom:10px;color:var(--text-muted);" data-i18n="js.pf.open_assets">Actius en cartera</div>
-        <div style="overflow-x:auto;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain;touch-action:pan-x;">
+        <div style="overflow-x:auto;-webkit-overflow-scrolling:touch;touch-action:pan-x;">
           <table class="data-table" style="min-width:520px;">
             <thead><tr><th data-i18n="th.asset">Actiu</th><th data-i18n="th.size">Mida</th><th data-i18n="th.entry">Entrada</th><th data-i18n="th.current">Actual</th><th>PnL</th><th>%Portfolio</th></tr></thead>
             <tbody id="portfolio-assets"></tbody>
@@ -722,7 +722,7 @@
       </div>
       <div class="glass-sm" style="border-radius:14px;padding:14px;">
         <div style="font-size:13px;font-weight:600;margin-bottom:10px;color:var(--text-muted);" data-i18n="js.pf.history">Historial de trades tancats</div>
-        <div style="overflow-x:auto;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain;touch-action:pan-x;">
+        <div style="overflow-x:auto;-webkit-overflow-scrolling:touch;touch-action:pan-x;">
           <table class="data-table" style="min-width:700px;">
             <thead><tr><th data-i18n="th.open_time">Obertura</th><th data-i18n="th.close_time">Tancament</th><th data-i18n="th.asset">Actiu</th><th data-i18n="th.dir">Dir.</th><th data-i18n="th.lev">Lev.</th><th data-i18n="th.entry">Entrada</th><th data-i18n="th.exit">Sortida</th><th>PnL</th><th data-i18n="th.reason">Motiu</th><th data-i18n="th.duration">Durada</th></tr></thead>
             <tbody id="portfolio-history"></tbody>
@@ -3155,63 +3155,88 @@ const data=raw.data||raw;if(Array.isArray(data)){data.filter(t=>ASSET_MAP[t.s]).
 </script>
 
 <script>
-/* ── iOS Safari horizontal scroll fix (v3 – non-passive preventDefault) ──
-   iOS Safari decides scroll direction on the FIRST touchmove event.
-   If any ancestor has overflow-y, it will steal diagonal gestures.
-   stopPropagation() alone does NOT work — we need preventDefault().
-   The listener MUST be non-passive to call preventDefault().
-──────────────────────────────────────────────────────────────────────── */
-(function(){
-  function attachHScroll(el){
-    if(el._hscroll) return;
-    el._hscroll = true;
-    var sx=0, sy=0, decided=false, isH=false;
+/* ── iOS Safari dual-scroll fix ─────────────────────────────────────
+   Problem: iOS Safari locks scroll direction on first touchmove.
+   If a vertical scroller gets the gesture first, it keeps it even
+   if the finger is moving horizontally over a child table wrapper.
 
-    el.addEventListener('touchstart', function(e){
+   Solution: attach a NON-PASSIVE touchmove to each VERTICAL scroller.
+   If the touch started inside a horizontal wrapper (overflow-x:auto)
+   AND the gesture is more horizontal than vertical, preventDefault()
+   to stop the vertical scroller from locking the gesture. The
+   horizontal wrapper then handles it natively via CSS overflow-x:auto.
+
+   Key insight: the listener is on the VERTICAL scroller, not the
+   horizontal wrapper. This way vertical scrolling outside tables is
+   never interrupted.
+──────────────────────────────────────────────────────────────────── */
+(function(){
+  // Find the closest horizontal scroll wrapper ancestor (or self)
+  function closestHScroll(el){
+    while(el && el !== document.body){
+      var s = el.style;
+      if(s && (s.overflowX === 'auto' || s.overflowX === 'scroll')) return el;
+      el = el.parentElement;
+    }
+    return null;
+  }
+
+  function attachToVScroll(container){
+    if(container._vfix) return;
+    container._vfix = true;
+
+    var startX=0, startY=0, startedInH=false, decided=false, isH=false;
+
+    container.addEventListener('touchstart', function(e){
       var t = e.touches[0];
-      sx = t.pageX; sy = t.pageY;
-      decided = false; isH = false;
+      startX = t.clientX;
+      startY = t.clientY;
+      decided = false;
+      isH = false;
+      startedInH = !!closestHScroll(e.target);
     }, {passive:true});
 
-    // NON-PASSIVE: required to call preventDefault() on iOS Safari
-    el.addEventListener('touchmove', function(e){
+    // NON-PASSIVE on the vertical scroller so we can preventDefault
+    container.addEventListener('touchmove', function(e){
+      if(!startedInH) return; // not in a table, let vertical scroll work normally
+
       if(!decided){
-        var dx = Math.abs(e.touches[0].pageX - sx);
-        var dy = Math.abs(e.touches[0].pageY - sy);
-        if(dx < 4 && dy < 4) return;
+        var dx = Math.abs(e.touches[0].clientX - startX);
+        var dy = Math.abs(e.touches[0].clientY - startY);
+        if(dx < 3 && dy < 3) return;
         decided = true;
-        isH = dx > dy * 0.8; // slight bias toward horizontal
+        isH = dx > dy;
       }
+
       if(isH){
-        e.preventDefault();   // stops parent vertical scroller stealing it
-        e.stopPropagation();
+        // Let the horizontal wrapper scroll; stop the vertical scroller
+        e.preventDefault();
       }
+      // If vertical (isH=false), do nothing — normal scroll continues
     }, {passive:false});
   }
 
   function applyAll(){
+    // All vertical scrollers that contain horizontal tables
     document.querySelectorAll(
-      '[style*="overflow-x:auto"], [style*="overflow-x: auto"]'
-    ).forEach(attachHScroll);
+      '[style*="overflow-y:auto"], [style*="overflow-y:scroll"], [style*="overflow-y: auto"], [style*="overflow-y: scroll"]'
+    ).forEach(attachToVScroll);
   }
 
   document.addEventListener('DOMContentLoaded', applyAll);
 
-  // Watch for dynamically injected league tables
+  // Also watch for dynamically added containers (league detail re-renders)
   var mo = new MutationObserver(function(mutations){
     mutations.forEach(function(m){
       m.addedNodes.forEach(function(n){
-        if(n.nodeType!==1) return;
-        if(n.style && (n.style.overflowX==='auto')) attachHScroll(n);
-        if(n.querySelectorAll){
-          n.querySelectorAll('[style*="overflow-x:auto"],[style*="overflow-x: auto"]')
-           .forEach(attachHScroll);
-        }
+        if(n.nodeType !== 1) return;
+        // Re-run on added subtrees that might be new scroll containers
+        applyAll();
       });
     });
   });
   document.addEventListener('DOMContentLoaded', function(){
-    mo.observe(document.body, {childList:true, subtree:true});
+    mo.observe(document.body, {childList:true, subtree:false});
   });
 })();
 </script>
