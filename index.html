@@ -681,7 +681,7 @@
     </div>
     <div style="padding:16px;display:flex;flex-direction:column;gap:10px;">
       <div id="league-list" style="display:flex;flex-direction:column;gap:10px;"></div>
-      <div id="league-detail" class="hidden" style="display:flex;flex-direction:column;gap:12px;"></div>
+      <div id="league-detail" class="hidden" style="display:flex;flex-direction:column;gap:12px;min-width:0;"></div>
     </div>
   </section>
 
@@ -2863,7 +2863,7 @@ const data=raw.data||raw;if(Array.isArray(data)){data.filter(t=>ASSET_MAP[t.s]).
           <div style="font-family:ui-monospace,monospace;font-size:16px;font-weight:700;color:${me.pnl>=0?'#34d399':'#fb7185'};">${t('js.your_pnl')} ${me.pnl>=0?'+':''}${fmtUSDT(me.pnl)} USDT</div>
         </div>
       </div>
-      <div style="background:var(--card-bg);border:1px solid var(--line);border-radius:14px;padding:14px;">
+      <div style="background:var(--card-bg);border:1px solid var(--line);border-radius:14px;padding:14px;min-width:0;overflow:hidden;">
         <div style="font-size:13px;font-weight:600;margin-bottom:10px;color:var(--text);">${t('js.real_time_ranking')}</div>
         <div style="overflow-x:auto;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain;">
           <table class="data-table" style="min-width:560px;">
@@ -2872,7 +2872,7 @@ const data=raw.data||raw;if(Array.isArray(data)){data.filter(t=>ASSET_MAP[t.s]).
           </table>
         </div>
       </div>
-      <div style="background:var(--card-bg);border:1px solid var(--line);border-radius:14px;padding:14px;">
+      <div style="background:var(--card-bg);border:1px solid var(--line);border-radius:14px;padding:14px;min-width:0;overflow:hidden;">
         <div style="font-size:13px;font-weight:600;margin-bottom:10px;color:var(--text);">${t('js.league_history')}</div>
         <div style="overflow-x:auto;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain;">
           <table class="data-table" style="min-width:560px;">
