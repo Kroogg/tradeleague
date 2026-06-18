@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <meta name="description" content="TradeLeague – Trading gamificat, lligues fantasy i assoliments.">
+  <meta name="description" content="TradeLeague â€“ Trading gamificat, lligues fantasy i assoliments.">
   <title>TradeLeague</title>
   <link rel="manifest" href="/manifest.json">
   <meta name="mobile-web-app-capable" content="yes">
@@ -22,7 +22,7 @@
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
     @import url('https://fonts.googleapis.com/css2?family=Russo+One&display=swap');
 
-    /* ══ CSS VARIABLES (dark mode default) ══ */
+    /* â•â• CSS VARIABLES (dark mode default) â•â• */
     :root {
       --emerald:#10b981; --rose:#ef4444; --surface:#0a0d1a; --deep:#05070a;
       --nav-h:64px; --hdr-h:56px; --safe-top:env(safe-area-inset-top,0px); --line:rgba(176,141,87,0.18); --glass:rgba(10,13,26,0.85);
@@ -35,7 +35,7 @@
       --steel:#565b63; --steel-light:#7b7f86;
     }
 
-    /* ══ Mode clar (pergamí / day) ══ */
+    /* â•â• Mode clar (pergamÃ­ / day) â•â• */
     html.light {
       --emerald:#059669; --rose:#dc2626;
       --surface:#ede8dc; --deep:#f5f0e8;
@@ -268,24 +268,24 @@
     html.light .pct-btn { background:rgba(176,141,87,.08); border-color:rgba(176,141,87,.2); }
     html.light .prog-track { background:rgba(176,141,87,.15); }
 
-    /* ══ Ordre tipus tabs ══ */
+    /* â•â• Ordre tipus tabs â•â• */
     .order-type-btn { flex:1; padding:10px; border-radius:8px; font-size:13px; font-weight:600; cursor:pointer; border:1px solid var(--line); background:none; color:var(--text-muted); transition:all .15s; }
     .order-type-btn.active-market { background:rgba(26,122,88,.15); border-color:rgba(26,122,88,.5); color:#4ade80; }
     .order-type-btn.active-limit { background:rgba(176,141,87,.12); border-color:rgba(176,141,87,.4); color:var(--gold); }
     #limit-price-row { display:none; }
     #limit-price-row.show { display:block; }
 
-    /* ══ MILLORA 1: Liquidació badge ══ */
+    /* â•â• MILLORA 1: LiquidaciÃ³ badge â•â• */
     .liq-badge { display:inline-block; padding:2px 7px; border-radius:6px; background:rgba(239,68,68,.15); color:#fb7185; font-size:10px; font-weight:700; margin-left:4px; border:1px solid rgba(239,68,68,.3); }
 
-    /* ══ Stats avançades ══ */
+    /* â•â• Stats avanÃ§ades â•â• */
     .stat-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:10px; }
     .stat-card { background:rgba(176,141,87,.05); border:1px solid var(--line); border-radius:12px; padding:12px 14px; }
     .stat-label { font-size:10px; color:var(--text-muted); text-transform:uppercase; letter-spacing:.5px; }
     .stat-value { font-size:16px; font-weight:700; font-family:ui-monospace,monospace; margin-top:4px; }
     html.light .stat-card { background:rgba(176,141,87,.06); }
 
-    /* ══ Tutorial RPG ══ */
+    /* â•â• Tutorial RPG â•â• */
     #tutorial-overlay { position:fixed; inset:0; z-index:200; background:rgba(0,0,0,.92); backdrop-filter:blur(10px); display:flex; align-items:center; justify-content:center; padding:16px; }
     #tutorial-overlay.hidden { display:none; }
     .tutorial-card {
@@ -335,7 +335,7 @@
     .tut-skip { width:100%; margin-top:10px; padding:10px; background:none; border:none; color:#5a4a35; font-size:13px; cursor:pointer; transition:color .15s; }
     .tut-skip:hover { color:var(--text-muted); }
 
-    /* ══ Alert TP/SL/Liquidació ══ */
+    /* â•â• Alert TP/SL/LiquidaciÃ³ â•â• */
     #alert-overlay { position:fixed; inset:0; z-index:150; background:rgba(0,0,0,.78); backdrop-filter:blur(6px); display:flex; align-items:center; justify-content:center; padding:16px; }
     #alert-overlay.hidden { display:none; }
     .alert-card { border-radius:20px; padding:24px; width:100%; max-width:340px; text-align:center; animation:alertPop .35s cubic-bezier(.34,1.56,.64,1); border:1px solid var(--gold-dark); background:linear-gradient(160deg,rgba(14,18,37,0.98),rgba(8,9,15,0.98)); box-shadow:0 20px 60px rgba(0,0,0,0.8),0 0 30px rgba(176,141,87,0.15); }
@@ -344,7 +344,7 @@
     .alert-card.sl { border-color:rgba(239,68,68,.5); box-shadow:0 20px 60px rgba(0,0,0,0.8),0 0 30px rgba(239,68,68,0.15); }
     .alert-card.liq { border-color:rgba(239,68,68,.8); box-shadow:0 20px 60px rgba(0,0,0,0.8),0 0 40px rgba(239,68,68,0.3); }
 
-    /* ══ GAME HOME ══ */
+    /* â•â• GAME HOME â•â• */
     .game-home{
   flex:1;
   display:flex;
@@ -476,7 +476,7 @@
   <div style="display:flex;align-items:center;gap:8px;">
     <span id="ws-status" class="ws-pill ws-live" style="display:none;">LIVE</span>
     <!-- Theme toggle: hidden from header, accessible from profile -->
-    <button id="theme-toggle-btn" class="theme-btn" onclick="toggleTheme()" title="Canviar tema" style="display:none;">🌙</button>
+    <button id="theme-toggle-btn" class="theme-btn" onclick="toggleTheme()" title="Canviar tema" style="display:none;">ðŸŒ™</button>
     <div style="background:rgba(0,0,0,.5);border:1px solid rgba(176,141,87,.25);border-radius:10px;padding:6px 12px;display:flex;align-items:center;gap:6px;">
       <span style="font-size:11px;color:var(--text-muted);" data-i18n="header.balance">Saldo</span>
       <span id="balance-display" style="font-size:14px;font-weight:700;font-family:ui-monospace,monospace;color:var(--gold);">10,000.00</span>
@@ -490,17 +490,17 @@
 <!-- LANGUAGE MODAL -->
 <div id="lang-modal" class="modal-overlay hidden" onclick="if(event.target===this)closeLangModal()">
   <div class="modal-box" style="max-width:320px;">
-    <button class="modal-close" onclick="closeLangModal()">×</button>
-    <div class="modal-title" data-i18n="lang.modal_title">🌍 Idioma / Language</div>
+    <button class="modal-close" onclick="closeLangModal()">Ã—</button>
+    <div class="modal-title" data-i18n="lang.modal_title">ðŸŒ Idioma / Language</div>
     <div style="display:flex;flex-direction:column;gap:10px;margin-top:4px;">
       <button onclick="setLanguage('ca')" id="lang-btn-ca" style="padding:14px 16px;border-radius:12px;border:2px solid rgba(176,141,87,.3);background:rgba(176,141,87,.08);color:var(--text);font-size:15px;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:10px;transition:.15s;">
-        🏴 Català
+        ðŸ´ CatalÃ 
       </button>
       <button onclick="setLanguage('es')" id="lang-btn-es" style="padding:14px 16px;border-radius:12px;border:2px solid rgba(176,141,87,.3);background:rgba(176,141,87,.08);color:var(--text);font-size:15px;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:10px;transition:.15s;">
-        🇪🇸 Español
+        ðŸ‡ªðŸ‡¸ EspaÃ±ol
       </button>
       <button onclick="setLanguage('en')" id="lang-btn-en" style="padding:14px 16px;border-radius:12px;border:2px solid rgba(176,141,87,.3);background:rgba(176,141,87,.08);color:var(--text);font-size:15px;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:10px;transition:.15s;">
-        🇬🇧 English
+        ðŸ‡¬ðŸ‡§ English
       </button>
     </div>
   </div>
@@ -509,22 +509,22 @@
 <!-- MILLORA 7: Tutorial interactiu -->
 <div id="tutorial-overlay" class="hidden">
   <div class="tutorial-card">
-    <div class="tutorial-icon" id="tut-icon">🚀</div>
+    <div class="tutorial-icon" id="tut-icon">ðŸš€</div>
     <div class="tutorial-title" id="tut-title">Benvingut a TradeLeague!</div>
-    <div class="tutorial-desc" id="tut-desc">Aprèn a fer trading amb dades de mercat reals sense arriscar diners reals.</div>
+    <div class="tutorial-desc" id="tut-desc">AprÃ¨n a fer trading amb dades de mercat reals sense arriscar diners reals.</div>
     <div class="tutorial-dots" id="tut-dots"></div>
     <div class="tutorial-btns">
       <button id="tut-prev" onclick="tutorialPrev()" class="tut-btn-prev" data-i18n="tut.prev">Anterior</button>
-      <button id="tut-next" onclick="tutorialNext()" class="tut-btn-next">Següent →</button>
+      <button id="tut-next" onclick="tutorialNext()" class="tut-btn-next">SegÃ¼ent â†’</button>
     </div>
     <button onclick="closeTutorial()" class="tut-skip" data-i18n="tut.skip">Saltar tutorial</button>
   </div>
 </div>
 
-<!-- MILLORA 6: Alert TP/SL/Liquidació -->
+<!-- MILLORA 6: Alert TP/SL/LiquidaciÃ³ -->
 <div id="alert-overlay" class="hidden">
   <div id="alert-card" class="alert-card tp">
-    <div id="alert-icon" style="font-size:48px;margin-bottom:12px;">🎯</div>
+    <div id="alert-icon" style="font-size:48px;margin-bottom:12px;">ðŸŽ¯</div>
     <div id="alert-title" style="font-size:20px;font-weight:700;margin-bottom:6px;"></div>
     <div id="alert-detail" style="font-size:28px;font-weight:700;font-family:ui-monospace,monospace;margin-bottom:8px;"></div>
     <div id="alert-sub" style="font-size:13px;color:var(--text-muted);margin-bottom:16px;"></div>
@@ -566,7 +566,7 @@
       <button onclick="switchSection('assets')" class="btn-icon">&#8592;</button>
       <div style="flex:1;">
         <div class="section-title" style="font-size:18px;" data-i18n="trade.title">Actius</div>
-        <div class="section-sub" data-i18n="trade.sub">Preus en temps real · Toca per operar</div>
+        <div class="section-sub" data-i18n="trade.sub">Preus en temps real Â· Toca per operar</div>
       </div>
     </div>
     <!-- MILLORA 9: Filtre de categoria -->
@@ -582,7 +582,7 @@
   <!-- CHART -->
   <section id="chart-section" class="app-section">
     <div id="chart-header">
-      <button onclick="switchSection('trade')" class="btn-icon" style="font-size:18px;">←</button>
+      <button onclick="switchSection('trade')" class="btn-icon" style="font-size:18px;">â†</button>
       <div style="flex:1;min-width:0;">
         <div style="display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;">
           <span id="mobile-symbol" style="font-size:15px;font-weight:700;color:var(--text);">BTC/USDT</span>
@@ -611,8 +611,8 @@
       </button>
       <div class="pos-tabs">
         <button id="tab-positions" onclick="switchBottomTab('positions')" class="pos-tab active"><span data-i18n="tab.positions">Posicions</span> (<span id="pos-count-tab">0</span>)</button>
-        <!-- MILLORA 2: Ordres límit -->
-        <button id="tab-orders" onclick="switchBottomTab('orders')" class="pos-tab"><span data-i18n="tab.orders">Ordres límit</span> (<span id="orders-count-tab">0</span>)</button>
+        <!-- MILLORA 2: Ordres lÃ­mit -->
+        <button id="tab-orders" onclick="switchBottomTab('orders')" class="pos-tab"><span data-i18n="tab.orders">Ordres lÃ­mit</span> (<span id="orders-count-tab">0</span>)</button>
         <button id="tab-history" onclick="switchBottomTab('history')" class="pos-tab"><span data-i18n="tab.history">Historial</span> (<span id="history-count">0</span>)</button>
       </div>
       <div class="pos-scroll">
@@ -624,10 +624,10 @@
             <tbody id="positions-table"></tbody>
           </table>
         </div>
-        <!-- MILLORA 2: Taula d'ordres límit -->
+        <!-- MILLORA 2: Taula d'ordres lÃ­mit -->
         <div id="bottom-panel-orders" class="bottom-tab-panel" style="padding:8px;overflow-x:auto;min-width:0;touch-action:pan-x;">
           <table class="data-table" style="min-width:600px;">
-            <thead><tr><th data-i18n="th.asset">Actiu</th><th data-i18n="th.type">Tipus</th><th data-i18n="th.direction">Direcció</th><th data-i18n="th.size">Mida</th><th data-i18n="th.limit_price">Preu límit</th><th data-i18n="th.margin">Marge</th><th data-i18n="th.date">Data</th><th style="text-align:right;" data-i18n="th.cancel">Cancel·lar</th></tr></thead>
+            <thead><tr><th data-i18n="th.asset">Actiu</th><th data-i18n="th.type">Tipus</th><th data-i18n="th.direction">DirecciÃ³</th><th data-i18n="th.size">Mida</th><th data-i18n="th.limit_price">Preu lÃ­mit</th><th data-i18n="th.margin">Marge</th><th data-i18n="th.date">Data</th><th style="text-align:right;" data-i18n="th.cancel">CancelÂ·lar</th></tr></thead>
             <tbody id="orders-table"></tbody>
           </table>
         </div>
@@ -648,7 +648,7 @@
         <div style="font-size:11px;color:var(--text-muted);" data-i18n="trading.unrealized_pnl">PnL no realitzat</div>
         <div id="unrealized-pnl" style="font-size:14px;font-weight:700;font-family:ui-monospace,monospace;color:var(--text-muted);">+0.00 USDT</div>
       </div>
-      <button onclick="toggleOrderPanel(true)" style="background:linear-gradient(180deg,var(--forest-light) 0%,var(--forest) 50%,var(--forest-dark) 100%);color:var(--cream);border:1px solid var(--gold-dark);border-radius:12px;padding:11px 28px;font-weight:400;font-size:15px;cursor:pointer;flex-shrink:0;letter-spacing:.5px;font-family:'Russo One',sans-serif;box-shadow:inset 0 1px 0 rgba(255,255,255,.15),0 4px 12px rgba(0,0,0,.5);" data-i18n="trading.btn">⚔ Fer trading</button>
+      <button onclick="toggleOrderPanel(true)" style="background:linear-gradient(180deg,var(--forest-light) 0%,var(--forest) 50%,var(--forest-dark) 100%);color:var(--cream);border:1px solid var(--gold-dark);border-radius:12px;padding:11px 28px;font-weight:400;font-size:15px;cursor:pointer;flex-shrink:0;letter-spacing:.5px;font-family:'Russo One',sans-serif;box-shadow:inset 0 1px 0 rgba(255,255,255,.15),0 4px 12px rgba(0,0,0,.5);" data-i18n="trading.btn">âš” Fer trading</button>
     </div>
   </section>
 
@@ -676,7 +676,7 @@
         <div style="display:flex;gap:6px;">
           <button id="ltab-all"    onclick="setLeagueTab('all')" data-i18n="league.tab.all"    style="padding:5px 12px;border-radius:20px;font-size:12px;font-weight:600;border:1px solid rgba(176,141,87,.5);background:rgba(176,141,87,.12);color:var(--gold);cursor:pointer;">Totes</button>
           <button id="ltab-mine"   onclick="setLeagueTab('mine')" data-i18n="league.tab.mine"   style="padding:5px 12px;border-radius:20px;font-size:12px;font-weight:600;border:1px solid var(--line);background:none;color:var(--text-muted);cursor:pointer;">Les meves</button>
-          <button id="ltab-public" onclick="setLeagueTab('public')" data-i18n="league.tab.public" style="padding:5px 12px;border-radius:20px;font-size:12px;font-weight:600;border:1px solid var(--line);background:none;color:var(--text-muted);cursor:pointer;">Públiques</button>
+          <button id="ltab-public" onclick="setLeagueTab('public')" data-i18n="league.tab.public" style="padding:5px 12px;border-radius:20px;font-size:12px;font-weight:600;border:1px solid var(--line);background:none;color:var(--text-muted);cursor:pointer;">PÃºbliques</button>
         </div>
       </div>
     </div>
@@ -687,21 +687,21 @@
   </section>
 
   <!-- PORTFOLIO -->
-  <!-- MILLORA 5: Estadístiques avançades -->
+  <!-- MILLORA 5: EstadÃ­stiques avanÃ§ades -->
   <section id="portfolio-section" class="app-section" style="overflow-y:scroll;overflow-x:clip;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;">
     <div style="position:sticky;top:0;z-index:20;background:var(--deep);padding:12px 16px 8px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:10px;">
       <button onclick="switchSection('assets')" class="btn-icon">&#8592;</button>
       <div>
         <div class="section-title" data-i18n="portfolio.title">Portfolio</div>
-        <div class="section-sub" data-i18n="portfolio.sub">Rendiment i estadístiques</div>
+        <div class="section-sub" data-i18n="portfolio.sub">Rendiment i estadÃ­stiques</div>
       </div>
     </div>
     <div style="padding:16px;display:flex;flex-direction:column;gap:14px;">
       <div id="portfolio-kpis" style="display:grid;grid-template-columns:repeat(2,1fr);gap:10px;"></div>
 
-      <!-- Stats avançades -->
+      <!-- Stats avanÃ§ades -->
       <div class="glass-sm" style="border-radius:14px;padding:14px;">
-        <div style="font-size:13px;font-weight:600;margin-bottom:10px;color:var(--text-muted);" data-i18n="js.pf.adv_stats">📊 Estadístiques avançades</div>
+        <div style="font-size:13px;font-weight:600;margin-bottom:10px;color:var(--text-muted);" data-i18n="js.pf.adv_stats">ðŸ“Š EstadÃ­stiques avanÃ§ades</div>
         <div class="stat-grid" id="advanced-stats-grid"></div>
       </div>
 
@@ -737,12 +737,12 @@
         <button onclick="switchSection('assets')" class="btn-icon">&#8592;</button>
         <div>
           <div class="section-title" data-i18n="ach.title">Assoliments</div>
-          <div class="section-sub" data-i18n="ach.sub">Insígnies, fites i punts de progrés</div>
+          <div class="section-sub" data-i18n="ach.sub">InsÃ­gnies, fites i punts de progrÃ©s</div>
         </div>
       </div>
       <div class="glass-sm" style="border-radius:12px;padding:10px 14px;text-align:center;">
         <div style="font-size:10px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px;" data-i18n="ach.completed_label">Completats</div>
-        <div style="font-size:16px;font-weight:700;margin-top:2px;color:var(--text);"><span id="achievements-completed">0</span>/<span id="achievements-total">0</span> · <span id="achievement-points" style="color:#fbbf24;">0</span> pts</div>
+        <div style="font-size:16px;font-weight:700;margin-top:2px;color:var(--text);"><span id="achievements-completed">0</span>/<span id="achievements-total">0</span> Â· <span id="achievement-points" style="color:#fbbf24;">0</span> pts</div>
       </div>
     </div>
     <div id="achievements-grid" style="padding:14px;display:grid;grid-template-columns:1fr;gap:10px;"></div>
@@ -752,7 +752,7 @@
   <section id="profile-section" class="app-section" style="overflow-y:auto;">
     <div style="padding:12px 16px 8px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:10px;">
       <button onclick="switchSection('assets')" class="btn-icon">&#8592;</button>
-      <div><div class="section-title" data-i18n="profile.title">Perfil</div><div class="section-sub" data-i18n="profile.sub">Compte i configuració</div></div>
+      <div><div class="section-title" data-i18n="profile.title">Perfil</div><div class="section-sub" data-i18n="profile.sub">Compte i configuraciÃ³</div></div>
     </div>
     <div style="padding:16px;display:flex;flex-direction:column;gap:14px;">
       <div id="user-profile" class="hidden">
@@ -767,17 +767,17 @@
           <div class="profile-stat"><div style="font-size:10px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px;">Trades</div><div style="font-size:20px;font-weight:700;margin-top:4px;color:var(--text);" id="profile-trades">0</div></div>
           <div class="profile-stat"><div style="font-size:10px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px;">PnL Total</div><div style="font-size:16px;font-weight:700;margin-top:4px;font-family:ui-monospace,monospace;" id="profile-pnl">+0.00</div></div>
           <div class="profile-stat"><div style="font-size:10px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px;" data-i18n="profile.points">Punts</div><div style="font-size:20px;font-weight:700;margin-top:4px;color:#fbbf24;" id="profile-points">0</div></div>
-          <div class="profile-stat" style="position:relative;overflow:hidden;"><div style="font-size:10px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px;" data-i18n="profile.leagues_won">Lligues guanyades</div><div style="font-size:20px;font-weight:700;margin-top:4px;color:var(--gold);display:flex;align-items:center;gap:6px;"><span id="profile-leagues-won">0</span><span style="font-size:16px;">🏆</span></div></div>
+          <div class="profile-stat" style="position:relative;overflow:hidden;"><div style="font-size:10px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px;" data-i18n="profile.leagues_won">Lligues guanyades</div><div style="font-size:20px;font-weight:700;margin-top:4px;color:var(--gold);display:flex;align-items:center;gap:6px;"><span id="profile-leagues-won">0</span><span style="font-size:16px;">ðŸ†</span></div></div>
         </div>
-        <!-- MILLORA 8: Configuració funcional -->
+        <!-- MILLORA 8: ConfiguraciÃ³ funcional -->
         <div style="background:rgba(176,141,87,.05);border:1px solid var(--line);border-radius:14px;overflow:hidden;margin-bottom:14px;">
           <div style="padding:14px 16px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;">
             <span style="font-size:13px;color:var(--text-muted);" data-i18n="profile.language">Idioma</span>
-            <button onclick="openLangModal()" id="lang-display-btn" style="font-size:13px;font-weight:500;background:rgba(176,141,87,.07);border:1px solid rgba(176,141,87,.18);color:var(--text-muted);border-radius:8px;padding:5px 12px;cursor:pointer;">CA Català</button>
+            <button onclick="openLangModal()" id="lang-display-btn" style="font-size:13px;font-weight:500;background:rgba(176,141,87,.07);border:1px solid rgba(176,141,87,.18);color:var(--text-muted);border-radius:8px;padding:5px 12px;cursor:pointer;">CA CatalÃ </button>
           </div>
           <div style="padding:14px 16px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;">
             <span style="font-size:13px;color:var(--text-muted);" data-i18n="profile.theme">Tema</span>
-            <button onclick="toggleTheme()" id="theme-profile-btn" style="font-size:13px;font-weight:500;background:rgba(176,141,87,.07);border:1px solid rgba(176,141,87,.18);color:var(--text-muted);border-radius:8px;padding:5px 12px;cursor:pointer;" data-i18n="js.theme_dark">Fosc 🌙</button>
+            <button onclick="toggleTheme()" id="theme-profile-btn" style="font-size:13px;font-weight:500;background:rgba(176,141,87,.07);border:1px solid rgba(176,141,87,.18);color:var(--text-muted);border-radius:8px;padding:5px 12px;cursor:pointer;" data-i18n="js.theme_dark">Fosc ðŸŒ™</button>
           </div>
           <div style="padding:14px 16px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;">
             <span style="font-size:13px;color:var(--text-muted);" data-i18n="profile.currency">Moneda</span>
@@ -785,17 +785,17 @@
           </div>
           <div style="padding:14px 16px;display:flex;justify-content:space-between;align-items:center;">
             <span style="font-size:13px;color:var(--text-muted);" data-i18n="profile.tutorial">Tutorial</span>
-            <button onclick="initTutorial(true)" style="font-size:13px;font-weight:500;background:rgba(176,141,87,.07);border:1px solid rgba(176,141,87,.18);color:var(--text-muted);border-radius:8px;padding:5px 12px;cursor:pointer;" data-i18n="profile.tutorial_btn">Revisar 📖</button>
+            <button onclick="initTutorial(true)" style="font-size:13px;font-weight:500;background:rgba(176,141,87,.07);border:1px solid rgba(176,141,87,.18);color:var(--text-muted);border-radius:8px;padding:5px 12px;cursor:pointer;" data-i18n="profile.tutorial_btn">Revisar ðŸ“–</button>
           </div>
         </div>
-        <button onclick="logout()" style="width:100%;padding:14px;border-radius:12px;background:rgba(239,68,68,.12);border:1px solid rgba(239,68,68,.3);color:#fb7185;font-weight:600;font-size:15px;cursor:pointer;" data-i18n="profile.logout">Tancar Sessió</button>
+        <button onclick="logout()" style="width:100%;padding:14px;border-radius:12px;background:rgba(239,68,68,.12);border:1px solid rgba(239,68,68,.3);color:#fb7185;font-weight:600;font-size:15px;cursor:pointer;" data-i18n="profile.logout">Tancar SessiÃ³</button>
       </div>
       <div id="auth-buttons">
         <div style="text-align:center;padding:32px 16px 24px;">
-          <div style="width:72px;height:72px;border-radius:50%;background:linear-gradient(135deg,var(--forest-light),var(--gold-mid));display:flex;align-items:center;justify-content:center;margin:0 auto 16px;font-size:32px;box-shadow:0 0 20px rgba(176,141,87,0.3);">👤</div>
-          <div style="font-size:18px;font-weight:400;margin-bottom:6px;color:var(--gold);font-family:'Russo One',sans-serif;" data-i18n="auth.title">Inicia sessió</div>
-          <div style="font-size:13px;color:var(--text-muted);margin-bottom:24px;" data-i18n="auth.sub">Guarda el teu progrés i competeix a les lligues</div>
-          <button onclick="openAuthModal()" style="width:100%;padding:14px;border-radius:12px;background:linear-gradient(180deg,var(--forest-light) 0%,var(--forest) 50%,var(--forest-dark) 100%);border:1px solid var(--gold-dark);color:var(--cream);font-weight:400;font-size:15px;cursor:pointer;margin-bottom:10px;font-family:'Russo One',sans-serif;box-shadow:inset 0 1px 0 rgba(255,255,255,.12);" data-i18n="auth.login_btn">Iniciar Sessió</button>
+          <div style="width:72px;height:72px;border-radius:50%;background:linear-gradient(135deg,var(--forest-light),var(--gold-mid));display:flex;align-items:center;justify-content:center;margin:0 auto 16px;font-size:32px;box-shadow:0 0 20px rgba(176,141,87,0.3);">ðŸ‘¤</div>
+          <div style="font-size:18px;font-weight:400;margin-bottom:6px;color:var(--gold);font-family:'Russo One',sans-serif;" data-i18n="auth.title">Inicia sessiÃ³</div>
+          <div style="font-size:13px;color:var(--text-muted);margin-bottom:24px;" data-i18n="auth.sub">Guarda el teu progrÃ©s i competeix a les lligues</div>
+          <button onclick="openAuthModal()" style="width:100%;padding:14px;border-radius:12px;background:linear-gradient(180deg,var(--forest-light) 0%,var(--forest) 50%,var(--forest-dark) 100%);border:1px solid var(--gold-dark);color:var(--cream);font-weight:400;font-size:15px;cursor:pointer;margin-bottom:10px;font-family:'Russo One',sans-serif;box-shadow:inset 0 1px 0 rgba(255,255,255,.12);" data-i18n="auth.login_btn">Iniciar SessiÃ³</button>
           <button onclick="openAuthModal()" style="width:100%;padding:14px;border-radius:12px;background:rgba(176,141,87,.08);border:1px solid rgba(176,141,87,.2);color:var(--text-muted);font-weight:600;font-size:15px;cursor:pointer;" data-i18n="auth.signup_btn">Crear Compte</button>
         </div>
       </div>
@@ -819,26 +819,26 @@
         <span id="sheet-live-change" style="font-size:12px;font-weight:600;"></span>
       </div>
     </div>
-    <button onclick="toggleOrderPanel(false)" style="background:rgba(176,141,87,.08);border:1px solid rgba(176,141,87,.18);color:var(--text-muted);width:32px;height:32px;border-radius:8px;cursor:pointer;font-size:20px;display:flex;align-items:center;justify-content:center;">×</button>
+    <button onclick="toggleOrderPanel(false)" style="background:rgba(176,141,87,.08);border:1px solid rgba(176,141,87,.18);color:var(--text-muted);width:32px;height:32px;border-radius:8px;cursor:pointer;font-size:20px;display:flex;align-items:center;justify-content:center;">Ã—</button>
   </div>
 
   <div style="padding:0 16px 20px;">
     <!-- Long / Short -->
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px;">
-      <button id="btn-long" onclick="setTradeType('LONG')" style="padding:12px;border-radius:10px;font-weight:700;font-size:14px;cursor:pointer;border:1px solid rgba(26,122,88,.5);background:rgba(26,122,88,.15);color:#4ade80;font-family:'Russo One',sans-serif;letter-spacing:.3px;">▲ LONG</button>
-      <button id="btn-short" onclick="setTradeType('SHORT')" style="padding:12px;border-radius:10px;font-weight:700;font-size:14px;cursor:pointer;border:1px solid var(--line);background:none;color:var(--text-muted);font-family:'Russo One',sans-serif;letter-spacing:.3px;">▼ SHORT</button>
+      <button id="btn-long" onclick="setTradeType('LONG')" style="padding:12px;border-radius:10px;font-weight:700;font-size:14px;cursor:pointer;border:1px solid rgba(26,122,88,.5);background:rgba(26,122,88,.15);color:#4ade80;font-family:'Russo One',sans-serif;letter-spacing:.3px;">â–² LONG</button>
+      <button id="btn-short" onclick="setTradeType('SHORT')" style="padding:12px;border-radius:10px;font-weight:700;font-size:14px;cursor:pointer;border:1px solid var(--line);background:none;color:var(--text-muted);font-family:'Russo One',sans-serif;letter-spacing:.3px;">â–¼ SHORT</button>
     </div>
 
     <!-- MILLORA 2: Tipus d'ordre -->
     <div style="margin-bottom:14px;">
       <div style="font-size:12px;color:var(--text-muted);margin-bottom:8px;">Tipus d'ordre</div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;">
-        <button id="otype-market" class="order-type-btn active-market" onclick="setOrderType('market')" data-i18n="sheet.market">⚡ Mercat</button>
-        <button id="otype-limit" class="order-type-btn" onclick="setOrderType('limit')" data-i18n="sheet.limit">📋 Límit</button>
+        <button id="otype-market" class="order-type-btn active-market" onclick="setOrderType('market')" data-i18n="sheet.market">âš¡ Mercat</button>
+        <button id="otype-limit" class="order-type-btn" onclick="setOrderType('limit')" data-i18n="sheet.limit">ðŸ“‹ LÃ­mit</button>
       </div>
     </div>
     <div id="limit-price-row" style="margin-bottom:14px;">
-      <label style="font-size:12px;color:var(--text-muted);display:block;margin-bottom:6px;" data-i18n="sheet.limit_price">Preu límit d'entrada</label>
+      <label style="font-size:12px;color:var(--text-muted);display:block;margin-bottom:6px;" data-i18n="sheet.limit_price">Preu lÃ­mit d'entrada</label>
       <div style="position:relative;">
         <input type="number" id="limit-price" class="inp" placeholder="Ex: 80000" step="0.01" style="padding-right:48px;">
         <span style="position:absolute;right:12px;top:50%;transform:translateY(-50%);font-size:12px;color:#5a4a35;">USDT</span>
@@ -884,17 +884,17 @@
     <!-- Order info -->
     <div style="background:rgba(0,0,0,.25);border:1px solid var(--line);border-radius:10px;padding:10px 12px;margin-bottom:16px;display:flex;flex-direction:column;gap:6px;font-size:12px;">
       <div style="display:flex;justify-content:space-between;"><span style="color:var(--text-muted);" data-i18n="sheet.margin">Marge requerit</span><span id="margin-required" style="font-family:ui-monospace,monospace;">0.00 USDT</span></div>
-      <div style="display:flex;justify-content:space-between;"><span style="color:var(--text-muted);" data-i18n="sheet.pos_size">Mida posició</span><span id="position-size" style="font-family:ui-monospace,monospace;">0.0000</span></div>
-      <!-- MILLORA 1: Preu de liquidació visible -->
-      <div style="display:flex;justify-content:space-between;"><span style="color:var(--text-muted);"><span data-i18n="trade.liq_approx">Liquidació aprox.</span> <span class="liq-badge">AUTO</span></span><span id="liquidation-price" style="font-family:ui-monospace,monospace;color:#fb7185;">---</span></div>
+      <div style="display:flex;justify-content:space-between;"><span style="color:var(--text-muted);" data-i18n="sheet.pos_size">Mida posiciÃ³</span><span id="position-size" style="font-family:ui-monospace,monospace;">0.0000</span></div>
+      <!-- MILLORA 1: Preu de liquidaciÃ³ visible -->
+      <div style="display:flex;justify-content:space-between;"><span style="color:var(--text-muted);"><span data-i18n="trade.liq_approx">LiquidaciÃ³ aprox.</span> <span class="liq-badge">AUTO</span></span><span id="liquidation-price" style="font-family:ui-monospace,monospace;color:#fb7185;">---</span></div>
       <div style="display:flex;justify-content:space-between;"><span style="color:var(--text-muted);" data-i18n="sheet.available">Disponible</span><span id="sheet-balance" style="font-family:ui-monospace,monospace;color:var(--gold);">---</span></div>
     </div>
 
-    <button id="execute-order" onclick="executeOrder()" class="exec-btn glow" style="background:linear-gradient(180deg,var(--forest-light) 0%,var(--forest) 50%,var(--forest-dark) 100%);color:var(--cream);border:1px solid var(--gold-dark);box-shadow:inset 0 1px 0 rgba(255,255,255,.15);" data-i18n="js.open_long">⚔ Obrir Posició LONG</button>
+    <button id="execute-order" onclick="executeOrder()" class="exec-btn glow" style="background:linear-gradient(180deg,var(--forest-light) 0%,var(--forest) 50%,var(--forest-dark) 100%);color:var(--cream);border:1px solid var(--gold-dark);box-shadow:inset 0 1px 0 rgba(255,255,255,.15);" data-i18n="js.open_long">âš” Obrir PosiciÃ³ LONG</button>
   </div>
 
   <details style="padding:0 16px 16px;">
-    <summary style="font-size:12px;color:var(--text-muted);cursor:pointer;padding:8px 0;border-top:1px solid var(--line);margin-bottom:8px;" data-i18n="trade.market_info">Informació de mercat</summary>
+    <summary style="font-size:12px;color:var(--text-muted);cursor:pointer;padding:8px 0;border-top:1px solid var(--line);margin-bottom:8px;" data-i18n="trade.market_info">InformaciÃ³ de mercat</summary>
     <div style="display:flex;flex-direction:column;gap:6px;font-size:12px;">
       <div style="display:flex;justify-content:space-between;"><span style="color:var(--text-muted);">24h Volum</span><span id="24h-volume" style="font-family:ui-monospace,monospace;">---</span></div>
     </div>
@@ -910,7 +910,7 @@
         <div style="font-size:16px;font-weight:700;color:var(--text);">Editar TP / SL</div>
         <div id="edit-tpsl-subtitle" style="font-size:12px;color:var(--text-muted);margin-top:2px;"></div>
       </div>
-      <button onclick="closeEditTpSlModal()" style="background:rgba(176,141,87,.08);border:1px solid rgba(176,141,87,.18);color:var(--text-muted);width:32px;height:32px;border-radius:8px;cursor:pointer;font-size:20px;display:flex;align-items:center;justify-content:center;">×</button>
+      <button onclick="closeEditTpSlModal()" style="background:rgba(176,141,87,.08);border:1px solid rgba(176,141,87,.18);color:var(--text-muted);width:32px;height:32px;border-radius:8px;cursor:pointer;font-size:20px;display:flex;align-items:center;justify-content:center;">Ã—</button>
     </div>
     <div style="padding:0 16px;display:flex;flex-direction:column;gap:12px;">
       <!-- Preu actual -->
@@ -926,22 +926,22 @@
       <!-- TP -->
       <div>
         <label style="font-size:12px;color:#4ade80;display:flex;align-items:center;gap:6px;margin-bottom:6px;font-weight:600;">
-          🎯 Take Profit
+          ðŸŽ¯ Take Profit
           <span style="font-size:10px;color:#5a4a35;font-weight:400;" id="edit-tp-hint"></span>
         </label>
         <div style="position:relative;">
-          <input type="number" id="edit-tp-price" class="inp" placeholder="Opcional – deixa buit per eliminar" step="0.01" style="padding-right:52px;">
+          <input type="number" id="edit-tp-price" class="inp" placeholder="Opcional â€“ deixa buit per eliminar" step="0.01" style="padding-right:52px;">
           <span style="position:absolute;right:12px;top:50%;transform:translateY(-50%);font-size:11px;color:#5a4a35;">USDT</span>
         </div>
       </div>
       <!-- SL -->
       <div>
         <label style="font-size:12px;color:#fb7185;display:flex;align-items:center;gap:6px;margin-bottom:6px;font-weight:600;">
-          🛡️ Stop Loss
+          ðŸ›¡ï¸ Stop Loss
           <span style="font-size:10px;color:#5a4a35;font-weight:400;" id="edit-sl-hint"></span>
         </label>
         <div style="position:relative;">
-          <input type="number" id="edit-sl-price" class="inp" placeholder="Opcional – deixa buit per eliminar" step="0.01" style="padding-right:52px;">
+          <input type="number" id="edit-sl-price" class="inp" placeholder="Opcional â€“ deixa buit per eliminar" step="0.01" style="padding-right:52px;">
           <span style="position:absolute;right:12px;top:50%;transform:translateY(-50%);font-size:11px;color:#5a4a35;">USDT</span>
         </div>
       </div>
@@ -982,12 +982,12 @@
 <!-- MODALS -->
 <div id="auth-modal" class="modal-overlay hidden">
   <div class="modal-box">
-    <button class="modal-close" onclick="closeAuthModal()">×</button>
-    <div class="modal-title" data-i18n="modal.auth_title">🔑 Accés TradeLeague</div>
+    <button class="modal-close" onclick="closeAuthModal()">Ã—</button>
+    <div class="modal-title" data-i18n="modal.auth_title">ðŸ”‘ AccÃ©s TradeLeague</div>
     <div style="display:flex;flex-direction:column;gap:10px;">
       <input type="email" id="auth-email" class="inp" placeholder="correu@exemple.com">
       <input type="password" id="auth-pass" class="inp" placeholder="Contrasenya">
-      <button onclick="login()" style="padding:13px;border-radius:10px;background:linear-gradient(180deg,var(--forest-light) 0%,var(--forest) 50%,var(--forest-dark) 100%);border:1px solid var(--gold-dark);color:var(--cream);font-weight:400;font-size:14px;cursor:pointer;font-family:'Russo One',sans-serif;box-shadow:inset 0 1px 0 rgba(255,255,255,.12);">Iniciar Sessió</button>
+      <button onclick="login()" style="padding:13px;border-radius:10px;background:linear-gradient(180deg,var(--forest-light) 0%,var(--forest) 50%,var(--forest-dark) 100%);border:1px solid var(--gold-dark);color:var(--cream);font-weight:400;font-size:14px;cursor:pointer;font-family:'Russo One',sans-serif;box-shadow:inset 0 1px 0 rgba(255,255,255,.12);">Iniciar SessiÃ³</button>
       <button onclick="signup()" style="padding:13px;border-radius:10px;background:rgba(176,141,87,.08);border:1px solid rgba(176,141,87,.2);color:var(--text-muted);font-weight:600;font-size:14px;cursor:pointer;">Crear Compte</button>
       <div style="display:flex;align-items:center;gap:10px;margin:4px 0;"><div style="flex:1;height:1px;background:var(--line);"></div><span style="font-size:12px;color:#5a4a35;">o</span><div style="flex:1;height:1px;background:var(--line);"></div></div>
       <button onclick="googleSignIn()" style="padding:13px;border-radius:10px;background:rgba(176,141,87,.07);border:1px solid rgba(176,141,87,.18);color:var(--text-muted);font-weight:600;font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;">
@@ -1000,8 +1000,8 @@
 
 <div id="create-league-modal" class="modal-overlay hidden">
   <div class="modal-box">
-    <button class="modal-close" onclick="closeCreateLeagueModal()">×</button>
-    <div class="modal-title" data-i18n="modal.create_league">⚔ Crear Nova Lliga</div>
+    <button class="modal-close" onclick="closeCreateLeagueModal()">Ã—</button>
+    <div class="modal-title" data-i18n="modal.create_league">âš” Crear Nova Lliga</div>
     <div style="display:flex;flex-direction:column;gap:12px;">
       <div><label style="font-size:12px;color:var(--text-muted);display:block;margin-bottom:5px;" data-i18n="league.name_label">Nom de la lliga</label><input id="league-name" class="inp" placeholder="Ex. Champions Crypto"></div>
       <div><label style="font-size:12px;color:var(--text-muted);display:block;margin-bottom:5px;" data-i18n="league.duration_label">Durada</label><select id="league-duration" class="inp"><option value="Setmanal" data-i18n-opt="dur.weekly">Setmanal</option><option value="Mensual" data-i18n-opt="dur.monthly">Mensual</option><option value="Trimestral" data-i18n-opt="dur.quarterly">Trimestral</option><option value="Anual" data-i18n-opt="dur.yearly">Anual</option></select></div>
@@ -1009,13 +1009,13 @@
       <div>
         <label style="font-size:12px;color:var(--text-muted);display:block;margin-bottom:5px;" data-i18n="league.visibility">Visibilitat</label>
         <div style="display:flex;gap:8px;">
-          <button id="btn-public" onclick="setLeagueVisibility('public')" data-i18n="modal.public" style="flex:1;padding:9px;border-radius:10px;background:rgba(26,122,88,.15);border:1px solid rgba(26,122,88,.5);color:#4ade80;font-size:13px;font-weight:600;cursor:pointer;">🌍 Pública</button>
-          <button id="btn-private" onclick="setLeagueVisibility('private')" data-i18n="modal.private" style="flex:1;padding:9px;border-radius:10px;background:none;border:1px solid var(--line);color:var(--text-muted);font-size:13px;font-weight:600;cursor:pointer;">🔒 Privada</button>
+          <button id="btn-public" onclick="setLeagueVisibility('public')" data-i18n="modal.public" style="flex:1;padding:9px;border-radius:10px;background:rgba(26,122,88,.15);border:1px solid rgba(26,122,88,.5);color:#4ade80;font-size:13px;font-weight:600;cursor:pointer;">ðŸŒ PÃºblica</button>
+          <button id="btn-private" onclick="setLeagueVisibility('private')" data-i18n="modal.private" style="flex:1;padding:9px;border-radius:10px;background:none;border:1px solid var(--line);color:var(--text-muted);font-size:13px;font-weight:600;cursor:pointer;">ðŸ”’ Privada</button>
         </div>
         <div id="visibility-hint" style="font-size:11px;color:var(--text-muted);margin-top:5px;">Qualsevol pot unir-se des del cercador</div>
       </div>
       <div>
-        <label style="font-size:12px;color:var(--text-muted);display:block;margin-bottom:5px;" data-i18n="league.max_players">Màxim de jugadors</label>
+        <label style="font-size:12px;color:var(--text-muted);display:block;margin-bottom:5px;" data-i18n="league.max_players">MÃ xim de jugadors</label>
         <div style="display:flex;gap:6px;">
           <button onclick="setMaxMembers(10)"  id="max-10"  style="flex:1;padding:8px;border-radius:10px;background:none;border:1px solid var(--line);color:var(--text-muted);font-size:13px;cursor:pointer;">10</button>
           <button onclick="setMaxMembers(20)"  id="max-20"  style="flex:1;padding:8px;border-radius:10px;background:rgba(26,122,88,.15);border:1px solid rgba(26,122,88,.5);color:#4ade80;font-size:13px;cursor:pointer;">20</button>
@@ -1035,128 +1035,128 @@
 
 <div id="join-league-modal" class="modal-overlay hidden">
   <div class="modal-box">
-    <button class="modal-close" onclick="closeJoinLeagueModal()">×</button>
-    <div class="modal-title" data-i18n="modal.join_league">🏅 Unir-se a una Lliga</div>
-    <input id="join-league-code" class="inp" data-i18n-placeholder="league.invite_code_ph" placeholder="Codi d'invitació" style="font-family:ui-monospace,monospace;text-transform:uppercase;margin-bottom:12px;">
+    <button class="modal-close" onclick="closeJoinLeagueModal()">Ã—</button>
+    <div class="modal-title" data-i18n="modal.join_league">ðŸ… Unir-se a una Lliga</div>
+    <input id="join-league-code" class="inp" data-i18n-placeholder="league.invite_code_ph" placeholder="Codi d'invitaciÃ³" style="font-family:ui-monospace,monospace;text-transform:uppercase;margin-bottom:12px;">
     <button onclick="joinLeague()" style="width:100%;padding:13px;border-radius:10px;background:linear-gradient(180deg,var(--forest-light) 0%,var(--forest) 50%,var(--forest-dark) 100%);border:1px solid var(--gold-dark);color:var(--cream);font-weight:400;font-size:14px;cursor:pointer;font-family:'Russo One',sans-serif;box-shadow:inset 0 1px 0 rgba(255,255,255,.12);" data-i18n="league.join">Unir-se</button>
   </div>
 </div>
 
 <div id="toast-container" style="position:fixed;right:12px;bottom:80px;z-index:130;display:flex;flex-direction:column;gap:6px;width:min(320px,calc(100vw - 24px));pointer-events:none;"></div>
 
-<!-- ════════════════════════════════════════════
+<!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
      JAVASCRIPT
-════════════════════════════════════════════ -->
+â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
 <script type="module">
 
-  /* ══════════════════════════════════════════
-     SISTEMA D'IDIOMES (i18n) — ha d'anar primer
-  ══════════════════════════════════════════ */
+  /* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+     SISTEMA D'IDIOMES (i18n) â€” ha d'anar primer
+  â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
   var TRANSLATIONS = {
     ca: {
-      'header.balance':'Saldo','home.btn.trade':'▶ OPERAR','home.btn.league':'🏆 LLIGA',
-      'home.btn.portfolio':'💼 PORTFOLI','home.btn.achievements':'🎖 ASSOLIMENTS',
+      'header.balance':'Saldo','home.btn.trade':'â–¶ OPERAR','home.btn.league':'ðŸ† LLIGA',
+      'home.btn.portfolio':'ðŸ’¼ PORTFOLI','home.btn.achievements':'ðŸŽ– ASSOLIMENTS',
       'nav.home':'Inici','nav.assets':'Actius','nav.league':'Lliga',
       'nav.portfolio':'Portfoli','nav.achievements':'Assoliments','nav.profile':'Perfil',
-      'trade.title':'Actius','trade.sub':'Preus en temps real · Toca per operar','filter.all':'Tots',
+      'trade.title':'Actius','trade.sub':'Preus en temps real Â· Toca per operar','filter.all':'Tots',
       'panel.open_pos':'Posicions obertes','tab.positions':'Posicions',
-      'tab.orders':'Ordres límit','tab.history':'Historial',
+      'tab.orders':'Ordres lÃ­mit','tab.history':'Historial',
       'th.asset':'Actiu','th.type':'Tipus','th.size':'Mida','th.entry':'Entrada',
       'th.current':'Actual','th.liq':'Liq.','th.time':'Temps','th.close':'Tancar',
-      'th.direction':'Direcció','th.limit_price':'Preu límit','th.margin':'Marge',
-      'th.date':'Data','th.cancel':'Cancel·lar','th.exit':'Sortida','th.duration':'Durada',
+      'th.direction':'DirecciÃ³','th.limit_price':'Preu lÃ­mit','th.margin':'Marge',
+      'th.date':'Data','th.cancel':'CancelÂ·lar','th.exit':'Sortida','th.duration':'Durada',
       'th.reason':'Motiu','th.open_time':'Obertura','th.close_time':'Tancament',
       'th.dir':'Dir.','th.lev':'Lev.',
-      'trading.unrealized_pnl':'PnL no realitzat','trading.btn':'⚔ Fer trading',
-      'sheet.order_type':"Tipus d'ordre",'sheet.market':'⚡ Mercat','sheet.limit':'📋 Límit',
+      'trading.unrealized_pnl':'PnL no realitzat','trading.btn':'âš” Fer trading',
+      'sheet.order_type':"Tipus d'ordre",'sheet.market':'âš¡ Mercat','sheet.limit':'ðŸ“‹ LÃ­mit',
       'sheet.leverage':'Palanquejament','sheet.amount':'Quantitat a invertir (USDT)',
       'sheet.amount_placeholder':'Ex: 1000','sheet.margin':'Marge requerit',
-      'sheet.pos_size':'Mida posició','sheet.available':'Disponible',
-      'sheet.limit_price':"Preu límit d'entrada",
+      'sheet.pos_size':'Mida posiciÃ³','sheet.available':'Disponible',
+      'sheet.limit_price':"Preu lÃ­mit d'entrada",
       'tpsl.title':'Editar TP / SL','tpsl.current_price':'Preu actual',
       'tpsl.entry_price':"Preu d'entrada",'tpsl.save':'Desar canvis',
       'league.title':'Lliga Fantasy','league.sub':'Competeix en temps real',
       'league.create':'+ Crear','league.join':'Unir-se',
       'league.search_placeholder':'Cerca per nom de lliga...',
-      'league.tab.all':'Totes','league.tab.mine':'Les meves','league.tab.public':'Públiques',
-      'portfolio.title':'Portfoli','portfolio.sub':'Rendiment i estadístiques',
-      'ach.title':'Assoliments','ach.sub':'Insígnies, fites i punts de progrés',
+      'league.tab.all':'Totes','league.tab.mine':'Les meves','league.tab.public':'PÃºbliques',
+      'portfolio.title':'Portfoli','portfolio.sub':'Rendiment i estadÃ­stiques',
+      'ach.title':'Assoliments','ach.sub':'InsÃ­gnies, fites i punts de progrÃ©s',
       'ach.completed_label':'Completats',
-      'profile.title':'Perfil','profile.sub':'Compte i configuració',
+      'profile.title':'Perfil','profile.sub':'Compte i configuraciÃ³',
       'profile.language':'Idioma','profile.theme':'Tema','profile.currency':'Moneda',
-      'profile.tutorial':'Tutorial','profile.tutorial_btn':'Revisar 📖',
-      'profile.logout':'Tancar Sessió',
-      'auth.title':'Inicia sessió','auth.sub':'Guarda el teu progrés i competeix a les lligues',
+      'profile.tutorial':'Tutorial','profile.tutorial_btn':'Revisar ðŸ“–',
+      'profile.logout':'Tancar SessiÃ³',
+      'auth.title':'Inicia sessiÃ³','auth.sub':'Guarda el teu progrÃ©s i competeix a les lligues',
       'auth.email_placeholder':'correu@exemple.com','auth.pass_placeholder':'Contrasenya',
-      'auth.login_btn':'Iniciar Sessió','auth.signup_btn':'Crear Compte',
+      'auth.login_btn':'Iniciar SessiÃ³','auth.signup_btn':'Crear Compte',
       'auth.google_btn':'Continuar amb Google',
-      'modal.auth_title':'🔑 Accés TradeLeague','modal.create_league':'⚔ Crear Nova Lliga',
+      'modal.auth_title':'ðŸ”‘ AccÃ©s TradeLeague','modal.create_league':'âš” Crear Nova Lliga',
       'modal.league_name_placeholder':'Ex. Champions Crypto',
-      'modal.public':'🌍 Pública','modal.private':'🔒 Privada',
-      'modal.create_league_btn':'Crear Lliga','modal.join_league':'🏅 Unir-se a una Lliga',
-      'lang.modal_title':'🌍 Idioma / Language','alert.continue':'Continua',
-      'alert.liquidated':'POSICIÓ LIQUIDADA','alert.tp':'TAKE PROFIT!','alert.sl':'STOP LOSS',
-      'tut.prev':'Anterior','tut.next':'Següent →','tut.last':'Comencem! 🚀',
+      'modal.public':'ðŸŒ PÃºblica','modal.private':'ðŸ”’ Privada',
+      'modal.create_league_btn':'Crear Lliga','modal.join_league':'ðŸ… Unir-se a una Lliga',
+      'lang.modal_title':'ðŸŒ Idioma / Language','alert.continue':'Continua',
+      'alert.liquidated':'POSICIÃ“ LIQUIDADA','alert.tp':'TAKE PROFIT!','alert.sl':'STOP LOSS',
+      'tut.prev':'Anterior','tut.next':'SegÃ¼ent â†’','tut.last':'Comencem! ðŸš€',
       'tut.skip':'Saltar tutorial',
       'js.no_positions':'No hi ha posicions obertes',
-      'js.no_orders':'No hi ha ordres límit pendents',
+      'js.no_orders':'No hi ha ordres lÃ­mit pendents',
       'js.no_history':'Encara no hi ha trades tancats',
       'js.no_leagues':"No s'ha trobat cap lliga.<br>Crea'n una o uneix-te amb un codi.",
-      'js.login_to_compete':'Inicia sessió per crear lligues i competir amb altres jugadors.',
-      'js.close_first_trade':'Tanca el primer trade per veure estadístiques.',
-      'js.no_league_trades':'Sense trades a la lliga','js.back_leagues':'← Tornar a lligues',
-      'js.real_time_ranking':'Classificació en temps real',
+      'js.login_to_compete':'Inicia sessiÃ³ per crear lligues i competir amb altres jugadors.',
+      'js.close_first_trade':'Tanca el primer trade per veure estadÃ­stiques.',
+      'js.no_league_trades':'Sense trades a la lliga','js.back_leagues':'â† Tornar a lligues',
+      'js.real_time_ranking':'ClassificaciÃ³ en temps real',
       'js.league_history':'Historial de la Lliga','js.your_pnl':'El teu PnL:',
-      'js.code_label':'Codi','js.remaining':'restants','js.position_label':'Posició',
+      'js.code_label':'Codi','js.remaining':'restants','js.position_label':'PosiciÃ³',
       'js.participants':'Participants','js.full':'Plena','js.join_public':'+ Unir-se',
-      'js.require_login_trade':"Has d'iniciar sessió per operar.",
-      'js.invalid_amount':'Quantitat invàlida o saldo insuficient.',
+      'js.require_login_trade':"Has d'iniciar sessiÃ³ per operar.",
+      'js.invalid_amount':'Quantitat invÃ lida o saldo insuficient.',
       'js.no_price':'Encara no hi ha preu per a aquest actiu.',
-      'js.limit_valid':'Introdueix un preu límit vàlid.',
-      'js.long_limit_below':"Un LONG límit ha d'estar per sota del preu actual.",
-      'js.short_limit_above':"Un SHORT límit ha d'estar per sobre del preu actual.",
+      'js.limit_valid':'Introdueix un preu lÃ­mit vÃ lid.',
+      'js.long_limit_below':"Un LONG lÃ­mit ha d'estar per sota del preu actual.",
+      'js.short_limit_above':"Un SHORT lÃ­mit ha d'estar per sobre del preu actual.",
       'js.tp_long_above':"El Take Profit d'un LONG ha d'estar per sobre de l'entrada.",
       'js.sl_long_below':"L'Stop Loss d'un LONG ha d'estar per sota de l'entrada.",
       'js.tp_short_below':"El Take Profit d'un SHORT ha d'estar per sota de l'entrada.",
       'js.sl_short_above':"L'Stop Loss d'un SHORT ha d'estar per sobre de l'entrada.",
-      'js.order_cancelled':'Ordre límit cancel·lada.','js.tpsl_updated':'TP/SL actualitzats correctament.',
+      'js.order_cancelled':'Ordre lÃ­mit cancelÂ·lada.','js.tpsl_updated':'TP/SL actualitzats correctament.',
       'js.welcome':'Benvingut!','js.account_created':'Compte creat!',
-      'js.google_signed':'Sessió iniciada amb Google.','js.session_closed':'Sessió tancada.',
-      'js.enter_email':'Introdueix el correu electrònic.','js.enter_pass':'Introdueix la contrasenya.',
-      'js.pass_min':'La contrasenya ha de tenir mínim 6 caràcters.',
+      'js.google_signed':'SessiÃ³ iniciada amb Google.','js.session_closed':'SessiÃ³ tancada.',
+      'js.enter_email':'Introdueix el correu electrÃ²nic.','js.enter_pass':'Introdueix la contrasenya.',
+      'js.pass_min':'La contrasenya ha de tenir mÃ­nim 6 carÃ cters.',
       'js.league_created':'creada.',"js.league_joined":"T'has unit a",
-      'js.league_full':'Aquesta lliga ja és plena',
+      'js.league_full':'Aquesta lliga ja Ã©s plena',
       'js.league_not_found':"No s'ha trobat cap lliga amb aquest codi.",
       'js.league_name_required':'Indica un nom per a la lliga.','js.code_copied':'copiat.',
-      'js.cloud_save_error':"No s'ha pogut desar al núvol. Revisa la connexió.",
-      'js.achievement_unlocked':'🏆 Assoliment desblocat:','js.ach_limit_order':'🏆 Assoliment: Ordre Límit',
-      'js.theme_light':'Clar ☀️','js.theme_dark':'Fosc 🌙',
-      'js.reason.manual':'Manual','js.reason.tp':'Take Profit 🎯','js.reason.sl':'Stop Loss 🛡️','js.reason.liquidated':'Liquidat 💀',
+      'js.cloud_save_error':"No s'ha pogut desar al nÃºvol. Revisa la connexiÃ³.",
+      'js.achievement_unlocked':'ðŸ† Assoliment desblocat:','js.ach_limit_order':'ðŸ† Assoliment: Ordre LÃ­mit',
+      'js.theme_light':'Clar â˜€ï¸','js.theme_dark':'Fosc ðŸŒ™',
+      'js.reason.manual':'Manual','js.reason.tp':'Take Profit ðŸŽ¯','js.reason.sl':'Stop Loss ðŸ›¡ï¸','js.reason.liquidated':'Liquidat ðŸ’€',
       'js.stat.win_rate':'Win Rate','js.stat.max_dd':'Max Drawdown','js.stat.sharpe':'Sharpe (simplif.)',
-      'js.stat.avg_dur':'Durada mitjana','js.stat.avg_win':'Guany mitjà','js.stat.avg_loss':'Pèrdua mitjana',
+      'js.stat.avg_dur':'Durada mitjana','js.stat.avg_win':'Guany mitjÃ ','js.stat.avg_loss':'PÃ¨rdua mitjana',
       'js.stat.rr':'Risk/Reward','js.stat.best':'Millor trade','js.stat.worst':'Pitjor trade','js.stat.total':'Trades totals',
       'js.pf.total_val':'Valor total','js.pf.day_pnl':'PnL del dia','js.pf.total_pnl':'PnL total','js.pf.trades':'Trades',
-      'js.pf.adv_stats':'📊 Estadístiques avançades','js.pf.balance_perf':'Rendiment del saldo',
+      'js.pf.adv_stats':'ðŸ“Š EstadÃ­stiques avanÃ§ades','js.pf.balance_perf':'Rendiment del saldo',
       'js.pf.open_assets':'Actius en cartera','js.pf.history':'Historial de trades tancats',
-      'js.ach.completed':'✓ COMPLETAT','js.ach.in_progress':'EN PROGRÉS','js.ach.locked':'BLOQUEJAT',
+      'js.ach.completed':'âœ“ COMPLETAT','js.ach.in_progress':'EN PROGRÃ‰S','js.ach.locked':'BLOQUEJAT',
       'js.duration_label':'Durada','js.vis_public_hint':'Qualsevol pot unir-se des del cercador',
-      'js.vis_private_hint':"Només s'hi pot entrar amb el codi d'invitació",
-      'js.open_long':'⚔ Obrir Posició LONG','js.open_short':'⚔ Obrir Posició SHORT',
-      'js.create_limit':'Crear Ordre Límit','js.perpetu':'Perpetu',
+      'js.vis_private_hint':"NomÃ©s s'hi pot entrar amb el codi d'invitaciÃ³",
+      'js.open_long':'âš” Obrir PosiciÃ³ LONG','js.open_short':'âš” Obrir PosiciÃ³ SHORT',
+      'js.create_limit':'Crear Ordre LÃ­mit','js.perpetu':'Perpetu',
       'js.league.duration.weekly':'Setmanal','js.league.duration.monthly':'Mensual',
       'js.league.duration.quarterly':'Trimestral','js.league.duration.yearly':'Anual',
       'chart.var':'Var',
       'profile.points': "Punts",
       'profile.leagues_won': "Lligues guanyades",
-      'trade.liq_approx': "Liquidació aprox.",
-      'trade.market_info': "Informació de mercat",
+      'trade.liq_approx': "LiquidaciÃ³ aprox.",
+      'trade.market_info': "InformaciÃ³ de mercat",
       'trade.pnl_accumulated': "PnL acumulat",
       'league.name_label': "Nom de la lliga",
       'league.duration_label': "Durada",
       'league.balance_label': "Saldo inicial virtual",
       'league.visibility': "Visibilitat",
-      'league.max_players': "Màxim de jugadors",
-      'league.invite_code_ph': "Codi d'invitació",
+      'league.max_players': "MÃ xim de jugadors",
+      'league.invite_code_ph': "Codi d'invitaciÃ³",
       'league.player': "Jugador",
       'league.balance_col': "Saldo",
       'league.table.player': "Jugador",
@@ -1165,140 +1165,140 @@
       'league.table.type': "Tipus",
       'league.table.duration': "Durada",
       'portfolio.no_assets': "No hi ha actius en posicions obertes",
-      'js.history_footer': "trades · PnL acumulat",
+      'js.history_footer': "trades Â· PnL acumulat",
       'dur.weekly': "Setmanal",
       'dur.monthly': "Mensual",
       'dur.quarterly': "Trimestral",
       'dur.yearly': "Anual",
-      'vis.public': "Pública",
+      'vis.public': "PÃºblica",
       'vis.private': "Privada",
     },
     es: {
-      'header.balance':'Saldo','home.btn.trade':'▶ OPERAR','home.btn.league':'🏆 LIGA',
-      'home.btn.portfolio':'💼 CARTERA','home.btn.achievements':'🎖 LOGROS',
+      'header.balance':'Saldo','home.btn.trade':'â–¶ OPERAR','home.btn.league':'ðŸ† LIGA',
+      'home.btn.portfolio':'ðŸ’¼ CARTERA','home.btn.achievements':'ðŸŽ– LOGROS',
       'nav.home':'Inicio','nav.assets':'Activos','nav.league':'Liga',
       'nav.portfolio':'Cartera','nav.achievements':'Logros','nav.profile':'Perfil',
-      'trade.title':'Activos','trade.sub':'Precios en tiempo real · Toca para operar','filter.all':'Todos',
+      'trade.title':'Activos','trade.sub':'Precios en tiempo real Â· Toca para operar','filter.all':'Todos',
       'panel.open_pos':'Posiciones abiertas','tab.positions':'Posiciones',
-      'tab.orders':'Órdenes límite','tab.history':'Historial',
-      'th.asset':'Activo','th.type':'Tipo','th.size':'Tamaño','th.entry':'Entrada',
+      'tab.orders':'Ã“rdenes lÃ­mite','tab.history':'Historial',
+      'th.asset':'Activo','th.type':'Tipo','th.size':'TamaÃ±o','th.entry':'Entrada',
       'th.current':'Actual','th.liq':'Liq.','th.time':'Tiempo','th.close':'Cerrar',
-      'th.direction':'Dirección','th.limit_price':'Precio límite','th.margin':'Margen',
-      'th.date':'Fecha','th.cancel':'Cancelar','th.exit':'Salida','th.duration':'Duración',
+      'th.direction':'DirecciÃ³n','th.limit_price':'Precio lÃ­mite','th.margin':'Margen',
+      'th.date':'Fecha','th.cancel':'Cancelar','th.exit':'Salida','th.duration':'DuraciÃ³n',
       'th.reason':'Motivo','th.open_time':'Apertura','th.close_time':'Cierre',
       'th.dir':'Dir.','th.lev':'Apal.',
-      'trading.unrealized_pnl':'PnL no realizado','trading.btn':'⚔ Operar',
-      'sheet.order_type':'Tipo de orden','sheet.market':'⚡ Mercado','sheet.limit':'📋 Límite',
+      'trading.unrealized_pnl':'PnL no realizado','trading.btn':'âš” Operar',
+      'sheet.order_type':'Tipo de orden','sheet.market':'âš¡ Mercado','sheet.limit':'ðŸ“‹ LÃ­mite',
       'sheet.leverage':'Apalancamiento','sheet.amount':'Cantidad a invertir (USDT)',
       'sheet.amount_placeholder':'Ej: 1000','sheet.margin':'Margen requerido',
-      'sheet.pos_size':'Tamaño posición','sheet.available':'Disponible',
-      'sheet.limit_price':'Precio límite de entrada',
+      'sheet.pos_size':'TamaÃ±o posiciÃ³n','sheet.available':'Disponible',
+      'sheet.limit_price':'Precio lÃ­mite de entrada',
       'tpsl.title':'Editar TP / SL','tpsl.current_price':'Precio actual',
       'tpsl.entry_price':'Precio de entrada','tpsl.save':'Guardar cambios',
       'league.title':'Liga Fantasy','league.sub':'Compite en tiempo real',
       'league.create':'+ Crear','league.join':'Unirse',
       'league.search_placeholder':'Buscar por nombre de liga...',
-      'league.tab.all':'Todas','league.tab.mine':'Las mías','league.tab.public':'Públicas',
-      'portfolio.title':'Cartera','portfolio.sub':'Rendimiento y estadísticas',
+      'league.tab.all':'Todas','league.tab.mine':'Las mÃ­as','league.tab.public':'PÃºblicas',
+      'portfolio.title':'Cartera','portfolio.sub':'Rendimiento y estadÃ­sticas',
       'ach.title':'Logros','ach.sub':'Insignias, hitos y puntos de progreso',
       'ach.completed_label':'Completados',
-      'profile.title':'Perfil','profile.sub':'Cuenta y configuración',
+      'profile.title':'Perfil','profile.sub':'Cuenta y configuraciÃ³n',
       'profile.language':'Idioma','profile.theme':'Tema','profile.currency':'Moneda',
-      'profile.tutorial':'Tutorial','profile.tutorial_btn':'Revisar 📖',
-      'profile.logout':'Cerrar Sesión',
-      'auth.title':'Iniciar sesión','auth.sub':'Guarda tu progreso y compite en las ligas',
-      'auth.email_placeholder':'correo@ejemplo.com','auth.pass_placeholder':'Contraseña',
-      'auth.login_btn':'Iniciar Sesión','auth.signup_btn':'Crear Cuenta',
+      'profile.tutorial':'Tutorial','profile.tutorial_btn':'Revisar ðŸ“–',
+      'profile.logout':'Cerrar SesiÃ³n',
+      'auth.title':'Iniciar sesiÃ³n','auth.sub':'Guarda tu progreso y compite en las ligas',
+      'auth.email_placeholder':'correo@ejemplo.com','auth.pass_placeholder':'ContraseÃ±a',
+      'auth.login_btn':'Iniciar SesiÃ³n','auth.signup_btn':'Crear Cuenta',
       'auth.google_btn':'Continuar con Google',
-      'modal.auth_title':'🔑 Acceso TradeLeague','modal.create_league':'⚔ Crear Nueva Liga',
+      'modal.auth_title':'ðŸ”‘ Acceso TradeLeague','modal.create_league':'âš” Crear Nueva Liga',
       'modal.league_name_placeholder':'Ej. Champions Crypto',
-      'modal.public':'🌍 Pública','modal.private':'🔒 Privada',
-      'modal.create_league_btn':'Crear Liga','modal.join_league':'🏅 Unirse a una Liga',
-      'lang.modal_title':'🌍 Idioma / Language','alert.continue':'Continuar',
-      'alert.liquidated':'POSICIÓN LIQUIDADA','alert.tp':'¡TAKE PROFIT!','alert.sl':'STOP LOSS',
-      'tut.prev':'Anterior','tut.next':'Siguiente →','tut.last':'¡Empecemos! 🚀',
+      'modal.public':'ðŸŒ PÃºblica','modal.private':'ðŸ”’ Privada',
+      'modal.create_league_btn':'Crear Liga','modal.join_league':'ðŸ… Unirse a una Liga',
+      'lang.modal_title':'ðŸŒ Idioma / Language','alert.continue':'Continuar',
+      'alert.liquidated':'POSICIÃ“N LIQUIDADA','alert.tp':'Â¡TAKE PROFIT!','alert.sl':'STOP LOSS',
+      'tut.prev':'Anterior','tut.next':'Siguiente â†’','tut.last':'Â¡Empecemos! ðŸš€',
       'tut.skip':'Saltar tutorial',
       'js.no_positions':'No hay posiciones abiertas',
-      'js.no_orders':'No hay órdenes límite pendientes',
-      'js.no_history':'Todavía no hay trades cerrados',
-      'js.no_leagues':'No se ha encontrado ninguna liga.<br>Crea una o únete con un código.',
-      'js.login_to_compete':'Inicia sesión para crear ligas y competir con otros jugadores.',
-      'js.close_first_trade':'Cierra el primer trade para ver estadísticas.',
-      'js.no_league_trades':'Sin trades en la liga','js.back_leagues':'← Volver a ligas',
-      'js.real_time_ranking':'Clasificación en tiempo real',
+      'js.no_orders':'No hay Ã³rdenes lÃ­mite pendientes',
+      'js.no_history':'TodavÃ­a no hay trades cerrados',
+      'js.no_leagues':'No se ha encontrado ninguna liga.<br>Crea una o Ãºnete con un cÃ³digo.',
+      'js.login_to_compete':'Inicia sesiÃ³n para crear ligas y competir con otros jugadores.',
+      'js.close_first_trade':'Cierra el primer trade para ver estadÃ­sticas.',
+      'js.no_league_trades':'Sin trades en la liga','js.back_leagues':'â† Volver a ligas',
+      'js.real_time_ranking':'ClasificaciÃ³n en tiempo real',
       'js.league_history':'Historial de la Liga','js.your_pnl':'Tu PnL:',
-      'js.code_label':'Código','js.remaining':'restantes','js.position_label':'Posición',
+      'js.code_label':'CÃ³digo','js.remaining':'restantes','js.position_label':'PosiciÃ³n',
       'js.participants':'Participantes','js.full':'Llena','js.join_public':'+ Unirse',
-      'js.require_login_trade':'Debes iniciar sesión para operar.',
-      'js.invalid_amount':'Cantidad inválida o saldo insuficiente.',
-      'js.no_price':'Todavía no hay precio para este activo.',
-      'js.limit_valid':'Introduce un precio límite válido.',
-      'js.long_limit_below':'Un LONG límite debe estar por debajo del precio actual.',
-      'js.short_limit_above':'Un SHORT límite debe estar por encima del precio actual.',
+      'js.require_login_trade':'Debes iniciar sesiÃ³n para operar.',
+      'js.invalid_amount':'Cantidad invÃ¡lida o saldo insuficiente.',
+      'js.no_price':'TodavÃ­a no hay precio para este activo.',
+      'js.limit_valid':'Introduce un precio lÃ­mite vÃ¡lido.',
+      'js.long_limit_below':'Un LONG lÃ­mite debe estar por debajo del precio actual.',
+      'js.short_limit_above':'Un SHORT lÃ­mite debe estar por encima del precio actual.',
       'js.tp_long_above':'El Take Profit de un LONG debe estar por encima de la entrada.',
       'js.sl_long_below':'El Stop Loss de un LONG debe estar por debajo de la entrada.',
       'js.tp_short_below':'El Take Profit de un SHORT debe estar por debajo de la entrada.',
       'js.sl_short_above':'El Stop Loss de un SHORT debe estar por encima de la entrada.',
-      'js.order_cancelled':'Orden límite cancelada.','js.tpsl_updated':'TP/SL actualizados correctamente.',
-      'js.welcome':'¡Bienvenido!','js.account_created':'¡Cuenta creada!',
-      'js.google_signed':'Sesión iniciada con Google.','js.session_closed':'Sesión cerrada.',
-      'js.enter_email':'Introduce el correo electrónico.','js.enter_pass':'Introduce la contraseña.',
-      'js.pass_min':'La contraseña debe tener mínimo 6 caracteres.',
+      'js.order_cancelled':'Orden lÃ­mite cancelada.','js.tpsl_updated':'TP/SL actualizados correctamente.',
+      'js.welcome':'Â¡Bienvenido!','js.account_created':'Â¡Cuenta creada!',
+      'js.google_signed':'SesiÃ³n iniciada con Google.','js.session_closed':'SesiÃ³n cerrada.',
+      'js.enter_email':'Introduce el correo electrÃ³nico.','js.enter_pass':'Introduce la contraseÃ±a.',
+      'js.pass_min':'La contraseÃ±a debe tener mÃ­nimo 6 caracteres.',
       'js.league_created':'creada.','js.league_joined':'Te has unido a',
-      'js.league_full':'Esta liga ya está llena',
-      'js.league_not_found':'No se ha encontrado ninguna liga con este código.',
+      'js.league_full':'Esta liga ya estÃ¡ llena',
+      'js.league_not_found':'No se ha encontrado ninguna liga con este cÃ³digo.',
       'js.league_name_required':'Indica un nombre para la liga.','js.code_copied':'copiado.',
-      'js.cloud_save_error':'No se ha podido guardar en la nube. Revisa la conexión.',
-      'js.achievement_unlocked':'🏆 Logro desbloqueado:','js.ach_limit_order':'🏆 Logro: Orden Límite',
-      'js.theme_light':'Claro ☀️','js.theme_dark':'Oscuro 🌙',
-      'js.reason.manual':'Manual','js.reason.tp':'Take Profit 🎯','js.reason.sl':'Stop Loss 🛡️','js.reason.liquidated':'Liquidado 💀',
+      'js.cloud_save_error':'No se ha podido guardar en la nube. Revisa la conexiÃ³n.',
+      'js.achievement_unlocked':'ðŸ† Logro desbloqueado:','js.ach_limit_order':'ðŸ† Logro: Orden LÃ­mite',
+      'js.theme_light':'Claro â˜€ï¸','js.theme_dark':'Oscuro ðŸŒ™',
+      'js.reason.manual':'Manual','js.reason.tp':'Take Profit ðŸŽ¯','js.reason.sl':'Stop Loss ðŸ›¡ï¸','js.reason.liquidated':'Liquidado ðŸ’€',
       'js.stat.win_rate':'Win Rate','js.stat.max_dd':'Max Drawdown','js.stat.sharpe':'Sharpe (simplif.)',
-      'js.stat.avg_dur':'Duración media','js.stat.avg_win':'Ganancia media','js.stat.avg_loss':'Pérdida media',
+      'js.stat.avg_dur':'DuraciÃ³n media','js.stat.avg_win':'Ganancia media','js.stat.avg_loss':'PÃ©rdida media',
       'js.stat.rr':'Risk/Reward','js.stat.best':'Mejor trade','js.stat.worst':'Peor trade','js.stat.total':'Trades totales',
-      'js.pf.total_val':'Valor total','js.pf.day_pnl':'PnL del día','js.pf.total_pnl':'PnL total','js.pf.trades':'Trades',
-      'js.pf.adv_stats':'📊 Estadísticas avanzadas','js.pf.balance_perf':'Rendimiento del saldo',
+      'js.pf.total_val':'Valor total','js.pf.day_pnl':'PnL del dÃ­a','js.pf.total_pnl':'PnL total','js.pf.trades':'Trades',
+      'js.pf.adv_stats':'ðŸ“Š EstadÃ­sticas avanzadas','js.pf.balance_perf':'Rendimiento del saldo',
       'js.pf.open_assets':'Activos en cartera','js.pf.history':'Historial de trades cerrados',
-      'js.ach.completed':'✓ COMPLETADO','js.ach.in_progress':'EN PROGRESO','js.ach.locked':'BLOQUEADO',
-      'js.duration_label':'Duración','js.vis_public_hint':'Cualquiera puede unirse desde el buscador',
-      'js.vis_private_hint':'Solo se puede entrar con el código de invitación',
-      'js.open_long':'⚔ Abrir Posición LONG','js.open_short':'⚔ Abrir Posición SHORT',
-      'js.create_limit':'Crear Orden Límite','js.perpetu':'Perpetuo',
+      'js.ach.completed':'âœ“ COMPLETADO','js.ach.in_progress':'EN PROGRESO','js.ach.locked':'BLOQUEADO',
+      'js.duration_label':'DuraciÃ³n','js.vis_public_hint':'Cualquiera puede unirse desde el buscador',
+      'js.vis_private_hint':'Solo se puede entrar con el cÃ³digo de invitaciÃ³n',
+      'js.open_long':'âš” Abrir PosiciÃ³n LONG','js.open_short':'âš” Abrir PosiciÃ³n SHORT',
+      'js.create_limit':'Crear Orden LÃ­mite','js.perpetu':'Perpetuo',
       'js.league.duration.weekly':'Semanal','js.league.duration.monthly':'Mensual',
       'js.league.duration.quarterly':'Trimestral','js.league.duration.yearly':'Anual',
       'chart.var':'Var',
       'profile.points': "Puntos",
       'profile.leagues_won': "Ligas ganadas",
-      'trade.liq_approx': "Liquidación aprox.",
-      'trade.market_info': "Información de mercado",
+      'trade.liq_approx': "LiquidaciÃ³n aprox.",
+      'trade.market_info': "InformaciÃ³n de mercado",
       'trade.pnl_accumulated': "PnL acumulado",
       'league.name_label': "Nombre de la liga",
-      'league.duration_label': "Duración",
+      'league.duration_label': "DuraciÃ³n",
       'league.balance_label': "Saldo inicial virtual",
       'league.visibility': "Visibilidad",
-      'league.max_players': "Máximo de jugadores",
-      'league.invite_code_ph': "Código de invitación",
+      'league.max_players': "MÃ¡ximo de jugadores",
+      'league.invite_code_ph': "CÃ³digo de invitaciÃ³n",
       'league.player': "Jugador",
       'league.balance_col': "Saldo",
       'league.table.player': "Jugador",
       'league.table.date': "Fecha",
       'league.table.asset': "Activo",
       'league.table.type': "Tipo",
-      'league.table.duration': "Duración",
+      'league.table.duration': "DuraciÃ³n",
       'portfolio.no_assets': "No hay activos en posiciones abiertas",
-      'js.history_footer': "trades · PnL acumulado",
+      'js.history_footer': "trades Â· PnL acumulado",
       'dur.weekly': "Semanal",
       'dur.monthly': "Mensual",
       'dur.quarterly': "Trimestral",
       'dur.yearly': "Anual",
-      'vis.public': "Pública",
+      'vis.public': "PÃºblica",
       'vis.private': "Privada",
     },
     en: {
-      'header.balance':'Balance','home.btn.trade':'▶ TRADE','home.btn.league':'🏆 LEAGUE',
-      'home.btn.portfolio':'💼 PORTFOLIO','home.btn.achievements':'🎖 ACHIEVEMENTS',
+      'header.balance':'Balance','home.btn.trade':'â–¶ TRADE','home.btn.league':'ðŸ† LEAGUE',
+      'home.btn.portfolio':'ðŸ’¼ PORTFOLIO','home.btn.achievements':'ðŸŽ– ACHIEVEMENTS',
       'nav.home':'Home','nav.assets':'Assets','nav.league':'League',
       'nav.portfolio':'Portfolio','nav.achievements':'Achievements','nav.profile':'Profile',
-      'trade.title':'Assets','trade.sub':'Real-time prices · Tap to trade','filter.all':'All',
+      'trade.title':'Assets','trade.sub':'Real-time prices Â· Tap to trade','filter.all':'All',
       'panel.open_pos':'Open positions','tab.positions':'Positions',
       'tab.orders':'Limit orders','tab.history':'History',
       'th.asset':'Asset','th.type':'Type','th.size':'Size','th.entry':'Entry',
@@ -1307,8 +1307,8 @@
       'th.date':'Date','th.cancel':'Cancel','th.exit':'Exit','th.duration':'Duration',
       'th.reason':'Reason','th.open_time':'Opened','th.close_time':'Closed',
       'th.dir':'Dir.','th.lev':'Lev.',
-      'trading.unrealized_pnl':'Unrealized PnL','trading.btn':'⚔ Trade',
-      'sheet.order_type':'Order type','sheet.market':'⚡ Market','sheet.limit':'📋 Limit',
+      'trading.unrealized_pnl':'Unrealized PnL','trading.btn':'âš” Trade',
+      'sheet.order_type':'Order type','sheet.market':'âš¡ Market','sheet.limit':'ðŸ“‹ Limit',
       'sheet.leverage':'Leverage','sheet.amount':'Amount to invest (USDT)',
       'sheet.amount_placeholder':'Ex: 1000','sheet.margin':'Required margin',
       'sheet.pos_size':'Position size','sheet.available':'Available',
@@ -1324,19 +1324,19 @@
       'ach.completed_label':'Completed',
       'profile.title':'Profile','profile.sub':'Account & settings',
       'profile.language':'Language','profile.theme':'Theme','profile.currency':'Currency',
-      'profile.tutorial':'Tutorial','profile.tutorial_btn':'Review 📖',
+      'profile.tutorial':'Tutorial','profile.tutorial_btn':'Review ðŸ“–',
       'profile.logout':'Log Out',
       'auth.title':'Sign in','auth.sub':'Save your progress and compete in leagues',
       'auth.email_placeholder':'email@example.com','auth.pass_placeholder':'Password',
       'auth.login_btn':'Sign In','auth.signup_btn':'Create Account',
       'auth.google_btn':'Continue with Google',
-      'modal.auth_title':'🔑 TradeLeague Access','modal.create_league':'⚔ Create New League',
+      'modal.auth_title':'ðŸ”‘ TradeLeague Access','modal.create_league':'âš” Create New League',
       'modal.league_name_placeholder':'Ex. Champions Crypto',
-      'modal.public':'🌍 Public','modal.private':'🔒 Private',
-      'modal.create_league_btn':'Create League','modal.join_league':'🏅 Join a League',
-      'lang.modal_title':'🌍 Idioma / Language','alert.continue':'Continue',
+      'modal.public':'ðŸŒ Public','modal.private':'ðŸ”’ Private',
+      'modal.create_league_btn':'Create League','modal.join_league':'ðŸ… Join a League',
+      'lang.modal_title':'ðŸŒ Idioma / Language','alert.continue':'Continue',
       'alert.liquidated':'POSITION LIQUIDATED','alert.tp':'TAKE PROFIT!','alert.sl':'STOP LOSS',
-      'tut.prev':'Previous','tut.next':'Next →','tut.last':"Let's go! 🚀",
+      'tut.prev':'Previous','tut.next':'Next â†’','tut.last':"Let's go! ðŸš€",
       'tut.skip':'Skip tutorial',
       'js.no_positions':'No open positions',
       'js.no_orders':'No pending limit orders',
@@ -1344,7 +1344,7 @@
       'js.no_leagues':'No leagues found.<br>Create one or join with a code.',
       'js.login_to_compete':'Sign in to create leagues and compete with other players.',
       'js.close_first_trade':'Close your first trade to see statistics.',
-      'js.no_league_trades':'No trades in this league','js.back_leagues':'← Back to leagues',
+      'js.no_league_trades':'No trades in this league','js.back_leagues':'â† Back to leagues',
       'js.real_time_ranking':'Real-time ranking',
       'js.league_history':'League History','js.your_pnl':'Your PnL:',
       'js.code_label':'Code','js.remaining':'remaining','js.position_label':'Position',
@@ -1369,19 +1369,19 @@
       'js.league_not_found':'No league found with this code.',
       'js.league_name_required':'Enter a name for the league.','js.code_copied':'copied.',
       'js.cloud_save_error':'Could not save to cloud. Check your connection.',
-      'js.achievement_unlocked':'🏆 Achievement unlocked:','js.ach_limit_order':'🏆 Achievement: Limit Order',
-      'js.theme_light':'Light ☀️','js.theme_dark':'Dark 🌙',
-      'js.reason.manual':'Manual','js.reason.tp':'Take Profit 🎯','js.reason.sl':'Stop Loss 🛡️','js.reason.liquidated':'Liquidated 💀',
+      'js.achievement_unlocked':'ðŸ† Achievement unlocked:','js.ach_limit_order':'ðŸ† Achievement: Limit Order',
+      'js.theme_light':'Light â˜€ï¸','js.theme_dark':'Dark ðŸŒ™',
+      'js.reason.manual':'Manual','js.reason.tp':'Take Profit ðŸŽ¯','js.reason.sl':'Stop Loss ðŸ›¡ï¸','js.reason.liquidated':'Liquidated ðŸ’€',
       'js.stat.win_rate':'Win Rate','js.stat.max_dd':'Max Drawdown','js.stat.sharpe':'Sharpe (simplified)',
       'js.stat.avg_dur':'Avg duration','js.stat.avg_win':'Avg win','js.stat.avg_loss':'Avg loss',
       'js.stat.rr':'Risk/Reward','js.stat.best':'Best trade','js.stat.worst':'Worst trade','js.stat.total':'Total trades',
       'js.pf.total_val':'Total value','js.pf.day_pnl':'Day PnL','js.pf.total_pnl':'Total PnL','js.pf.trades':'Trades',
-      'js.pf.adv_stats':'📊 Advanced statistics','js.pf.balance_perf':'Balance performance',
+      'js.pf.adv_stats':'ðŸ“Š Advanced statistics','js.pf.balance_perf':'Balance performance',
       'js.pf.open_assets':'Open positions','js.pf.history':'Closed trade history',
-      'js.ach.completed':'✓ COMPLETED','js.ach.in_progress':'IN PROGRESS','js.ach.locked':'LOCKED',
+      'js.ach.completed':'âœ“ COMPLETED','js.ach.in_progress':'IN PROGRESS','js.ach.locked':'LOCKED',
       'js.duration_label':'Duration','js.vis_public_hint':'Anyone can join from the search',
       'js.vis_private_hint':'Can only join with an invitation code',
-      'js.open_long':'⚔ Open LONG Position','js.open_short':'⚔ Open SHORT Position',
+      'js.open_long':'âš” Open LONG Position','js.open_short':'âš” Open SHORT Position',
       'js.create_limit':'Create Limit Order','js.perpetu':'Perpetual',
       'js.league.duration.weekly':'Weekly','js.league.duration.monthly':'Monthly',
       'js.league.duration.quarterly':'Quarterly','js.league.duration.yearly':'Yearly',
@@ -1405,7 +1405,7 @@
       'league.table.type': "Type",
       'league.table.duration': "Duration",
       'portfolio.no_assets': "No assets in open positions",
-      'js.history_footer': "trades · Accumulated PnL",
+      'js.history_footer': "trades Â· Accumulated PnL",
       'dur.weekly': "Weekly",
       'dur.monthly': "Monthly",
       'dur.quarterly': "Quarterly",
@@ -1451,7 +1451,7 @@
     localStorage.setItem('lot_lang', lang);
     applyTranslations();
     window.closeLangModal();
-    var flags = { ca: '🏴 Català', es: '🇪🇸 Español', en: '🇬🇧 English' };
+    var flags = { ca: 'ðŸ´ CatalÃ ', es: 'ðŸ‡ªðŸ‡¸ EspaÃ±ol', en: 'ðŸ‡¬ðŸ‡§ English' };
     var btn = document.getElementById('lang-display-btn');
     if (btn) btn.textContent = flags[lang] || flags.ca;
     document.documentElement.lang = lang;
@@ -1483,29 +1483,29 @@
   function loadLanguage() {
     _lang = localStorage.getItem('lot_lang') || 'ca';
     document.documentElement.lang = _lang;
-    var flags = { ca: '🏴 Català', es: '🇪🇸 Español', en: '🇬🇧 English' };
+    var flags = { ca: 'ðŸ´ CatalÃ ', es: 'ðŸ‡ªðŸ‡¸ EspaÃ±ol', en: 'ðŸ‡¬ðŸ‡§ English' };
     var btn = document.getElementById('lang-display-btn');
     if (btn) btn.textContent = flags[_lang] || flags.ca;
     applyTranslations();
   }
 
-  /* ── MILLORA 9: Més actius (15 parells) ── */
+  /* â”€â”€ MILLORA 9: MÃ©s actius (15 parells) â”€â”€ */
   const ALL_ASSETS = [
-    {name:'Bitcoin',   symbol:'BTCUSDT',  cat:'layer1', emoji:'₿', icon:'https://cdn.jsdelivr.net/gh/spothq/cryptocurrency-icons@master/svg/color/btc.svg',  decimals:2, cgId:'bitcoin'},
-    {name:'Ethereum',  symbol:'ETHUSDT',  cat:'layer1', emoji:'Ξ', icon:'https://cdn.jsdelivr.net/gh/spothq/cryptocurrency-icons@master/svg/color/eth.svg',  decimals:2, cgId:'ethereum'},
+    {name:'Bitcoin',   symbol:'BTCUSDT',  cat:'layer1', emoji:'â‚¿', icon:'https://cdn.jsdelivr.net/gh/spothq/cryptocurrency-icons@master/svg/color/btc.svg',  decimals:2, cgId:'bitcoin'},
+    {name:'Ethereum',  symbol:'ETHUSDT',  cat:'layer1', emoji:'Îž', icon:'https://cdn.jsdelivr.net/gh/spothq/cryptocurrency-icons@master/svg/color/eth.svg',  decimals:2, cgId:'ethereum'},
     {name:'BNB',       symbol:'BNBUSDT',  cat:'layer1', emoji:'B', icon:'https://cdn.jsdelivr.net/gh/spothq/cryptocurrency-icons@master/svg/color/bnb.svg',  decimals:2, cgId:'binancecoin'},
-    {name:'Solana',    symbol:'SOLUSDT',  cat:'layer1', emoji:'◎', icon:'https://cdn.jsdelivr.net/gh/spothq/cryptocurrency-icons@master/svg/color/sol.svg',  decimals:3, cgId:'solana'},
-    {name:'XRP',       symbol:'XRPUSDT',  cat:'layer1', emoji:'✕', icon:'https://cdn.jsdelivr.net/gh/spothq/cryptocurrency-icons@master/svg/color/xrp.svg',  decimals:4, cgId:'ripple'},
-    {name:'Cardano',   symbol:'ADAUSDT',  cat:'layer1', emoji:'₳', icon:'https://cdn.jsdelivr.net/gh/spothq/cryptocurrency-icons@master/svg/color/ada.svg',  decimals:4, cgId:'cardano'},
-    {name:'Avalanche', symbol:'AVAXUSDT', cat:'layer1', emoji:'🔺', icon:'https://cdn.jsdelivr.net/gh/spothq/cryptocurrency-icons@master/svg/color/avax.svg', decimals:3, cgId:'avalanche-2'},
-    {name:'Polkadot',  symbol:'DOTUSDT',  cat:'layer1', emoji:'●', icon:'https://cdn.jsdelivr.net/gh/spothq/cryptocurrency-icons@master/svg/color/dot.svg',  decimals:3, cgId:'polkadot'},
-    {name:'Chainlink', symbol:'LINKUSDT', cat:'defi',   emoji:'⬡', icon:'https://cdn.jsdelivr.net/gh/spothq/cryptocurrency-icons@master/svg/color/link.svg', decimals:3, cgId:'chainlink'},
-    {name:'Uniswap',   symbol:'UNIUSDT',  cat:'defi',   emoji:'🦄', icon:'https://cdn.jsdelivr.net/gh/spothq/cryptocurrency-icons@master/svg/color/uni.svg',  decimals:3, cgId:'uniswap'},
-    {name:'Cosmos',    symbol:'ATOMUSDT', cat:'layer1', emoji:'⚛', icon:'https://cdn.jsdelivr.net/gh/spothq/cryptocurrency-icons@master/svg/color/atom.svg', decimals:3, cgId:'cosmos'},
-    {name:'SUI',       symbol:'SUIUSDT',  cat:'layer1', emoji:'☯', icon:'https://assets.coingecko.com/coins/images/26375/small/sui_asset.jpeg',  decimals:4, cgId:'sui'},
-    {name:'Litecoin',  symbol:'LTCUSDT',  cat:'layer1', emoji:'Ł', icon:'https://cdn.jsdelivr.net/gh/spothq/cryptocurrency-icons@master/svg/color/ltc.svg',  decimals:2, cgId:'litecoin'},
-    {name:'Dogecoin',  symbol:'DOGEUSDT', cat:'meme',   emoji:'Ð', icon:'https://cdn.jsdelivr.net/gh/spothq/cryptocurrency-icons@master/svg/color/doge.svg', decimals:5, cgId:'dogecoin'},
-    {name:'PEPE',      symbol:'PEPEUSDT', cat:'meme',   emoji:'🐸', icon:'https://assets.coingecko.com/coins/images/29850/small/pepe-token.jpeg', decimals:8, cgId:'pepe'},
+    {name:'Solana',    symbol:'SOLUSDT',  cat:'layer1', emoji:'â—Ž', icon:'https://cdn.jsdelivr.net/gh/spothq/cryptocurrency-icons@master/svg/color/sol.svg',  decimals:3, cgId:'solana'},
+    {name:'XRP',       symbol:'XRPUSDT',  cat:'layer1', emoji:'âœ•', icon:'https://cdn.jsdelivr.net/gh/spothq/cryptocurrency-icons@master/svg/color/xrp.svg',  decimals:4, cgId:'ripple'},
+    {name:'Cardano',   symbol:'ADAUSDT',  cat:'layer1', emoji:'â‚³', icon:'https://cdn.jsdelivr.net/gh/spothq/cryptocurrency-icons@master/svg/color/ada.svg',  decimals:4, cgId:'cardano'},
+    {name:'Avalanche', symbol:'AVAXUSDT', cat:'layer1', emoji:'ðŸ”º', icon:'https://cdn.jsdelivr.net/gh/spothq/cryptocurrency-icons@master/svg/color/avax.svg', decimals:3, cgId:'avalanche-2'},
+    {name:'Polkadot',  symbol:'DOTUSDT',  cat:'layer1', emoji:'â—', icon:'https://cdn.jsdelivr.net/gh/spothq/cryptocurrency-icons@master/svg/color/dot.svg',  decimals:3, cgId:'polkadot'},
+    {name:'Chainlink', symbol:'LINKUSDT', cat:'defi',   emoji:'â¬¡', icon:'https://cdn.jsdelivr.net/gh/spothq/cryptocurrency-icons@master/svg/color/link.svg', decimals:3, cgId:'chainlink'},
+    {name:'Uniswap',   symbol:'UNIUSDT',  cat:'defi',   emoji:'ðŸ¦„', icon:'https://cdn.jsdelivr.net/gh/spothq/cryptocurrency-icons@master/svg/color/uni.svg',  decimals:3, cgId:'uniswap'},
+    {name:'Cosmos',    symbol:'ATOMUSDT', cat:'layer1', emoji:'âš›', icon:'https://cdn.jsdelivr.net/gh/spothq/cryptocurrency-icons@master/svg/color/atom.svg', decimals:3, cgId:'cosmos'},
+    {name:'SUI',       symbol:'SUIUSDT',  cat:'layer1', emoji:'â˜¯', icon:'https://assets.coingecko.com/coins/images/26375/small/sui_asset.jpeg',  decimals:4, cgId:'sui'},
+    {name:'Litecoin',  symbol:'LTCUSDT',  cat:'layer1', emoji:'Å', icon:'https://cdn.jsdelivr.net/gh/spothq/cryptocurrency-icons@master/svg/color/ltc.svg',  decimals:2, cgId:'litecoin'},
+    {name:'Dogecoin',  symbol:'DOGEUSDT', cat:'meme',   emoji:'Ã', icon:'https://cdn.jsdelivr.net/gh/spothq/cryptocurrency-icons@master/svg/color/doge.svg', decimals:5, cgId:'dogecoin'},
+    {name:'PEPE',      symbol:'PEPEUSDT', cat:'meme',   emoji:'ðŸ¸', icon:'https://assets.coingecko.com/coins/images/29850/small/pepe-token.jpeg', decimals:8, cgId:'pepe'},
   ];
 
   let ASSETS = [...ALL_ASSETS];
@@ -1584,76 +1584,76 @@
 
   var ACHIEVEMENTS_DATA = {
     ca: [
-      {id:'gran_coup',      category:'Millors Trades',  icon:'🏆',desc:'Millor trade del dia amb PnL positiu.',              points:100,  target:1,    name:'El Gran Coup'},
-      {id:'trader_mes',     category:'Consistència',    icon:'📅',desc:'Tanca almenys un trade positiu aquest mes.',          points:150,  target:1,    name:'Trader del Mes'},
-      {id:'llegenda_anual', category:'Consistència',    icon:'🌟',desc:'Tanca almenys un trade positiu aquest any.',          points:500,  target:1,    name:'Llegenda Anual'},
-      {id:'centurio',       category:'Rendiment',       icon:'💯',desc:'Assoleix un ROE del 100% en un sol trade.',           points:200,  target:100,  name:'Centurió'},
-      {id:'multiplicador',  category:'Rendiment',       icon:'🚀',desc:'Assoleix un ROE del 500% en un sol trade.',           points:500,  target:500,  name:'El Multiplicador'},
-      {id:'primers_passos', category:'Activitat',       icon:'👶',desc:'Tanca el teu primer trade.',                          points:50,   target:1,    name:'Primers Passos'},
-      {id:'actiu',          category:'Activitat',       icon:'⚡',desc:'Tanca 10 trades en total.',                           points:100,  target:10,   name:'Trader Actiu'},
-      {id:'veterà',         category:'Activitat',       icon:'🎖',desc:'Tanca 50 trades en total.',                           points:300,  target:50,   name:'Veterà'},
-      {id:'maquina_guerra', category:'Activitat',       icon:'⚔',desc:'Tanca 200 trades en total.',                          points:1000, target:200,  name:'Màquina de Guerra'},
-      {id:'diversificat',   category:'Estratègia',      icon:'🌐',desc:'Opera amb 5 actius diferents.',                       points:150,  target:5,    name:'Diversificat'},
-      {id:'ordre_limit',    category:'Estratègia',      icon:'📋',desc:'Executa la teva primera ordre límit.',                points:100,  target:1,    name:'Ordre Límit'},
-      {id:'en_positiu',     category:'Rendiment',       icon:'💚',desc:'Assoleix un PnL total positiu.',                      points:200,  target:1,    name:'En Positiu'},
-      {id:'quatre_digits',  category:'Rendiment',       icon:'💰',desc:'Acumula 1.000 USDT en PnL realitzat.',               points:300,  target:1000, name:'Quatre Dígits'},
-      {id:'cinc_digits',    category:'Rendiment',       icon:'🏦',desc:'Acumula 10.000 USDT en PnL realitzat.',              points:1000, target:10000,name:'Cinc Dígits'},
-      {id:'franctirador',   category:'Consistència',    icon:'🎯',desc:'Encadena 5 trades consecutius en positiu.',           points:250,  target:5,    name:'Franctirador'},
-      {id:'imparable',      category:'Consistència',    icon:'🔥',desc:'Encadena 10 trades consecutius en positiu.',          points:500,  target:10,   name:'Imparable'},
-      {id:'perfeccionista', category:'Rendiment',       icon:'💎',desc:"Mantén Win Rate 80%+ (mínim 20 trades).",             points:750,  target:80,   name:'Perfeccionista'},
-      {id:'night_trader',   category:'Curiositats',     icon:'🦉',desc:'Obra una posició entre les 0h i les 6h.',             points:75,   target:1,    name:'Night Trader'},
-      {id:'matiner',        category:'Curiositats',     icon:'🌅',desc:'Obra una posició entre les 6h i les 8h.',             points:75,   target:1,    name:'El Matiner'},
-      {id:'hodler',         category:'Estratègia',      icon:'💎',desc:"Mantén una posició oberta durant més de 24 hores.",   points:150,  target:24,   name:'HODLer'},
-      {id:'adrenalina',     category:'Risc',            icon:'⚡',desc:'Obra una posició amb x50 de palanquejament.',         points:200,  target:50,   name:'Adrenalina'},
-      {id:'sobrevivent',    category:'Risc',            icon:'💀',desc:"Recupera't d'una liquidació.",                        points:100,  target:1,    name:'El Sobrevivent'},
+      {id:'gran_coup',      category:'Millors Trades',  icon:'ðŸ†',desc:'Millor trade del dia amb PnL positiu.',              points:100,  target:1,    name:'El Gran Coup'},
+      {id:'trader_mes',     category:'ConsistÃ¨ncia',    icon:'ðŸ“…',desc:'Tanca almenys un trade positiu aquest mes.',          points:150,  target:1,    name:'Trader del Mes'},
+      {id:'llegenda_anual', category:'ConsistÃ¨ncia',    icon:'ðŸŒŸ',desc:'Tanca almenys un trade positiu aquest any.',          points:500,  target:1,    name:'Llegenda Anual'},
+      {id:'centurio',       category:'Rendiment',       icon:'ðŸ’¯',desc:'Assoleix un ROE del 100% en un sol trade.',           points:200,  target:100,  name:'CenturiÃ³'},
+      {id:'multiplicador',  category:'Rendiment',       icon:'ðŸš€',desc:'Assoleix un ROE del 500% en un sol trade.',           points:500,  target:500,  name:'El Multiplicador'},
+      {id:'primers_passos', category:'Activitat',       icon:'ðŸ‘¶',desc:'Tanca el teu primer trade.',                          points:50,   target:1,    name:'Primers Passos'},
+      {id:'actiu',          category:'Activitat',       icon:'âš¡',desc:'Tanca 10 trades en total.',                           points:100,  target:10,   name:'Trader Actiu'},
+      {id:'veterÃ ',         category:'Activitat',       icon:'ðŸŽ–',desc:'Tanca 50 trades en total.',                           points:300,  target:50,   name:'VeterÃ '},
+      {id:'maquina_guerra', category:'Activitat',       icon:'âš”',desc:'Tanca 200 trades en total.',                          points:1000, target:200,  name:'MÃ quina de Guerra'},
+      {id:'diversificat',   category:'EstratÃ¨gia',      icon:'ðŸŒ',desc:'Opera amb 5 actius diferents.',                       points:150,  target:5,    name:'Diversificat'},
+      {id:'ordre_limit',    category:'EstratÃ¨gia',      icon:'ðŸ“‹',desc:'Executa la teva primera ordre lÃ­mit.',                points:100,  target:1,    name:'Ordre LÃ­mit'},
+      {id:'en_positiu',     category:'Rendiment',       icon:'ðŸ’š',desc:'Assoleix un PnL total positiu.',                      points:200,  target:1,    name:'En Positiu'},
+      {id:'quatre_digits',  category:'Rendiment',       icon:'ðŸ’°',desc:'Acumula 1.000 USDT en PnL realitzat.',               points:300,  target:1000, name:'Quatre DÃ­gits'},
+      {id:'cinc_digits',    category:'Rendiment',       icon:'ðŸ¦',desc:'Acumula 10.000 USDT en PnL realitzat.',              points:1000, target:10000,name:'Cinc DÃ­gits'},
+      {id:'franctirador',   category:'ConsistÃ¨ncia',    icon:'ðŸŽ¯',desc:'Encadena 5 trades consecutius en positiu.',           points:250,  target:5,    name:'Franctirador'},
+      {id:'imparable',      category:'ConsistÃ¨ncia',    icon:'ðŸ”¥',desc:'Encadena 10 trades consecutius en positiu.',          points:500,  target:10,   name:'Imparable'},
+      {id:'perfeccionista', category:'Rendiment',       icon:'ðŸ’Ž',desc:"MantÃ©n Win Rate 80%+ (mÃ­nim 20 trades).",             points:750,  target:80,   name:'Perfeccionista'},
+      {id:'night_trader',   category:'Curiositats',     icon:'ðŸ¦‰',desc:'Obra una posiciÃ³ entre les 0h i les 6h.',             points:75,   target:1,    name:'Night Trader'},
+      {id:'matiner',        category:'Curiositats',     icon:'ðŸŒ…',desc:'Obra una posiciÃ³ entre les 6h i les 8h.',             points:75,   target:1,    name:'El Matiner'},
+      {id:'hodler',         category:'EstratÃ¨gia',      icon:'ðŸ’Ž',desc:"MantÃ©n una posiciÃ³ oberta durant mÃ©s de 24 hores.",   points:150,  target:24,   name:'HODLer'},
+      {id:'adrenalina',     category:'Risc',            icon:'âš¡',desc:'Obra una posiciÃ³ amb x50 de palanquejament.',         points:200,  target:50,   name:'Adrenalina'},
+      {id:'sobrevivent',    category:'Risc',            icon:'ðŸ’€',desc:"Recupera't d'una liquidaciÃ³.",                        points:100,  target:1,    name:'El Sobrevivent'},
     ],
     es: [
-      {id:'gran_coup',      category:'Mejores Trades',  icon:'🏆',desc:'Mejor trade del día con PnL positivo.',               points:100,  target:1,    name:'El Gran Golpe'},
-      {id:'trader_mes',     category:'Consistencia',    icon:'📅',desc:'Cierra al menos un trade positivo este mes.',          points:150,  target:1,    name:'Trader del Mes'},
-      {id:'llegenda_anual', category:'Consistencia',    icon:'🌟',desc:'Cierra al menos un trade positivo este año.',          points:500,  target:1,    name:'Leyenda Anual'},
-      {id:'centurio',       category:'Rendimiento',     icon:'💯',desc:'Alcanza un ROE del 100% en un solo trade.',            points:200,  target:100,  name:'Centurión'},
-      {id:'multiplicador',  category:'Rendimiento',     icon:'🚀',desc:'Alcanza un ROE del 500% en un solo trade.',            points:500,  target:500,  name:'El Multiplicador'},
-      {id:'primers_passos', category:'Actividad',       icon:'👶',desc:'Cierra tu primer trade.',                              points:50,   target:1,    name:'Primeros Pasos'},
-      {id:'actiu',          category:'Actividad',       icon:'⚡',desc:'Cierra 10 trades en total.',                           points:100,  target:10,   name:'Trader Activo'},
-      {id:'veterà',         category:'Actividad',       icon:'🎖',desc:'Cierra 50 trades en total.',                           points:300,  target:50,   name:'Veterano'},
-      {id:'maquina_guerra', category:'Actividad',       icon:'⚔',desc:'Cierra 200 trades en total.',                          points:1000, target:200,  name:'Máquina de Guerra'},
-      {id:'diversificat',   category:'Estrategia',      icon:'🌐',desc:'Opera con 5 activos diferentes.',                      points:150,  target:5,    name:'Diversificado'},
-      {id:'ordre_limit',    category:'Estrategia',      icon:'📋',desc:'Ejecuta tu primera orden límite.',                     points:100,  target:1,    name:'Orden Límite'},
-      {id:'en_positiu',     category:'Rendimiento',     icon:'💚',desc:'Alcanza un PnL total positivo.',                       points:200,  target:1,    name:'En Positivo'},
-      {id:'quatre_digits',  category:'Rendimiento',     icon:'💰',desc:'Acumula 1.000 USDT en PnL realizado.',                points:300,  target:1000, name:'Cuatro Dígitos'},
-      {id:'cinc_digits',    category:'Rendimiento',     icon:'🏦',desc:'Acumula 10.000 USDT en PnL realizado.',               points:1000, target:10000,name:'Cinco Dígitos'},
-      {id:'franctirador',   category:'Consistencia',    icon:'🎯',desc:'Encadena 5 trades consecutivos en positivo.',          points:250,  target:5,    name:'Francotirador'},
-      {id:'imparable',      category:'Consistencia',    icon:'🔥',desc:'Encadena 10 trades consecutivos en positivo.',         points:500,  target:10,   name:'Imparable'},
-      {id:'perfeccionista', category:'Rendimiento',     icon:'💎',desc:'Mantén Win Rate 80%+ (mínimo 20 trades).',             points:750,  target:80,   name:'Perfeccionista'},
-      {id:'night_trader',   category:'Curiosidades',    icon:'🦉',desc:'Abre una posición entre las 0h y las 6h.',             points:75,   target:1,    name:'Night Trader'},
-      {id:'matiner',        category:'Curiosidades',    icon:'🌅',desc:'Abre una posición entre las 6h y las 8h.',             points:75,   target:1,    name:'El Madrugador'},
-      {id:'hodler',         category:'Estrategia',      icon:'💎',desc:'Mantén una posición abierta más de 24 horas.',         points:150,  target:24,   name:'HODLer'},
-      {id:'adrenalina',     category:'Riesgo',          icon:'⚡',desc:'Abre una posición con x50 de apalancamiento.',          points:200,  target:50,   name:'Adrenalina'},
-      {id:'sobrevivent',    category:'Riesgo',          icon:'💀',desc:'Recupérate de una liquidación.',                       points:100,  target:1,    name:'El Superviviente'},
+      {id:'gran_coup',      category:'Mejores Trades',  icon:'ðŸ†',desc:'Mejor trade del dÃ­a con PnL positivo.',               points:100,  target:1,    name:'El Gran Golpe'},
+      {id:'trader_mes',     category:'Consistencia',    icon:'ðŸ“…',desc:'Cierra al menos un trade positivo este mes.',          points:150,  target:1,    name:'Trader del Mes'},
+      {id:'llegenda_anual', category:'Consistencia',    icon:'ðŸŒŸ',desc:'Cierra al menos un trade positivo este aÃ±o.',          points:500,  target:1,    name:'Leyenda Anual'},
+      {id:'centurio',       category:'Rendimiento',     icon:'ðŸ’¯',desc:'Alcanza un ROE del 100% en un solo trade.',            points:200,  target:100,  name:'CenturiÃ³n'},
+      {id:'multiplicador',  category:'Rendimiento',     icon:'ðŸš€',desc:'Alcanza un ROE del 500% en un solo trade.',            points:500,  target:500,  name:'El Multiplicador'},
+      {id:'primers_passos', category:'Actividad',       icon:'ðŸ‘¶',desc:'Cierra tu primer trade.',                              points:50,   target:1,    name:'Primeros Pasos'},
+      {id:'actiu',          category:'Actividad',       icon:'âš¡',desc:'Cierra 10 trades en total.',                           points:100,  target:10,   name:'Trader Activo'},
+      {id:'veterÃ ',         category:'Actividad',       icon:'ðŸŽ–',desc:'Cierra 50 trades en total.',                           points:300,  target:50,   name:'Veterano'},
+      {id:'maquina_guerra', category:'Actividad',       icon:'âš”',desc:'Cierra 200 trades en total.',                          points:1000, target:200,  name:'MÃ¡quina de Guerra'},
+      {id:'diversificat',   category:'Estrategia',      icon:'ðŸŒ',desc:'Opera con 5 activos diferentes.',                      points:150,  target:5,    name:'Diversificado'},
+      {id:'ordre_limit',    category:'Estrategia',      icon:'ðŸ“‹',desc:'Ejecuta tu primera orden lÃ­mite.',                     points:100,  target:1,    name:'Orden LÃ­mite'},
+      {id:'en_positiu',     category:'Rendimiento',     icon:'ðŸ’š',desc:'Alcanza un PnL total positivo.',                       points:200,  target:1,    name:'En Positivo'},
+      {id:'quatre_digits',  category:'Rendimiento',     icon:'ðŸ’°',desc:'Acumula 1.000 USDT en PnL realizado.',                points:300,  target:1000, name:'Cuatro DÃ­gitos'},
+      {id:'cinc_digits',    category:'Rendimiento',     icon:'ðŸ¦',desc:'Acumula 10.000 USDT en PnL realizado.',               points:1000, target:10000,name:'Cinco DÃ­gitos'},
+      {id:'franctirador',   category:'Consistencia',    icon:'ðŸŽ¯',desc:'Encadena 5 trades consecutivos en positivo.',          points:250,  target:5,    name:'Francotirador'},
+      {id:'imparable',      category:'Consistencia',    icon:'ðŸ”¥',desc:'Encadena 10 trades consecutivos en positivo.',         points:500,  target:10,   name:'Imparable'},
+      {id:'perfeccionista', category:'Rendimiento',     icon:'ðŸ’Ž',desc:'MantÃ©n Win Rate 80%+ (mÃ­nimo 20 trades).',             points:750,  target:80,   name:'Perfeccionista'},
+      {id:'night_trader',   category:'Curiosidades',    icon:'ðŸ¦‰',desc:'Abre una posiciÃ³n entre las 0h y las 6h.',             points:75,   target:1,    name:'Night Trader'},
+      {id:'matiner',        category:'Curiosidades',    icon:'ðŸŒ…',desc:'Abre una posiciÃ³n entre las 6h y las 8h.',             points:75,   target:1,    name:'El Madrugador'},
+      {id:'hodler',         category:'Estrategia',      icon:'ðŸ’Ž',desc:'MantÃ©n una posiciÃ³n abierta mÃ¡s de 24 horas.',         points:150,  target:24,   name:'HODLer'},
+      {id:'adrenalina',     category:'Riesgo',          icon:'âš¡',desc:'Abre una posiciÃ³n con x50 de apalancamiento.',          points:200,  target:50,   name:'Adrenalina'},
+      {id:'sobrevivent',    category:'Riesgo',          icon:'ðŸ’€',desc:'RecupÃ©rate de una liquidaciÃ³n.',                       points:100,  target:1,    name:'El Superviviente'},
     ],
     en: [
-      {id:'gran_coup',      category:'Best Trades',     icon:'🏆',desc:'Best trade of the day with positive PnL.',            points:100,  target:1,    name:'The Big Score'},
-      {id:'trader_mes',     category:'Consistency',     icon:'📅',desc:'Close at least one positive trade this month.',        points:150,  target:1,    name:'Trader of the Month'},
-      {id:'llegenda_anual', category:'Consistency',     icon:'🌟',desc:'Close at least one positive trade this year.',         points:500,  target:1,    name:'Annual Legend'},
-      {id:'centurio',       category:'Performance',     icon:'💯',desc:'Achieve 100% ROE on a single trade.',                  points:200,  target:100,  name:'Centurion'},
-      {id:'multiplicador',  category:'Performance',     icon:'🚀',desc:'Achieve 500% ROE on a single trade.',                  points:500,  target:500,  name:'The Multiplier'},
-      {id:'primers_passos', category:'Activity',        icon:'👶',desc:'Close your first trade.',                              points:50,   target:1,    name:'First Steps'},
-      {id:'actiu',          category:'Activity',        icon:'⚡',desc:'Close 10 trades total.',                              points:100,  target:10,   name:'Active Trader'},
-      {id:'veterà',         category:'Activity',        icon:'🎖',desc:'Close 50 trades total.',                              points:300,  target:50,   name:'Veteran'},
-      {id:'maquina_guerra', category:'Activity',        icon:'⚔',desc:'Close 200 trades total.',                             points:1000, target:200,  name:'War Machine'},
-      {id:'diversificat',   category:'Strategy',        icon:'🌐',desc:'Trade with 5 different assets.',                       points:150,  target:5,    name:'Diversified'},
-      {id:'ordre_limit',    category:'Strategy',        icon:'📋',desc:'Execute your first limit order.',                      points:100,  target:1,    name:'Limit Order'},
-      {id:'en_positiu',     category:'Performance',     icon:'💚',desc:'Achieve a positive total PnL.',                        points:200,  target:1,    name:'In The Green'},
-      {id:'quatre_digits',  category:'Performance',     icon:'💰',desc:'Accumulate 1,000 USDT in realized PnL.',              points:300,  target:1000, name:'Four Digits'},
-      {id:'cinc_digits',    category:'Performance',     icon:'🏦',desc:'Accumulate 10,000 USDT in realized PnL.',             points:1000, target:10000,name:'Five Digits'},
-      {id:'franctirador',   category:'Consistency',     icon:'🎯',desc:'Chain 5 consecutive winning trades.',                  points:250,  target:5,    name:'Sharpshooter'},
-      {id:'imparable',      category:'Consistency',     icon:'🔥',desc:'Chain 10 consecutive winning trades.',                 points:500,  target:10,   name:'Unstoppable'},
-      {id:'perfeccionista', category:'Performance',     icon:'💎',desc:'Maintain 80%+ Win Rate (min 20 trades).',              points:750,  target:80,   name:'Perfectionist'},
-      {id:'night_trader',   category:'Fun',             icon:'🦉',desc:'Open a position between 0h and 6h.',                   points:75,   target:1,    name:'Night Trader'},
-      {id:'matiner',        category:'Fun',             icon:'🌅',desc:'Open a position between 6h and 8h.',                   points:75,   target:1,    name:'Early Bird'},
-      {id:'hodler',         category:'Strategy',        icon:'💎',desc:'Keep a position open for more than 24 hours.',          points:150,  target:24,   name:'HODLer'},
-      {id:'adrenalina',     category:'Risk',            icon:'⚡',desc:'Open a position with x50 leverage.',                   points:200,  target:50,   name:'Adrenaline'},
-      {id:'sobrevivent',    category:'Risk',            icon:'💀',desc:'Recover from a liquidation.',                          points:100,  target:1,    name:'The Survivor'},
+      {id:'gran_coup',      category:'Best Trades',     icon:'ðŸ†',desc:'Best trade of the day with positive PnL.',            points:100,  target:1,    name:'The Big Score'},
+      {id:'trader_mes',     category:'Consistency',     icon:'ðŸ“…',desc:'Close at least one positive trade this month.',        points:150,  target:1,    name:'Trader of the Month'},
+      {id:'llegenda_anual', category:'Consistency',     icon:'ðŸŒŸ',desc:'Close at least one positive trade this year.',         points:500,  target:1,    name:'Annual Legend'},
+      {id:'centurio',       category:'Performance',     icon:'ðŸ’¯',desc:'Achieve 100% ROE on a single trade.',                  points:200,  target:100,  name:'Centurion'},
+      {id:'multiplicador',  category:'Performance',     icon:'ðŸš€',desc:'Achieve 500% ROE on a single trade.',                  points:500,  target:500,  name:'The Multiplier'},
+      {id:'primers_passos', category:'Activity',        icon:'ðŸ‘¶',desc:'Close your first trade.',                              points:50,   target:1,    name:'First Steps'},
+      {id:'actiu',          category:'Activity',        icon:'âš¡',desc:'Close 10 trades total.',                              points:100,  target:10,   name:'Active Trader'},
+      {id:'veterÃ ',         category:'Activity',        icon:'ðŸŽ–',desc:'Close 50 trades total.',                              points:300,  target:50,   name:'Veteran'},
+      {id:'maquina_guerra', category:'Activity',        icon:'âš”',desc:'Close 200 trades total.',                             points:1000, target:200,  name:'War Machine'},
+      {id:'diversificat',   category:'Strategy',        icon:'ðŸŒ',desc:'Trade with 5 different assets.',                       points:150,  target:5,    name:'Diversified'},
+      {id:'ordre_limit',    category:'Strategy',        icon:'ðŸ“‹',desc:'Execute your first limit order.',                      points:100,  target:1,    name:'Limit Order'},
+      {id:'en_positiu',     category:'Performance',     icon:'ðŸ’š',desc:'Achieve a positive total PnL.',                        points:200,  target:1,    name:'In The Green'},
+      {id:'quatre_digits',  category:'Performance',     icon:'ðŸ’°',desc:'Accumulate 1,000 USDT in realized PnL.',              points:300,  target:1000, name:'Four Digits'},
+      {id:'cinc_digits',    category:'Performance',     icon:'ðŸ¦',desc:'Accumulate 10,000 USDT in realized PnL.',             points:1000, target:10000,name:'Five Digits'},
+      {id:'franctirador',   category:'Consistency',     icon:'ðŸŽ¯',desc:'Chain 5 consecutive winning trades.',                  points:250,  target:5,    name:'Sharpshooter'},
+      {id:'imparable',      category:'Consistency',     icon:'ðŸ”¥',desc:'Chain 10 consecutive winning trades.',                 points:500,  target:10,   name:'Unstoppable'},
+      {id:'perfeccionista', category:'Performance',     icon:'ðŸ’Ž',desc:'Maintain 80%+ Win Rate (min 20 trades).',              points:750,  target:80,   name:'Perfectionist'},
+      {id:'night_trader',   category:'Fun',             icon:'ðŸ¦‰',desc:'Open a position between 0h and 6h.',                   points:75,   target:1,    name:'Night Trader'},
+      {id:'matiner',        category:'Fun',             icon:'ðŸŒ…',desc:'Open a position between 6h and 8h.',                   points:75,   target:1,    name:'Early Bird'},
+      {id:'hodler',         category:'Strategy',        icon:'ðŸ’Ž',desc:'Keep a position open for more than 24 hours.',          points:150,  target:24,   name:'HODLer'},
+      {id:'adrenalina',     category:'Risk',            icon:'âš¡',desc:'Open a position with x50 leverage.',                   points:200,  target:50,   name:'Adrenaline'},
+      {id:'sobrevivent',    category:'Risk',            icon:'ðŸ’€',desc:'Recover from a liquidation.',                          points:100,  target:1,    name:'The Survivor'},
     ]
   };
   function getAchievements() { return ACHIEVEMENTS_DATA[_lang] || ACHIEVEMENTS_DATA.ca; }
@@ -1669,7 +1669,7 @@
 
 
 
-  /* ── Formatters ── */
+  /* â”€â”€ Formatters â”€â”€ */
   const fmtUSDT = v=>new Intl.NumberFormat('en-US',{minimumFractionDigits:2,maximumFractionDigits:2}).format(Number(v||0));
   const fmtPct  = v=>new Intl.NumberFormat('en-US',{minimumFractionDigits:2,maximumFractionDigits:2}).format(Number(v||0))+'%';
   const fmtDT   = ts=>new Intl.DateTimeFormat('ca-ES',{dateStyle:'short',timeStyle:'short'}).format(new Date(ts));
@@ -1694,7 +1694,7 @@
     setTimeout(()=>el.classList.remove('flash-up','flash-down'),900);
   }
 
-  /* ── Toast ── */
+  /* â”€â”€ Toast â”€â”€ */
   window.showToast=function(msg,type='info'){
     const colors={success:'rgba(16,185,129,.15)',error:'rgba(239,68,68,.15)',warning:'rgba(251,191,36,.15)',info:'rgba(56,189,248,.15)'};
     const borders={success:'rgba(16,185,129,.4)',error:'rgba(239,68,68,.4)',warning:'rgba(251,191,36,.4)',info:'rgba(56,189,248,.4)'};
@@ -1708,7 +1708,7 @@
     setTimeout(()=>{t.classList.remove('show');setTimeout(()=>t.remove(),320);},4000);
   };
 
-  /* ── MILLORA 6: Alert gran per TP/SL/Liquidació ── */
+  /* â”€â”€ MILLORA 6: Alert gran per TP/SL/LiquidaciÃ³ â”€â”€ */
   window.closeAlert=function(){document.getElementById('alert-overlay').classList.add('hidden');};
 
   function showAlert(reason, pos, pnl){
@@ -1717,23 +1717,23 @@
     const overlay = document.getElementById('alert-overlay');
     const card = document.getElementById('alert-card');
     card.className = 'alert-card ' + (isLiq?'liq':isTp?'tp':'sl');
-    document.getElementById('alert-icon').textContent = isLiq?'💀':isTp?'🎯':'🛡️';
+    document.getElementById('alert-icon').textContent = isLiq?'ðŸ’€':isTp?'ðŸŽ¯':'ðŸ›¡ï¸';
     document.getElementById('alert-title').textContent = isLiq?t('alert.liquidated'):isTp?t('alert.tp'):t('alert.sl');
     document.getElementById('alert-detail').textContent = (pnl>=0?'+':'')+fmtUSDT(pnl)+' USDT';
     document.getElementById('alert-detail').style.color = pnl>=0?'#34d399':'#fb7185';
-    document.getElementById('alert-sub').textContent = `${assetBase(pos.symbol)} ${pos.type} · x${pos.leverage} · ${fmtPrice(pos.entryPrice,pos.symbol)} → ${fmtPrice(State.prices[pos.symbol]||pos.entryPrice,pos.symbol)}`;
+    document.getElementById('alert-sub').textContent = `${assetBase(pos.symbol)} ${pos.type} Â· x${pos.leverage} Â· ${fmtPrice(pos.entryPrice,pos.symbol)} â†’ ${fmtPrice(State.prices[pos.symbol]||pos.entryPrice,pos.symbol)}`;
     overlay.classList.remove('hidden');
     // Vibrar si possible
     if(navigator.vibrate) navigator.vibrate(isLiq?[300,100,300,100,300]:[200,100,200]);
     setTimeout(()=>overlay.classList.add('hidden'),6000);
   }
 
-  /* ── MILLORA 8: Tema ── */
+  /* â”€â”€ MILLORA 8: Tema â”€â”€ */
   window.toggleTheme=function(){
     const isLight=document.documentElement.classList.toggle('light');
     document.documentElement.classList.toggle('dark',!isLight);
     localStorage.setItem('lot_theme',isLight?'light':'dark');
-    document.getElementById('theme-toggle-btn').textContent=isLight?'☀️':'🌙';
+    document.getElementById('theme-toggle-btn').textContent=isLight?'â˜€ï¸':'ðŸŒ™';
     const pbtn=document.getElementById('theme-profile-btn');
     if(pbtn) pbtn.textContent=isLight?t('js.theme_light'):t('js.theme_dark');
   };
@@ -1741,34 +1741,34 @@
     const thm=localStorage.getItem('lot_theme')||'dark';
     document.documentElement.className=thm;
     const btn=document.getElementById('theme-toggle-btn');
-    if(btn) btn.textContent=thm==='light'?'☀️':'🌙';
+    if(btn) btn.textContent=thm==='light'?'â˜€ï¸':'ðŸŒ™';
     const pbtn=document.getElementById('theme-profile-btn');
     if(pbtn) pbtn.textContent=thm==='light'?t('js.theme_light'):t('js.theme_dark');
   }
 
-  /* ── MILLORA 7: Tutorial ── */
+  /* â”€â”€ MILLORA 7: Tutorial â”€â”€ */
 
   var TUTORIAL_STEPS_DATA = {
     ca: [
-      {icon:'🚀',title:'Benvingut a TradeLeague!',desc:"Aprèn a fer trading amb preus reals de mercat sense arriscar diners reals. Tens 10.000 USDT virtuals per començar."},
-      {icon:'📈',title:'Tria un actiu',desc:"A \"Actius\" trobaràs 15 criptomonedes amb preus en temps real via Binance. Toca qualsevol carta per obrir el gràfic."},
-      {icon:'⚡',title:'Palanquejament',desc:"El leverage multiplica els teus guanys i pèrdues. x10 significa que amb 100 USDT controles 1.000 USDT. Atenció: a x10 una baixada del 10% liquida la posició!"},
-      {icon:'📋',title:"Ordres de mercat i límit",desc:"Una ordre de mercat s'executa immediatament al preu actual. Una ordre límit s'activa quan el preu arriba al teu preu objectiu."},
-      {icon:'🏆',title:'Lligues i assoliments',desc:"Competeix contra amics a les lligues fantasy amb saldo virtual independent. Desbloqueja assoliments mentre millores com a trader!"},
+      {icon:'ðŸš€',title:'Benvingut a TradeLeague!',desc:"AprÃ¨n a fer trading amb preus reals de mercat sense arriscar diners reals. Tens 10.000 USDT virtuals per comenÃ§ar."},
+      {icon:'ðŸ“ˆ',title:'Tria un actiu',desc:"A \"Actius\" trobarÃ s 15 criptomonedes amb preus en temps real via Binance. Toca qualsevol carta per obrir el grÃ fic."},
+      {icon:'âš¡',title:'Palanquejament',desc:"El leverage multiplica els teus guanys i pÃ¨rdues. x10 significa que amb 100 USDT controles 1.000 USDT. AtenciÃ³: a x10 una baixada del 10% liquida la posiciÃ³!"},
+      {icon:'ðŸ“‹',title:"Ordres de mercat i lÃ­mit",desc:"Una ordre de mercat s'executa immediatament al preu actual. Una ordre lÃ­mit s'activa quan el preu arriba al teu preu objectiu."},
+      {icon:'ðŸ†',title:'Lligues i assoliments',desc:"Competeix contra amics a les lligues fantasy amb saldo virtual independent. Desbloqueja assoliments mentre millores com a trader!"},
     ],
     es: [
-      {icon:'🚀',title:'¡Bienvenido a TradeLeague!',desc:"Aprende a hacer trading con precios reales de mercado sin arriesgar dinero real. Tienes 10.000 USDT virtuales para empezar."},
-      {icon:'📈',title:'Elige un activo',desc:"En \"Activos\" encontrarás 15 criptomonedas con precios en tiempo real. Toca cualquier carta para abrir el gráfico."},
-      {icon:'⚡',title:'Apalancamiento',desc:"El leverage multiplica tus ganancias y pérdidas. x10 significa que con 100 USDT controlas 1.000 USDT. ¡Atención: a x10 una bajada del 10% liquida la posición!"},
-      {icon:'📋',title:'Órdenes de mercado y límite',desc:"Una orden de mercado se ejecuta inmediatamente al precio actual. Una orden límite se activa cuando el precio llega a tu objetivo."},
-      {icon:'🏆',title:'Ligas y logros',desc:"¡Compite contra amigos en ligas fantasy con saldo virtual independiente. Desbloquea logros mientras mejoras como trader!"},
+      {icon:'ðŸš€',title:'Â¡Bienvenido a TradeLeague!',desc:"Aprende a hacer trading con precios reales de mercado sin arriesgar dinero real. Tienes 10.000 USDT virtuales para empezar."},
+      {icon:'ðŸ“ˆ',title:'Elige un activo',desc:"En \"Activos\" encontrarÃ¡s 15 criptomonedas con precios en tiempo real. Toca cualquier carta para abrir el grÃ¡fico."},
+      {icon:'âš¡',title:'Apalancamiento',desc:"El leverage multiplica tus ganancias y pÃ©rdidas. x10 significa que con 100 USDT controlas 1.000 USDT. Â¡AtenciÃ³n: a x10 una bajada del 10% liquida la posiciÃ³n!"},
+      {icon:'ðŸ“‹',title:'Ã“rdenes de mercado y lÃ­mite',desc:"Una orden de mercado se ejecuta inmediatamente al precio actual. Una orden lÃ­mite se activa cuando el precio llega a tu objetivo."},
+      {icon:'ðŸ†',title:'Ligas y logros',desc:"Â¡Compite contra amigos en ligas fantasy con saldo virtual independiente. Desbloquea logros mientras mejoras como trader!"},
     ],
     en: [
-      {icon:'🚀',title:'Welcome to TradeLeague!',desc:"Learn to trade with real market prices without risking real money. You have 10,000 virtual USDT to start."},
-      {icon:'📈',title:'Choose an asset',desc:"In \"Assets\" you will find 15 cryptocurrencies with real-time prices via Binance. Tap any card to open the chart."},
-      {icon:'⚡',title:'Leverage',desc:"Leverage multiplies your gains and losses. x10 means with 100 USDT you control 1,000 USDT. Warning: at x10 a 10% drop will liquidate your position!"},
-      {icon:'📋',title:'Market and limit orders',desc:"A market order executes immediately at the current price. A limit order activates when the price reaches your target."},
-      {icon:'🏆',title:'Leagues and achievements',desc:"Compete against friends in fantasy leagues with independent virtual balance. Unlock achievements as you improve as a trader!"},
+      {icon:'ðŸš€',title:'Welcome to TradeLeague!',desc:"Learn to trade with real market prices without risking real money. You have 10,000 virtual USDT to start."},
+      {icon:'ðŸ“ˆ',title:'Choose an asset',desc:"In \"Assets\" you will find 15 cryptocurrencies with real-time prices via Binance. Tap any card to open the chart."},
+      {icon:'âš¡',title:'Leverage',desc:"Leverage multiplies your gains and losses. x10 means with 100 USDT you control 1,000 USDT. Warning: at x10 a 10% drop will liquidate your position!"},
+      {icon:'ðŸ“‹',title:'Market and limit orders',desc:"A market order executes immediately at the current price. A limit order activates when the price reaches your target."},
+      {icon:'ðŸ†',title:'Leagues and achievements',desc:"Compete against friends in fantasy leagues with independent virtual balance. Unlock achievements as you improve as a trader!"},
     ]
   };
   function getTutorialSteps() { return TUTORIAL_STEPS_DATA[_lang] || TUTORIAL_STEPS_DATA.ca; }
@@ -1805,7 +1805,7 @@
     next.textContent=State.tutorialStep===4?t('tut.last'):t('tut.next');
   }
 
-  /* ── State persistence ── */
+  /* â”€â”€ State persistence â”€â”€ */
   function clearLocalTradingState(){
     ['lot_balance','lot_positions','lot_trade_history','lot_achievements','lot_leagues','lot_pending_orders','lot_balance_history'].forEach(k=>localStorage.removeItem(k));
   }
@@ -1837,14 +1837,14 @@
     }
   }
 
-  /* ── Balance ── */
+  /* â”€â”€ Balance â”€â”€ */
   function updateBalance(){
     document.getElementById('balance-display').textContent=fmtUSDT(State.balance);
     const sh=document.getElementById('sheet-balance');if(sh) sh.textContent=fmtUSDT(State.balance)+' USDT';
     const pill=document.getElementById('game-balance-pill');if(pill) pill.textContent=fmtUSDT(State.balance)+' USDT';
   }
 
-  /* ── Market info ── */
+  /* â”€â”€ Market info â”€â”€ */
   function updateMarketInfo(){
     const sym=State.currentAsset;
     const stats=State.marketStats[sym]||{};
@@ -1878,7 +1878,7 @@
     el.style.color=total>=0?'#34d399':'#fb7185';
   }
 
-  /* ── Section switching ── */
+  /* â”€â”€ Section switching â”€â”€ */
   window.switchSection=function(section){
     State.activeSection=section;
     const sectionIds={assets:'assets-section',trade:'trade-section',chart:'chart-section',league:'league-section',portfolio:'portfolio-section',achievements:'achievements-section',profile:'profile-section'};
@@ -1896,7 +1896,7 @@
     if(section==='profile') renderProfile();
   };
 
-  /* ── Asset selection ── */
+  /* â”€â”€ Asset selection â”€â”€ */
   function setActiveAsset(sym){
     if(!ASSET_MAP[sym]) return;
     State.currentAsset=sym;updateMarketInfo();updatePositionsTable();renderAssetsList();
@@ -1905,7 +1905,7 @@
     setActiveAsset(sym);syncTradingViewSymbol(sym);fetchAnyRealSnapshot().catch(()=>{});switchSection('chart');
   };
 
-  /* ── Render assets list ── */
+  /* â”€â”€ Render assets list â”€â”€ */
   function renderAssetsList(){
     const container=document.getElementById('assets-menu');if(!container) return;
     container.innerHTML=ASSETS.map(asset=>{
@@ -1930,13 +1930,13 @@
     }).join('');
   }
 
-  /* ── WS Status ── */
+  /* â”€â”€ WS Status â”€â”€ */
   function setWsStatus(connected,label=null){
     const el=document.getElementById('ws-status');const text=label||(connected?'LIVE':'OFF');
     el.textContent=text;el.className='ws-pill '+(connected?'ws-live':'ws-dead');
   }
 
-  /* ── TradingView ── */
+  /* â”€â”€ TradingView â”€â”€ */
   function initTradingView(sym=State.currentAsset,forceRebuild=false){
     if(!window.TradingView){setTimeout(()=>initTradingView(sym,forceRebuild),250);return;}
     const container=document.getElementById('tv_chart_container');
@@ -1958,7 +1958,7 @@
         const s=String(info.name||info.ticker||'').replace('BINANCE:','').replace('/','');
         if(ASSET_MAP[s]){State.currentAsset=s;updateMarketInfo();renderAssetsList();}
       });}catch(e){}
-      // Redibuixar línies de posicions obertes
+      // Redibuixar lÃ­nies de posicions obertes
       State.positions.forEach(p=>drawPositionLines(p));
     });
   }
@@ -1986,7 +1986,7 @@
 
     const bp={price:position.entryPrice,time:Math.floor(position.openTime/1000)};
     const color=position.type==='LONG'?'#10b981':'#ef4444';
-    const el=createShape(position,bp,{shape:'horizontal_line',overrides:{linecolor:color,linewidth:2,linestyle:0,text:`${position.type} x${position.leverage} · ${position.size.toFixed(4)} ${assetBase(position.symbol)}`,showText:true,textcolor:color,fontsize:11}});
+    const el=createShape(position,bp,{shape:'horizontal_line',overrides:{linecolor:color,linewidth:2,linestyle:0,text:`${position.type} x${position.leverage} Â· ${position.size.toFixed(4)} ${assetBase(position.symbol)}`,showText:true,textcolor:color,fontsize:11}});
     const tl=position.tp?createShape(position,{price:position.tp,time:bp.time},{shape:'horizontal_line',overrides:{linecolor:'#f59e0b',linewidth:1,linestyle:2,text:`TP: ${fmtPrice(position.tp,position.symbol)}`,showText:true,textcolor:'#f59e0b',fontsize:10}}):null;
     const sl=position.sl?createShape(position,{price:position.sl,time:bp.time},{shape:'horizontal_line',overrides:{linecolor:'#fb7185',linewidth:1,linestyle:2,text:`SL: ${fmtPrice(position.sl,position.symbol)}`,showText:true,textcolor:'#fb7185',fontsize:10}}):null;
     const liqPrice=position.type==='LONG'?position.entryPrice*(1-1/position.leverage):position.entryPrice*(1+1/position.leverage);
@@ -2006,7 +2006,7 @@
     else State.chartLines[`${position.id}-close`]={closeMarker:marker};
   }
 
-  /* ── Trade type ── */
+  /* â”€â”€ Trade type â”€â”€ */
   window.setTradeType=function(type){
     State.tradeType=type;
     const bl=document.getElementById('btn-long'),bs=document.getElementById('btn-short'),ex=document.getElementById('execute-order');
@@ -2024,7 +2024,7 @@
     calculateOrder();
   };
 
-  /* ── MILLORA 2: Tipus d'ordre ── */
+  /* â”€â”€ MILLORA 2: Tipus d'ordre â”€â”€ */
   window.setOrderType=function(type){
     State.orderType=type;
     const mBtn=document.getElementById('otype-market'),lBtn=document.getElementById('otype-limit');
@@ -2061,14 +2061,14 @@
 
   function requireAuth(action='operar'){
     if(State.user) return true;
-    showToast(`Has d'iniciar sessió per ${action}.`,'warning');
+    showToast(`Has d'iniciar sessiÃ³ per ${action}.`,'warning');
     const sheet=document.getElementById('trading-sheet'),bd=document.getElementById('ts-backdrop');
     sheet?.classList.remove('open');bd?.classList.remove('open');
     document.getElementById('auth-modal')?.classList.remove('hidden');
     return false;
   }
 
-  /* ── Execute order ── */
+  /* â”€â”€ Execute order â”€â”€ */
   window.executeOrder=async function(){
     if(!requireAuth('operar')) return;
     const amount=parseFloat(document.getElementById('order-amount').value)||0;
@@ -2087,7 +2087,7 @@
       return null;
     };
 
-    // MILLORA 2: Gestió ordre límit
+    // MILLORA 2: GestiÃ³ ordre lÃ­mit
     if(State.orderType==='limit'){
       const limitPrice=parseFloat(document.getElementById('limit-price').value)||null;
       if(!limitPrice||limitPrice<=0){showToast(t('js.limit_valid'),'error');return;}
@@ -2106,7 +2106,7 @@
       document.getElementById('sl-price').value='';
       document.getElementById('limit-price').value='';
       await saveRemoteState();
-      showToast(`Ordre límit ${pendingOrder.type} creada a ${fmtPrice(limitPrice,State.currentAsset)}.`,'info');
+      showToast(`Ordre lÃ­mit ${pendingOrder.type} creada a ${fmtPrice(limitPrice,State.currentAsset)}.`,'info');
       toggleOrderPanel(false);
       return;
     }
@@ -2134,7 +2134,7 @@
     const roe=pos.margin?(pnl/pos.margin)*100:0;
     const closeTime=Date.now();
     const trade={...pos,closeTime,exitPrice:cp,pnl,roe,duration:closeTime-pos.openTime,reason};
-    // MILLORA 1: Si liquidat, el saldo és 0 d'aquesta posició (marge perdut)
+    // MILLORA 1: Si liquidat, el saldo Ã©s 0 d'aquesta posiciÃ³ (marge perdut)
     State.balance+=reason==='liquidated'?0:pos.margin+pnl;
     State.positions.splice(idx,1);
     removePositionLines(positionId);
@@ -2145,7 +2145,7 @@
     if(State.balanceHistory.length>500) State.balanceHistory=State.balanceHistory.slice(-500);
     updateBalance();updatePositionsTable();updateHistoryTable();updatePortfolio();updateLeaguesAfterTrade(trade);checkAchievements();
     await saveRemoteState();
-    // MILLORA 6: Alert gran per TP/SL/Liquidació
+    // MILLORA 6: Alert gran per TP/SL/LiquidaciÃ³
     if(reason==='tp'||reason==='sl'||reason==='liquidated'){
       showAlert(reason,pos,pnl);
     } else {
@@ -2159,7 +2159,7 @@
     }
   };
 
-  /* ── MILLORA 2: Cancel·lar ordre límit ── */
+  /* â”€â”€ MILLORA 2: CancelÂ·lar ordre lÃ­mit â”€â”€ */
   window.cancelOrder=async function(orderId){
     if(!requireAuth('gestionar ordres')) return;
     const idx=State.pendingOrders.findIndex(o=>o.id===orderId);if(idx===-1) return;
@@ -2171,14 +2171,14 @@
     showToast(t('js.order_cancelled'),'info');
   };
 
-  /* ── Editar TP/SL posició oberta ── */
+  /* â”€â”€ Editar TP/SL posiciÃ³ oberta â”€â”€ */
   window.openEditTpSlModal=function(positionId){
     if(!requireAuth('editar TP/SL')) return;
     const pos=State.positions.find(p=>p.id===positionId);if(!pos) return;
     const price=State.prices[pos.symbol]||pos.entryPrice;
     const modal=document.getElementById('edit-tpsl-modal');
     document.getElementById('edit-tpsl-position-id').value=positionId;
-    document.getElementById('edit-tpsl-subtitle').textContent=`${assetBase(pos.symbol)} ${pos.type} x${pos.leverage} · Entrada: ${fmtPrice(pos.entryPrice,pos.symbol)}`;
+    document.getElementById('edit-tpsl-subtitle').textContent=`${assetBase(pos.symbol)} ${pos.type} x${pos.leverage} Â· Entrada: ${fmtPrice(pos.entryPrice,pos.symbol)}`;
     document.getElementById('edit-tpsl-current-price').textContent=fmtPrice(price,pos.symbol);
     document.getElementById('edit-tpsl-entry-price').textContent=fmtPrice(pos.entryPrice,pos.symbol);
     document.getElementById('edit-tp-price').value=pos.tp||'';
@@ -2187,7 +2187,7 @@
     const slHint=pos.type==='LONG'?'(ha d\'estar per sota de l\'entrada)':'(ha d\'estar per sobre de l\'entrada)';
     document.getElementById('edit-tp-hint').textContent=tpHint;
     document.getElementById('edit-sl-hint').textContent=slHint;
-    // Actualitzar preu en temps real mentre el modal és obert
+    // Actualitzar preu en temps real mentre el modal Ã©s obert
     modal._priceInterval=setInterval(()=>{
       const p=State.prices[pos.symbol];
       if(p) document.getElementById('edit-tpsl-current-price').textContent=fmtPrice(p,pos.symbol);
@@ -2216,7 +2216,7 @@
       if(sl&&sl<=entry){showToast(t('js.sl_short_above'),'warning');return;}
     }
     pos.tp=tp;pos.sl=sl;
-    // Redibuixar línies al gràfic
+    // Redibuixar lÃ­nies al grÃ fic
     removePositionLines(positionId);
     drawPositionLines(pos);
     updatePositionsTable();
@@ -2232,19 +2232,19 @@
     toExecute.forEach(async o=>{
       const idx=State.pendingOrders.findIndex(x=>x.id===o.id);if(idx===-1) return;
       State.pendingOrders.splice(idx,1);
-      // Crear posició
+      // Crear posiciÃ³
       const position={id:crypto.randomUUID(),symbol:o.symbol,type:o.type,size:(o.amount*o.leverage)/o.limitPrice,
         entryPrice:o.limitPrice,leverage:o.leverage,margin:o.margin,tp:o.tp,sl:o.sl,openTime:Date.now()};
       State.positions.push(position);
       updatePositionsTable();drawPositionLines(position);addTradeMarker(position,'OPEN');
       updateOrdersTable();
-      // Assoliment ordre límit
+      // Assoliment ordre lÃ­mit
       if(!State.achievements['ordre_limit']?.completed){
         State.achievements['ordre_limit']={progress:1,completed:true};
         showToast(t('js.ach_limit_order'),'success');
       }
       await saveRemoteState();
-      showToast(`Ordre límit executada: ${position.type} ${assetBase(position.symbol)} a ${fmtPrice(position.entryPrice,position.symbol)}.`,'success');
+      showToast(`Ordre lÃ­mit executada: ${position.type} ${assetBase(position.symbol)} a ${fmtPrice(position.entryPrice,position.symbol)}.`,'success');
       updateUnrealizedPnlBar();
     });
     if(toExecute.length>0) updateOrdersTable();
@@ -2255,7 +2255,7 @@
     return pos.type==='LONG'?(cp-pos.entryPrice)*pos.size:(pos.entryPrice-cp)*pos.size;
   }
 
-  /* ── MILLORA 1: Motor de liquidació ── */
+  /* â”€â”€ MILLORA 1: Motor de liquidaciÃ³ â”€â”€ */
   function checkLiquidation(){
     const liquidated=new Set();
     State.positions.slice().forEach(pos=>{
@@ -2269,7 +2269,7 @@
     return liquidated;
   }
 
-  /* ── TP/SL check ── */
+  /* â”€â”€ TP/SL check â”€â”€ */
   function checkTPSL(){
     const liquidated=checkLiquidation();
     State.positions.slice().forEach(pos=>{
@@ -2282,7 +2282,7 @@
     });
   }
 
-  /* ── Positions table ── */
+  /* â”€â”€ Positions table â”€â”€ */
   function updatePositionsTable(){
     const tbody=document.getElementById('positions-table');
     const cnt=State.positions.length;
@@ -2314,7 +2314,7 @@
     }).join('');
   }
 
-  /* ── MILLORA 2: Taula d'ordres límit ── */
+  /* â”€â”€ MILLORA 2: Taula d'ordres lÃ­mit â”€â”€ */
   function updateOrdersTable(){
     const tbody=document.getElementById('orders-table');
     const cnt=State.pendingOrders.length;
@@ -2328,11 +2328,11 @@
       <td style="padding:8px 4px;font-family:ui-monospace,monospace;color:#fcd34d;">${fmtPrice(o.limitPrice,o.symbol)}</td>
       <td style="padding:8px 4px;font-family:ui-monospace,monospace;">${fmtUSDT(o.margin)} USDT</td>
       <td style="padding:8px 4px;font-size:11px;color:var(--text-muted);">${fmtDT(o.createdAt)}</td>
-      <td style="text-align:right;padding:8px 4px;"><button onclick="cancelOrder('${o.id}')" style="padding:5px 10px;border-radius:7px;background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.2);color:#fb7185;font-size:11px;cursor:pointer;">Cancel·lar</button></td>
+      <td style="text-align:right;padding:8px 4px;"><button onclick="cancelOrder('${o.id}')" style="padding:5px 10px;border-radius:7px;background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.2);color:#fb7185;font-size:11px;cursor:pointer;">CancelÂ·lar</button></td>
     </tr>`).join('');
   }
 
-  /* ── History table ── */
+  /* â”€â”€ History table â”€â”€ */
   function updateHistoryTable(){
     const tbody=document.getElementById('history-table');const footer=document.getElementById('history-footer');
     document.getElementById('history-count').textContent=State.tradeHistory.length;
@@ -2357,13 +2357,13 @@
     if(footer) footer.textContent=`${State.tradeHistory.length} ${t('js.history_footer')} ${totalPnl>=0?'+':''}${fmtUSDT(totalPnl)} USDT`;
   }
 
-  /* ── Ticker DOM ── */
+  /* â”€â”€ Ticker DOM â”€â”€ */
   function updateTickerDom(sym,oldP,newP){
     const dir=oldP&&newP>oldP?'up':oldP&&newP<oldP?'down':null;
     const ids=[`asset-price-${sym}`];
     if(sym===State.currentAsset) ids.push('mark-price','mobile-price');
     ids.forEach(id=>{const el=document.getElementById(id);if(!el) return;el.textContent=fmtPrice(newP,sym);if(dir){el.classList.toggle('price-up',dir==='up');el.classList.toggle('price-down',dir==='down');flashEl(el,dir);}});
-    // Actualitzar preu del sheet si és l'actiu actual i el sheet és obert
+    // Actualitzar preu del sheet si Ã©s l'actiu actual i el sheet Ã©s obert
     if(sym===State.currentAsset){
       const slp=document.getElementById('sheet-live-price');
       if(slp){
@@ -2375,7 +2375,7 @@
     }
   }
 
-  /* ── Order panel ── */
+  /* â”€â”€ Order panel â”€â”€ */
   window.toggleOrderPanel=function(force){
     if(force===true&&!State.user){showToast(t('js.require_login_trade'),'warning');openAuthModal();return;}
     const sheet=document.getElementById('trading-sheet'),bd=document.getElementById('ts-backdrop');
@@ -2407,7 +2407,7 @@
     if(tab==='orders') updateOrdersTable();
   };
 
-  /* ── Price feeds ── */
+  /* â”€â”€ Price feeds â”€â”€ */
   function applyTicker(data,source='live'){
     const sym=data.s;if(!ASSET_MAP[sym]) return;
     const oldPrice=State.prices[sym]||INITIAL_PRICES[sym]||0;
@@ -2458,13 +2458,13 @@
       renderAssetsList();return true;
     }catch(e){throw e;}
   }
-  // Timestamp de l'última crida a CoinGecko per throttle (mínim 60s entre crides)
+  // Timestamp de l'Ãºltima crida a CoinGecko per throttle (mÃ­nim 60s entre crides)
   let _lastCGCall=0;
   async function fetchCoinGeckoThrottled(){
     const now=Date.now();if(now-_lastCGCall<60000)throw new Error('CG throttled');
     _lastCGCall=now;return fetchCoinGeckoSnapshot();
   }
-  // Ordre: Kraken (CORS OK, il·limitat) → CryptoCompare → Binance REST → CoinGecko (últim, throttled)
+  // Ordre: Kraken (CORS OK, ilÂ·limitat) â†’ CryptoCompare â†’ Binance REST â†’ CoinGecko (Ãºltim, throttled)
   async function fetchAnyRealSnapshot(){return Promise.any([fetchKrakenSnapshot(),fetchCryptoCompareSnapshot(),fetchBinanceSnapshot(),fetchCoinGeckoThrottled()]);}
 
   function startRestPricePolling(){
@@ -2490,14 +2490,14 @@
     setWsStatus(false,State.priceSource==='live'?'...':'SIM');
     try{State.ws=new WebSocket(CONFIG.wsFeeds[State.wsUrlIndex].url);}catch(e){scheduleWsReconnect();return;}
     State.ws.onopen=()=>{const feed=CONFIG.wsFeeds[State.wsUrlIndex];if(feed.subscribe)State.ws.send(JSON.stringify({method:'SUBSCRIBE',params:STREAM_LIST,id:1}));fetchAnyRealSnapshot().catch(()=>{});};
-    State.ws.onmessage=event=>{let raw;try{raw=JSON.parse(event.data);}catch(e){return;}// missatge invàlid ignorat
+    State.ws.onmessage=event=>{let raw;try{raw=JSON.parse(event.data);}catch(e){return;}// missatge invÃ lid ignorat
 const data=raw.data||raw;if(Array.isArray(data)){data.filter(t=>ASSET_MAP[t.s]).forEach(t=>applyTicker(t,'live'));renderAssetsList();return;}if(raw.result===null||data.result===null)return;if(data.e!=='ticker')return;applyTicker(data,'live');renderAssetsList();};
     State.ws.onerror=()=>{setWsStatus(false,'SIM');};
     State.ws.onclose=()=>{if(Date.now()-State.lastLiveTickAt>8000)setWsStatus(false,'SIM');scheduleWsReconnect();};
   }
   function scheduleWsReconnect(){if(State.wsReconnectTimer)clearTimeout(State.wsReconnectTimer);State.wsUrlIndex=(State.wsUrlIndex+1)%CONFIG.wsFeeds.length;State.wsReconnectTimer=setTimeout(initWebSocket,5000);}
 
-  /* ── MILLORA 5: Estadístiques avançades ── */
+  /* â”€â”€ MILLORA 5: EstadÃ­stiques avanÃ§ades â”€â”€ */
   function calcMaxDrawdown(){
     const hist=[STARTING_BALANCE,...State.balanceHistory.map(b=>b.value)];
     let maxDD=0,peak=hist[0];
@@ -2532,18 +2532,18 @@ const data=raw.data||raw;if(Array.isArray(data)){data.filter(t=>ASSET_MAP[t.s]).
     grid.innerHTML=[
       {label:t('js.stat.win_rate'),value:`${fmtPct(winRate)}`,color:winRate>=50?'#34d399':'#fb7185'},
       {label:t('js.stat.max_dd'),value:`-${maxDD.toFixed(2)}%`,color:maxDD>20?'#fb7185':'#fcd34d'},
-      {label:t('js.stat.sharpe'),value:sharpe!==null?sharpe.toFixed(2):'—',color:sharpe!==null&&sharpe>0.5?'#34d399':'#94a3b8'},
-      {label:t('js.stat.avg_dur'),value:avgDur>0?fmtDur(avgDur):'—',color:'#94a3b8'},
-      {label:t('js.stat.avg_win'),value:avgWin>0?`+${fmtUSDT(avgWin)}`:'—',color:'#34d399'},
-      {label:t('js.stat.avg_loss'),value:avgLoss<0?fmtUSDT(avgLoss):'—',color:'#fb7185'},
-      {label:t('js.stat.rr'),value:rr!==null?`1:${rr.toFixed(2)}`:'—',color:'#94a3b8'},
-      {label:t('js.stat.best'),value:bestTrade&&bestTrade.pnl>-Infinity?`+${fmtUSDT(bestTrade.pnl)}`:' — ',color:'#34d399'},
-      {label:t('js.stat.worst'),value:worstTrade&&worstTrade.pnl<Infinity?fmtUSDT(worstTrade.pnl):'—',color:'#fb7185'},
+      {label:t('js.stat.sharpe'),value:sharpe!==null?sharpe.toFixed(2):'â€”',color:sharpe!==null&&sharpe>0.5?'#34d399':'#94a3b8'},
+      {label:t('js.stat.avg_dur'),value:avgDur>0?fmtDur(avgDur):'â€”',color:'#94a3b8'},
+      {label:t('js.stat.avg_win'),value:avgWin>0?`+${fmtUSDT(avgWin)}`:'â€”',color:'#34d399'},
+      {label:t('js.stat.avg_loss'),value:avgLoss<0?fmtUSDT(avgLoss):'â€”',color:'#fb7185'},
+      {label:t('js.stat.rr'),value:rr!==null?`1:${rr.toFixed(2)}`:'â€”',color:'#94a3b8'},
+      {label:t('js.stat.best'),value:bestTrade&&bestTrade.pnl>-Infinity?`+${fmtUSDT(bestTrade.pnl)}`:' â€” ',color:'#34d399'},
+      {label:t('js.stat.worst'),value:worstTrade&&worstTrade.pnl<Infinity?fmtUSDT(worstTrade.pnl):'â€”',color:'#fb7185'},
       {label:t('js.stat.total'),value:String(State.tradeHistory.length),color:'#94a3b8'},
     ].map(s=>`<div class="stat-card"><div class="stat-label">${s.label}</div><div class="stat-value" style="color:${s.color};">${s.value}</div></div>`).join('');
   }
 
-  /* ── Portfolio ── */
+  /* â”€â”€ Portfolio â”€â”€ */
   function totalRealizedPnl(){return State.tradeHistory.reduce((s,t)=>s+t.pnl,0);}
   function totalUnrealizedPnl(){return State.positions.reduce((s,p)=>s+positionPnl(p),0);}
 
@@ -2561,10 +2561,10 @@ const data=raw.data||raw;if(Array.isArray(data)){data.filter(t=>ASSET_MAP[t.s]).
     renderAdvancedStats();
     const grouped=new Map();
     State.positions.forEach(pos=>{const cur=grouped.get(pos.symbol)||{symbol:pos.symbol,size:0,weightedEntry:0,pnl:0};cur.weightedEntry+=pos.entryPrice*pos.size;cur.size+=pos.size;cur.pnl+=positionPnl(pos);grouped.set(pos.symbol,cur);});
-    const rows=[...grouped.values()].map(item=>{const cp=State.prices[item.symbol]||0;const ent=item.size?item.weightedEntry/item.size:0;const notional=cp*item.size;const pct=totalVal?(notional/totalVal)*100:0;const pnlPct=ent?(item.pnl/(ent*item.size))*100:0;return `<tr><td style="padding:8px 4px;font-weight:600;">${ASSET_MAP[item.symbol]?.name||item.symbol}</td><td style="padding:8px 4px;font-family:ui-monospace,monospace;">${item.size.toFixed(4)}</td><td style="padding:8px 4px;font-family:ui-monospace,monospace;">${fmtPrice(ent,item.symbol)}</td><td style="padding:8px 4px;font-family:ui-monospace,monospace;">${fmtPrice(cp,item.symbol)}</td><td style="padding:8px 4px;font-family:ui-monospace,monospace;color:${item.pnl>=0?'#34d399':'#fb7185'};">${item.pnl>=0?'+':''}${fmtUSDT(item.pnl)} · ${fmtPct(pnlPct)}</td><td style="padding:8px 4px;font-family:ui-monospace,monospace;">${fmtPct(pct)}</td></tr>`;}).join('');
+    const rows=[...grouped.values()].map(item=>{const cp=State.prices[item.symbol]||0;const ent=item.size?item.weightedEntry/item.size:0;const notional=cp*item.size;const pct=totalVal?(notional/totalVal)*100:0;const pnlPct=ent?(item.pnl/(ent*item.size))*100:0;return `<tr><td style="padding:8px 4px;font-weight:600;">${ASSET_MAP[item.symbol]?.name||item.symbol}</td><td style="padding:8px 4px;font-family:ui-monospace,monospace;">${item.size.toFixed(4)}</td><td style="padding:8px 4px;font-family:ui-monospace,monospace;">${fmtPrice(ent,item.symbol)}</td><td style="padding:8px 4px;font-family:ui-monospace,monospace;">${fmtPrice(cp,item.symbol)}</td><td style="padding:8px 4px;font-family:ui-monospace,monospace;color:${item.pnl>=0?'#34d399':'#fb7185'};">${item.pnl>=0?'+':''}${fmtUSDT(item.pnl)} Â· ${fmtPct(pnlPct)}</td><td style="padding:8px 4px;font-family:ui-monospace,monospace;">${fmtPct(pct)}</td></tr>`;}).join('');
     document.getElementById('portfolio-assets').innerHTML=rows||`<tr><td colspan="6" style="padding:20px;text-align:center;color:#5a4a35;font-size:13px;">${t('portfolio.no_assets')}</td></tr>`;
-    const reasonLabel={manual:'Manual',tp:'🎯 TP',sl:'🛡️ SL',liquidated:'💀 Liq.'};
-    document.getElementById('portfolio-history').innerHTML=State.tradeHistory.map(tr=>`<tr><td style="padding:8px 4px;font-size:11px;">${fmtDT(tr.openTime)}</td><td style="padding:8px 4px;font-size:11px;">${fmtDT(tr.closeTime)}</td><td style="padding:8px 4px;font-weight:600;">${assetBase(tr.symbol)}</td><td style="padding:8px 4px;color:${tr.type==='LONG'?'#34d399':'#fb7185'};font-weight:700;">${tr.type}</td><td style="padding:8px 4px;font-family:ui-monospace,monospace;">x${tr.leverage}</td><td style="padding:8px 4px;font-family:ui-monospace,monospace;">${fmtPrice(tr.entryPrice,tr.symbol)}</td><td style="padding:8px 4px;font-family:ui-monospace,monospace;">${fmtPrice(tr.exitPrice,tr.symbol)}</td><td style="padding:8px 4px;font-family:ui-monospace,monospace;color:${tr.pnl>=0?'#34d399':'#fb7185'};font-weight:700;">${tr.pnl>=0?'+':''}${fmtUSDT(tr.pnl)} · ${fmtPct(tr.roe)}</td><td style="padding:8px 4px;font-size:11px;color:var(--text-muted);">${reasonLabel[tr.reason]||'-'}</td><td style="padding:8px 4px;font-family:ui-monospace,monospace;color:var(--text-muted);">${fmtDur(tr.duration)}</td></tr>`).join('')||`<tr><td colspan="10" style="padding:20px;text-align:center;color:#5a4a35;font-size:13px;">${t('js.no_history')}</td></tr>`;
+    const reasonLabel={manual:'Manual',tp:'ðŸŽ¯ TP',sl:'ðŸ›¡ï¸ SL',liquidated:'ðŸ’€ Liq.'};
+    document.getElementById('portfolio-history').innerHTML=State.tradeHistory.map(tr=>`<tr><td style="padding:8px 4px;font-size:11px;">${fmtDT(tr.openTime)}</td><td style="padding:8px 4px;font-size:11px;">${fmtDT(tr.closeTime)}</td><td style="padding:8px 4px;font-weight:600;">${assetBase(tr.symbol)}</td><td style="padding:8px 4px;color:${tr.type==='LONG'?'#34d399':'#fb7185'};font-weight:700;">${tr.type}</td><td style="padding:8px 4px;font-family:ui-monospace,monospace;">x${tr.leverage}</td><td style="padding:8px 4px;font-family:ui-monospace,monospace;">${fmtPrice(tr.entryPrice,tr.symbol)}</td><td style="padding:8px 4px;font-family:ui-monospace,monospace;">${fmtPrice(tr.exitPrice,tr.symbol)}</td><td style="padding:8px 4px;font-family:ui-monospace,monospace;color:${tr.pnl>=0?'#34d399':'#fb7185'};font-weight:700;">${tr.pnl>=0?'+':''}${fmtUSDT(tr.pnl)} Â· ${fmtPct(tr.roe)}</td><td style="padding:8px 4px;font-size:11px;color:var(--text-muted);">${reasonLabel[tr.reason]||'-'}</td><td style="padding:8px 4px;font-family:ui-monospace,monospace;color:var(--text-muted);">${fmtDur(tr.duration)}</td></tr>`).join('')||`<tr><td colspan="10" style="padding:20px;text-align:center;color:#5a4a35;font-size:13px;">${t('js.no_history')}</td></tr>`;
     renderPortfolioChart();
   }
 
@@ -2583,7 +2583,7 @@ const data=raw.data||raw;if(Array.isArray(data)){data.filter(t=>ASSET_MAP[t.s]).
     const pts=[STARTING_BALANCE];trades.forEach(t=>pts.push(pts[pts.length-1]+t.pnl));
     if(pts.length<2){
       ctx.fillStyle='#475569';ctx.font='13px ui-sans-serif';ctx.textAlign='center';
-      ctx.fillText('Fes el primer trade per veure el gràfic',w/2,h/2);return;
+      ctx.fillText('Fes el primer trade per veure el grÃ fic',w/2,h/2);return;
     }
     const min=Math.min(...pts),max=Math.max(...pts),pad=24;
     const range=Math.max(1,max-min);
@@ -2593,14 +2593,14 @@ const data=raw.data||raw;if(Array.isArray(data)){data.filter(t=>ASSET_MAP[t.s]).
     // Eixos
     ctx.strokeStyle='rgba(255,255,255,0.12)';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(pad,pad);ctx.lineTo(pad,h-pad);ctx.lineTo(w-4,h-pad);ctx.stroke();
     const color=totalRealizedPnl()>=0?'#1a7a58':'#ef4444';
-    // Àrea
+    // Ã€rea
     const grad=ctx.createLinearGradient(0,0,0,h);
     grad.addColorStop(0,totalRealizedPnl()>=0?'rgba(26,122,88,0.3)':'rgba(239,68,68,0.25)');
     grad.addColorStop(1,'rgba(0,0,0,0)');
     ctx.fillStyle=grad;ctx.beginPath();
     pts.forEach((v,i)=>{const x=pad+(i/(pts.length-1))*(w-pad-4);const y=pad+((max-v)/range)*(h-pad*2);if(i===0)ctx.moveTo(x,y);else ctx.lineTo(x,y);});
     ctx.lineTo(pad+(w-pad-4),h-pad);ctx.lineTo(pad,h-pad);ctx.closePath();ctx.fill();
-    // Línia
+    // LÃ­nia
     ctx.strokeStyle=color;ctx.lineWidth=2;ctx.lineJoin='round';ctx.beginPath();
     pts.forEach((v,i)=>{const x=pad+(i/(pts.length-1))*(w-pad-4);const y=pad+((max-v)/range)*(h-pad*2);if(i===0)ctx.moveTo(x,y);else ctx.lineTo(x,y);});
     ctx.stroke();
@@ -2612,14 +2612,14 @@ const data=raw.data||raw;if(Array.isArray(data)){data.filter(t=>ASSET_MAP[t.s]).
     ctx.fillText(fmtUSDT(max),pad+4,pad+9);ctx.fillText(fmtUSDT(min),pad+4,h-pad+13);
   }
 
-  /* ── Profile ── */
+  /* â”€â”€ Profile â”€â”€ */
   function renderProfile(){
     const totalPnl=totalRealizedPnl()+totalUnrealizedPnl();
     const points=ACHIEVEMENTS.filter(a=>State.achievements[a.id]?.completed).reduce((s,a)=>s+a.points,0);
     const el=document.getElementById('profile-trades');if(el) el.textContent=State.tradeHistory.length;
     const ep=document.getElementById('profile-pnl');if(ep){ep.textContent=(totalPnl>=0?'+':'')+fmtUSDT(totalPnl)+' USDT';ep.style.color=totalPnl>=0?'#34d399':'#fb7185';}
     const pts=document.getElementById('profile-points');if(pts) pts.textContent=points;
-    // Lligues guanyades: lligues on l'usuari és #1 al rànquing
+    // Lligues guanyades: lligues on l'usuari Ã©s #1 al rÃ nquing
     const uid=State.user?.uid;
     const leaguesWon=uid?State.leagues.filter(lg=>{
       const sorted=[...lg.members].sort((a,b)=>b.pnl-a.pnl);
@@ -2630,7 +2630,7 @@ const data=raw.data||raw;if(Array.isArray(data)){data.filter(t=>ASSET_MAP[t.s]).
     const pbtn=document.getElementById('theme-profile-btn');if(pbtn) pbtn.textContent=thm==='light'?t('js.theme_light'):t('js.theme_dark');
   }
 
-  /* ── Leagues ── */
+  /* â”€â”€ Leagues â”€â”€ */
   function currentUserName(){return State.user?.displayName||State.user?.email?.split('@')[0]||'Tu';}
   function createLeagueMember(pnl=0){
     if(!State.user) return null;
@@ -2698,7 +2698,7 @@ const data=raw.data||raw;if(Array.isArray(data)){data.filter(t=>ASSET_MAP[t.s]).
         const qs=await getDocs(query(collection(Firebase.db,'leagues'),where('code','==',code)));
         const snap=qs.docs[0];
         if(snap) league={id:snap.id,...snap.data()};
-      }catch(e){showToast('No s\'ha pogut buscar la lliga al núvol.','error');return;}
+      }catch(e){showToast('No s\'ha pogut buscar la lliga al nÃºvol.','error');return;}
     }
     if(!league){showToast(t('js.league_not_found'),'error');return;}
     league.members=Array.isArray(league.members)?league.members:[];
@@ -2752,7 +2752,7 @@ const data=raw.data||raw;if(Array.isArray(data)){data.filter(t=>ASSET_MAP[t.s]).
       const {collection,query,where,getDocs}=Firebase.helpers;
       const qs=await getDocs(query(collection(Firebase.db,'leagues'),where('isPublic','==',true)));
       _allPublicLeagues=qs.docs.map(d=>({id:d.id,...d.data()}));
-    }catch(e){console.warn('No s\'han pogut carregar lligues públiques',e);}
+    }catch(e){console.warn('No s\'han pogut carregar lligues pÃºbliques',e);}
   }
 
   function renderLeagues(){
@@ -2777,7 +2777,7 @@ const data=raw.data||raw;if(Array.isArray(data)){data.filter(t=>ASSET_MAP[t.s]).
       const isFull=count>=maxM;
       const pct=Math.min(100,Math.round((count/maxM)*100));
       const barColor=pct>=100?'#ef4444':pct>=75?'#f59e0b':'#10b981';
-      const visLabel=league.isPublic===false?`🔒 ${t('vis.private')}`:`🌍 ${t('vis.public')}`;
+      const visLabel=league.isPublic===false?`ðŸ”’ ${t('vis.private')}`:`ðŸŒ ${t('vis.public')}`;
       const visColor=league.isPublic===false?'rgba(139,107,76,.15)':'rgba(26,122,88,.12)';
       const visTextColor=league.isPublic===false?'var(--gold)':'#4ade80';
       if(isMine){
@@ -2791,7 +2791,7 @@ const data=raw.data||raw;if(Array.isArray(data)){data.filter(t=>ASSET_MAP[t.s]).
                 <div style="font-size:16px;font-weight:700;color:var(--text);">${league.name}</div>
                 <span style="font-size:10px;padding:2px 7px;border-radius:99px;background:${visColor};color:${visTextColor};border:1px solid ${visTextColor};">${visLabel}</span>
               </div>
-              <div style="font-size:12px;color:var(--text-muted);margin-top:3px;">${((d)=>({Setmanal:t('dur.weekly'),Mensual:t('dur.monthly'),Trimestral:t('dur.quarterly'),Anual:t('dur.yearly')})[d]||d)(league.duration)} · ${remainingTime(league.endAt)} ${t('js.remaining')}</div>
+              <div style="font-size:12px;color:var(--text-muted);margin-top:3px;">${((d)=>({Setmanal:t('dur.weekly'),Mensual:t('dur.monthly'),Trimestral:t('dur.quarterly'),Anual:t('dur.yearly')})[d]||d)(league.duration)} Â· ${remainingTime(league.endAt)} ${t('js.remaining')}</div>
             </div>
             <div style="text-align:right;flex-shrink:0;"><div style="font-size:11px;color:var(--text-muted);">${t('js.position_label')}</div><div style="font-size:18px;font-weight:700;color:var(--text);">#${rank}</div></div>
           </div>
@@ -2800,7 +2800,7 @@ const data=raw.data||raw;if(Array.isArray(data)){data.filter(t=>ASSET_MAP[t.s]).
               <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--text-muted);margin-bottom:4px;"><span>${t('js.participants')}</span><span style="color:${isFull?'#ef4444':'var(--text-muted)'};">${count}/${maxM}</span></div>
               <div style="height:4px;background:rgba(176,141,87,.12);border-radius:99px;overflow:hidden;"><div style="width:${pct}%;height:4px;background:${barColor};border-radius:99px;"></div></div>
             </div>
-            <div style="text-align:right;"><div style="font-size:11px;color:var(--text-muted);">PnL</div><div style="font-size:14px;font-weight:700;font-family:ui-monospace,monospace;color:${me&&me.pnl>=0?'#34d399':'#fb7185'};">${me?(me.pnl>=0?'+':'')+fmtUSDT(me.pnl)+' USDT':'—'}</div></div>
+            <div style="text-align:right;"><div style="font-size:11px;color:var(--text-muted);">PnL</div><div style="font-size:14px;font-weight:700;font-family:ui-monospace,monospace;color:${me&&me.pnl>=0?'#34d399':'#fb7185'};">${me?(me.pnl>=0?'+':'')+fmtUSDT(me.pnl)+' USDT':'â€”'}</div></div>
           </div>
         </div>`;
       }else{
@@ -2815,7 +2815,7 @@ const data=raw.data||raw;if(Array.isArray(data)){data.filter(t=>ASSET_MAP[t.s]).
           +'<div style="font-size:16px;font-weight:700;color:var(--text);">'+league.name+'</div>'
           +'<span style="font-size:10px;padding:2px 7px;border-radius:99px;background:'+visColor+';color:'+visTextColor+';border:1px solid '+visTextColor+';">'+visLabel+'</span>'
           +'</div>'
-          +'<div style="font-size:12px;color:var(--text-muted);margin-top:3px;">'+league.duration+` · ${remainingTime(league.endAt)} ${t('js.remaining')}</div>`
+          +'<div style="font-size:12px;color:var(--text-muted);margin-top:3px;">'+league.duration+` Â· ${remainingTime(league.endAt)} ${t('js.remaining')}</div>`
           +'</div>'
           +joinBtn
           +'</div>'
@@ -2860,7 +2860,7 @@ const data=raw.data||raw;if(Array.isArray(data)){data.filter(t=>ASSET_MAP[t.s]).
       <button onclick="renderLeagues()" style="background:none;border:none;color:var(--text-muted);font-size:13px;cursor:pointer;padding:4px 0;text-align:left;">${t('js.back_leagues')}</button>
       <div class="league-card">
         <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap;">
-          <div><div style="font-size:20px;font-weight:700;color:var(--text);">${league.name}</div><div style="font-size:12px;color:var(--text-muted);margin-top:3px;">${t('js.code_label')} ${league.code} · ${remainingTime(league.endAt)} ${t('js.remaining')}</div></div>
+          <div><div style="font-size:20px;font-weight:700;color:var(--text);">${league.name}</div><div style="font-size:12px;color:var(--text-muted);margin-top:3px;">${t('js.code_label')} ${league.code} Â· ${remainingTime(league.endAt)} ${t('js.remaining')}</div></div>
           <div style="font-family:ui-monospace,monospace;font-size:16px;font-weight:700;color:${me.pnl>=0?'#34d399':'#fb7185'};">${t('js.your_pnl')} ${me.pnl>=0?'+':''}${fmtUSDT(me.pnl)} USDT</div>
         </div>
       </div>
@@ -2869,7 +2869,7 @@ const data=raw.data||raw;if(Array.isArray(data)){data.filter(t=>ASSET_MAP[t.s]).
         <div class="h-scroll">
           <table class="data-table" style="min-width:560px;">
             <thead><tr><th>#</th><th>${t('league.table.player')}</th><th>${t('league.balance_col')}</th><th>PnL</th><th>Trades</th></tr></thead>
-            <tbody>${sorted.map((m,i)=>{const medal=['🥇','🥈','🥉'][i]||`#${i+1}`;return `<tr style="${m.id===uid?'background:rgba(176,141,87,.07);border-left:2px solid var(--gold-mid);':''}"><td style="font-weight:700;white-space:nowrap;">${medal}</td><td style="white-space:nowrap;"><span style="display:inline-flex;width:26px;height:26px;border-radius:50%;background:rgba(176,141,87,.12);border:1px solid rgba(176,141,87,.2);align-items:center;justify-content:center;font-weight:700;font-size:12px;margin-right:6px;">${m.avatar}</span>${m.name}</td><td style="font-family:ui-monospace,monospace;white-space:nowrap;">${fmtUSDT(m.balance)} USDT</td><td style="font-family:ui-monospace,monospace;color:${m.pnl>=0?'#4ade80':'#fb7185'};font-weight:700;white-space:nowrap;">${m.pnl>=0?'+':''}${fmtUSDT(m.pnl)}</td><td style="font-family:ui-monospace,monospace;white-space:nowrap;">${m.trades}</td></tr>`;}).join('')}</tbody>
+            <tbody>${sorted.map((m,i)=>{const medal=['ðŸ¥‡','ðŸ¥ˆ','ðŸ¥‰'][i]||`#${i+1}`;return `<tr style="${m.id===uid?'background:rgba(176,141,87,.07);border-left:2px solid var(--gold-mid);':''}"><td style="font-weight:700;white-space:nowrap;">${medal}</td><td style="white-space:nowrap;"><span style="display:inline-flex;width:26px;height:26px;border-radius:50%;background:rgba(176,141,87,.12);border:1px solid rgba(176,141,87,.2);align-items:center;justify-content:center;font-weight:700;font-size:12px;margin-right:6px;">${m.avatar}</span>${m.name}</td><td style="font-family:ui-monospace,monospace;white-space:nowrap;">${fmtUSDT(m.balance)} USDT</td><td style="font-family:ui-monospace,monospace;color:${m.pnl>=0?'#4ade80':'#fb7185'};font-weight:700;white-space:nowrap;">${m.pnl>=0?'+':''}${fmtUSDT(m.pnl)}</td><td style="font-family:ui-monospace,monospace;white-space:nowrap;">${m.trades}</td></tr>`;}).join('')}</tbody>
           </table>
         </div>
       </div>
@@ -2895,7 +2895,7 @@ const data=raw.data||raw;if(Array.isArray(data)){data.filter(t=>ASSET_MAP[t.s]).
     if(State.activeSection==='league'){if(State.activeLeagueId)openLeague(State.activeLeagueId);else renderLeagues();}
   }
 
-  /* ── Achievements ── */
+  /* â”€â”€ Achievements â”€â”€ */
   function achievementProgress(){
     const trades=State.tradeHistory,now=new Date();
     const today=now.toDateString(),month=now.getMonth(),year=now.getFullYear();
@@ -2912,7 +2912,7 @@ const data=raw.data||raw;if(Array.isArray(data)){data.filter(t=>ASSET_MAP[t.s]).
     const maxLev=Math.max(0,...trades.map(tr=>tr.leverage),...State.positions.map(p=>p.leverage));
     const limitExecuted=trades.filter(t=>t.reason==='limit'||State.pendingOrders.length>0).length>0?1:State.achievements['ordre_limit']?.completed?1:0;
     const liquidated=trades.some(t=>t.reason==='liquidated')?1:0;
-    return{gran_coup:bestToday,trader_mes:bestMonth,llegenda_anual:bestYear,centurio:bestRoe,multiplicador:bestRoe,primers_passos:trades.length,actiu:trades.length,'veterà':trades.length,maquina_guerra:trades.length,diversificat:assets.size,ordre_limit:limitExecuted,en_positiu:totalPnl,quatre_digits:totalPnl,cinc_digits:totalPnl,franctirador:streak,imparable:streak,perfeccionista:winRate,night_trader:openedHours.some(h=>h>=0&&h<6)?1:0,matiner:openedHours.some(h=>h>=6&&h<8)?1:0,hodler:maxOpenHours,adrenalina:maxLev,sobrevivent:liquidated};
+    return{gran_coup:bestToday,trader_mes:bestMonth,llegenda_anual:bestYear,centurio:bestRoe,multiplicador:bestRoe,primers_passos:trades.length,actiu:trades.length,'veterÃ ':trades.length,maquina_guerra:trades.length,diversificat:assets.size,ordre_limit:limitExecuted,en_positiu:totalPnl,quatre_digits:totalPnl,cinc_digits:totalPnl,franctirador:streak,imparable:streak,perfeccionista:winRate,night_trader:openedHours.some(h=>h>=0&&h<6)?1:0,matiner:openedHours.some(h=>h>=6&&h<8)?1:0,hodler:maxOpenHours,adrenalina:maxLev,sobrevivent:liquidated};
   }
 
   function checkAchievements(render=true){
@@ -2960,7 +2960,7 @@ const data=raw.data||raw;if(Array.isArray(data)){data.filter(t=>ASSET_MAP[t.s]).
     }).join('');
   }
 
-  /* ── Auth ── */
+  /* â”€â”€ Auth â”€â”€ */
   window.openAuthModal=()=>document.getElementById('auth-modal').classList.remove('hidden');
   window.closeAuthModal=()=>document.getElementById('auth-modal').classList.add('hidden');
 
@@ -2979,20 +2979,20 @@ const data=raw.data||raw;if(Array.isArray(data)){data.filter(t=>ASSET_MAP[t.s]).
 
   function authErrorMessage(e){
     const code=e?.code||'';
-    if(code.includes('invalid-email')) return 'El correu no és vàlid.';
+    if(code.includes('invalid-email')) return 'El correu no Ã©s vÃ lid.';
     if(code.includes('missing-password')) return 'Introdueix la contrasenya.';
-    if(code.includes('weak-password')) return 'La contrasenya ha de tenir mínim 6 caràcters.';
-    if(code.includes('email-already-in-use')) return 'Aquest correu ja té un compte.';
+    if(code.includes('weak-password')) return 'La contrasenya ha de tenir mÃ­nim 6 carÃ cters.';
+    if(code.includes('email-already-in-use')) return 'Aquest correu ja tÃ© un compte.';
     if(code.includes('user-not-found')||code.includes('invalid-credential')||code.includes('wrong-password')) return 'Correu o contrasenya incorrectes.';
     if(code.includes('popup-closed-by-user')) return 'Has tancat la finestra de Google abans d\'acabar.';
-    if(code.includes('unauthorized-domain')) return 'Aquest domini no està autoritzat a Firebase Auth.';
-    if(code.includes('operation-not-allowed')) return 'Aquest mètode d\'entrada no està activat a Firebase.';
-    if(code.includes('network-request-failed')) return 'No hi ha connexió amb Firebase.';
-    return 'No s\'ha pogut iniciar sessió. Revisa les dades i torna-ho a provar.';
+    if(code.includes('unauthorized-domain')) return 'Aquest domini no estÃ  autoritzat a Firebase Auth.';
+    if(code.includes('operation-not-allowed')) return 'Aquest mÃ¨tode d\'entrada no estÃ  activat a Firebase.';
+    if(code.includes('network-request-failed')) return 'No hi ha connexiÃ³ amb Firebase.';
+    return 'No s\'ha pogut iniciar sessiÃ³. Revisa les dades i torna-ho a provar.';
   }
 
   function authUnavailable(){
-    showToast('Autenticació no disponible. Revisa la configuració de Firebase.','error');
+    showToast('AutenticaciÃ³ no disponible. Revisa la configuraciÃ³ de Firebase.','error');
   }
 
   function stopLeagueSnapshots(){
@@ -3031,7 +3031,7 @@ const data=raw.data||raw;if(Array.isArray(data)){data.filter(t=>ASSET_MAP[t.s]).
       const {getFirestore,doc,setDoc,getDoc,onSnapshot,collection,query,where,getDocs}=await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js');
       const {initializeAppCheck,ReCaptchaV3Provider}=await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-app-check.js');
       const app=initializeApp(CONFIG.firebase);
-      // App Check — protegeix les claus de Firebase per domini
+      // App Check â€” protegeix les claus de Firebase per domini
       initializeAppCheck(app,{provider:new ReCaptchaV3Provider('6LdOgAEtAAAAG49MT84ZdWfpRD1BKWVq5EfKKlC'),isTokenAutoRefreshEnabled:true});
       Firebase.active=true;Firebase.auth=getAuth(app);Firebase.db=getFirestore(app);Firebase.helpers={doc,setDoc,getDoc,onSnapshot,collection,query,where,getDocs};
 
@@ -3099,7 +3099,7 @@ const data=raw.data||raw;if(Array.isArray(data)){data.filter(t=>ASSET_MAP[t.s]).
     }catch(e){
       State.authReady=true;
       console.error('Firebase no disponible.',e);
-      showToast('No s\'ha pogut carregar Firebase. Obre el joc amb connexió a internet.','error');
+      showToast('No s\'ha pogut carregar Firebase. Obre el joc amb connexiÃ³ a internet.','error');
     }
   }
 
@@ -3111,7 +3111,7 @@ const data=raw.data||raw;if(Array.isArray(data)){data.filter(t=>ASSET_MAP[t.s]).
     updateUnrealizedPnlBar();updateOrdersTable();
   }
 
-  /* ── Leverage slider ── */
+  /* â”€â”€ Leverage slider â”€â”€ */
   document.getElementById('leverage-slider').addEventListener('input',e=>{
     const val=parseInt(e.target.value,10);State.leverage=val;
     document.getElementById('leverage-display').textContent='x'+val;
@@ -3122,14 +3122,14 @@ const data=raw.data||raw;if(Array.isArray(data)){data.filter(t=>ASSET_MAP[t.s]).
   document.getElementById('order-amount').addEventListener('input',calculateOrder);
   document.getElementById('limit-price').addEventListener('input',calculateOrder);
 
-  /* ── Positions panel swipe ── */
+  /* â”€â”€ Positions panel swipe â”€â”€ */
   const ppEl=document.getElementById('positions-panel');let ptStart=null;
   ppEl.addEventListener('touchstart',e=>{ptStart=e.changedTouches[0]?.clientY??null;},{passive:true});
   ppEl.addEventListener('touchend',e=>{if(ptStart===null) return;const end=e.changedTouches[0]?.clientY??ptStart;const delta=end-ptStart;if(Math.abs(delta)>40) ppEl.classList.toggle('open',delta<0);ptStart=null;},{passive:true});
 
   window.addEventListener('resize',()=>{if(State.activeSection==='portfolio') renderPortfolioChart();});
 
-  /* ── Init ── */
+  /* â”€â”€ Init â”€â”€ */
   (async function init(){
     clearLocalTradingState();loadTheme();loadLanguage();
     const sl=document.getElementById('leverage-slider');const ip=((State.leverage-1)/49)*100;
@@ -3139,9 +3139,9 @@ const data=raw.data||raw;if(Array.isArray(data)){data.filter(t=>ASSET_MAP[t.s]).
     setWsStatus(false,'...');fetchAnyRealSnapshot().catch(()=>{});
     setInterval(()=>{
       if(State.positions.length){updatePositionsTable();checkAchievements();updateUnrealizedPnlBar();}
-      if(State.activeLeagueId&&State.activeSection==='league') openLeague(State.activeLeagueId);
+      if(State.activeSection==='league') updateLeagueCountdownLabel();
     },1000);
-    // MILLORA 7: Tutorial primer ús
+    // MILLORA 7: Tutorial primer Ãºs
     setTimeout(()=>initTutorial(),800);
   })();
 </script>
