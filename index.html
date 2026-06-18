@@ -653,31 +653,18 @@
   </section>
 
   <!-- LLIGA -->
-  <section id="league-section" class="app-section" style="overflow-y:scroll;overflow-x:clip;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;">
-    <div style="position:sticky;top:0;z-index:20;background:var(--deep);border-bottom:1px solid var(--line);">
-      <div style="padding:12px 16px 10px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;">
-        <div style="display:flex;align-items:center;gap:10px;">
-          <button onclick="switchSection('assets')" class="btn-icon">&#8592;</button>
-          <div>
-            <div class="section-title" data-i18n="league.title">Lliga Fantasy</div>
-            <div class="section-sub" data-i18n="league.sub">Competeix en temps real</div>
-          </div>
-        </div>
-        <div style="display:flex;gap:8px;flex-wrap:wrap;">
-          <button onclick="openCreateLeagueModal()" style="background:linear-gradient(180deg,var(--forest-light) 0%,var(--forest) 50%,var(--forest-dark) 100%);color:var(--cream);border:1px solid var(--gold-dark);border-radius:10px;padding:9px 16px;font-weight:400;font-size:13px;cursor:pointer;font-family:'Russo One',sans-serif;letter-spacing:.3px;box-shadow:inset 0 1px 0 rgba(255,255,255,.12);" data-i18n="league.create">+ Crear</button>
-          <button onclick="openJoinLeagueModal()" style="background:rgba(176,141,87,.08);border:1px solid rgba(176,141,87,.2);color:var(--text-muted);border-radius:10px;padding:9px 16px;font-weight:600;font-size:13px;cursor:pointer;" data-i18n="league.join">Unir-se</button>
+  <section id="league-section" class="app-section" style="overflow-y:scroll;overflow-x:hidden;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;">
+    <div style="position:sticky;top:0;z-index:20;background:var(--deep);padding:16px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;">
+      <div style="display:flex;align-items:center;gap:10px;">
+        <button onclick="switchSection('assets')" class="btn-icon">&#8592;</button>
+        <div>
+          <div class="section-title">Lliga Fantasy</div>
+          <div class="section-sub">Competeix en temps real contra amics</div>
         </div>
       </div>
-      <div style="padding:0 16px 10px;display:flex;flex-direction:column;gap:8px;" id="league-search-area">
-        <div style="display:flex;align-items:center;gap:8px;background:var(--inp-bg);border:1px solid var(--inp-border);border-radius:10px;padding:8px 12px;">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--text-muted);flex-shrink:0;"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-          <input id="league-search-input" oninput="filterLeagueList()" class="inp" placeholder="Cerca per nom de lliga..." style="border:none;background:none;padding:0;font-size:13px;flex:1;outline:none;">
-        </div>
-        <div style="display:flex;gap:6px;">
-          <button id="ltab-all"    onclick="setLeagueTab('all')" data-i18n="league.tab.all"    style="padding:5px 12px;border-radius:20px;font-size:12px;font-weight:600;border:1px solid rgba(176,141,87,.5);background:rgba(176,141,87,.12);color:var(--gold);cursor:pointer;">Totes</button>
-          <button id="ltab-mine"   onclick="setLeagueTab('mine')" data-i18n="league.tab.mine"   style="padding:5px 12px;border-radius:20px;font-size:12px;font-weight:600;border:1px solid var(--line);background:none;color:var(--text-muted);cursor:pointer;">Les meves</button>
-          <button id="ltab-public" onclick="setLeagueTab('public')" data-i18n="league.tab.public" style="padding:5px 12px;border-radius:20px;font-size:12px;font-weight:600;border:1px solid var(--line);background:none;color:var(--text-muted);cursor:pointer;">Públiques</button>
-        </div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        <button onclick="openCreateLeagueModal()" style="background:linear-gradient(180deg,var(--forest-light) 0%,var(--forest) 50%,var(--forest-dark) 100%);color:var(--cream);border:1px solid var(--gold-dark);border-radius:10px;padding:9px 16px;font-weight:400;font-size:13px;cursor:pointer;font-family:'Russo One',sans-serif;letter-spacing:.3px;box-shadow:inset 0 1px 0 rgba(255,255,255,.12);">+ Crear Lliga</button>
+        <button onclick="openJoinLeagueModal()" style="background:rgba(176,141,87,.08);border:1px solid rgba(176,141,87,.2);color:var(--text-muted);border-radius:10px;padding:9px 16px;font-weight:600;font-size:13px;cursor:pointer;">Unir-se</button>
       </div>
     </div>
     <div style="padding:16px;display:flex;flex-direction:column;gap:10px;">
@@ -711,7 +698,7 @@
       </div>
       <div class="glass-sm" style="border-radius:14px;padding:14px;">
         <div style="font-size:13px;font-weight:600;margin-bottom:10px;color:var(--text-muted);" data-i18n="js.pf.open_assets">Actius en cartera</div>
-        <div class="h-scroll">
+        <div style="overflow-x:auto;-webkit-overflow-scrolling:touch;touch-action:pan-x pan-y;overscroll-behavior-x:contain;">
           <table class="data-table" style="min-width:520px;">
             <thead><tr><th data-i18n="th.asset">Actiu</th><th data-i18n="th.size">Mida</th><th data-i18n="th.entry">Entrada</th><th data-i18n="th.current">Actual</th><th>PnL</th><th>%Portfolio</th></tr></thead>
             <tbody id="portfolio-assets"></tbody>
@@ -720,7 +707,7 @@
       </div>
       <div class="glass-sm" style="border-radius:14px;padding:14px;">
         <div style="font-size:13px;font-weight:600;margin-bottom:10px;color:var(--text-muted);" data-i18n="js.pf.history">Historial de trades tancats</div>
-        <div class="h-scroll">
+        <div style="overflow-x:auto;-webkit-overflow-scrolling:touch;touch-action:pan-x pan-y;overscroll-behavior-x:contain;">
           <table class="data-table" style="min-width:700px;">
             <thead><tr><th data-i18n="th.open_time">Obertura</th><th data-i18n="th.close_time">Tancament</th><th data-i18n="th.asset">Actiu</th><th data-i18n="th.dir">Dir.</th><th data-i18n="th.lev">Lev.</th><th data-i18n="th.entry">Entrada</th><th data-i18n="th.exit">Sortida</th><th>PnL</th><th data-i18n="th.reason">Motiu</th><th data-i18n="th.duration">Durada</th></tr></thead>
             <tbody id="portfolio-history"></tbody>
@@ -2646,46 +2633,18 @@ const data=raw.data||raw;if(Array.isArray(data)){data.filter(t=>ASSET_MAP[t.s]).
   window.closeJoinLeagueModal=()=>document.getElementById('join-league-modal').classList.add('hidden');
 
   window.generateInviteCode=function(){const code=Math.random().toString(36).toUpperCase().replace(/[^A-Z0-9]/g,'').slice(0,6).padEnd(6,'7');document.getElementById('league-code').value=code;return code;};
-  window.copyInviteCode=async function(){if(!requireAuth('copiar codis de lliga')) return;const code=document.getElementById('league-code').value||generateInviteCode();await navigator.clipboard?.writeText(code);showToast(`${t('js.code_label')} ${code} ${t('js.code_copied')}`,'success');};
-
-  let _leagueVisibility='public';
-  let _leagueMaxMembers=20;
-
-  window.setLeagueVisibility=function(v){
-    _leagueVisibility=v;
-    const pub=document.getElementById('btn-public');
-    const pri=document.getElementById('btn-private');
-    const hint=document.getElementById('visibility-hint');
-    if(v==='public'){
-      pub.style.background='rgba(26,122,88,.15)';pub.style.borderColor='rgba(26,122,88,.5)';pub.style.color='#4ade80';
-      pri.style.background='none';pri.style.borderColor='var(--line)';pri.style.color='var(--text-muted)';
-      hint.textContent=t('js.vis_public_hint');
-    }else{
-      pri.style.background='rgba(139,107,76,.15)';pri.style.borderColor='rgba(139,107,76,.5)';pri.style.color='var(--gold)';
-      pub.style.background='none';pub.style.borderColor='var(--line)';pub.style.color='var(--text-muted)';
-      hint.textContent=t('js.vis_private_hint');
-    }
-  };
-
-  window.setMaxMembers=function(n){
-    _leagueMaxMembers=n;
-    [10,20,50,100].forEach(x=>{
-      const btn=document.getElementById('max-'+x);if(!btn)return;
-      if(x===n){btn.style.background='rgba(26,122,88,.15)';btn.style.borderColor='rgba(26,122,88,.5)';btn.style.color='#4ade80';}
-      else{btn.style.background='none';btn.style.borderColor='var(--line)';btn.style.color='var(--text-muted)';}
-    });
-  };
+  window.copyInviteCode=async function(){if(!requireAuth('copiar codis de lliga')) return;const code=document.getElementById('league-code').value||generateInviteCode();await navigator.clipboard?.writeText(code);showToast(`Codi ${code} copiat.`,'success');};
 
   window.createLeague=async function(){
     if(!requireAuth('crear lligues')) return;
     const name=document.getElementById('league-name').value.trim();const duration=document.getElementById('league-duration').value;
     const startingBalance=Number(document.getElementById('league-balance').value)||STARTING_BALANCE;
     const code=document.getElementById('league-code').value||generateInviteCode();
-    if(!name){showToast(t('js.league_name_required'),'warning');return;}
+    if(!name){showToast('Indica un nom per a la lliga.','warning');return;}
     const member=createLeagueMember(0);if(!member) return;
-    const league={id:crypto.randomUUID(),name,code,duration,startingBalance,isPublic:_leagueVisibility==='public',maxMembers:_leagueMaxMembers,createdAt:Date.now(),endAt:leagueEndDate(duration),members:[member],trades:[]};
+    const league={id:crypto.randomUUID(),name,code,duration,startingBalance,createdAt:Date.now(),endAt:leagueEndDate(duration),members:[member],trades:[]};
     State.leagues.unshift(league);State.activeLeagueId=league.id;
-    closeCreateLeagueModal();await saveRemoteState();startLeagueSnapshots(Firebase.helpers.onSnapshot,Firebase.helpers.doc);renderLeagues();openLeague(league.id);showToast(`"${name}" ${t('js.league_created')}`,'success');
+    closeCreateLeagueModal();await saveRemoteState();startLeagueSnapshots(Firebase.helpers.onSnapshot,Firebase.helpers.doc);renderLeagues();openLeague(league.id);showToast(`Lliga "${name}" creada.`,'success');
   };
 
   window.joinLeague=async function(){
@@ -2700,189 +2659,79 @@ const data=raw.data||raw;if(Array.isArray(data)){data.filter(t=>ASSET_MAP[t.s]).
         if(snap) league={id:snap.id,...snap.data()};
       }catch(e){showToast('No s\'ha pogut buscar la lliga al núvol.','error');return;}
     }
-    if(!league){showToast(t('js.league_not_found'),'error');return;}
-    league.members=Array.isArray(league.members)?league.members:[];
-    league.trades=Array.isArray(league.trades)?league.trades:[];
-    const maxM=league.maxMembers||100;
-    const uid=State.user.uid;
-    const alreadyIn=league.members.some(m=>m.id===uid);
-    if(!alreadyIn&&league.members.length>=maxM){showToast(`${t('js.league_full')} (${maxM})`,'error');return;}
-    const member=createLeagueMember(0);
-    if(member&&!alreadyIn) league.members.push(member);
-    const existing=State.leagues.findIndex(l=>l.id===league.id);
-    if(existing===-1) State.leagues.unshift(league); else State.leagues[existing]=league;
-    closeJoinLeagueModal();await saveRemoteState();startLeagueSnapshots(Firebase.helpers.onSnapshot,Firebase.helpers.doc);renderLeagues();openLeague(league.id);showToast(`${t('js.league_joined')} "${league.name}"`,'success');
-  };
-
-  let _leagueTab='all';
-  let _allPublicLeagues=[];
-
-  window.setLeagueTab=function(tab){
-    _leagueTab=tab;
-    ['all','mine','public'].forEach(tabKey=>{
-      const btn=document.getElementById('ltab-'+t);if(!btn)return;
-      if(t===tab){btn.style.background='rgba(176,141,87,.12)';btn.style.borderColor='rgba(176,141,87,.5)';btn.style.color='var(--gold)';}
-      else{btn.style.background='none';btn.style.borderColor='var(--line)';btn.style.color='var(--text-muted)';}
-    });
-    filterLeagueList();
-  };
-
-  window.filterLeagueList=function(){
-    const q=(document.getElementById('league-search-input')?.value||'').toLowerCase().trim();
-    const uid=State.user?.uid;
-    let leagues=[];
-    if(_leagueTab==='all'){
-      const myIds=new Set(State.leagues.map(l=>l.id));
-      const extras=_allPublicLeagues.filter(l=>!myIds.has(l.id));
-      leagues=[...State.leagues,...extras];
-    }else if(_leagueTab==='mine'){
-      leagues=State.leagues;
-    }else{
-      const myIds=new Set(State.leagues.map(l=>l.id));
-      const extras=_allPublicLeagues.filter(l=>!myIds.has(l.id));
-      leagues=[...State.leagues.filter(l=>l.isPublic!==false),...extras];
-    }
-    if(q) leagues=leagues.filter(l=>l.name.toLowerCase().includes(q));
-    renderLeagueCards(leagues);
-  };
-
-  async function loadPublicLeagues(){
-    if(!Firebase.active) return;
-    try{
-      const {collection,query,where,getDocs}=Firebase.helpers;
-      const qs=await getDocs(query(collection(Firebase.db,'leagues'),where('isPublic','==',true)));
-      _allPublicLeagues=qs.docs.map(d=>({id:d.id,...d.data()}));
-    }catch(e){console.warn('No s\'han pogut carregar lligues públiques',e);}
-  }
-
-  function renderLeagues(){
-    const list=document.getElementById('league-list'),detail=document.getElementById('league-detail');
-    detail.classList.add('hidden');list.classList.remove('hidden');
-    const searchArea=document.getElementById('league-search-area');
-    if(searchArea) searchArea.style.display='flex';
-    if(!State.user){list.innerHTML=`<div style="padding:32px;text-align:center;color:#5a4a35;font-size:14px;background:rgba(176,141,87,.04);border:1px solid var(--line);border-radius:14px;">${t('js.login_to_compete')}</div>`;return;}
-    loadPublicLeagues().then(()=>filterLeagueList());
-    filterLeagueList();
-  }
-
-  function renderLeagueCards(leagues){
-    const list=document.getElementById('league-list');if(!list)return;
-    const uid=State.user?.uid;
-    if(leagues.length===0){list.innerHTML=`<div style="padding:32px;text-align:center;color:#5a4a35;font-size:14px;background:rgba(176,141,87,.04);border:1px solid var(--line);border-radius:14px;">${t('js.no_leagues')}</div>`;return;}
-    list.innerHTML=leagues.map(league=>{
-      const isMine=State.leagues.some(l=>l.id===league.id);
-      const members=Array.isArray(league.members)?league.members:[];
-      const maxM=league.maxMembers||100;
-      const count=members.length;
-      const isFull=count>=maxM;
-      const pct=Math.min(100,Math.round((count/maxM)*100));
-      const barColor=pct>=100?'#ef4444':pct>=75?'#f59e0b':'#10b981';
-      const visLabel=league.isPublic===false?`🔒 ${t('vis.private')}`:`🌍 ${t('vis.public')}`;
-      const visColor=league.isPublic===false?'rgba(139,107,76,.15)':'rgba(26,122,88,.12)';
-      const visTextColor=league.isPublic===false?'var(--gold)':'#4ade80';
-      if(isMine){
-        const sorted=[...members].sort((a,b)=>b.pnl-a.pnl);
-        const rank=Math.max(1,sorted.findIndex(m=>m.id===uid)+1);
-        const me=sorted.find(m=>m.id===uid)||sorted[0];
-        return `<div onclick="openLeague('${league.id}')" class="league-card">
-          <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;">
-            <div style="flex:1;min-width:0;">
-              <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;">
-                <div style="font-size:16px;font-weight:700;color:var(--text);">${league.name}</div>
-                <span style="font-size:10px;padding:2px 7px;border-radius:99px;background:${visColor};color:${visTextColor};border:1px solid ${visTextColor};">${visLabel}</span>
-              </div>
-              <div style="font-size:12px;color:var(--text-muted);margin-top:3px;">${((d)=>({Setmanal:t('dur.weekly'),Mensual:t('dur.monthly'),Trimestral:t('dur.quarterly'),Anual:t('dur.yearly')})[d]||d)(league.duration)} · ${remainingTime(league.endAt)} ${t('js.remaining')}</div>
-            </div>
-            <div style="text-align:right;flex-shrink:0;"><div style="font-size:11px;color:var(--text-muted);">${t('js.position_label')}</div><div style="font-size:18px;font-weight:700;color:var(--text);">#${rank}</div></div>
-          </div>
-          <div style="display:flex;gap:16px;margin-top:10px;align-items:flex-end;">
-            <div style="flex:1;">
-              <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--text-muted);margin-bottom:4px;"><span>${t('js.participants')}</span><span style="color:${isFull?'#ef4444':'var(--text-muted)'};">${count}/${maxM}</span></div>
-              <div style="height:4px;background:rgba(176,141,87,.12);border-radius:99px;overflow:hidden;"><div style="width:${pct}%;height:4px;background:${barColor};border-radius:99px;"></div></div>
-            </div>
-            <div style="text-align:right;"><div style="font-size:11px;color:var(--text-muted);">PnL</div><div style="font-size:14px;font-weight:700;font-family:ui-monospace,monospace;color:${me&&me.pnl>=0?'#34d399':'#fb7185'};">${me?(me.pnl>=0?'+':'')+fmtUSDT(me.pnl)+' USDT':'—'}</div></div>
-          </div>
-        </div>`;
-      }else{
-        const joinBtn=isFull
-          ?`<span style="font-size:11px;padding:5px 10px;border-radius:8px;background:rgba(239,68,68,.1);color:#fb7185;border:1px solid rgba(239,68,68,.3);">${t('js.full')}</span>`
-          :(`<button onclick="joinPublicLeague('${league.id}')" style="padding:7px 14px;border-radius:10px;background:linear-gradient(180deg,var(--forest-light) 0%,var(--forest) 50%,var(--forest-dark) 100%);border:1px solid var(--gold-dark);color:var(--cream);font-size:12px;cursor:pointer;font-family:'Russo One',sans-serif;flex-shrink:0;">${t('js.join_public')}</button>`);
-        const opacityStyle=isFull?'opacity:.6':'';
-        return '<div class="league-card" style="'+opacityStyle+'">'
-          +'<div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;">'
-          +'<div style="flex:1;min-width:0;">'
-          +'<div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;">'
-          +'<div style="font-size:16px;font-weight:700;color:var(--text);">'+league.name+'</div>'
-          +'<span style="font-size:10px;padding:2px 7px;border-radius:99px;background:'+visColor+';color:'+visTextColor+';border:1px solid '+visTextColor+';">'+visLabel+'</span>'
-          +'</div>'
-          +'<div style="font-size:12px;color:var(--text-muted);margin-top:3px;">'+league.duration+` · ${remainingTime(league.endAt)} ${t('js.remaining')}</div>`
-          +'</div>'
-          +joinBtn
-          +'</div>'
-          +'<div style="margin-top:10px;">'
-          +'<div style="display:flex;justify-content:space-between;font-size:11px;color:var(--text-muted);margin-bottom:4px;"><span>'+t('js.participants')+'</span><span style="color:'+(isFull?'#ef4444':'var(--text-muted)')+'">'+count+'/'+maxM+'</span></div>'
-          +'<div style="height:4px;background:rgba(176,141,87,.12);border-radius:99px;overflow:hidden;"><div style="width:'+pct+'%;height:4px;background:'+barColor+';border-radius:99px;"></div></div>'
-          +'</div>'
-          +'</div>';
-      }
-    }).join('');
-  }
-
-  window.joinPublicLeague=async function(id){
-    if(!requireAuth('unir-te a lligues')) return;
-    const all=[...State.leagues,..._allPublicLeagues];
-    const league=all.find(l=>l.id===id);
-    if(!league){showToast(t('js.league_not_found'),'error');return;}
-    const maxM=league.maxMembers||100;
-    const count=Array.isArray(league.members)?league.members.length:0;
-    if(count>=maxM){showToast(t('js.league_full'),'error');return;}
+    if(!league){showToast('No s\'ha trobat cap lliga amb aquest codi.','error');return;}
     league.members=Array.isArray(league.members)?league.members:[];
     league.trades=Array.isArray(league.trades)?league.trades:[];
     const uid=State.user.uid;const member=createLeagueMember(0);
     if(member&&!league.members.some(m=>m.id===uid)) league.members.push(member);
     const existing=State.leagues.findIndex(l=>l.id===league.id);
     if(existing===-1) State.leagues.unshift(league); else State.leagues[existing]=league;
-    await saveRemoteState();startLeagueSnapshots(Firebase.helpers.onSnapshot,Firebase.helpers.doc);renderLeagues();openLeague(league.id);showToast(`${t('js.league_joined')} "${league.name}"`,'success');
+    closeJoinLeagueModal();await saveRemoteState();startLeagueSnapshots(Firebase.helpers.onSnapshot,Firebase.helpers.doc);renderLeagues();openLeague(league.id);showToast(`T\'has unit a "${league.name}".`,'success');
   };
+
+  function renderLeagues(){
+    const list=document.getElementById('league-list'),detail=document.getElementById('league-detail');
+    detail.classList.add('hidden');list.classList.remove('hidden');
+    if(!State.user){list.innerHTML='<div style="padding:32px;text-align:center;color:#5a4a35;font-size:14px;background:rgba(176,141,87,.04);border:1px solid var(--line);border-radius:14px;">Inicia sessió per crear lligues i competir amb altres jugadors.</div>';return;}
+    if(State.leagues.length===0){list.innerHTML='<div style="padding:32px;text-align:center;color:#5a4a35;font-size:14px;background:rgba(176,141,87,.04);border:1px solid var(--line);border-radius:14px;">Encara no tens cap lliga activa.<br>Crea\'n una o uneix-te amb un codi.</div>';return;}
+    list.innerHTML=State.leagues.map(league=>{
+      const sorted=[...league.members].sort((a,b)=>b.pnl-a.pnl);const uid=State.user.uid;
+      const rank=Math.max(1,sorted.findIndex(m=>m.id===uid)+1);const me=sorted.find(m=>m.id===uid)||sorted[0];
+      return `<div onclick="openLeague('${league.id}')" class="league-card">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;">
+          <div><div style="font-size:16px;font-weight:700;color:var(--text);">${league.name}</div><div style="font-size:12px;color:var(--text-muted);margin-top:3px;">Codi ${league.code} · ${league.duration} · ${remainingTime(league.endAt)} restants</div></div>
+          <div style="text-align:right;flex-shrink:0;"><div style="font-size:11px;color:var(--text-muted);">Posició</div><div style="font-size:18px;font-weight:700;color:var(--text);">#${rank}</div></div>
+        </div>
+        <div style="display:flex;gap:16px;margin-top:12px;">
+          <div><div style="font-size:11px;color:var(--text-muted);">Participants</div><div style="font-size:14px;font-weight:600;margin-top:2px;color:var(--text);">${league.members.length}</div></div>
+          <div><div style="font-size:11px;color:var(--text-muted);">PnL del període</div><div style="font-size:14px;font-weight:700;font-family:ui-monospace,monospace;color:${me.pnl>=0?'#34d399':'#fb7185'};margin-top:2px;">${me.pnl>=0?'+':''}${fmtUSDT(me.pnl)} USDT</div></div>
+        </div>
+      </div>`;
+    }).join('');
+  }
 
   window.openLeague=function(id){
     if(!requireAuth('veure lligues')) return;
-    State.activeLeagueId=id;
-    const all=[...State.leagues,..._allPublicLeagues];
-    const league=all.find(l=>l.id===id);if(!league) return;
+    State.activeLeagueId=id;const league=State.leagues.find(l=>l.id===id);if(!league) return;
     document.getElementById('league-list').classList.add('hidden');
-    const searchArea=document.getElementById('league-search-area');
-    if(searchArea) searchArea.style.display='none';
     const detail=document.getElementById('league-detail');detail.classList.remove('hidden');
     const uid=State.user.uid;const sorted=[...league.members].sort((a,b)=>b.pnl-a.pnl);const me=sorted.find(m=>m.id===uid)||createLeagueMember(0);
     if(!me) return;
     detail.innerHTML=`
-      <button onclick="renderLeagues()" style="background:none;border:none;color:var(--text-muted);font-size:13px;cursor:pointer;padding:4px 0;text-align:left;">${t('js.back_leagues')}</button>
+      <button onclick="renderLeagues()" style="background:none;border:none;color:var(--text-muted);font-size:13px;cursor:pointer;padding:4px 0;text-align:left;">← Tornar a lligues</button>
       <div class="league-card">
         <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap;">
-          <div><div style="font-size:20px;font-weight:700;color:var(--text);">${league.name}</div><div style="font-size:12px;color:var(--text-muted);margin-top:3px;">${t('js.code_label')} ${league.code} · ${remainingTime(league.endAt)} ${t('js.remaining')}</div></div>
-          <div style="font-family:ui-monospace,monospace;font-size:16px;font-weight:700;color:${me.pnl>=0?'#34d399':'#fb7185'};">${t('js.your_pnl')} ${me.pnl>=0?'+':''}${fmtUSDT(me.pnl)} USDT</div>
+          <div><div style="font-size:20px;font-weight:700;color:var(--text);">${league.name}</div><div style="font-size:12px;color:var(--text-muted);margin-top:3px;">Codi ${league.code} · <span id="league-remaining-time">${remainingTime(league.endAt)} restants</span></div></div>
+          <div style="font-family:ui-monospace,monospace;font-size:16px;font-weight:700;color:${me.pnl>=0?'#34d399':'#fb7185'};">El teu PnL: ${me.pnl>=0?'+':''}${fmtUSDT(me.pnl)} USDT</div>
         </div>
       </div>
       <div style="background:var(--card-bg);border:1px solid var(--line);border-radius:14px;padding:14px;min-width:0;">
-        <div style="font-size:13px;font-weight:600;margin-bottom:10px;color:var(--text);">${t('js.real_time_ranking')}</div>
+        <div style="font-size:13px;font-weight:600;margin-bottom:10px;color:var(--text);">Classificació en temps real</div>
         <div class="h-scroll">
           <table class="data-table" style="min-width:560px;">
-            <thead><tr><th>#</th><th>${t('league.table.player')}</th><th>${t('league.balance_col')}</th><th>PnL</th><th>Trades</th></tr></thead>
+            <thead><tr><th>#</th><th>Jugador</th><th>Saldo</th><th>PnL</th><th>Trades</th></tr></thead>
             <tbody>${sorted.map((m,i)=>{const medal=['🥇','🥈','🥉'][i]||`#${i+1}`;return `<tr style="${m.id===uid?'background:rgba(176,141,87,.07);border-left:2px solid var(--gold-mid);':''}"><td style="font-weight:700;white-space:nowrap;">${medal}</td><td style="white-space:nowrap;"><span style="display:inline-flex;width:26px;height:26px;border-radius:50%;background:rgba(176,141,87,.12);border:1px solid rgba(176,141,87,.2);align-items:center;justify-content:center;font-weight:700;font-size:12px;margin-right:6px;">${m.avatar}</span>${m.name}</td><td style="font-family:ui-monospace,monospace;white-space:nowrap;">${fmtUSDT(m.balance)} USDT</td><td style="font-family:ui-monospace,monospace;color:${m.pnl>=0?'#4ade80':'#fb7185'};font-weight:700;white-space:nowrap;">${m.pnl>=0?'+':''}${fmtUSDT(m.pnl)}</td><td style="font-family:ui-monospace,monospace;white-space:nowrap;">${m.trades}</td></tr>`;}).join('')}</tbody>
           </table>
         </div>
       </div>
       <div style="background:var(--card-bg);border:1px solid var(--line);border-radius:14px;padding:14px;min-width:0;">
-        <div style="font-size:13px;font-weight:600;margin-bottom:10px;color:var(--text);">${t('js.league_history')}</div>
+        <div style="font-size:13px;font-weight:600;margin-bottom:10px;color:var(--text);">Historial de la Lliga</div>
         <div class="h-scroll">
           <table class="data-table" style="min-width:560px;">
-            <thead><tr><th>${t('league.table.player')}</th><th>${t('league.table.date')}</th><th>${t('league.table.asset')}</th><th>${t('league.table.type')}</th><th>PnL</th><th>${t('league.table.duration')}</th></tr></thead>
-            <tbody>${league.trades.length?league.trades.map(tr=>`<tr><td style="white-space:nowrap;">${tr.player}</td><td style="white-space:nowrap;">${fmtDT(tr.closeTime)}</td><td style="white-space:nowrap;">${assetBase(tr.symbol)}</td><td style="color:${tr.type==='LONG'?'#34d399':'#fb7185'};font-weight:700;white-space:nowrap;">${tr.type}</td><td style="font-family:ui-monospace,monospace;color:${tr.pnl>=0?'#34d399':'#fb7185'};font-weight:700;white-space:nowrap;">${tr.pnl>=0?'+':''}${fmtUSDT(tr.pnl)}</td><td style="font-family:ui-monospace,monospace;color:var(--text-muted);white-space:nowrap;">${fmtDur(tr.duration)}</td></tr>`).join(''):(`<tr><td colspan="6" style="padding:20px;text-align:center;color:#5a4a35;font-size:13px;">${t('js.no_league_trades')}</td></tr>`)}</tbody>
+            <thead><tr><th>Jugador</th><th>Data</th><th>Actiu</th><th>Tipus</th><th>PnL</th><th>Durada</th></tr></thead>
+            <tbody>${league.trades.length?league.trades.map(t=>`<tr><td style="white-space:nowrap;">${t.player}</td><td style="white-space:nowrap;">${fmtDT(t.closeTime)}</td><td style="white-space:nowrap;">${assetBase(t.symbol)}</td><td style="color:${t.type==='LONG'?'#34d399':'#fb7185'};font-weight:700;white-space:nowrap;">${t.type}</td><td style="font-family:ui-monospace,monospace;color:${t.pnl>=0?'#34d399':'#fb7185'};font-weight:700;white-space:nowrap;">${t.pnl>=0?'+':''}${fmtUSDT(t.pnl)}</td><td style="font-family:ui-monospace,monospace;color:var(--text-muted);white-space:nowrap;">${fmtDur(t.duration)}</td></tr>`).join(''):'<tr><td colspan="6" style="padding:20px;text-align:center;color:#5a4a35;font-size:13px;">Sense trades a la lliga</td></tr>'}</tbody>
           </table>
         </div>
       </div>`;
   };
+
+  function updateLeagueCountdownLabel(){
+    if(State.activeSection!=='league'||!State.activeLeagueId) return;
+    const league=State.leagues.find(l=>l.id===State.activeLeagueId);
+    if(!league) return;
+    const el=document.getElementById('league-remaining-time');
+    if(el) el.textContent=`${remainingTime(league.endAt)} restants`;
+  }
 
   function updateLeaguesAfterTrade(trade){
     if(!State.user) return;
