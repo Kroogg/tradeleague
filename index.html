@@ -255,6 +255,14 @@
     .data-table tbody tr:last-child td { border-bottom:none; }
     .h-scroll { overflow-x:auto; overflow-y:hidden; -webkit-overflow-scrolling:touch; overscroll-behavior-x:contain; width:100%; max-width:100%; min-width:0; }
 
+    /* ══ Rànquing global ══ */
+    .rank-pill { padding:5px 12px; border-radius:20px; font-size:12px; font-weight:600; border:1px solid var(--line); background:none; color:var(--text-muted); cursor:pointer; white-space:nowrap; }
+    .rank-pill.on { border-color:rgba(176,141,87,.5); background:rgba(176,141,87,.12); color:var(--gold); }
+    .rank-row { display:flex; align-items:center; gap:10px; padding:10px 6px; border-bottom:1px solid rgba(176,141,87,.08); }
+    .rank-row:last-child { border-bottom:none; }
+    .rank-row.me { background:rgba(176,141,87,.08); border-radius:10px; }
+    .rank-av { width:30px; height:30px; border-radius:50%; background:rgba(176,141,87,.12); border:1px solid rgba(176,141,87,.2); display:flex; align-items:center; justify-content:center; font-weight:700; font-size:12px; flex-shrink:0; color:var(--text); }
+
     /* Misc */
     .divider { height:1px; background:var(--line); margin:4px 0; }
     .section-title { font-size:22px; font-weight:700; color:var(--text); font-family:'Russo One',sans-serif; letter-spacing:.5px; }
@@ -539,7 +547,7 @@
   <section id="assets-section" class="app-section active">
     <div class="game-home">
       <div class="game-stars"></div>
-      <div class="game-balance-pill" id="game-balance-pill">10,000.00 USDT</div>
+      <div class="game-balance-pill" id="game-balance-pill" onclick="switchSection('ranking')" style="cursor:pointer;">👑</div>
       <div class="game-mountains">
         <svg viewBox="0 0 400 180" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
           <polygon points="0,180 0,110 60,55 120,90 180,40 240,80 300,50 360,85 400,60 400,180" fill="#2d1060" opacity="0.7"/>
@@ -554,7 +562,7 @@
         <button class="game-btn" onclick="switchSection('trade')" data-i18n="home.btn.trade">&#9654; OPERAR</button>
         <button class="game-btn game-btn-sec" onclick="switchSection('league')" data-i18n="home.btn.league">&#127942; LLIGA</button>
         <button class="game-btn game-btn-sec" onclick="switchSection('portfolio')" data-i18n="home.btn.portfolio">&#128188; PORTFOLI</button>
-        <button class="game-btn game-btn-sec" onclick="switchSection('achievements')" data-i18n="home.btn.achievements">&#127894; ASSOLIMENTS</button>
+        <button class="game-btn game-btn-sec" onclick="switchSection('ranking')" data-i18n="home.btn.ranking">&#128081; RÀNQUING</button>
       </div>
     </div>
   </section>
@@ -746,6 +754,38 @@
       </div>
     </div>
     <div id="achievements-grid" style="padding:14px;display:grid;grid-template-columns:1fr;gap:10px;"></div>
+  </section>
+
+  <!-- RÀNQUING GLOBAL -->
+  <section id="ranking-section" class="app-section" style="overflow-y:scroll;overflow-x:hidden;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;">
+    <div style="position:sticky;top:0;z-index:20;background:var(--deep);border-bottom:1px solid var(--line);padding:12px 16px 10px;">
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;">
+        <div style="display:flex;align-items:center;gap:10px;">
+          <button onclick="switchSection('assets')" class="btn-icon">&#8592;</button>
+          <div>
+            <div class="section-title" data-i18n="rank.title">Rànquing global</div>
+            <div class="section-sub" data-i18n="rank.sub">Qui és el millor trader?</div>
+          </div>
+        </div>
+        <button onclick="loadRanking(true)" class="btn-icon" aria-label="Refresh">&#8635;</button>
+      </div>
+      <div style="display:flex;gap:6px;margin-top:10px;overflow-x:auto;">
+        <button id="rank-f-wr" onclick="setRankMetric('wr')" class="rank-pill on" data-i18n="rank.f.wr">Win rate</button>
+        <button id="rank-f-best" onclick="setRankMetric('best')" class="rank-pill" data-i18n="rank.f.best">Millor trade</button>
+        <button id="rank-f-worst" onclick="setRankMetric('worst')" class="rank-pill" data-i18n="rank.f.worst">Pitjor trade</button>
+        <button id="rank-f-streak" onclick="setRankMetric('streak')" class="rank-pill" data-i18n="rank.f.streak">Ratxa</button>
+      </div>
+    </div>
+    <div style="padding:16px;display:flex;flex-direction:column;gap:14px;">
+      <div id="rank-me"></div>
+      <div class="glass-sm" style="border-radius:14px;padding:6px 10px;"><div id="rank-list"></div></div>
+      <div id="rank-note" style="font-size:11px;color:var(--text-muted);"></div>
+      <div id="rank-fame" style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;"></div>
+      <div class="glass-sm" style="border-radius:14px;padding:10px 12px;">
+        <div style="font-size:13px;font-weight:600;color:var(--text);margin-bottom:2px;" data-i18n="rank.live">🔥 En directe</div>
+        <div id="rank-feed"></div>
+      </div>
+    </div>
   </section>
 
   <!-- PERFIL -->
@@ -969,9 +1009,9 @@
     <svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2"/></svg>
     <span data-i18n="nav.portfolio">Portfolio</span>
   </button>
-  <button id="nav-achievements" onclick="switchSection('achievements')" class="nav-btn">
-    <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/></svg>
-    <span data-i18n="nav.achievements">Assoliments</span>
+  <button id="nav-ranking" onclick="switchSection('ranking')" class="nav-btn">
+    <svg viewBox="0 0 24 24"><path d="M18 20V10"/><path d="M12 20V4"/><path d="M6 20v-6"/></svg>
+    <span data-i18n="nav.ranking">Rànquing</span>
   </button>
   <button id="nav-profile" onclick="switchSection('profile')" class="nav-btn">
     <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
@@ -1415,6 +1455,43 @@
     }
   };
 
+  Object.assign(TRANSLATIONS.ca, {
+    'nav.ranking':'Rànquing','home.btn.ranking':'👑 RÀNQUING',
+    'rank.title':'Rànquing global','rank.sub':'Qui és el millor trader?',
+    'rank.f.wr':'Win rate','rank.f.best':'Millor trade','rank.f.worst':'Pitjor trade','rank.f.streak':'Ratxa',
+    'rank.min':'Mínim {n} trades per entrar al rànquing','rank.you':'tu','rank.trades':'trades',
+    'rank.live':'🔥 En directe','rank.empty':"Encara no hi ha ningú en aquest rànquing. Tanca {n} trades per entrar-hi!",
+    'rank.login':'Inicia sessió per veure el rànquing global.','rank.error':"No s'ha pogut carregar el rànquing.",
+    'rank.fame_best':'🏆 Millor trade','rank.fame_worst':'💀 Pitjor trade',
+    'rank.need':'Et falten {n} trades per entrar al rànquing','rank.my_pos':'La teva posició',
+    'rank.streak_unit':'seguits','rank.feed_empty':'Encara no hi ha activitat.',
+    'rank.ev.close':'ha tancat','rank.ev.liq':'ha estat liquidat a','rank.of':'de'
+  });
+  Object.assign(TRANSLATIONS.es, {
+    'nav.ranking':'Ranking','home.btn.ranking':'👑 RANKING',
+    'rank.title':'Ranking global','rank.sub':'¿Quién es el mejor trader?',
+    'rank.f.wr':'Win rate','rank.f.best':'Mejor trade','rank.f.worst':'Peor trade','rank.f.streak':'Racha',
+    'rank.min':'Mínimo {n} trades para entrar en el ranking','rank.you':'tú','rank.trades':'trades',
+    'rank.live':'🔥 En directo','rank.empty':'Todavía no hay nadie en este ranking. ¡Cierra {n} trades para entrar!',
+    'rank.login':'Inicia sesión para ver el ranking global.','rank.error':'No se ha podido cargar el ranking.',
+    'rank.fame_best':'🏆 Mejor trade','rank.fame_worst':'💀 Peor trade',
+    'rank.need':'Te faltan {n} trades para entrar en el ranking','rank.my_pos':'Tu posición',
+    'rank.streak_unit':'seguidos','rank.feed_empty':'Todavía no hay actividad.',
+    'rank.ev.close':'ha cerrado','rank.ev.liq':'ha sido liquidado en','rank.of':'de'
+  });
+  Object.assign(TRANSLATIONS.en, {
+    'nav.ranking':'Ranking','home.btn.ranking':'👑 RANKING',
+    'rank.title':'Global ranking','rank.sub':'Who is the best trader?',
+    'rank.f.wr':'Win rate','rank.f.best':'Best trade','rank.f.worst':'Worst trade','rank.f.streak':'Streak',
+    'rank.min':'Minimum {n} trades to enter the ranking','rank.you':'you','rank.trades':'trades',
+    'rank.live':'🔥 Live','rank.empty':'Nobody is in this ranking yet. Close {n} trades to get in!',
+    'rank.login':'Sign in to see the global ranking.','rank.error':'Could not load the ranking.',
+    'rank.fame_best':'🏆 Best trade','rank.fame_worst':'💀 Worst trade',
+    'rank.need':'You need {n} more trades to enter the ranking','rank.my_pos':'Your position',
+    'rank.streak_unit':'in a row','rank.feed_empty':'No activity yet.',
+    'rank.ev.close':'closed','rank.ev.liq':'got liquidated on','rank.of':'of'
+  });
+
   var _lang = localStorage.getItem('lot_lang') || 'ca';
 
   function t(key) {
@@ -1841,7 +1918,7 @@
   function updateBalance(){
     document.getElementById('balance-display').textContent=fmtUSDT(State.balance);
     const sh=document.getElementById('sheet-balance');if(sh) sh.textContent=fmtUSDT(State.balance)+' USDT';
-    const pill=document.getElementById('game-balance-pill');if(pill) pill.textContent=fmtUSDT(State.balance)+' USDT';
+    updateHomeStats();
   }
 
   /* ── Market info ── */
@@ -1881,7 +1958,7 @@
   /* ── Section switching ── */
   window.switchSection=function(section){
     State.activeSection=section;
-    const sectionIds={assets:'assets-section',trade:'trade-section',chart:'chart-section',league:'league-section',portfolio:'portfolio-section',achievements:'achievements-section',profile:'profile-section'};
+    const sectionIds={assets:'assets-section',trade:'trade-section',chart:'chart-section',league:'league-section',portfolio:'portfolio-section',achievements:'achievements-section',ranking:'ranking-section',profile:'profile-section'};
     document.querySelectorAll('.app-section').forEach(el=>el.classList.remove('active'));
     document.getElementById(sectionIds[section])?.classList.add('active');
     let navId;
@@ -1893,6 +1970,9 @@
     if(section==='league') renderLeagues();
     if(section==='portfolio') requestAnimationFrame(()=>requestAnimationFrame(updatePortfolio));
     if(section==='achievements') renderAchievements();
+    if(section!=='ranking') stopRankingLive();
+    if(section==='ranking') openRanking();
+    updateHomeStats();
     if(section==='profile') renderProfile();
   };
 
@@ -2144,6 +2224,7 @@
     State.balanceHistory.push({timestamp:closeTime,value:State.balance});
     if(State.balanceHistory.length>500) State.balanceHistory=State.balanceHistory.slice(-500);
     updateBalance();updatePositionsTable();updateHistoryTable();updatePortfolio();updateLeaguesAfterTrade(trade);checkAchievements();
+    publishRanking();publishActivity(trade);
     await saveRemoteState();
     // MILLORA 6: Alert gran per TP/SL/Liquidació
     if(reason==='tp'||reason==='sl'||reason==='liquidated'){
@@ -2960,6 +3041,247 @@ const data=raw.data||raw;if(Array.isArray(data)){data.filter(t=>ASSET_MAP[t.s]).
     }).join('');
   }
 
+  /* ── RÀNQUING GLOBAL ── */
+  var RANK_MIN_TRADES = 5;
+  var _rankMetric = 'wr';
+  var _rankData = [];
+  var _rankFeed = [];
+  var _rankFeedUnsub = null;
+  var _rankTimer = null;
+
+  function esc(s){
+    return String(s == null ? '' : s).replace(/[&<>"']/g, function(c){
+      return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];
+    });
+  }
+  function agoShort(ms){
+    var sec = Math.max(0, Math.floor(ms / 1000));
+    if(sec < 60) return sec + 's';
+    var min = Math.floor(sec / 60);
+    if(min < 60) return min + 'm';
+    var hrs = Math.floor(min / 60);
+    if(hrs < 24) return hrs + 'h';
+    return Math.floor(hrs / 24) + 'd';
+  }
+
+  /* Estadístiques pròpies a partir de l'historial (tradeHistory: el més nou primer) */
+  function computeMyStats(){
+    var hist = State.tradeHistory;
+    var n = hist.length;
+    var wins = hist.filter(function(x){ return x.pnl > 0; }).length;
+    var best = null, worst = null;
+    hist.forEach(function(x){
+      if(!best || x.pnl > best.pnl) best = x;
+      if(!worst || x.pnl < worst.pnl) worst = x;
+    });
+    var streak = 0;
+    for(var i = 0; i < hist.length; i++){ if(hist[i].pnl > 0) streak++; else break; }
+    var pack = function(x){
+      return x ? {pnl:x.pnl, symbol:x.symbol, type:x.type, leverage:x.leverage, roe:x.roe, t:x.closeTime} : null;
+    };
+    return {trades:n, wins:wins, winRate:n ? (wins / n) * 100 : 0, best:pack(best), worst:pack(worst), streak:streak, totalPnl:totalRealizedPnl()};
+  }
+
+  async function publishRanking(){
+    if(!Firebase.active || !State.user || !State.tradeHistory.length) return;
+    var h = Firebase.helpers;
+    try{
+      var stats = computeMyStats();
+      await h.setDoc(h.doc(Firebase.db, 'rankings', State.user.uid), Object.assign({uid:State.user.uid, name:currentUserName(), updatedAt:Date.now()}, stats));
+    }catch(e){ console.warn('Rànquing: no s\'ha pogut publicar.', e); }
+  }
+
+  async function publishActivity(trade){
+    if(!Firebase.active || !State.user) return;
+    var h = Firebase.helpers;
+    try{
+      await h.setDoc(h.doc(Firebase.db, 'activity', crypto.randomUUID()), {
+        uid:State.user.uid, name:currentUserName(), symbol:trade.symbol, type:trade.type,
+        leverage:trade.leverage, pnl:trade.pnl, reason:trade.reason || 'manual', t:Date.now()
+      });
+    }catch(e){ console.warn('Rànquing: no s\'ha pogut publicar l\'activitat.', e); }
+  }
+
+  async function loadRanking(showErr){
+    if(!Firebase.active || !State.user) return;
+    var h = Firebase.helpers;
+    try{
+      var qs = await h.getDocs(h.collection(Firebase.db, 'rankings'));
+      _rankData = qs.docs.map(function(d){ return Object.assign({id:d.id}, d.data()); });
+      renderRanking();
+      updateHomeStats();
+    }catch(e){
+      console.warn('Rànquing: no s\'ha pogut carregar.', e);
+      if(showErr) showToast(t('rank.error'), 'error');
+    }
+  }
+
+  function rankSortedBy(m){
+    var a = _rankData.filter(function(d){ return (d.trades || 0) >= RANK_MIN_TRADES; });
+    if(m === 'wr'){
+      a.sort(function(x, y){ return ((y.winRate || 0) - (x.winRate || 0)) || ((y.trades || 0) - (x.trades || 0)); });
+    }else if(m === 'best'){
+      a = a.filter(function(d){ return d.best; });
+      a.sort(function(x, y){ return y.best.pnl - x.best.pnl; });
+    }else if(m === 'worst'){
+      a = a.filter(function(d){ return d.worst && d.worst.pnl < 0; });
+      a.sort(function(x, y){ return x.worst.pnl - y.worst.pnl; });
+    }else{
+      a.sort(function(x, y){ return ((y.streak || 0) - (x.streak || 0)) || ((y.trades || 0) - (x.trades || 0)); });
+    }
+    return a;
+  }
+
+  function rankCell(d, m){
+    var tradeInfo = function(tr){ return tr ? esc(assetBase(tr.symbol)) + ' ' + esc(tr.type) + ' x' + esc(tr.leverage) : ''; };
+    if(m === 'wr') return {val:Math.round(d.winRate || 0) + '%', col:(d.winRate || 0) >= 50 ? '#34d399' : '#fb7185', sub:(d.trades || 0) + ' ' + t('rank.trades')};
+    if(m === 'best') return {val:'+' + fmtUSDT(d.best.pnl), col:'#34d399', sub:tradeInfo(d.best)};
+    if(m === 'worst') return {val:fmtUSDT(d.worst.pnl), col:'#fb7185', sub:tradeInfo(d.worst)};
+    return {val:(d.streak || 0) + ' ' + t('rank.streak_unit'), col:'var(--gold)', sub:(d.trades || 0) + ' ' + t('rank.trades')};
+  }
+
+  function fameCard(title, d, tr, good){
+    var col = good ? '#34d399' : '#fb7185';
+    var body = '<div style="font-size:18px;font-weight:700;font-family:ui-monospace,monospace;color:var(--text-muted);margin-top:4px;">—</div>';
+    if(d && tr){
+      body = '<div style="font-size:18px;font-weight:700;font-family:ui-monospace,monospace;color:' + col + ';margin-top:4px;">' + (tr.pnl >= 0 ? '+' : '') + fmtUSDT(tr.pnl) + '</div>'
+           + '<div style="font-size:12px;color:var(--text-muted);margin-top:2px;">' + esc(d.name) + ' · ' + esc(assetBase(tr.symbol)) + ' ' + esc(tr.type) + ' x' + esc(tr.leverage) + '</div>';
+    }
+    return '<div class="glass-sm" style="border-radius:14px;padding:12px 14px;min-width:0;"><div style="font-size:11px;color:var(--text-muted);">' + title + '</div>' + body + '</div>';
+  }
+
+  function renderRanking(){
+    var list = document.getElementById('rank-list');
+    if(!list) return;
+    var meBox = document.getElementById('rank-me');
+    var fame = document.getElementById('rank-fame');
+    var note = document.getElementById('rank-note');
+    if(!State.user){
+      list.innerHTML = '<div style="padding:24px;text-align:center;color:var(--text-muted);font-size:13px;">' + t('rank.login') + '</div>';
+      meBox.innerHTML = ''; fame.innerHTML = ''; note.textContent = '';
+      renderFeed();
+      return;
+    }
+    var uid = State.user.uid;
+    var sorted = rankSortedBy(_rankMetric);
+    if(sorted.length){
+      list.innerHTML = sorted.map(function(d, i){
+        var medal = ['🥇', '🥈', '🥉'][i] || ('#' + (i + 1));
+        var c = rankCell(d, _rankMetric);
+        var mine = d.id === uid;
+        return '<div class="rank-row' + (mine ? ' me' : '') + '">'
+          + '<span style="width:28px;font-size:13px;font-weight:700;color:var(--text-muted);flex-shrink:0;">' + medal + '</span>'
+          + '<div class="rank-av">' + esc((d.name || '?').charAt(0).toUpperCase()) + '</div>'
+          + '<div style="flex:1;min-width:0;"><div style="font-size:14px;font-weight:600;color:var(--text);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">' + esc(d.name) + (mine ? ' (' + t('rank.you') + ')' : '') + '</div>'
+          + '<div style="font-size:11px;color:var(--text-muted);">' + c.sub + '</div></div>'
+          + '<span style="font-size:14px;font-weight:700;font-family:ui-monospace,monospace;color:' + c.col + ';white-space:nowrap;">' + esc(c.val) + '</span></div>';
+      }).join('');
+    }else{
+      list.innerHTML = '<div style="padding:24px;text-align:center;color:var(--text-muted);font-size:13px;">' + t('rank.empty').replace('{n}', RANK_MIN_TRADES) + '</div>';
+    }
+    note.textContent = t('rank.min').replace('{n}', RANK_MIN_TRADES);
+
+    var my = computeMyStats();
+    var pos = sorted.findIndex(function(d){ return d.id === uid; });
+    var left;
+    if(my.trades < RANK_MIN_TRADES){
+      left = '<div style="font-size:13px;color:var(--text-muted);">' + t('rank.need').replace('{n}', RANK_MIN_TRADES - my.trades) + '</div>';
+    }else{
+      left = '<div style="font-size:11px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px;">' + t('rank.my_pos') + '</div>'
+           + '<div style="font-size:24px;font-weight:700;font-family:\'Russo One\',sans-serif;color:var(--gold);">' + (pos >= 0 ? '#' + (pos + 1) : '—')
+           + (pos >= 0 ? ' <span style="font-size:12px;color:var(--text-muted);font-family:Inter,sans-serif;font-weight:400;">' + t('rank.of') + ' ' + sorted.length + '</span>' : '') + '</div>';
+    }
+    meBox.innerHTML = '<div class="glass-sm" style="border-radius:14px;padding:12px 14px;display:flex;justify-content:space-between;align-items:center;gap:12px;">'
+      + '<div>' + left + '</div>'
+      + '<div style="text-align:right;"><div style="font-size:11px;color:var(--text-muted);">' + t('rank.f.wr') + '</div>'
+      + '<div style="font-size:18px;font-weight:700;font-family:ui-monospace,monospace;color:' + (my.winRate >= 50 ? '#34d399' : '#fb7185') + ';">' + Math.round(my.winRate) + '%</div></div></div>';
+
+    var bestD = null, worstD = null;
+    _rankData.forEach(function(d){
+      if(d.best && (!bestD || d.best.pnl > bestD.best.pnl)) bestD = d;
+      if(d.worst && d.worst.pnl < 0 && (!worstD || d.worst.pnl < worstD.worst.pnl)) worstD = d;
+    });
+    fame.innerHTML = fameCard(t('rank.fame_best'), bestD, bestD && bestD.best, true)
+                   + fameCard(t('rank.fame_worst'), worstD, worstD && worstD.worst, false);
+    renderFeed();
+  }
+
+  function renderFeed(){
+    var box = document.getElementById('rank-feed');
+    if(!box) return;
+    if(!State.user || !_rankFeed.length){
+      box.innerHTML = '<div style="padding:16px;text-align:center;color:var(--text-muted);font-size:13px;">' + t('rank.feed_empty') + '</div>';
+      return;
+    }
+    box.innerHTML = _rankFeed.map(function(e){
+      var liq = e.reason === 'liquidated';
+      var txt = liq
+        ? esc(e.name) + ' ' + t('rank.ev.liq') + ' ' + esc(assetBase(e.symbol)) + ' x' + esc(e.leverage)
+        : esc(e.name) + ' ' + t('rank.ev.close') + ' ' + esc(assetBase(e.symbol)) + ' ' + esc(e.type) + ' x' + esc(e.leverage);
+      var col = e.pnl >= 0 ? '#34d399' : '#fb7185';
+      return '<div class="rank-row">'
+        + '<div class="rank-av">' + esc((e.name || '?').charAt(0).toUpperCase()) + '</div>'
+        + '<div style="flex:1;min-width:0;"><div style="font-size:13px;color:var(--text);">' + txt + '</div>'
+        + '<div style="font-size:11px;color:var(--text-muted);">' + (e.t ? agoShort(Date.now() - e.t) : '') + '</div></div>'
+        + '<span style="font-size:13px;font-weight:700;font-family:ui-monospace,monospace;color:' + col + ';white-space:nowrap;">' + (e.pnl >= 0 ? '+' : '') + fmtUSDT(e.pnl) + '</span></div>';
+    }).join('');
+  }
+
+  function startFeed(){
+    if(_rankFeedUnsub || !Firebase.active || !State.user) return;
+    var h = Firebase.helpers;
+    try{
+      var q = h.query(h.collection(Firebase.db, 'activity'), h.orderBy('t', 'desc'), h.limit(15));
+      _rankFeedUnsub = h.onSnapshot(q, function(snap){
+        _rankFeed = snap.docs.map(function(d){ return d.data(); });
+        renderFeed();
+      }, function(err){ console.warn('Rànquing: activitat no disponible.', err); });
+    }catch(e){ console.warn('Rànquing: activitat no disponible.', e); }
+  }
+
+  function stopRankingLive(){
+    if(_rankFeedUnsub){ try{ _rankFeedUnsub(); }catch(e){} _rankFeedUnsub = null; }
+    if(_rankTimer){ clearInterval(_rankTimer); _rankTimer = null; }
+  }
+
+  function openRanking(){
+    renderRanking();
+    if(!State.user) return;
+    publishRanking().then(function(){ loadRanking(true); });
+    startFeed();
+    if(_rankTimer) clearInterval(_rankTimer);
+    _rankTimer = setInterval(function(){ loadRanking(false); }, 30000);
+  }
+
+  window.loadRanking = loadRanking;
+  window.setRankMetric = function(m){
+    _rankMetric = m;
+    ['wr', 'best', 'worst', 'streak'].forEach(function(k){
+      var b = document.getElementById('rank-f-' + k);
+      if(b) b.classList.toggle('on', k === m);
+    });
+    renderRanking();
+  };
+
+  /* Targeta de la pantalla principal: posició, win rate i ratxa (en lloc del saldo) */
+  function updateHomeStats(){
+    var hb = document.getElementById('balance-display');
+    if(hb && hb.parentElement) hb.parentElement.style.display = State.activeSection === 'assets' ? 'none' : 'flex';
+    var pill = document.getElementById('game-balance-pill');
+    if(!pill) return;
+    var label = '👑 ' + t('nav.ranking');
+    if(State.user && State.tradeHistory.length){
+      var my = computeMyStats();
+      var parts = [];
+      var pos = rankSortedBy('wr').findIndex(function(d){ return d.id === State.user.uid; });
+      if(pos >= 0) parts.push('#' + (pos + 1));
+      parts.push(Math.round(my.winRate) + '% win');
+      if(my.streak >= 2) parts.push('🔥' + my.streak);
+      label = parts.join(' · ');
+    }
+    pill.textContent = label;
+  }
+
   /* ── Auth ── */
   window.openAuthModal=()=>document.getElementById('auth-modal').classList.remove('hidden');
   window.closeAuthModal=()=>document.getElementById('auth-modal').classList.add('hidden');
@@ -3028,12 +3350,12 @@ const data=raw.data||raw;if(Array.isArray(data)){data.filter(t=>ASSET_MAP[t.s]).
     try{
       const {initializeApp}=await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js');
       const {getAuth,signInWithEmailAndPassword,createUserWithEmailAndPassword,signInWithPopup,GoogleAuthProvider,onAuthStateChanged,signOut}=await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js');
-      const {getFirestore,doc,setDoc,getDoc,onSnapshot,collection,query,where,getDocs}=await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js');
+      const {getFirestore,doc,setDoc,getDoc,onSnapshot,collection,query,where,getDocs,orderBy,limit}=await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js');
       const {initializeAppCheck,ReCaptchaV3Provider}=await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-app-check.js');
       const app=initializeApp(CONFIG.firebase);
       // App Check — protegeix les claus de Firebase per domini
       initializeAppCheck(app,{provider:new ReCaptchaV3Provider('6LdOgAEtAAAAG49MT84ZdWfpRD1BKWVq5EfKKlC'),isTokenAutoRefreshEnabled:true});
-      Firebase.active=true;Firebase.auth=getAuth(app);Firebase.db=getFirestore(app);Firebase.helpers={doc,setDoc,getDoc,onSnapshot,collection,query,where,getDocs};
+      Firebase.active=true;Firebase.auth=getAuth(app);Firebase.db=getFirestore(app);Firebase.helpers={doc,setDoc,getDoc,onSnapshot,collection,query,where,getDocs,orderBy,limit};
 
       onAuthStateChanged(Firebase.auth,async user=>{
         State.authReady=true;
@@ -3055,6 +3377,7 @@ const data=raw.data||raw;if(Array.isArray(data)){data.filter(t=>ASSET_MAP[t.s]).
             }
             startLeagueSnapshots(onSnapshot,doc);
           }catch(e){showToast('No s\'han pogut carregar les dades del compte.','error');}
+          publishRanking().then(function(){loadRanking(false);});
           updateAll();
         }else{
           stopLeagueSnapshots();
@@ -3108,7 +3431,7 @@ const data=raw.data||raw;if(Array.isArray(data)){data.filter(t=>ASSET_MAP[t.s]).
     if(State.activeSection==='portfolio') updatePortfolio();
     if(State.activeSection==='league') renderLeagues();
     if(State.activeSection==='profile') renderProfile();
-    updateUnrealizedPnlBar();updateOrdersTable();
+    updateUnrealizedPnlBar();updateOrdersTable();if(State.activeSection==='ranking') renderRanking();
   }
 
   /* ── Leverage slider ── */
