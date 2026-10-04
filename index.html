@@ -714,7 +714,7 @@
       </div>
 
       <div class="glass-sm" style="border-radius:14px;padding:14px;">
-        <div style="font-size:13px;font-weight:600;margin-bottom:10px;color:var(--text-muted);" data-i18n="js.pf.balance_perf">Rendiment del saldo</div>
+        <div style="font-size:13px;font-weight:600;margin-bottom:10px;color:var(--text-muted);" data-i18n="trade.pnl_accumulated">PnL acumulat</div>
         <canvas id="portfolio-chart" height="140" style="width:100%;"></canvas>
       </div>
       <div class="glass-sm" style="border-radius:14px;padding:14px;">
@@ -736,24 +736,6 @@
         </div>
       </div>
     </div>
-  </section>
-
-  <!-- ASSOLIMENTS -->
-  <section id="achievements-section" class="app-section" style="overflow-y:auto;">
-    <div style="padding:16px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;">
-      <div style="display:flex;align-items:center;gap:10px;">
-        <button onclick="switchSection('assets')" class="btn-icon">&#8592;</button>
-        <div>
-          <div class="section-title" data-i18n="ach.title">Assoliments</div>
-          <div class="section-sub" data-i18n="ach.sub">Insígnies, fites i punts de progrés</div>
-        </div>
-      </div>
-      <div class="glass-sm" style="border-radius:12px;padding:10px 14px;text-align:center;">
-        <div style="font-size:10px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px;" data-i18n="ach.completed_label">Completats</div>
-        <div style="font-size:16px;font-weight:700;margin-top:2px;color:var(--text);"><span id="achievements-completed">0</span>/<span id="achievements-total">0</span> · <span id="achievement-points" style="color:#fbbf24;">0</span> pts</div>
-      </div>
-    </div>
-    <div id="achievements-grid" style="padding:14px;display:grid;grid-template-columns:1fr;gap:10px;"></div>
   </section>
 
   <!-- RÀNQUING GLOBAL -->
@@ -806,7 +788,7 @@
         <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:10px;">
           <div class="profile-stat"><div style="font-size:10px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px;">Trades</div><div style="font-size:20px;font-weight:700;margin-top:4px;color:var(--text);" id="profile-trades">0</div></div>
           <div class="profile-stat"><div style="font-size:10px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px;">PnL Total</div><div style="font-size:16px;font-weight:700;margin-top:4px;font-family:ui-monospace,monospace;" id="profile-pnl">+0.00</div></div>
-          <div class="profile-stat"><div style="font-size:10px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px;" data-i18n="profile.points">Punts</div><div style="font-size:20px;font-weight:700;margin-top:4px;color:#fbbf24;" id="profile-points">0</div></div>
+          <div class="profile-stat"><div style="font-size:10px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px;">Win rate</div><div style="font-size:20px;font-weight:700;margin-top:4px;color:var(--text);" id="profile-winrate">0%</div></div>
           <div class="profile-stat" style="position:relative;overflow:hidden;"><div style="font-size:10px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px;" data-i18n="profile.leagues_won">Lligues guanyades</div><div style="font-size:20px;font-weight:700;margin-top:4px;color:var(--gold);display:flex;align-items:center;gap:6px;"><span id="profile-leagues-won">0</span><span style="font-size:16px;">🏆</span></div></div>
         </div>
         <!-- MILLORA 8: Configuració funcional -->
@@ -1648,7 +1630,7 @@
     wsReconnectTimer:null, fallbackTimer:null, restPollingTimer:null, wsUrlIndex:0,
     chartSymbol:'BTCUSDT', currentAsset:'BTCUSDT', leverage:10, tradeType:'LONG',
     orderType:'market', // MILLORA 2
-    tvWidget:null, ws:null, chartLines:{}, achievements:{}, leagues:[],
+    tvWidget:null, ws:null, chartLines:{}, leagues:[],
     activeLeagueId:null, activeSection:'assets', bottomTab:'positions',
     pendingOrders:[], // MILLORA 2
     balanceHistory:[], // MILLORA 5 (per Max Drawdown)
@@ -1657,93 +1639,6 @@
   };
 
   const Firebase = {active:false,auth:null,db:null,helpers:{},leagueUnsubs:[]};
-
-
-  var ACHIEVEMENTS_DATA = {
-    ca: [
-      {id:'gran_coup',      category:'Millors Trades',  icon:'🏆',desc:'Millor trade del dia amb PnL positiu.',              points:100,  target:1,    name:'El Gran Coup'},
-      {id:'trader_mes',     category:'Consistència',    icon:'📅',desc:'Tanca almenys un trade positiu aquest mes.',          points:150,  target:1,    name:'Trader del Mes'},
-      {id:'llegenda_anual', category:'Consistència',    icon:'🌟',desc:'Tanca almenys un trade positiu aquest any.',          points:500,  target:1,    name:'Llegenda Anual'},
-      {id:'centurio',       category:'Rendiment',       icon:'💯',desc:'Assoleix un ROE del 100% en un sol trade.',           points:200,  target:100,  name:'Centurió'},
-      {id:'multiplicador',  category:'Rendiment',       icon:'🚀',desc:'Assoleix un ROE del 500% en un sol trade.',           points:500,  target:500,  name:'El Multiplicador'},
-      {id:'primers_passos', category:'Activitat',       icon:'👶',desc:'Tanca el teu primer trade.',                          points:50,   target:1,    name:'Primers Passos'},
-      {id:'actiu',          category:'Activitat',       icon:'⚡',desc:'Tanca 10 trades en total.',                           points:100,  target:10,   name:'Trader Actiu'},
-      {id:'veterà',         category:'Activitat',       icon:'🎖',desc:'Tanca 50 trades en total.',                           points:300,  target:50,   name:'Veterà'},
-      {id:'maquina_guerra', category:'Activitat',       icon:'⚔',desc:'Tanca 200 trades en total.',                          points:1000, target:200,  name:'Màquina de Guerra'},
-      {id:'diversificat',   category:'Estratègia',      icon:'🌐',desc:'Opera amb 5 actius diferents.',                       points:150,  target:5,    name:'Diversificat'},
-      {id:'ordre_limit',    category:'Estratègia',      icon:'📋',desc:'Executa la teva primera ordre límit.',                points:100,  target:1,    name:'Ordre Límit'},
-      {id:'en_positiu',     category:'Rendiment',       icon:'💚',desc:'Assoleix un PnL total positiu.',                      points:200,  target:1,    name:'En Positiu'},
-      {id:'quatre_digits',  category:'Rendiment',       icon:'💰',desc:'Acumula 1.000 USDT en PnL realitzat.',               points:300,  target:1000, name:'Quatre Dígits'},
-      {id:'cinc_digits',    category:'Rendiment',       icon:'🏦',desc:'Acumula 10.000 USDT en PnL realitzat.',              points:1000, target:10000,name:'Cinc Dígits'},
-      {id:'franctirador',   category:'Consistència',    icon:'🎯',desc:'Encadena 5 trades consecutius en positiu.',           points:250,  target:5,    name:'Franctirador'},
-      {id:'imparable',      category:'Consistència',    icon:'🔥',desc:'Encadena 10 trades consecutius en positiu.',          points:500,  target:10,   name:'Imparable'},
-      {id:'perfeccionista', category:'Rendiment',       icon:'💎',desc:"Mantén Win Rate 80%+ (mínim 20 trades).",             points:750,  target:80,   name:'Perfeccionista'},
-      {id:'night_trader',   category:'Curiositats',     icon:'🦉',desc:'Obra una posició entre les 0h i les 6h.',             points:75,   target:1,    name:'Night Trader'},
-      {id:'matiner',        category:'Curiositats',     icon:'🌅',desc:'Obra una posició entre les 6h i les 8h.',             points:75,   target:1,    name:'El Matiner'},
-      {id:'hodler',         category:'Estratègia',      icon:'💎',desc:"Mantén una posició oberta durant més de 24 hores.",   points:150,  target:24,   name:'HODLer'},
-      {id:'adrenalina',     category:'Risc',            icon:'⚡',desc:'Obra una posició amb x50 de palanquejament.',         points:200,  target:50,   name:'Adrenalina'},
-      {id:'sobrevivent',    category:'Risc',            icon:'💀',desc:"Recupera't d'una liquidació.",                        points:100,  target:1,    name:'El Sobrevivent'},
-    ],
-    es: [
-      {id:'gran_coup',      category:'Mejores Trades',  icon:'🏆',desc:'Mejor trade del día con PnL positivo.',               points:100,  target:1,    name:'El Gran Golpe'},
-      {id:'trader_mes',     category:'Consistencia',    icon:'📅',desc:'Cierra al menos un trade positivo este mes.',          points:150,  target:1,    name:'Trader del Mes'},
-      {id:'llegenda_anual', category:'Consistencia',    icon:'🌟',desc:'Cierra al menos un trade positivo este año.',          points:500,  target:1,    name:'Leyenda Anual'},
-      {id:'centurio',       category:'Rendimiento',     icon:'💯',desc:'Alcanza un ROE del 100% en un solo trade.',            points:200,  target:100,  name:'Centurión'},
-      {id:'multiplicador',  category:'Rendimiento',     icon:'🚀',desc:'Alcanza un ROE del 500% en un solo trade.',            points:500,  target:500,  name:'El Multiplicador'},
-      {id:'primers_passos', category:'Actividad',       icon:'👶',desc:'Cierra tu primer trade.',                              points:50,   target:1,    name:'Primeros Pasos'},
-      {id:'actiu',          category:'Actividad',       icon:'⚡',desc:'Cierra 10 trades en total.',                           points:100,  target:10,   name:'Trader Activo'},
-      {id:'veterà',         category:'Actividad',       icon:'🎖',desc:'Cierra 50 trades en total.',                           points:300,  target:50,   name:'Veterano'},
-      {id:'maquina_guerra', category:'Actividad',       icon:'⚔',desc:'Cierra 200 trades en total.',                          points:1000, target:200,  name:'Máquina de Guerra'},
-      {id:'diversificat',   category:'Estrategia',      icon:'🌐',desc:'Opera con 5 activos diferentes.',                      points:150,  target:5,    name:'Diversificado'},
-      {id:'ordre_limit',    category:'Estrategia',      icon:'📋',desc:'Ejecuta tu primera orden límite.',                     points:100,  target:1,    name:'Orden Límite'},
-      {id:'en_positiu',     category:'Rendimiento',     icon:'💚',desc:'Alcanza un PnL total positivo.',                       points:200,  target:1,    name:'En Positivo'},
-      {id:'quatre_digits',  category:'Rendimiento',     icon:'💰',desc:'Acumula 1.000 USDT en PnL realizado.',                points:300,  target:1000, name:'Cuatro Dígitos'},
-      {id:'cinc_digits',    category:'Rendimiento',     icon:'🏦',desc:'Acumula 10.000 USDT en PnL realizado.',               points:1000, target:10000,name:'Cinco Dígitos'},
-      {id:'franctirador',   category:'Consistencia',    icon:'🎯',desc:'Encadena 5 trades consecutivos en positivo.',          points:250,  target:5,    name:'Francotirador'},
-      {id:'imparable',      category:'Consistencia',    icon:'🔥',desc:'Encadena 10 trades consecutivos en positivo.',         points:500,  target:10,   name:'Imparable'},
-      {id:'perfeccionista', category:'Rendimiento',     icon:'💎',desc:'Mantén Win Rate 80%+ (mínimo 20 trades).',             points:750,  target:80,   name:'Perfeccionista'},
-      {id:'night_trader',   category:'Curiosidades',    icon:'🦉',desc:'Abre una posición entre las 0h y las 6h.',             points:75,   target:1,    name:'Night Trader'},
-      {id:'matiner',        category:'Curiosidades',    icon:'🌅',desc:'Abre una posición entre las 6h y las 8h.',             points:75,   target:1,    name:'El Madrugador'},
-      {id:'hodler',         category:'Estrategia',      icon:'💎',desc:'Mantén una posición abierta más de 24 horas.',         points:150,  target:24,   name:'HODLer'},
-      {id:'adrenalina',     category:'Riesgo',          icon:'⚡',desc:'Abre una posición con x50 de apalancamiento.',          points:200,  target:50,   name:'Adrenalina'},
-      {id:'sobrevivent',    category:'Riesgo',          icon:'💀',desc:'Recupérate de una liquidación.',                       points:100,  target:1,    name:'El Superviviente'},
-    ],
-    en: [
-      {id:'gran_coup',      category:'Best Trades',     icon:'🏆',desc:'Best trade of the day with positive PnL.',            points:100,  target:1,    name:'The Big Score'},
-      {id:'trader_mes',     category:'Consistency',     icon:'📅',desc:'Close at least one positive trade this month.',        points:150,  target:1,    name:'Trader of the Month'},
-      {id:'llegenda_anual', category:'Consistency',     icon:'🌟',desc:'Close at least one positive trade this year.',         points:500,  target:1,    name:'Annual Legend'},
-      {id:'centurio',       category:'Performance',     icon:'💯',desc:'Achieve 100% ROE on a single trade.',                  points:200,  target:100,  name:'Centurion'},
-      {id:'multiplicador',  category:'Performance',     icon:'🚀',desc:'Achieve 500% ROE on a single trade.',                  points:500,  target:500,  name:'The Multiplier'},
-      {id:'primers_passos', category:'Activity',        icon:'👶',desc:'Close your first trade.',                              points:50,   target:1,    name:'First Steps'},
-      {id:'actiu',          category:'Activity',        icon:'⚡',desc:'Close 10 trades total.',                              points:100,  target:10,   name:'Active Trader'},
-      {id:'veterà',         category:'Activity',        icon:'🎖',desc:'Close 50 trades total.',                              points:300,  target:50,   name:'Veteran'},
-      {id:'maquina_guerra', category:'Activity',        icon:'⚔',desc:'Close 200 trades total.',                             points:1000, target:200,  name:'War Machine'},
-      {id:'diversificat',   category:'Strategy',        icon:'🌐',desc:'Trade with 5 different assets.',                       points:150,  target:5,    name:'Diversified'},
-      {id:'ordre_limit',    category:'Strategy',        icon:'📋',desc:'Execute your first limit order.',                      points:100,  target:1,    name:'Limit Order'},
-      {id:'en_positiu',     category:'Performance',     icon:'💚',desc:'Achieve a positive total PnL.',                        points:200,  target:1,    name:'In The Green'},
-      {id:'quatre_digits',  category:'Performance',     icon:'💰',desc:'Accumulate 1,000 USDT in realized PnL.',              points:300,  target:1000, name:'Four Digits'},
-      {id:'cinc_digits',    category:'Performance',     icon:'🏦',desc:'Accumulate 10,000 USDT in realized PnL.',             points:1000, target:10000,name:'Five Digits'},
-      {id:'franctirador',   category:'Consistency',     icon:'🎯',desc:'Chain 5 consecutive winning trades.',                  points:250,  target:5,    name:'Sharpshooter'},
-      {id:'imparable',      category:'Consistency',     icon:'🔥',desc:'Chain 10 consecutive winning trades.',                 points:500,  target:10,   name:'Unstoppable'},
-      {id:'perfeccionista', category:'Performance',     icon:'💎',desc:'Maintain 80%+ Win Rate (min 20 trades).',              points:750,  target:80,   name:'Perfectionist'},
-      {id:'night_trader',   category:'Fun',             icon:'🦉',desc:'Open a position between 0h and 6h.',                   points:75,   target:1,    name:'Night Trader'},
-      {id:'matiner',        category:'Fun',             icon:'🌅',desc:'Open a position between 6h and 8h.',                   points:75,   target:1,    name:'Early Bird'},
-      {id:'hodler',         category:'Strategy',        icon:'💎',desc:'Keep a position open for more than 24 hours.',          points:150,  target:24,   name:'HODLer'},
-      {id:'adrenalina',     category:'Risk',            icon:'⚡',desc:'Open a position with x50 leverage.',                   points:200,  target:50,   name:'Adrenaline'},
-      {id:'sobrevivent',    category:'Risk',            icon:'💀',desc:'Recover from a liquidation.',                          points:100,  target:1,    name:'The Survivor'},
-    ]
-  };
-  function getAchievements() { return ACHIEVEMENTS_DATA[_lang] || ACHIEVEMENTS_DATA.ca; }
-  const ACHIEVEMENTS = new Proxy([], {
-    get: function(target, prop) {
-      var arr = getAchievements();
-      if (prop === 'length') return arr.length;
-      if (['forEach','filter','map','find','reduce','slice','some','every','indexOf'].indexOf(prop) !== -1) return arr[prop].bind(arr);
-      if (typeof prop === 'string' && !isNaN(prop)) return arr[parseInt(prop)];
-      return arr[prop];
-    }
-  });
-
 
 
   /* ── Formatters ── */
@@ -1890,7 +1785,7 @@
     State.balance=STARTING_BALANCE;
     State.positions=[];
     State.tradeHistory=[];
-    State.achievements={};
+    
     State.leagues=[];
     State.pendingOrders=[];
     State.balanceHistory=[];
@@ -1903,7 +1798,7 @@
     try{
       await setDoc(doc(Firebase.db,'users',State.user.uid),{
         balance:State.balance,positions:State.positions,tradeHistory:State.tradeHistory,
-        achievements:State.achievements,pendingOrders:State.pendingOrders,balanceHistory:State.balanceHistory,leagues:State.leagues,updatedAt:new Date()
+        pendingOrders:State.pendingOrders,balanceHistory:State.balanceHistory,leagues:State.leagues,updatedAt:new Date()
       },{merge:true});
       for(const lg of State.leagues) await setDoc(doc(Firebase.db,'leagues',lg.id),lg,{merge:true});
       return true;
@@ -1958,7 +1853,7 @@
   /* ── Section switching ── */
   window.switchSection=function(section){
     State.activeSection=section;
-    const sectionIds={assets:'assets-section',trade:'trade-section',chart:'chart-section',league:'league-section',portfolio:'portfolio-section',achievements:'achievements-section',ranking:'ranking-section',profile:'profile-section'};
+    const sectionIds={assets:'assets-section',trade:'trade-section',chart:'chart-section',league:'league-section',portfolio:'portfolio-section',ranking:'ranking-section',profile:'profile-section'};
     document.querySelectorAll('.app-section').forEach(el=>el.classList.remove('active'));
     document.getElementById(sectionIds[section])?.classList.add('active');
     let navId;
@@ -1969,7 +1864,6 @@
     document.getElementById(navId)?.classList.add('active');
     if(section==='league') renderLeagues();
     if(section==='portfolio') requestAnimationFrame(()=>requestAnimationFrame(updatePortfolio));
-    if(section==='achievements') renderAchievements();
     if(section!=='ranking') stopRankingLive();
     if(section==='ranking') openRanking();
     updateHomeStats();
@@ -2199,7 +2093,7 @@
     document.getElementById('order-amount').value='';
     document.getElementById('tp-price').value='';
     document.getElementById('sl-price').value='';
-    calculateOrder();checkAchievements();
+    calculateOrder();
     await saveRemoteState();
     showToast(`${position.type} @ ${fmtPrice(price,position.symbol)}`,'success');
     toggleOrderPanel(false);updateUnrealizedPnlBar();
@@ -2223,7 +2117,7 @@
     // MILLORA 5: Guardar historial de saldo
     State.balanceHistory.push({timestamp:closeTime,value:State.balance});
     if(State.balanceHistory.length>500) State.balanceHistory=State.balanceHistory.slice(-500);
-    updateBalance();updatePositionsTable();updateHistoryTable();updatePortfolio();updateLeaguesAfterTrade(trade);checkAchievements();
+    updateBalance();updatePositionsTable();updateHistoryTable();updatePortfolio();updateLeaguesAfterTrade(trade);
     publishRanking();publishActivity(trade);
     await saveRemoteState();
     // MILLORA 6: Alert gran per TP/SL/Liquidació
@@ -2233,11 +2127,7 @@
       showToast(`${pnl>=0?'+':''}${fmtUSDT(pnl)} USDT`,pnl>=0?'success':'warning');
     }
     updateUnrealizedPnlBar();
-    // Achievement sobrevivent si liquidat i segueix operant
-    if(reason==='liquidated'){
-      const prev=State.achievements['sobrevivent'];
-      if(!prev?.completed){State.achievements['sobrevivent']={progress:1,completed:false};}
-    }
+
   };
 
   /* ── MILLORA 2: Cancel·lar ordre límit ── */
@@ -2319,11 +2209,7 @@
       State.positions.push(position);
       updatePositionsTable();drawPositionLines(position);addTradeMarker(position,'OPEN');
       updateOrdersTable();
-      // Assoliment ordre límit
-      if(!State.achievements['ordre_limit']?.completed){
-        State.achievements['ordre_limit']={progress:1,completed:true};
-        showToast(t('js.ach_limit_order'),'success');
-      }
+
       await saveRemoteState();
       showToast(`Ordre límit executada: ${position.type} ${assetBase(position.symbol)} a ${fmtPrice(position.entryPrice,position.symbol)}.`,'success');
       updateUnrealizedPnlBar();
@@ -2634,7 +2520,7 @@ const data=raw.data||raw;if(Array.isArray(data)){data.filter(t=>ASSET_MAP[t.s]).
     const dayPnl=State.tradeHistory.filter(t=>new Date(t.closeTime).toDateString()===today).reduce((s,t)=>s+t.pnl,0)+totalUnrealizedPnl();
     const lifePnl=totalRealizedPnl()+totalUnrealizedPnl();
     document.getElementById('portfolio-kpis').innerHTML=[
-      [t('js.pf.total_val'),`${fmtUSDT(totalVal)} USDT`,'#34d399'],
+      [t('js.stat.win_rate'),`${Math.round(calcWinRate())}%`,calcWinRate()>=50?'#34d399':'#fb7185'],
       [t('js.pf.day_pnl'),`${dayPnl>=0?'+':''}${fmtUSDT(dayPnl)} USDT`,dayPnl>=0?'#34d399':'#fb7185'],
       [t('js.pf.total_pnl'),`${lifePnl>=0?'+':''}${fmtUSDT(lifePnl)} USDT`,lifePnl>=0?'#34d399':'#fb7185'],
       [t('js.pf.trades'),State.tradeHistory.length,'#94a3b8']
@@ -2661,7 +2547,7 @@ const data=raw.data||raw;if(Array.isArray(data)){data.filter(t=>ASSET_MAP[t.s]).
     ctx.scale(devicePixelRatio,devicePixelRatio);
     ctx.clearRect(0,0,w,h);
     const trades=[...State.tradeHistory].reverse();
-    const pts=[STARTING_BALANCE];trades.forEach(t=>pts.push(pts[pts.length-1]+t.pnl));
+    const pts=[0];trades.forEach(t=>pts.push(pts[pts.length-1]+t.pnl));
     if(pts.length<2){
       ctx.fillStyle='#475569';ctx.font='13px ui-sans-serif';ctx.textAlign='center';
       ctx.fillText('Fes el primer trade per veure el gràfic',w/2,h/2);return;
@@ -2696,10 +2582,10 @@ const data=raw.data||raw;if(Array.isArray(data)){data.filter(t=>ASSET_MAP[t.s]).
   /* ── Profile ── */
   function renderProfile(){
     const totalPnl=totalRealizedPnl()+totalUnrealizedPnl();
-    const points=ACHIEVEMENTS.filter(a=>State.achievements[a.id]?.completed).reduce((s,a)=>s+a.points,0);
+    
     const el=document.getElementById('profile-trades');if(el) el.textContent=State.tradeHistory.length;
     const ep=document.getElementById('profile-pnl');if(ep){ep.textContent=(totalPnl>=0?'+':'')+fmtUSDT(totalPnl)+' USDT';ep.style.color=totalPnl>=0?'#34d399':'#fb7185';}
-    const pts=document.getElementById('profile-points');if(pts) pts.textContent=points;
+    const pwr=document.getElementById('profile-winrate');if(pwr) pwr.textContent=Math.round(calcWinRate())+'%';
     // Lligues guanyades: lligues on l'usuari és #1 al rànquing
     const uid=State.user?.uid;
     const leaguesWon=uid?State.leagues.filter(lg=>{
@@ -2942,7 +2828,7 @@ const data=raw.data||raw;if(Array.isArray(data)){data.filter(t=>ASSET_MAP[t.s]).
       <div class="league-card">
         <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap;">
           <div><div style="font-size:20px;font-weight:700;color:var(--text);">${league.name}</div><div style="font-size:12px;color:var(--text-muted);margin-top:3px;">${t('js.code_label')} ${league.code} · ${remainingTime(league.endAt)} ${t('js.remaining')}</div></div>
-          <div style="font-family:ui-monospace,monospace;font-size:16px;font-weight:700;color:${me.pnl>=0?'#34d399':'#fb7185'};">${t('js.your_pnl')} ${me.pnl>=0?'+':''}${fmtUSDT(me.pnl)} USDT</div>
+          <div style="text-align:right;"><div style="font-size:12px;color:var(--text-muted);">${t('league.balance_col')}: <span style="font-family:ui-monospace,monospace;font-weight:700;color:var(--gold);">${fmtUSDT(me.balance!=null?me.balance:STARTING_BALANCE)} USDT</span></div><div style="font-family:ui-monospace,monospace;font-size:16px;font-weight:700;color:${me.pnl>=0?'#34d399':'#fb7185'};">${t('js.your_pnl')} ${me.pnl>=0?'+':''}${fmtUSDT(me.pnl)} USDT</div></div>
         </div>
       </div>
       <div style="background:var(--card-bg);border:1px solid var(--line);border-radius:14px;padding:14px;min-width:0;">
@@ -2974,71 +2860,6 @@ const data=raw.data||raw;if(Array.isArray(data)){data.filter(t=>ASSET_MAP[t.s]).
       lg.trades.unshift({...trade,player:m.name});
     });
     if(State.activeSection==='league'){if(State.activeLeagueId)openLeague(State.activeLeagueId);else renderLeagues();}
-  }
-
-  /* ── Achievements ── */
-  function achievementProgress(){
-    const trades=State.tradeHistory,now=new Date();
-    const today=now.toDateString(),month=now.getMonth(),year=now.getFullYear();
-    const pos=trades.filter(t=>t.pnl>0);const totalPnl=totalRealizedPnl();
-    const bestRoe=trades.reduce((mx,t)=>Math.max(mx,t.roe||0),0);
-    const assets=new Set(trades.map(tr=>tr.symbol).concat(State.positions.map(p=>p.symbol)));
-    const bestToday=pos.some(t=>new Date(t.closeTime).toDateString()===today)?1:0;
-    const bestMonth=pos.some(t=>new Date(t.closeTime).getMonth()===month&&new Date(t.closeTime).getFullYear()===year)?1:0;
-    const bestYear=pos.some(t=>new Date(t.closeTime).getFullYear()===year)?1:0;
-    let streak=0;for(const t of trades){if(t.pnl>0)streak+=1;else break;}
-    const winRate=trades.length>=20?(pos.length/trades.length)*100:0;
-    const openedHours=trades.map(tr=>new Date(tr.openTime).getHours()).concat(State.positions.map(p=>new Date(p.openTime).getHours()));
-    const maxOpenHours=State.positions.reduce((mx,p)=>Math.max(mx,(Date.now()-p.openTime)/3600000),0);
-    const maxLev=Math.max(0,...trades.map(tr=>tr.leverage),...State.positions.map(p=>p.leverage));
-    const limitExecuted=trades.filter(t=>t.reason==='limit'||State.pendingOrders.length>0).length>0?1:State.achievements['ordre_limit']?.completed?1:0;
-    const liquidated=trades.some(t=>t.reason==='liquidated')?1:0;
-    return{gran_coup:bestToday,trader_mes:bestMonth,llegenda_anual:bestYear,centurio:bestRoe,multiplicador:bestRoe,primers_passos:trades.length,actiu:trades.length,'veterà':trades.length,maquina_guerra:trades.length,diversificat:assets.size,ordre_limit:limitExecuted,en_positiu:totalPnl,quatre_digits:totalPnl,cinc_digits:totalPnl,franctirador:streak,imparable:streak,perfeccionista:winRate,night_trader:openedHours.some(h=>h>=0&&h<6)?1:0,matiner:openedHours.some(h=>h>=6&&h<8)?1:0,hodler:maxOpenHours,adrenalina:maxLev,sobrevivent:liquidated};
-  }
-
-  function checkAchievements(render=true){
-    const progress=achievementProgress();
-    ACHIEVEMENTS.forEach(a=>{
-      const v=Math.max(0,progress[a.id]||0);
-      const completed=v>=a.target&&(a.id!=='perfeccionista'||State.tradeHistory.length>=20);
-      const prev=State.achievements[a.id]?.completed;
-      State.achievements[a.id]={progress:v,completed};
-      if(completed&&!prev) showToast(`${t('js.achievement_unlocked')} ${a.name}`,'success');
-    });
-    if(render&&State.activeSection==='achievements') renderAchievements();
-  }
-
-  function renderAchievements(){
-    checkAchievements(false);
-    const completed=ACHIEVEMENTS.filter(a=>State.achievements[a.id]?.completed).length;
-    const points=ACHIEVEMENTS.filter(a=>State.achievements[a.id]?.completed).reduce((s,a)=>s+a.points,0);
-    document.getElementById('achievements-completed').textContent=completed;
-    document.getElementById('achievements-total').textContent=ACHIEVEMENTS.length;
-    document.getElementById('achievement-points').textContent=points;
-    document.getElementById('achievements-grid').innerHTML=ACHIEVEMENTS.map(a=>{
-      const st=State.achievements[a.id]||{progress:0,completed:false};
-      const pct=Math.min(100,(st.progress/a.target)*100);
-      return `<div class="ach-card ${st.completed?'done':''}">
-        <div style="display:flex;gap:12px;align-items:flex-start;">
-          <div style="font-size:32px;flex-shrink:0;">${a.icon}</div>
-          <div style="flex:1;min-width:0;">
-            <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px;flex-wrap:wrap;">
-              <div>
-                <div style="font-size:10px;color:#5a4a35;text-transform:uppercase;letter-spacing:.5px;">${a.category}</div>
-                <div style="font-size:14px;font-weight:700;margin-top:1px;color:var(--text);">${a.name}</div>
-              </div>
-              <span style="font-size:10px;padding:3px 8px;border-radius:99px;background:${st.completed?'rgba(176,141,87,.18)':'rgba(176,141,87,.06)'};color:${st.completed?'var(--gold)':'var(--text-muted)'};font-weight:600;border:1px solid ${st.completed?'rgba(176,141,87,.4)':'rgba(176,141,87,.12)'};white-space:nowrap;">${st.completed?t('js.ach.completed'):st.progress>0?t('js.ach.in_progress'):t('js.ach.locked')}</span>
-            </div>
-            <div style="font-size:12px;color:var(--text-muted);margin-top:4px;">${a.desc}</div>
-            <div style="display:flex;align-items:center;gap:10px;margin-top:8px;">
-              <div class="prog-track" style="flex:1;height:5px;"><div class="prog-bar" style="width:${pct}%;height:5px;"></div></div>
-              <span style="font-size:11px;color:var(--text-muted);font-family:ui-monospace,monospace;">${a.id==='perfeccionista'?fmtPct(st.progress):`${Math.min(st.progress,a.target).toFixed(st.progress%1?.1:0)}/${a.target}`}</span>
-              <span style="font-size:10px;color:#fbbf24;font-weight:600;">${a.points}pts</span>
-            </div>
-          </div>
-        </div>
-      </div>`;
-    }).join('');
   }
 
   /* ── RÀNQUING GLOBAL ── */
@@ -3266,7 +3087,7 @@ const data=raw.data||raw;if(Array.isArray(data)){data.filter(t=>ASSET_MAP[t.s]).
   /* Targeta de la pantalla principal: posició, win rate i ratxa (en lloc del saldo) */
   function updateHomeStats(){
     var hb = document.getElementById('balance-display');
-    if(hb && hb.parentElement) hb.parentElement.style.display = State.activeSection === 'assets' ? 'none' : 'flex';
+    if(hb && hb.parentElement) hb.parentElement.style.display = 'none';
     var pill = document.getElementById('game-balance-pill');
     if(!pill) return;
     var label = '👑 ' + t('nav.ranking');
@@ -3368,7 +3189,7 @@ const data=raw.data||raw;if(Array.isArray(data)){data.filter(t=>ASSET_MAP[t.s]).
               const data=ud.data();
               State.balance=data.balance??STARTING_BALANCE;State.positions=data.positions??[];
               State.tradeHistory=data.tradeHistory??[];
-              State.achievements=data.achievements??{};
+              
               State.pendingOrders=data.pendingOrders??[];
               State.balanceHistory=data.balanceHistory??[];
               State.leagues=data.leagues??[];
@@ -3427,7 +3248,7 @@ const data=raw.data||raw;if(Array.isArray(data)){data.filter(t=>ASSET_MAP[t.s]).
   }
 
   function updateAll(){
-    updateBalance();updatePositionsTable();updateHistoryTable();updateMarketInfo();renderAssetsList();checkAchievements();
+    updateBalance();updatePositionsTable();updateHistoryTable();updateMarketInfo();renderAssetsList();
     if(State.activeSection==='portfolio') updatePortfolio();
     if(State.activeSection==='league') renderLeagues();
     if(State.activeSection==='profile') renderProfile();
@@ -3461,7 +3282,7 @@ const data=raw.data||raw;if(Array.isArray(data)){data.filter(t=>ASSET_MAP[t.s]).
     initTradingView();initWebSocket();startRestPricePolling();startFallbackMarket();
     setWsStatus(false,'...');fetchAnyRealSnapshot().catch(()=>{});
     setInterval(()=>{
-      if(State.positions.length){updatePositionsTable();checkAchievements();updateUnrealizedPnlBar();}
+      if(State.positions.length){updatePositionsTable();updateUnrealizedPnlBar();}
       if(State.activeSection==='league') updateLeagueCountdownLabel();
     },1000);
     // MILLORA 7: Tutorial primer ús
